@@ -4,7 +4,7 @@ A modern, responsive portfolio website built with Laravel, Vue.js, and Inertia.j
 
 ## 🚀 Live Demo
 
-[View Live Site](https://your-domain.com) <!-- Update with your actual domain -->
+[View Live Site](https://jonrussell.dev) <!-- Update with your actual domain -->
 
 ## 🛠️ Tech Stack
 
@@ -213,9 +213,9 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 👨‍💻 Author
 
 **Jon Russell** - Senior Software Engineer
-- Portfolio: [your-portfolio.com](https://your-portfolio.com)
-- LinkedIn: [linkedin.com/in/jonrussell](https://linkedin.com/in/jonrussell)
-- GitHub: [@jonrussell](https://github.com/jonrussell)
+- Portfolio: [jonrussell.dev](https://jonrussell.dev)
+- LinkedIn: [linkedin.com/in/russell-jonathan](https://linkedin.com/in/russell-jonathan)
+- GitHub: [@russellio](https://github.com/russellio)
 
 ## 🙏 Acknowledgments
 
