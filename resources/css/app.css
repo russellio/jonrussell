@@ -55,9 +55,9 @@
     --color-terminal-black-950: #2e2f30;
 }
 
-/*h1 {*/
-/*    @apply font-space-mono text-6xl text-primary;*/
-/*}*/
+h1 {
+    @apply font-space-mono text-6xl text-primary;
+}
 
 h2 {
     @apply text-center font-sixtyfour text-secondary uppercase text-3xl md:text-5xl;

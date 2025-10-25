@@ -3,13 +3,13 @@ import Nav from '@/js/layout/Nav.vue';
 import { useModal } from '@/js/composables/useModal';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCertificate, faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { defineAsyncComponent, onMounted, ref } from 'vue';
 
-library.add(faLocationDot, faLinkedin, faEnvelope, faUserShield, faCertificate);
+library.add(faLocationDot, faLinkedin, faEnvelope, faObjectGroup, faUserShield, faCertificate, faGithub);
 
 const { openModal } = useModal();
 
@@ -38,50 +38,135 @@ onMounted(() => {
         <BackgroundStars v-if="showBackground" ref="stars" @backgroundReady="handleBackgroundReady" />
     </Transition>
 
-    <div class="intro-wrapper">
+    <div class="intro-wrapper flex justify-center items-center p-6 min-h-[calc(100vh-80px)] mx-auto overflow-hidden">
         <div class="intro-backdrop"></div>
-        <div class="intro-content">
-            <div class="intro">
+        <div class="intro-content grid grid-cols-2 max-w-[750px]">
+
+            <div class="intro flex flex-col md:items-center">
                 <div class="welcome">
-                    <h1>
+                    <h1 class="text-sm tracking-tight">
                         <span class="welcome">Welcome!</span>
                         <span class="clause-head">I'm</span>
                         <span class="name text-outline">Jon Russell</span>
                     </h1>
-                    <p>
-                        A <strong>full-stack software engineer</strong>
-                        who creates robust, scalable solutions that power modern web applications.
-                    </p>
                 </div>
+            </div>
 
-                <div class="profile-avatar-wrapper">
-                    <div class="profile-avatar-backdrop"></div>
-                    <img src="/images/profile-avatar.svg" alt="Jon Russell" class="profile-avatar" />
-                    <div class="profile-addon-wrapper">
-                        <div class="profile-pill">
-                            <FontAwesomeIcon :icon="faLocationDot" class="text-gold" size="sm" />
-                            Remote - North Carolina
-                        </div>
-                        <div class="profile-pill">
-                            <FontAwesomeIcon :icon="faCertificate" class="text-gold" size="sm" />
-                            ScrumMaster Certification
-                        </div>
-                        <div class="profile-pill">
-                            <FontAwesomeIcon :icon="faUserShield" class="text-gold" size="sm" />
-                            DoD Confidential Security Clearance
-                        </div>
-                        <div class="profile-icons">
-                            <a href="https://www.linkedin.com/in/russell-jonathan/" target="_blank">
-                                <FontAwesomeIcon :icon="faLinkedin" size="xl" />
-                            </a>
-                            <a type="button" data-dialog-target="contact-modal" @click="openModal('contact-modal')" class="cursor-pointer">
-                                <FontAwesomeIcon icon="fa-regular fa-envelope" size="lg" />
-                            </a>
-                        </div>
+            <div class="profile-avatar-wrapper">
+                <div class="profile-avatar-backdrop"></div>
+                <img src="/images/profile-avatar.svg" alt="Jon Russell" class="profile-avatar w-40" />
+                <div class="profile-addon-wrapper">
+                    <div class="profile-pill">
+                        <FontAwesomeIcon :icon="faLocationDot" size="sm" />
+                        Remote - North Carolina
+                    </div>
+                    <div class="profile-pill">
+                        <FontAwesomeIcon :icon="faCertificate" size="sm" />
+                        ScrumMaster Certification
+                    </div>
+                    <div class="profile-pill">
+                        <FontAwesomeIcon :icon="faUserShield" size="sm" />
+                        Confidential Security Clearance
+                    </div>
+<!--                    <div class="profile-icons">-->
+<!--                        <a href="https://www.linkedin.com/in/russell-jonathan/" target="_blank">-->
+<!--                            <FontAwesomeIcon :icon="faLinkedin" size="xl" />-->
+<!--                        </a>-->
+<!--                        <a type="button" data-dialog-target="contact-modal" @click="openModal('contact-modal')" class="cursor-pointer">-->
+<!--                            <FontAwesomeIcon :icon="faEnvelope" size="lg" />-->
+<!--                        </a>-->
+<!--                    </div>-->
+                </div>
+            </div>
+
+            <div class="col-span-2">
+                <p>
+                    A <strong>full-stack software engineer</strong>
+                    who creates robust, scalable solutions that power modern web applications.
+                </p>
+            </div>
+
+            <div class="col-span-2">
+                <div class="flex flex-col gap-8 lg:gap-0 lg:flex-row lg:items-center justify-between max-w-[600px] mt-8">
+                    <div class="flex gap-2 lg:gap-4">
+                        <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
+                                @click="openModal('contact-modal')">
+                            <FontAwesomeIcon :icon="faEnvelope" size="lg" class="me-2" />
+                            Contact Me
+                        </button>
+                        <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
+                                @click="scrollToSection('projects')">
+                            <FontAwesomeIcon :icon="faObjectGroup" size="lg" class="me-2" />
+                            View Projects
+                        </button>
+                    </div>
+
+                    <div data-orientation="vertical" role="none" class="shrink-0 w-[2px] bg-foreground h-5 hidden lg:block"></div>
+
+                    <div class="flex items-center pb-10 sm:pb-0 px-5 gap-14 md:gap-8 text-xl">
+                        <a href="https://www.linkedin.com/in/russell-jonathan/" target="_blank">
+                            <FontAwesomeIcon :icon="faLinkedin" size="xl" />
+                        </a>
+                        <a href="https://github.com/russellio" target="_blank">
+                            <FontAwesomeIcon :icon="faGithub" size="xl" />
+                        </a>
+                        <a type="button" @click="openModal('contact-modal')" class="cursor-pointer">
+                            <FontAwesomeIcon :icon="faEnvelope" size="lg" />
+                        </a>
                     </div>
                 </div>
             </div>
+
         </div>
+
+
+
+        <div class="hidden flex justify-center items-center p-6 min-h-[calc(100vh-80px)] mx-auto overflow-hidden">
+            <div class="grid grid-cols-1">
+
+                <div class="flex flex-col md:flex-row md:items-center gap-10 pb-8">
+                    <img src="/images/profile-avatar.svg" alt="Jon Russell" class="profile-avatar" />
+                    <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                        <span class="welcome">Welcome!</span>
+                        <span class="clause-head">I'm</span>
+                        <span class="name text-outline">Jon Russell</span>
+                    </h1>
+                </div>
+
+                <p class="text-xl max-w-[750px]">
+                    A <strong>full-stack software engineer</strong>
+                    who creates robust, scalable solutions that power modern web applications.
+                </p>
+
+                <div class="flex flex-col gap-8 lg:gap-0 lg:flex-row lg:items-center justify-between max-w-[600px] mt-8">
+                    <div class="flex gap-2 lg:gap-4">
+                        <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
+                           @click="openModal('contact-modal')">
+                            <FontAwesomeIcon icon="fa-regular fa-envelope" size="lg" />
+                            Contact Me
+                        </a>
+                        <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
+                           href="/projects">
+                            <FontAwesomeIcon :icon="faObjectGroup" class="text-gold" size="lg" />
+                            View Projects
+                        </a>
+                    </div>
+
+                    <div data-orientation="vertical" role="none" class="shrink-0 w-[2px] bg-foreground h-5 hidden lg:block"></div>
+
+                    <div class="flex items-center pb-10 sm:pb-0 px-5 gap-14 md:gap-8 text-xl">
+                        <a href="https://www.linkedin.com/in/russell-jonathan/" target="_blank">
+                            <FontAwesomeIcon :icon="faLinkedin" size="xl" />
+                        </a>
+                        <a type="button" @click="openModal('contact-modal')" class="cursor-pointer">
+                            <FontAwesomeIcon icon="fa-regular fa-envelope" size="lg" />
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <Nav ref="navigation" />
@@ -98,13 +183,13 @@ onMounted(() => {
 }
 
 .intro-content {
-    @apply max-w-5xl mx-auto;
+    @apply mx-auto max-w-[750px];
 }
 
 .intro {
-    @apply mb-2 pt-20 pb-6 w-full;
+/*    @apply mb-2 pt-20 pb-6 w-full;
     @apply flex flex-col md:flex-row;
-    @apply text-center lg:text-start;
+    @apply text-center lg:text-start;*/
 }
 
 .intro-backdrop {
@@ -115,70 +200,70 @@ onMounted(() => {
 .intro-bottom {
     @apply hidden md:block;
     @apply max-w-7xl px-4 sm:px-6 lg:px-8;
-    @apply relative z-[-1] clear-right mx-auto h-3 w-9/10;
+    @apply relative z-[-1] /*clear-right*/ mx-auto h-3 w-9/10;
     /*@apply bg-gradient-to-b from-transparent to-dark-blue;*/
 }
 
 div.welcome {
-    @apply w-full mt-40 max-w-7xl lg:w-3/4 mx-auto;
+    /*@apply w-full mt-40 max-w-7xl lg:w-3/4 mx-auto;*/
     @apply px-2 lg:px-10;
 }
 
 h1 {
-    @apply absolute top-20 text-primary font-sixtyfour text-5xl md:text-6xl lg:text-7xl;
+    @apply /*absolute top-20*/ text-primary font-sixtyfour /*text-5xl md:text-6xl lg:text-7xl*/;
     @apply w-full md:w-3/4 md:text-nowrap md:-indent-10;
 }
 
 span.welcome {
-    @apply block md:text-6xl lg:text-5xl;
+    @apply block /*md:text-6xl lg:text-5xl*/;
 }
 
 .clause-head {
-    @apply text-white md:text-6xl lg:text-7xl align-top block md:inline pt-4 md:text-start;
+    @apply text-white /*md:text-6xl lg:text-7xl align-top block */  pt-4 /*md:text-start*/;
 }
 
 .name {
-    @apply font-bold font-space-mono w-full md:w-auto lg:w-4/5 mx-auto align-text-bottom;
-    @apply uppercase text-center lg:text-start text-dark-blue text-nowrap tracking-tighter;
-    @apply block text-6xl md:text-7xl lg:text-8xl;
+    @apply font-bold font-space-mono /*w-full md:w-auto lg:w-4/5 mx-auto*/ /*align-text-bottom*/;
+    @apply uppercase text-center text-dark-blue text-nowrap tracking-tighter;
+    @apply block /*text-6xl md:text-7xl lg:text-8xl*/;
 }
 
 p {
-    @apply ms-4 md:ms-0 mt-10 md:mt-14 lg:mt-40 mb-8;
-    @apply w-full md:w-5/6 lg:w-[93%] md:mx-auto md:-indent-8;
-    @apply text-2xl text-terminal-black-50 text-left;
-    @apply md:leading-relaxed lg:text-3xl;
+    /*@apply ms-4 md:ms-0 mt-10 md:mt-14 lg:mt-40 mb-8;*/
+    @apply /*w-full md:w-5/6 lg:w-[93%] md:mx-auto*/ md:-indent-8;
+    @apply text-xl lg:text-2xl text-terminal-black-100 text-start;
+    /*@apply md:leading-relaxed;*/
 }
 
 strong {
-    @apply px-3 text-3xl lg:text-4xl font-bold lg:tracking-wider;
+    @apply /*px-3 text-3xl lg:text-4xl lg:tracking-wider*/ font-bold;
 }
 
 .profile-avatar-wrapper {
-    @apply flex flex-col justify-start rounded-full md:float-right;
-    @apply md:h-80 md:w-73;
-    @apply lg:h-90 lg:w-84;
+    @apply flex flex-col justify-start rounded-full /*md:float-right*/;
+/*    @apply md:h-80 md:w-73;
+    @apply lg:h-90 lg:w-84;*/
     @apply items-center lg:items-end;
 }
 
 .profile-avatar-backdrop {
-    @apply absolute z-30 w-74 h-70;
-    @apply md:w-52 md:h-50;
-    @apply lg:w-56 lg:h-60;
-    @apply ms-3 mt-24;
-    @apply md:me-4 md:mt-16;
-    @apply lg:me-2 lg:mt-18;
+    @apply absolute z-30 w-40 h-44;
+    /*@apply md:w-52 md:h-50;*/
+    @apply lg:w-40 lg:h-44;
+    @apply mt-10;
+/*    @apply md:me-4 md:mt-16;
+    @apply lg:me-2 lg:mt-18;*/
     @apply rounded-sm border-2 border-secondary to-purple-100;
     @apply bg-white/20 backdrop-blur-sm backdrop-opacity-50 backdrop-saturate-100;
 }
 
 .profile-avatar {
-    @apply z-40 m-1 lg:me-0 w-76 md:h-full md:w-full lg:w-60 rounded-full object-cover md:mb-2;
+    @apply z-40 m-1 lg:me-0 /*w-76 md:h-full md:w-full lg:w-60*/ rounded-full object-cover md:mb-2;
 }
 
 .profile-pill {
     @apply w-max rounded-full border-1 border-white bg-blue font-bold;
-    @apply my-2 p-1 px-4 text-[18px] md:text-sm;
+    @apply my-1 p-0.5 px-2 text-[18px] md:text-xs;
 }
 
 .profile-icons {
