@@ -125,23 +125,22 @@ div.welcome {
 }
 
 h1 {
-    @apply flex flex-col align-top;
-    @apply mt-20 text-primary font-sixtyfour text-5xl md:text-6xl lg:text-7xl;
+    @apply absolute top-20 text-primary font-sixtyfour text-5xl md:text-6xl lg:text-7xl;
     @apply w-full md:w-3/4 md:text-nowrap md:-indent-10;
 }
 
 span.welcome {
-    @apply inline-block md:text-6xl lg:text-5xl;
+    @apply block md:text-6xl lg:text-5xl;
 }
 
 .clause-head {
-    @apply text-white md:text-6xl lg:text-5xl align-top inline-block md:inline pt-4 md:text-start;
+    @apply text-white md:text-6xl lg:text-7xl align-top block md:inline pt-4 md:text-start;
 }
 
 .name {
-    @apply font-bold font-space-mono align-text-bottom;
+    @apply font-bold font-space-mono w-full md:w-auto lg:w-4/5 mx-auto align-text-bottom;
     @apply uppercase text-center lg:text-start text-dark-blue text-nowrap tracking-tighter;
-    @apply inline-block text-6xl md:text-7xl lg:text-6xl;
+    @apply block text-6xl md:text-7xl lg:text-8xl;
 }
 
 p {
