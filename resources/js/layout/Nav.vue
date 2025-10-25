@@ -1,24 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import { useModal } from '@/js/composables/useModal';
+const { openModal } = useModal();
+
 const navigation = [
     {
         name: 'About',
-        route: '/about',
+        ref: 'about',
     },
     {
         name: 'Projects',
-        route: '/projects',
-    },
-    {
-        name: 'Contact',
-        route: '/contact',
-    },
+        ref: 'projects',
+    }
 ];
+const scrollToSection = (sectionRef: string) => {
+    console.log('scrolltosection() - ', sectionRef)
 
-const scrollToSection = (route: string) => {
-    // Implementation for scrolling to section
-    console.log('Scrolling to:', route);
+    this.$nextTick(() => {
+        this.$refs[sectionRef].scrollIntoView({
+            behavior: 'smooth', // For smooth scrolling
+            block: 'start'      // Aligns the top of the element with the top of the viewport
+        });
+        mobileMenuOpen.value = false;
+    });
 };
 
 const mobileMenuOpen = ref(false);
@@ -30,22 +35,12 @@ const mobileMenuOpen = ref(false);
         <div class="section-wrapper sticky top-0">
             <div class="mt-2 flex items-center justify-center">
                 <div class="hidden md:block">
-                    <button v-for="item in navigation" :key="item.name" @click="scrollToSection(item.route)" class="primary-btn">
+                    <button v-for="item in navigation" :key="item.name" @click="scrollToSection(item.ref)" class="primary-btn">
                         {{ item.name }}
                     </button>
-                </div>
-
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <button
-                            v-for="item in navigation"
-                            :key="item.name"
-                            @click="scrollToSection(item.route)"
-                            class="hover:text-primary-600 rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition-colors duration-200"
-                        >
-                            {{ item.name }}
-                        </button>
-                    </div>
+                    <button @click="openModal('contact-modal')" class="primary-btn">
+                        Contact
+                    </button>
                 </div>
 
                 <!-- Mobile menu button -->
@@ -64,10 +59,7 @@ const mobileMenuOpen = ref(false);
                     <button
                         v-for="item in navigation"
                         :key="item.name"
-                        @click="
-                            scrollToSection(item.route);
-                            mobileMenuOpen = false;
-                        "
+                        @click="scrollToSection(item.ref)"
                         class="hover:text-primary-600 block rounded-md px-3 py-2 text-base font-medium text-gray-600"
                     >
                         {{ item.name }}
@@ -81,14 +73,19 @@ const mobileMenuOpen = ref(false);
 <style scoped>
 @reference "@/css/app.css";
 
-/*.primary-btn {
-  @apply w-40 relative h-14 border-3 border-[#149CEA] outline-none bg-transparent text-white transition-all duration-1000 rounded-sm text-base font-bold cursor-pointer hover:shadow-[inset_0px_0px_25px_#1479EA] before:content-[''] before:absolute before:top-[-10px] before:left-[3%] before:w-[95%] before:h-[40%] before:bg-[#212121] before:transition-all before:duration-500 before:origin-center before:transform before:scale-100 hover:before:scale-0 after:content-[''] after:absolute after:top-[80%] after:left-[3%] after:w-[95%] after:h-[40%] after:bg-[#212121] after:transition-all after:duration-500 after:origin-center after:transform after:scale-100 hover:after:scale-0;
-}*/
+.primary-btn {
+    @apply w-40 relative h-14 border-1 border-secondary outline-none bg-transparent text-white mx-2;
+    @apply transition-all duration-500 rounded-lg text-base font-bold cursor-pointer hover:shadow-[inset_0px_0px_25px_#1479EA];
 
-button {
+    @apply before:content-[''] before:absolute before:top-[-10px] before:left-[3%] before:w-[95%] before:h-[40%] before:bg-[transparent] before:transition-all before:duration-500 before:origin-center before:transform before:scale-100 hover:before:scale-0;
+
+    @apply after:content-[''] after:absolute after:top-[80%] after:left-[3%] after:w-[95%] after:h-[40%] after:bg-[transparent] after:transition-all after:duration-500 after:origin-center after:transform after:scale-100 hover:after:scale-0;
+}
+
+/*button {
     @apply relative h-12 w-40 cursor-pointer rounded-xl bg-transparent font-bold text-white uppercase;
-    /*    width: 10em;
-    height: 3.5em;*/
+    !*    width: 10em;
+    height: 3.5em;*!
     border: 3px ridge var(--color-primary);
     outline: none;
     transition: 1s;
@@ -125,5 +122,5 @@ button:hover::after {
 
 button:hover {
     box-shadow: inset 0 0 25px #1479ea;
-}
+}*/
 </style>

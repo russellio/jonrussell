@@ -1,19 +1,17 @@
 <script setup lang="ts" xmlns:md="http://www.w3.org/1999/html">
-// import Nav from '@/js/layout/Nav.vue';
+import Nav from '@/js/layout/Nav.vue';
 import { useModal } from '@/js/composables/useModal';
-import ContactModal from '@/js/components/modals/ContactModal.vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faCertificate, faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
+import { defineAsyncComponent, onMounted, ref } from 'vue';
 
 library.add(faLocationDot, faLinkedin, faEnvelope, faUserShield, faCertificate);
 
-const { isOpen, openModal } = useModal();
-const isModalOpen = computed(() => isOpen('contact-modal'));
+const { openModal } = useModal();
 
 const BackgroundStars = defineAsyncComponent(() => import('@/js/components/BackgroundStars.vue'));
 const backgroundLoaded = ref(false);
@@ -86,10 +84,7 @@ onMounted(() => {
         </div>
     </div>
 
-    <!-- Contact Modal -->
-    <ContactModal v-if="isModalOpen" />
-
-    <!--    <Nav ref="navigation" />-->
+    <Nav ref="navigation" />
 
     <div class="intro-bottom"></div>
 </template>
@@ -120,7 +115,7 @@ onMounted(() => {
 .intro-bottom {
     @apply hidden md:block;
     @apply max-w-7xl px-4 sm:px-6 lg:px-8;
-    @apply relative z-[-1] clear-right mx-auto h-30 w-9/10;
+    @apply relative z-[-1] clear-right mx-auto h-3 w-9/10;
     /*@apply bg-gradient-to-b from-transparent to-dark-blue;*/
 }
 
@@ -130,22 +125,23 @@ div.welcome {
 }
 
 h1 {
-    @apply absolute top-20 text-primary font-sixtyfour text-5xl md:text-6xl lg:text-7xl;
+    @apply flex flex-col align-top;
+    @apply mt-20 text-primary font-sixtyfour text-5xl md:text-6xl lg:text-7xl;
     @apply w-full md:w-3/4 md:text-nowrap md:-indent-10;
 }
 
+span.welcome {
+    @apply inline-block md:text-6xl lg:text-5xl;
+}
+
 .clause-head {
-    @apply text-white md:text-6xl lg:text-7xl align-top block md:inline pt-4 md:text-start;
+    @apply text-white md:text-6xl lg:text-5xl align-top inline-block md:inline pt-4 md:text-start;
 }
 
 .name {
-    @apply font-bold font-space-mono w-full md:w-auto lg:w-4/5 mx-auto align-text-bottom;
+    @apply font-bold font-space-mono align-text-bottom;
     @apply uppercase text-center lg:text-start text-dark-blue text-nowrap tracking-tighter;
-    @apply block text-6xl md:text-7xl lg:text-8xl;
-}
-
-span.welcome {
-    @apply block md:text-6xl lg:text-8xl;
+    @apply inline-block text-6xl md:text-7xl lg:text-6xl;
 }
 
 p {
