@@ -26,22 +26,40 @@ const handleBackgroundReady = () => {
 
 onMounted(() => {
     setTimeout(() => {
-        showBackground.value = true;
+        // showBackground.value = true;
     }, 50);
 });
+
+const scrollToSection = (sectionName: string) => {
+    console.log('scrollToSection() - ', sectionName);
+
+    // Use the global scrollToSection function if available
+    if (typeof window !== 'undefined' && window.scrollToSection) {
+        window.scrollToSection(sectionName);
+    } else {
+        // Fallback: try to find the section by ID
+        const element = document.getElementById(sectionName);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+};
 </script>
 
 <template>
     <div class="fallback-background" :class="{ 'fade-out': showBackground }"></div>
 
-<!--    <Transition name="background-fade" appear>-->
-<!--        <BackgroundStars v-if="showBackground" ref="stars" @backgroundReady="handleBackgroundReady" />-->
-<!--    </Transition>-->
+    <Transition name="background-fade" appear>
+        <BackgroundStars v-if="showBackground" ref="stars" @backgroundReady="handleBackgroundReady" />
+    </Transition>
 
     <Nav ref="navigation" />
 
     <div class="intro-wrapper flex justify-center items-center p-6 min-h-[calc(100vh-80px)] mx-auto">
-<!--        <div class="intro-backdrop"></div>-->
+       <div class="intro-backdrop hidden"></div>
 
         <div class="intro-content grid grid-cols-1 max-w-[768px]">
             <div class="flex flex-col md:flex-row">
@@ -86,16 +104,16 @@ onMounted(() => {
             <div>
                 <div class="flex flex-col gap-8 lg:gap-0 lg:flex-row lg:items-center justify-between max-w-[600px] mt-8 mx-auto">
                     <div class="flex gap-2 lg:gap-4">
-                        <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
+                        <a type="button" class="cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
                                 @click="openModal('contact-modal')">
                             <FontAwesomeIcon :icon="faEnvelope" size="sm" class="me-2" />
                             Contact Me
-                        </button>
-                        <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
-                                @click="scrollToSection('projects')">
+                        </a>
+                        <a type="button" class="cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
+                                @click="() => scrollToSection('projects')">
                             <FontAwesomeIcon :icon="faObjectGroup" size="sm" class="me-2" />
                             View Projects
-                        </button>
+                        </a>
                     </div>
 
                     <div data-orientation="vertical" role="none" class="shrink-0 w-[2px] bg-white h-5 hidden md:block"></div>

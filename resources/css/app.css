@@ -55,8 +55,6 @@
     --color-terminal-black-950: #2e2f30;
 }
 
-
-
 h1 {
     @apply font-space-mono text-6xl text-primary;
 }

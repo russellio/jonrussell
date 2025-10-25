@@ -23,7 +23,7 @@
 
 .content-wrapper {
     @apply max-w-7xl px-4 sm:px-6 lg:px-8;
-    @apply absolute mx-auto w-9/10 rounded-xl bg-content pt-12 pb-16;
+    @apply relative mx-auto w-9/10 rounded-xl bg-content pt-12 pb-16;
 }
 
 .content-top,

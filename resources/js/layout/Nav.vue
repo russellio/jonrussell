@@ -14,16 +14,25 @@ const navigation = [
         ref: 'projects',
     }
 ];
-const scrollToSection = (sectionRef: string) => {
-    console.log('scrolltosection() - ', sectionRef)
 
-    this.$nextTick(() => {
-        this.$refs[sectionRef].scrollIntoView({
-            behavior: 'smooth', // For smooth scrolling
-            block: 'start'      // Aligns the top of the element with the top of the viewport
-        });
-        mobileMenuOpen.value = false;
-    });
+const scrollToSection = (sectionRef: string) => {
+    console.log('123 scrolltosection() - ', sectionRef);
+
+    // Use the global scrollToSection function if available
+    if (typeof window !== 'undefined' && window.scrollToSection) {
+        window.scrollToSection(sectionRef);
+    } else {
+        // Fallback: try to find the section by ID
+        const element = document.getElementById(sectionRef);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+
+    mobileMenuOpen.value = false;
 };
 
 const mobileMenuOpen = ref(false);
