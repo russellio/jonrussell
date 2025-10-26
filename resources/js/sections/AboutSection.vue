@@ -1,23 +1,4 @@
 <script setup lang="ts">
-const approaches = [
-    {
-        title: 'API Development',
-        description: 'Designing and implementing RESTful APIs with proper authentication, rate limiting, and comprehensive documentation.',
-    },
-    {
-        title: 'Database Optimization',
-        description: 'Optimizing database performance through proper indexing, query optimization, and efficient data structures.',
-    },
-    {
-        title: 'System Architecture',
-        description: 'Building scalable backend architectures that can handle growth and maintain performance under load.',
-    },
-    {
-        title: 'Code Quality',
-        description: 'Writing clean, maintainable code with comprehensive testing and following best practices and design patterns.',
-    },
-];
-
 const stats = [
     { value: '5+', label: 'Years Experience' },
     { value: '50+', label: 'Projects Completed' },
@@ -27,86 +8,67 @@ const stats = [
 </script>
 
 <template>
-    <section id="about">
+    <section>
         <!-- Page Header -->
         <div class="mt-10 mb-16 text-center">
             <h2>About</h2>
         </div>
 
-        <div class="description">
-            <p>
-                Currently a Senior Software Engineer with expertise in Laravel, PHP, and full-stack development.
-                I specialize in building high-performance APIs, database optimization, and creating seamless
-                integrations that bridge the gap between frontend and backend systems.
-            </p>
-            <p>
-                Currently a Senior Software Engineer with expertise in Laravel, PHP, and full-stack development.
-                I specialize in building high-performance APIs, database optimization, and creating seamless
-                integrations.
-            </p>
-            <button @click="scrollToSection('projects')">Projects</button>
-        </div>
-
-        <div class="skills">
-            <div class="title2">My toolkit</div>
-            <div class="skills-list">
-                <span class="skill-block">JavaScript</span><span class="skill-block">Node.js</span
-                ><span class="skill-block">TypeScript</span><span class="skill-block">CSS</span><span class="skill-block">SASS</span
-                ><span class="skill-block">SQL</span><span class="skill-block">Vite</span><span class="skill-block">webpack</span
-                ><span class="skill-block">Astro</span><span class="skill-block">Jest</span><span class="skill-block">Cypress</span
-                ><span class="skill-block">CLI</span><span class="skill-block">Git</span><span class="skill-block">SEO</span
-                ><span class="skill-block">a11y</span><span class="skill-block">Vercel</span>
-            </div>
-            <button>Resume</button>
-        </div>
-
-        <ul>
-            <li style="--percent: 97.5%">JavaScript</li>
-            <li style="--percent: 97.5%">React</li>
-            <li style="--percent: 97.5%">CSS</li>
-            <li style="--percent: 90%">Angular</li>
-            <li style="--percent: 90%">TypeScript</li>
-            <li style="--percent: 90%">Automated Testing</li>
-            <li style="--percent: 75%">Node</li>
-            <li style="--percent: 60%">Prompt Engineering</li>
-            <li style="--percent: 25%">DevOps</li>
-            <li style="--percent: 20%">Design</li>
-        </ul>
-
-        <div class="mb-16 text-center">
-            <p class="mx-auto max-w-4xl text-lg leading-relaxed text-gray-600">
-                Currently a Senior Software Engineer with expertise in Laravel, PHP, and full-stack development. I specialize in building
-                high-performance APIs, database optimization, and creating seamless integrations that bridge the gap between frontend and
-                backend systems.
-            </p>
-        </div>
-
-        <!-- Approach Section -->
-        <div class="mb-16">
-            <h2 class="mb-8 text-center text-3xl font-bold text-gray-900">My Approach</h2>
-            <p class="mx-auto mb-12 max-w-3xl text-center text-lg text-gray-600">
-                My comprehensive development approach that builds reliable and maintainable backend systems.
-            </p>
-
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-                <div v-for="(approach, index) in approaches" :key="index" class="card p-6">
-                    <div class="mb-4 flex items-center">
-                        <div class="bg-primary-600 mr-4 flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold text-white">
-                            {{ index + 1 }}
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900">{{ approach.title }}</h3>
-                    </div>
-                    <p class="leading-relaxed text-gray-600">{{ approach.description }}</p>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="description">
+                <p>
+                    Currently a Senior Software Engineer with expertise in Laravel, PHP, and full-stack development.
+                    I specialize in building high-performance APIs, database optimization, and creating seamless
+                    integrations that bridge the gap between frontend and backend systems.
+                </p>
+                <p>
+                    Currently a Senior Software Engineer with expertise in Laravel, PHP, and full-stack development.
+                    I specialize in building high-performance APIs, database optimization, and creating seamless
+                    integrations.
+                </p>
+                <div class="btn-wrapper">
+                    <button @click="() => scrollToSection('projects')" class="content-btn">Projects</button>
                 </div>
             </div>
+
+            <div class="tech-stack">
+                <h3>Tech Stack</h3>
+                <ul>
+                    <li style="--percent: 97.5%">Laravel</li>
+                    <li style="--percent: 97.5%">PHP</li>
+                    <li style="--percent: 97.5%">MySQL / RDMS</li>
+                    <li style="--percent: 75%">Vue</li>
+                    <li style="--percent: 40%">React</li>
+                    <li style="--percent: 95%">JavaScript</li>
+                    <li style="--percent: 85%">TypeScript</li>
+                    <li style="--percent: 100%">HTML5</li>
+                    <li style="--percent: 95%">CSS3</li>
+                    <li style="--percent: 80%">PEST / PHPUnit</li>
+                    <li style="--percent: 95%">Agile</li>
+                </ul>
+            </div>
+
+            <div class="toolkit col-span-2">
+                <h3>Toolkit</h3>
+                <div class="skills">
+                    <span class="pill">JavaScript</span><span class="pill">Node.js</span
+                ><span class="pill">TypeScript</span><span class="pill">CSS</span><span class="pill">SASS</span
+                ><span class="pill">SQL</span><span class="pill">Vite</span><span class="pill">webpack</span
+                ><span class="pill">Astro</span><span class="pill">Jest</span><span class="pill">Cypress</span
+                ><span class="pill">CLI</span><span class="pill">Git</span><span class="pill">SEO</span
+                ><span class="pill">a11y</span><span class="pill">Vercel</span>
+                </div>
+            </div>
+
         </div>
 
         <!-- Experience Section -->
-        <div>
-            <h2 class="mb-8 text-center text-3xl font-bold text-gray-900">Experience</h2>
-            <p class="mx-auto mb-12 max-w-3xl text-center text-lg text-gray-600">
-                It's not just about writing code. It's about building solutions that scale and deliver real business value.
-            </p>
+        <h3>Experience</h3>
+        <p class="text-center">
+            It's not just about writing code. It's about building solutions that scale and deliver real business value.
+        </p>
+
+        <div class="flex flex-col md:flex-row">
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 <div v-for="(stat, index) in stats" :key="index" class="card p-6 text-center">
@@ -115,6 +77,7 @@ const stats = [
                 </div>
             </div>
         </div>
+
     </section>
 </template>
 
@@ -123,7 +86,7 @@ const stats = [
 @reference "@/css/app.css";
 
 .description {
-    @apply mb-16 text-center;
+    @apply mb-16;
 }
 
 .description p {
@@ -131,19 +94,12 @@ const stats = [
 }
 
 .skills {
-    @apply mb-16 text-center;
-}
-
-.title2 {
-    @apply mb-8 text-3xl font-bold text-gray-900;
-}
-
-.skills-list {
     @apply mb-8 flex flex-wrap justify-center gap-2;
 }
 
-.skill-block {
-    @apply inline-block px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium;
+.pill {
+    @apply inline-flex w-max items-center border-1 border-terminal-black-300 select-none;
+    @apply rounded-full p-0.5 text-xs shadow-sm;
 }
 
 ul {
@@ -151,10 +107,10 @@ ul {
 }
 
 ul li {
-    @apply relative text-lg font-medium text-gray-700;
+    @apply relative text-lg;
 }
 
-ul li::before {
+.tech-stack ul li::before {
     content: '';
     position: absolute;
     left: 0;
@@ -166,7 +122,7 @@ ul li::before {
     z-index: -1;
 }
 
-.card {
+/*.card {
     @apply bg-white rounded-lg shadow-md border border-gray-200;
-}
+}*/
 </style>

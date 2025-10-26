@@ -40,14 +40,14 @@ const mobileMenuOpen = ref(false);
 
 <template>
     <!-- Navigation -->
-    <nav class="overflow-visible">
-        <div class="section-wrapper sticky top-0">
+    <nav class="sticky top-0 overflow-visible bg-dark-blue pb-1 z-[999]">
+        <div class="section-wrapper">
             <div class="mt-2 flex items-center justify-center">
                 <div class="hidden md:block">
-                    <button v-for="item in navigation" :key="item.name" @click="scrollToSection(item.ref)" class="primary-btn">
+                    <button v-for="item in navigation" :key="item.name" @click="scrollToSection(item.ref)" class="primary-nav">
                         {{ item.name }}
                     </button>
-                    <button @click="openModal('contact-modal')" class="primary-btn">
+                    <button @click="openModal('contact-modal')" class="primary-nav">
                         Contact
                     </button>
                 </div>
@@ -75,6 +75,10 @@ const mobileMenuOpen = ref(false);
                     </button>
                 </div>
             </div>
+
+            <div class="absolute right-0">
+
+            </div>
         </div>
     </nav>
 </template>
@@ -82,13 +86,9 @@ const mobileMenuOpen = ref(false);
 <style scoped>
 @reference "@/css/app.css";
 
-.primary-btn {
-    @apply w-40 h-10 border-1 border-secondary outline-none bg-transparent text-white mx-2 rounded-lg;
-    @apply font-space-mono uppercase text-sm cursor-pointer;
-    @apply transition-all duration-500 hover:rounded-2xl hover:font-bold;
-}
 
-/*._primary-btn {
+
+/*._primary-nav {
     @apply w-40 relative h-14 border-1 border-secondary outline-none bg-transparent text-white mx-2 cursor-pointer;
     @apply transition-all duration-500 rounded-lg text-base font-bold hover:shadow-[inset_0px_0px_25px_#1479EA];
 

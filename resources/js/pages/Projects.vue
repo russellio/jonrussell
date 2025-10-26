@@ -52,7 +52,7 @@ const openProjectModal = (project: any) => {
                                 <div v-if="project.awards" class="awards">
                                     <div v-for="(award, index) in project.awards" :key="index" class="pill">
                                         <span class="mx-2.5 my-1 leading-none">
-                                            <FontAwesomeIcon icon="fa-solid fa-award" class="text-gold" />
+                                            <FontAwesomeIcon :icon="faAward" />
                                             {{ award }}
                                         </span>
                                     </div>

@@ -55,12 +55,20 @@
     --color-terminal-black-950: #2e2f30;
 }
 
+section {
+    @apply pb-20;
+}
+
 h1 {
     @apply font-space-mono text-6xl text-primary;
 }
 
 h2 {
     @apply text-center font-sixtyfour text-secondary uppercase text-3xl md:text-5xl;
+}
+
+h3 {
+    @apply font-space-mono text-2xl font-bold;
 }
 
 html {
@@ -133,6 +141,50 @@ p {
 
 .error {
     @apply bg-red-100 px-4 py-2 text-error;
+}
+
+.btn-wrapper {
+    @apply flex w-full;
+}
+
+.btn {
+    @apply mx-auto rounded-lg border-2 border-secondary bg-terminal-black/90 text-white px-7 py-1;
+    @apply font-space-mono font-bold uppercase transition-all duration-100 cursor-pointer;
+}
+
+.primary-nav {
+    @apply w-40 h-8 border-1 border-secondary outline-none bg-transparent text-white mx-2 rounded-lg;
+    @apply font-space-mono uppercase text-sm cursor-pointer;
+    @apply transition-all duration-400;
+}
+
+.primary-nav:hover {
+    @apply rounded-2xl font-bold border-white;
+}
+
+.secondary-nav {
+    @apply cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm mx-1;
+    @apply border-2 border-s-3 border-y-terminal-black-500 bg-dark-blue/35 h-10 px-5 py-3 font-bold shadow-xl;
+    @apply transition-all duration-300;
+}
+
+.secondary-nav:hover {
+    @apply border-white bg-dark-blue/100;
+}
+
+.content-btn {
+    @apply border-1 border-secondary mx-2 rounded-lg;
+    @apply font-space-mono text-sm cursor-pointer;
+    @apply transition-all duration-400 hover:rounded-2xl hover:font-bold hover:border-white;
+}
+
+.btn:hover {
+    /*@apply bg-secondary/100;*/
+    /*border-top: 4px solid black;*/
+    /*border-bottom: 4px solid black;*/
+    border-left: 4px solid black;
+    border-right: 4px solid black;
+    /*border: 4px solid black;*/
 }
 
 .btn-primary {

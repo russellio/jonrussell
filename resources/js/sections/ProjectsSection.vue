@@ -28,7 +28,9 @@ const openProjectModal = (project: any) => {
         <!-- Page Header -->
         <div class="mt-10 mb-16 text-center">
             <h2>Projects</h2>
-            <p class="text-2xl text-terminal-black-500">A collection of projects I've worked on.</p>
+            <p class="text-2xl text-terminal-black-500">
+                A collection of projects I've worked on.
+            </p>
         </div>
 
         <!-- Projects Grid -->
@@ -50,7 +52,7 @@ const openProjectModal = (project: any) => {
                             <div v-if="project.awards" class="awards">
                                 <div v-for="(award, index) in project.awards" :key="index" class="pill">
                                     <span class="mx-2.5 my-1 leading-none">
-                                        <FontAwesomeIcon icon="fa-solid fa-award" class="text-gold" />
+                                        <FontAwesomeIcon :icon="faAward" />
                                         {{ award }}
                                     </span>
                                 </div>
