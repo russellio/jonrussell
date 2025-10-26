@@ -34,17 +34,17 @@ const stats = [
             <div class="tech-stack">
                 <h3>Tech Stack</h3>
                 <ul>
-                    <li style="--percent: 97.5%">Laravel</li>
-                    <li style="--percent: 97.5%">PHP</li>
-                    <li style="--percent: 97.5%">MySQL / RDMS</li>
-                    <li style="--percent: 75%">Vue</li>
-                    <li style="--percent: 40%">React</li>
-                    <li style="--percent: 95%">JavaScript</li>
-                    <li style="--percent: 85%">TypeScript</li>
-                    <li style="--percent: 100%">HTML5</li>
-                    <li style="--percent: 95%">CSS3</li>
-                    <li style="--percent: 80%">PEST / PHPUnit</li>
-                    <li style="--percent: 95%">Agile</li>
+                    <li style="--percent: 85%">&middot; Laravel</li>
+                    <li style="--percent: 90%">&middot; PHP</li>
+                    <li style="--percent: 85%">&middot; MySQL / RDMS</li>
+                    <li style="--percent: 75%">&middot; Vue</li>
+                    <li style="--percent: 40%">&middot; React</li>
+                    <li style="--percent: 95%">&middot; JavaScript</li>
+                    <li style="--percent: 80%">&middot; TypeScript</li>
+                    <li style="--percent: 95%">&middot; HTML5</li>
+                    <li style="--percent: 95%">&middot; CSS3</li>
+                    <li style="--percent: 75%">&middot; PEST / PHPUnit</li>
+                    <li style="--percent: 90%">&middot; Agile</li>
                 </ul>
             </div>
 
@@ -103,23 +103,43 @@ const stats = [
 }
 
 ul {
-    @apply mb-16 space-y-4;
+    @apply mt-2 ps-4 mb-10 space-y-2;
 }
 
 ul li {
-    @apply relative text-lg;
+    @apply relative;
+}
+
+.tech-stack ul {
+    @apply mt-2 mb-6 ps-0;
+}
+
+.tech-stack ul li {
+    @apply text-sm font-semibold text-terminal-black;
 }
 
 .tech-stack ul li::before {
     content: '';
     position: absolute;
-    left: 0;
+    left: 130px;
     top: 50%;
-    width: var(--percent);
+    width: calc(100% - 120px);
     height: 4px;
-    background: linear-gradient(90deg, #1479EA, #1479EA);
+    background: linear-gradient(90deg, #999, #999);
     transform: translateY(-50%);
-    z-index: -1;
+    z-index: 1;
+}
+
+.tech-stack ul li::after {
+    content: '';
+    position: absolute;
+    left: 130px;
+    top: 50%;
+    width: calc(var(--percent) - 100px);
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-bright-green), var(--color-bright-green));
+    transform: translateY(-50%);
+    z-index: 2;
 }
 
 /*.card {
