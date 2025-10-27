@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-library.add(faBuildingColumns);
 </script>
 
 <template>
@@ -147,10 +142,6 @@ library.add(faBuildingColumns);
 <style scoped>
 @reference "@/css/app.css";
 
-.experience {
-
-}
-
 .description {
     @apply mb-16;
 }
@@ -208,8 +199,4 @@ ul li {
     transform: translateY(-50%);
     z-index: 2;
 }
-
-/*.card {
-    @apply bg-white rounded-lg shadow-md border border-gray-200;
-}*/
 </style>

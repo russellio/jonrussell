@@ -4,12 +4,6 @@ import { useModal } from '@/js/composables/useModal';
 import projectData from '@/js/data/projects.json';
 import { computed, ref } from 'vue';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faAward, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-library.add(faXmark, faAward);
-
 const { isOpen, openModal } = useModal();
 
 const projects = ref(projectData);

@@ -1,5 +1,5 @@
 <script setup lang="ts" xmlns:md="http://www.w3.org/1999/html">
-import Nav from '@/js/layout/Nav.vue';
+
 import { useModal } from '@/js/composables/useModal';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -14,20 +14,20 @@ library.add(faLocationDot, faLinkedin, faEnvelope, faObjectGroup, faUserShield, 
 const { openModal } = useModal();
 
 const BackgroundStars = defineAsyncComponent(() => import('@/js/components/BackgroundStars.vue'));
-const backgroundLoaded = ref(false);
+// const backgroundLoaded = ref(false);
 const showBackground = ref(false);
-const handleBackgroundReady = () => {
-    backgroundLoaded.value = true;
-    // Small delay to ensure smooth transition
-    setTimeout(() => {
-        showBackground.value = true;
-    }, 100);
-};
+// const handleBackgroundReady = () => {
+//     backgroundLoaded.value = true;
+//     // Small delay to ensure smooth transition
+//     setTimeout(() => {
+//         showBackground.value = true;
+//     }, 100);
+// };
 
 onMounted(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
         // showBackground.value = true;
-    }, 50);
+    // }, 50);
 });
 
 const scrollToSection = (sectionName: string) => {
