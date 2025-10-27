@@ -61,12 +61,12 @@ if (typeof window !== 'undefined') {
         <main ref="main">
             <!-- About Section -->
             <ContentFrame id="about">
-                <AboutSection ref="aboutSection" />
+                <AboutSection ref="about" />
             </ContentFrame>
 
             <!-- Projects Section -->
             <ContentFrame>
-                <ProjectsSection ref="projectsSection" />
+                <ProjectsSection ref="projects" />
             </ContentFrame>
 
             <!-- Contact Modal -->

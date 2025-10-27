@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const stats = [
-    { value: '5+', label: 'Years Experience' },
-    { value: '50+', label: 'Projects Completed' },
-    { value: '100%', label: 'Client Satisfaction' },
-    { value: '24/7', label: 'Support Available' }
-];
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(faBuildingColumns);
 </script>
 
 <template>
@@ -34,10 +33,11 @@ const stats = [
             <div class="tech-stack">
                 <h3>Tech Stack</h3>
                 <ul>
-                    <li style="--percent: 85%">&middot; Laravel</li>
-                    <li style="--percent: 90%">&middot; PHP</li>
-                    <li style="--percent: 85%">&middot; MySQL / RDMS</li>
-                    <li style="--percent: 75%">&middot; Vue</li>
+                    <li style="--percent: 90%">&middot; Laravel</li>
+                    <li style="--percent: 95%">&middot; PHP</li>
+                    <li style="--percent: 95%">&middot; REST APIs</li>
+                    <li style="--percent: 90%">&middot; MySQL / RDMS</li>
+                    <li style="--percent: 80%">&middot; Vue</li>
                     <li style="--percent: 40%">&middot; React</li>
                     <li style="--percent: 95%">&middot; JavaScript</li>
                     <li style="--percent: 80%">&middot; TypeScript</li>
@@ -45,36 +45,98 @@ const stats = [
                     <li style="--percent: 95%">&middot; CSS3</li>
                     <li style="--percent: 75%">&middot; PEST / PHPUnit</li>
                     <li style="--percent: 90%">&middot; Agile</li>
+                    <li style="--percent: 95%">&middot; OOP / MVC</li>
                 </ul>
             </div>
 
             <div class="toolkit col-span-2">
-                <h3>Toolkit</h3>
-                <div class="skills">
-                    <span class="pill">JavaScript</span><span class="pill">Node.js</span
-                ><span class="pill">TypeScript</span><span class="pill">CSS</span><span class="pill">SASS</span
-                ><span class="pill">SQL</span><span class="pill">Vite</span><span class="pill">webpack</span
-                ><span class="pill">Astro</span><span class="pill">Jest</span><span class="pill">Cypress</span
-                ><span class="pill">CLI</span><span class="pill">Git</span><span class="pill">SEO</span
-                ><span class="pill">a11y</span><span class="pill">Vercel</span>
+                <h3>Skills & Tools</h3>
+
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <div class="w-2/3">
+                        <h4>Software Engineering</h4>
+                        <div class="skills">
+                            <span class="pill">Node.js</span>
+                            <span class="pill">SQL</span>
+                            <span class="pill">SCSS</span>
+                            <span class="pill">Bootstrap</span>
+                            <span class="pill">jQuery</span>
+                            <span class="pill">JSON</span>
+                            <span class="pill">XML</span>
+                            <span class="pill">Vuex</span>
+                            <span class="pill">Pinia</span>
+                            <span class="pill">SaaS</span>
+                            <span class="pill">SDLC</span>
+                            <span class="pill">OOP</span>
+                            <span class="pill">MVC</span>
+                            <span class="pill">Jira</span>
+                            <span class="pill">webpack</span>
+                            <span class="pill">Vite</span>
+                            <span class="pill">Git</span>
+                            <span class="pill">SEO</span>
+                            <span class="pill">a11y</span>
+                        </div>
+                    </div>
+                    <div class="w-1/3">
+                        <h4>Architecture & DevOps</h4>
+                        <div class="skills">
+                            <span class="pill">AWS</span>
+                            <span class="pill">Docker</span>
+                            <span class="pill">CI/CD automation</span>
+                            <span class="pill">Azure Pipelines</span>
+                            <span class="pill">Jenkins</span>
+                            <span class="pill">Github</span>
+                            <span class="pill">Bitbucket</span>
+                            <span class="pill">Linux</span>
+                        </div>
+                    </div>
+                    </div>
+                <div class="flex flex-col sm:flex-row">
+                    <div class="w-1/2">
+                        <h4>Quality & Collaboration</h4>
+                        <div class="skills">
+                            <span class="pill">Unit testing</span>
+                            <span class="pill">PEST</span>
+                            <span class="pill">PHPUnit</span>
+                            <span class="pill">Code reviews</span>
+                            <span class="pill">Pair programming</span>
+                            <span class="pill">API optimization</span>
+                            <span class="pill">Plays well with others</span>
+                        </div>
+                    </div>
+                    <div class="w-1/2">
+                        <h4>Leadership & Team Building</h4>
+                        <div class="skills">
+                            <span class="pill">Team mentoring</span>
+                            <span class="pill">Innovative process improvement</span>
+                            <span class="pill">Experienced Manager, Project Manager</span>
+                            <span class="pill">ScrumMaster Certification (CSM)</span>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
         </div>
 
-        <!-- Experience Section -->
-        <h3>Experience</h3>
-        <p class="text-center">
-            It's not just about writing code. It's about building solutions that scale and deliver real business value.
-        </p>
+        <h3 class="mb-3">Experience</h3>
 
-        <div class="flex flex-col md:flex-row">
-
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                <div v-for="(stat, index) in stats" :key="index" class="card p-6 text-center">
-                    <div class="text-primary-600 mb-2 text-3xl font-bold">{{ stat.value }}</div>
-                    <div class="text-gray-600">{{ stat.label }}</div>
-                </div>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+            <div class="card p-6 text-center">
+                <div class="mb-2 text-3xl font-bold text-primary">Master of Business<br /> & Technology</div>
+                <img src="/images/uga-logo.png" class="max-w-3/4 mx-auto" alt="UGA Logo" />
+            </div>
+            <div class="card p-6 text-center">
+                <div class="mb-2 text-6xl font-bold text-primary">12+</div>
+                <div class="mb-2 text-2xl">Years of Professional SWE Experience</div>
+            </div>
+            <div class="card p-6 text-center">
+                <div class="mb-2 text-6xl font-bold text-primary">2.5+</div>
+                <div class="mb-2 text-2xl">Years of Management</div>
+            </div>
+            <div class="card p-6 text-center">
+                <div class="mb-2 text-6xl font-bold text-primary">3+</div>
+                <div class="mb-2 text-2xl">Years of Project Management</div>
             </div>
         </div>
 
@@ -85,6 +147,10 @@ const stats = [
 <style scoped>
 @reference "@/css/app.css";
 
+.experience {
+
+}
+
 .description {
     @apply mb-16;
 }
@@ -94,12 +160,13 @@ const stats = [
 }
 
 .skills {
-    @apply mb-8 flex flex-wrap justify-center gap-2;
+    @apply mb-8 flex flex-wrap gap-2;
 }
 
 .pill {
-    @apply inline-flex w-max items-center border-1 border-terminal-black-300 select-none;
-    @apply rounded-full p-0.5 text-xs shadow-sm;
+    @apply inline-block items-center px-4 py-2 select-none;
+    @apply rounded-sm font-semibold text-xs shadow-sm bg-terminal-black-100;
+    @apply transition-all duration-200 ease-in-out hover:bg-terminal-black-400;
 }
 
 ul {

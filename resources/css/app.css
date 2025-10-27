@@ -64,11 +64,15 @@ h1 {
 }
 
 h2 {
-    @apply text-center font-sixtyfour text-secondary uppercase text-3xl md:text-5xl;
+    @apply text-center font-sixtyfour text-secondary uppercase text-3xl md:text-5xl mb-2;
 }
 
 h3 {
-    @apply font-space-mono text-2xl font-bold;
+    @apply font-space-mono text-2xl font-bold text-secondary;
+}
+
+h4 {
+    @apply text-lg font-semibold text-terminal-black mt-4 mb-3;
 }
 
 html {
@@ -153,13 +157,13 @@ p {
 }
 
 .primary-nav {
-    @apply w-40 h-8 border-1 border-secondary outline-none bg-transparent text-white mx-2 rounded-lg;
+    @apply w-40 h-8 border-1 border-secondary outline-none bg-transparent text-white m-2 rounded-lg;
     @apply font-space-mono uppercase text-sm cursor-pointer;
     @apply transition-all duration-400;
 }
 
 .primary-nav:hover {
-    @apply rounded-2xl font-bold border-white;
+    @apply rounded-xl font-bold border-white;
 }
 
 .secondary-nav {
@@ -173,9 +177,13 @@ p {
 }
 
 .content-btn {
-    @apply border-1 border-secondary mx-2 rounded-lg;
-    @apply font-space-mono text-sm cursor-pointer;
-    @apply transition-all duration-400 hover:rounded-2xl hover:font-bold hover:border-white;
+    @apply border-1 border-secondary mx-2 py-1 px-5;
+    @apply font-space-mono text-sm cursor-pointer font-bold uppercase;
+    @apply transition-all duration-200 rounded-lg;
+}
+
+.content-btn:hover {
+    @apply bg-secondary text-white border-terminal-black;
 }
 
 .btn:hover {
