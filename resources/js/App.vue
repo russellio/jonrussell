@@ -4,10 +4,7 @@ import Footer from '@/js/layout/Footer.vue';
 import Header from '@/js/layout/Header.vue';
 import ContactModal from '@/js/components/modals/ContactModal.vue';
 import { useModal } from '@/js/composables/useModal';
-import About from '@/js/pages/About.vue';
 import { computed } from 'vue';
-import Projects from '@/js/pages/Projects.vue';
-import Nav from '@/js/layout/Nav.vue';
 
 const { isOpen } = useModal();
 const isContactOpen = computed(() => isOpen('contact-modal'));
@@ -23,9 +20,6 @@ const isContactOpen = computed(() => isOpen('contact-modal'));
 
         <!-- Main content -->
         <main ref="main">
-<!--            <ContentFrame>-->
-<!--                <About ref="about" />-->
-<!--            </ContentFrame>-->
 
             <ContentFrame>
                 <slot />

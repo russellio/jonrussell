@@ -1,5 +1,5 @@
 <script setup lang="ts" xmlns:md="http://www.w3.org/1999/html">
-import Nav from '@/js/layout/Nav.vue';
+
 import { useModal } from '@/js/composables/useModal';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -14,20 +14,20 @@ library.add(faLocationDot, faLinkedin, faEnvelope, faObjectGroup, faUserShield, 
 const { openModal } = useModal();
 
 const BackgroundStars = defineAsyncComponent(() => import('@/js/components/BackgroundStars.vue'));
-const backgroundLoaded = ref(false);
+// const backgroundLoaded = ref(false);
 const showBackground = ref(false);
-const handleBackgroundReady = () => {
-    backgroundLoaded.value = true;
-    // Small delay to ensure smooth transition
-    setTimeout(() => {
-        showBackground.value = true;
-    }, 100);
-};
+// const handleBackgroundReady = () => {
+//     backgroundLoaded.value = true;
+//     // Small delay to ensure smooth transition
+//     setTimeout(() => {
+//         showBackground.value = true;
+//     }, 100);
+// };
 
 onMounted(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
         // showBackground.value = true;
-    }, 50);
+    // }, 50);
 });
 
 const scrollToSection = (sectionName: string) => {
@@ -53,10 +53,9 @@ const scrollToSection = (sectionName: string) => {
     <div class="fallback-background" :class="{ 'fade-out': showBackground }"></div>
 
     <Transition name="background-fade" appear>
-        <BackgroundStars v-if="showBackground" ref="stars" @backgroundReady="handleBackgroundReady" />
+<!--        <BackgroundStars v-if="showBackground" ref="stars" @backgroundReady="handleBackgroundReady" />-->
+        <BackgroundStars v-if="showBackground" ref="stars" />
     </Transition>
-
-    <Nav ref="navigation" />
 
     <div class="intro-wrapper flex justify-center items-center p-6 min-h-[calc(100vh-80px)] mx-auto">
        <div class="intro-backdrop hidden"></div>
@@ -85,15 +84,15 @@ const scrollToSection = (sectionName: string) => {
                     <img src="/images/profile-avatar.svg" alt="Jon Russell" class="profile-avatar" />
                     <div class="profile-addon-wrapper">
                         <div class="profile-pill">
-                            <FontAwesomeIcon :icon="faLocationDot" size="sm" />
+                            <FontAwesomeIcon :icon="faLocationDot" size="sm" class="me-1" />
                             Remote - North Carolina
                         </div>
                         <div class="profile-pill">
-                            <FontAwesomeIcon :icon="faCertificate" size="sm" />
+                            <FontAwesomeIcon :icon="faCertificate" size="sm" class="me-1" />
                             ScrumMaster Certification
                         </div>
                         <div class="profile-pill">
-                            <FontAwesomeIcon :icon="faUserShield" size="sm" />
+                            <FontAwesomeIcon :icon="faUserShield" size="sm" class="me-1" />
                             Confidential Security Clearance
                         </div>
                     </div>
@@ -104,16 +103,16 @@ const scrollToSection = (sectionName: string) => {
             <div>
                 <div class="flex flex-col gap-8 lg:gap-0 lg:flex-row lg:items-center justify-between max-w-[600px] mt-8 mx-auto">
                     <div class="flex gap-2 lg:gap-4">
-                        <a type="button" class="cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
+                        <button class="secondary-nav"
                                 @click="openModal('contact-modal')">
-                            <FontAwesomeIcon :icon="faEnvelope" size="sm" class="me-2" />
+                            <FontAwesomeIcon :icon="faEnvelope" size="lg" class="me-3" />
                             Contact Me
-                        </a>
-                        <a type="button" class="cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 shadow-xl"
+                        </button>
+                        <button class="secondary-nav"
                                 @click="() => scrollToSection('projects')">
-                            <FontAwesomeIcon :icon="faObjectGroup" size="sm" class="me-2" />
+                            <FontAwesomeIcon :icon="faObjectGroup" size="lg" class="me-3" />
                             View Projects
-                        </a>
+                        </button>
                     </div>
 
                     <div data-orientation="vertical" role="none" class="shrink-0 w-[2px] bg-white h-5 hidden md:block"></div>
@@ -141,6 +140,8 @@ const scrollToSection = (sectionName: string) => {
 
 <style scoped>
 @reference "@/css/app.css";
+
+
 
 .intro-wrapper {
     @apply w-full text-white;

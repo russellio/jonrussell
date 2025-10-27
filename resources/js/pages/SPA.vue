@@ -9,6 +9,7 @@ import { computed, ref } from 'vue';
 // Import section components
 import AboutSection from '@/js/sections/AboutSection.vue';
 import ProjectsSection from '@/js/sections/ProjectsSection.vue';
+import Nav from '@/js/layout/Nav.vue';
 
 const { isOpen } = useModal();
 const isContactOpen = computed(() => isOpen('contact-modal'));
@@ -20,9 +21,9 @@ const projectsSection = ref(null);
 // Expose scrollToSection function globally
 const scrollToSection = (sectionName: string) => {
     console.log('scrollToSection() - ', sectionName);
-    
+
     let targetElement = null;
-    
+
     switch (sectionName) {
         case 'about':
             targetElement = aboutSection.value?.$el;
@@ -31,7 +32,7 @@ const scrollToSection = (sectionName: string) => {
             targetElement = projectsSection.value?.$el;
             break;
     }
-    
+
     if (targetElement) {
         targetElement.scrollIntoView({
             behavior: 'smooth',
@@ -48,6 +49,9 @@ if (typeof window !== 'undefined') {
 
 <template>
     <div class="app-layout">
+
+        <Nav ref="navigation" />
+
         <header>
             <!-- Header / Intro / Navigation -->
             <Header ref="header" />
@@ -56,13 +60,13 @@ if (typeof window !== 'undefined') {
         <!-- Main content with all sections -->
         <main ref="main">
             <!-- About Section -->
-            <ContentFrame>
-                <AboutSection ref="aboutSection" />
+            <ContentFrame id="about">
+                <AboutSection ref="about" />
             </ContentFrame>
 
             <!-- Projects Section -->
             <ContentFrame>
-                <ProjectsSection ref="projectsSection" />
+                <ProjectsSection ref="projects" />
             </ContentFrame>
 
             <!-- Contact Modal -->

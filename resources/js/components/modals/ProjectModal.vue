@@ -74,7 +74,7 @@ const title = `<span>project: </span>${props.project.title}`;
                 <h3 class="mt-3 font-space-mono text-lg font-bold">skills:</h3>
                 <ul class="fa-ul">
                     <li v-for="(skill, index) in project.skills" :key="index">
-                        <span class="fa-li"><FontAwesomeIcon icon="fa-solid fa-caret-right" class="text-gold" /></span>
+                        <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" /></span>
                         {{ skill }}
                     </li>
                 </ul>
@@ -84,7 +84,7 @@ const title = `<span>project: </span>${props.project.title}`;
                 <h3 class="mt-3 font-space-mono text-lg font-bold">tech:</h3>
                 <ul class="fa-ul">
                     <li v-for="(tech, index) in project.technologies" :key="index">
-                        <span class="fa-li"><FontAwesomeIcon icon="fa-solid fa-caret-right" class="text-gold" /></span>
+                        <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" /></span>
                         {{ tech }}
                     </li>
                 </ul>
@@ -94,7 +94,7 @@ const title = `<span>project: </span>${props.project.title}`;
                 <h3 class="mt-3 font-space-mono text-lg font-bold">tools:</h3>
                 <ul class="fa-ul">
                     <li v-for="(tool, index) in project.tools" :key="index">
-                        <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" class="text-gold" /></span>
+                        <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" /></span>
                         {{ tool }}
                     </li>
                 </ul>
