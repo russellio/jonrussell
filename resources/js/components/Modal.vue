@@ -53,7 +53,7 @@ const handleSubmit = () => {
         <div class="modal" @click.stop>
             <div class="modal-header">
                 <h1 v-html="title" />
-                <button @click="closeModal(modalId)" aria-label="Close" class="cursor-pointer">
+                <button @click="closeModal(modalId)" aria-label="Close" class="absolute top-0 right-0 m-2 cursor-pointer">
                     <FontAwesomeIcon icon="fa-outline fa-xmark" class="h-6 w-6" />
                 </button>
             </div>

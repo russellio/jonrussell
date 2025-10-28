@@ -1,54 +1,68 @@
 <script setup lang="ts">
+import { useScrollToSection } from '@/js/composables/useScrollToSection';
+const { scrollToSection } = useScrollToSection();
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(faCaretRight);
 </script>
 
 <template>
-    <section>
-        <!-- Page Header -->
+    <section id="about">
         <div class="mt-10 mb-16 text-center">
             <h2>About</h2>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="description">
                 <p>
-                    Currently a Senior Software Engineer with expertise in Laravel, PHP, and full-stack development.
-                    I specialize in building high-performance APIs, database optimization, and creating seamless
-                    integrations that bridge the gap between frontend and backend systems.
+                    Hi! I’m a Senior Software Engineer with more than a decade of experience designing, developing, and scaling
+                    enterprise applications. I bring deep expertise in Laravel, PHP, REST APIs, JavaScript/TypeScript, and Vue.js,
+                    paired with Agile leadership and a drive to keep learning new technologies.
                 </p>
                 <p>
-                    Currently a Senior Software Engineer with expertise in Laravel, PHP, and full-stack development.
-                    I specialize in building high-performance APIs, database optimization, and creating seamless
-                    integrations.
+                    I’ve delivered high-impact solutions across defense, finance, and manufacturing, leading cross-functional teams and
+                    contributing directly to complex migrations, API integrations, workflow automation, and production debugging.
+                    My background in both engineering and leadership helps me translate business goals into clear, maintainable
+                    technical solutions.
                 </p>
-                <div class="btn-wrapper">
-                    <button @click="() => scrollToSection('projects')" class="content-btn">Projects</button>
-                </div>
+                <p>
+                    I stay hands-on in every role, continuously refining my craft and evolving with modern frameworks and tools.
+                    Nothing’s more rewarding than shipping a solution that streamlines a messy process, improves team efficiency,
+                    and makes life easier for the people who use it.
+                </p>
             </div>
 
             <div class="tech-stack">
                 <h3>Tech Stack</h3>
-                <ul>
-                    <li style="--percent: 90%">&middot; Laravel</li>
-                    <li style="--percent: 95%">&middot; PHP</li>
-                    <li style="--percent: 95%">&middot; REST APIs</li>
-                    <li style="--percent: 90%">&middot; MySQL / RDMS</li>
-                    <li style="--percent: 80%">&middot; Vue</li>
-                    <li style="--percent: 40%">&middot; React</li>
-                    <li style="--percent: 95%">&middot; JavaScript</li>
-                    <li style="--percent: 80%">&middot; TypeScript</li>
-                    <li style="--percent: 95%">&middot; HTML5</li>
-                    <li style="--percent: 95%">&middot; CSS3</li>
-                    <li style="--percent: 75%">&middot; PEST / PHPUnit</li>
-                    <li style="--percent: 90%">&middot; Agile</li>
-                    <li style="--percent: 95%">&middot; OOP / MVC</li>
+                <ul class="ms-6">
+                    <li style="--percent: 90%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> Laravel</li>
+                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> PHP</li>
+                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> REST APIs</li>
+                    <li style="--percent: 90%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> MySQL / RDMS</li>
+                    <li style="--percent: 80%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> Vue</li>
+                    <li style="--percent: 45%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> React</li>
+                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> JavaScript</li>
+                    <li style="--percent: 80%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> TypeScript</li>
+                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> HTML5</li>
+                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> CSS3</li>
+                    <li style="--percent: 75%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> PEST / PHPUnit</li>
+                    <li style="--percent: 90%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> Agile</li>
+                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> OOP / MVC</li>
                 </ul>
+
+                <div class="btn-wrapper">
+                    <button @click="scrollToSection('projects')" class="content-btn">Projects</button>
+                </div>
             </div>
 
-            <div class="toolkit col-span-2">
+            <div class="md:col-span-2">
                 <h3>Skills & Tools</h3>
 
-                <div class="flex flex-col sm:flex-row gap-6">
-                    <div class="w-2/3">
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <div class="lg:w-3/5">
                         <h4>Software Engineering</h4>
                         <div class="skills">
                             <span class="pill">Node.js</span>
@@ -72,7 +86,7 @@
                             <span class="pill">a11y</span>
                         </div>
                     </div>
-                    <div class="w-1/3">
+                    <div class="lg:w-2/5">
                         <h4>Architecture & DevOps</h4>
                         <div class="skills">
                             <span class="pill">AWS</span>
@@ -85,9 +99,9 @@
                             <span class="pill">Linux</span>
                         </div>
                     </div>
-                    </div>
-                <div class="flex flex-col sm:flex-row">
-                    <div class="w-1/2">
+                </div>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="lg:w-1/2">
                         <h4>Quality & Collaboration</h4>
                         <div class="skills">
                             <span class="pill">Unit testing</span>
@@ -99,7 +113,7 @@
                             <span class="pill">Plays well with others</span>
                         </div>
                     </div>
-                    <div class="w-1/2">
+                    <div class="lg:w-1/2">
                         <h4>Leadership & Team Building</h4>
                         <div class="skills">
                             <span class="pill">Team mentoring</span>
@@ -112,46 +126,43 @@
 
             </div>
 
+            <div class="experience md:col-span-2">
+                <h3 class="mb-4">Experience</h3>
+
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <div class="card p-6 text-center">
+                        <div class="mb-2 text-3xl font-bold text-primary">Master of Business<br> & Technology</div>
+                        <img src="/images/uga-logo.png" class="" alt="UGA Logo" />
+                    </div>
+                    <div class="card p-6 text-center">
+                        <div class="mb-2 text-6xl font-bold text-primary">12+</div>
+                        <div class="mb-2 text-2xl">Years of Professional SWE Experience</div>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <div class="mb-2 text-6xl font-bold text-primary">2.5+</div>
+                        <div class="mb-2 text-2xl">Years of Management</div>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <div class="mb-2 text-6xl font-bold text-primary">3+</div>
+                        <div class="mb-2 text-2xl">Years of Project Management</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h3 class="mb-3">Experience</h3>
-
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
-            <div class="card p-6 text-center">
-                <div class="mb-2 text-3xl font-bold text-primary">Master of Business<br /> & Technology</div>
-                <img src="/images/uga-logo.png" class="max-w-3/4 mx-auto" alt="UGA Logo" />
-            </div>
-            <div class="card p-6 text-center">
-                <div class="mb-2 text-6xl font-bold text-primary">12+</div>
-                <div class="mb-2 text-2xl">Years of Professional SWE Experience</div>
-            </div>
-            <div class="card p-6 text-center">
-                <div class="mb-2 text-6xl font-bold text-primary">2.5+</div>
-                <div class="mb-2 text-2xl">Years of Management</div>
-            </div>
-            <div class="card p-6 text-center">
-                <div class="mb-2 text-6xl font-bold text-primary">3+</div>
-                <div class="mb-2 text-2xl">Years of Project Management</div>
-            </div>
-        </div>
 
     </section>
 </template>
 
-
 <style scoped>
 @reference "@/css/app.css";
 
-.description {
-    @apply mb-16;
-}
-
 .description p {
-    @apply mx-auto max-w-4xl text-lg leading-relaxed text-gray-600 mb-4;
+    @apply md:mx-auto text-lg md:leading-relaxed text-gray-600 mb-4;
 }
 
 .skills {
-    @apply mb-8 flex flex-wrap gap-2;
+    @apply mb-8 flex flex-wrap gap-2 justify-center lg:justify-start;
 }
 
 .pill {
@@ -173,15 +184,16 @@ ul li {
 }
 
 .tech-stack ul li {
-    @apply text-sm font-semibold text-terminal-black;
+    @apply font-semibold text-terminal-black;
 }
 
 .tech-stack ul li::before {
     content: '';
     position: absolute;
-    left: 130px;
+    left: 140px;
     top: 50%;
-    width: calc(100% - 120px);
+    width: calc(100% - 140px);
+    min-width:140px;
     height: 4px;
     background: linear-gradient(90deg, #999, #999);
     transform: translateY(-50%);
@@ -191,9 +203,10 @@ ul li {
 .tech-stack ul li::after {
     content: '';
     position: absolute;
-    left: 130px;
+    left: 140px;
     top: 50%;
-    width: calc(var(--percent) - 100px);
+    width: calc(var(--percent) - 140px);
+    min-width: 140px;
     height: 4px;
     background: linear-gradient(90deg, var(--color-bright-green), var(--color-bright-green));
     transform: translateY(-50%);
