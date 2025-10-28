@@ -8,13 +8,15 @@
 @theme {
     --font-space-mono: 'Space Mono', monospace;
     --font-sixtyfour: 'Sixtyfour', monospace;
+
     --color-primary: var(--color-blue);
-    --color-secondary: var(--color-burgundy-600);
+    --color-secondary: var(--color-bulldog-red);
     --color-success: var(--color-green-700);
     --color-error: var(--color-red);
     --color-blue: #1564f4;
     --color-dark-blue: var(--color-blue-950);
     --color-content: var(--color-terminal-black-50);
+
     --color-blue-50: #e3e7ee;
     --color-blue-100: #c8d0dc;
     --color-blue-200: #adb9cb;
@@ -26,21 +28,13 @@
     --color-blue-800: #1d3867;
     --color-blue-900: #062456;
     --color-blue-950: #041028;
+
     --color-gold: #efbf04;
     --color-bright-green: #45f415;
     --color-red: #f50538;
+    --color-bulldog-red: #BA0C2F;
     --color-burgundy: #ef4957;
-    --color-burgundy-50: #fdf1f1;
-    --color-burgundy-100: #fadfe0;
-    --color-burgundy-200: #f7c2c4;
-    --color-burgundy-300: #f49fa3;
-    --color-burgundy-400: #f17980;
-    --color-burgundy-500: #ef4957;
-    --color-burgundy-600: #d63041;
-    --color-burgundy-700: #af2533;
-    --color-burgundy-800: #891b26;
-    --color-burgundy-900: #4e0b12;
-    --color-burgundy-950: #350509;
+
     --color-terminal-black: #2e2f30;
     --color-terminal-black-50: #f3f4f4;
     --color-terminal-black-100: #e7e8e9;
