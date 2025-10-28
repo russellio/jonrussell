@@ -11,8 +11,8 @@
         "icon": "",
         "primaryImage": "ssp/ssp-logo.png",
         "bgImage": "ssp/ssp-logo.png",
-        "bgPositionX": "-30px",
-        "bgPositionY": "-50px",
+        "bgPositionX": "-50px",
+        "bgPositionY": "-30px",
         "links": [{ "title": "Additional Contract Info (sam.gov)", "url": "https://sam.gov/opp/2256b7a820714afb89915925eed9b856/view" }]
     },
     {
@@ -27,7 +27,7 @@
         "primaryImage": "api/api-bg.png",
         "bgImage": "api/api-bg.png",
         "bgPositionX": "-30px",
-        "bgPositionY": "-65px",
+        "bgPositionY": "-30px",
         "links": []
     },
     {
@@ -51,8 +51,8 @@
             { "src": "flag-board/kiosk-2.jpg", "title": "Old paper-based Flag Board" },
             { "src": "flag-board/kiosk-3.jpg", "title": "Kiosk running the Flag Board on factory floor." }
         ],
-        "bgPositionX": "-30px",
-        "bgPositionY": "-130px",
+        "bgPositionX": "-10px",
+        "bgPositionY": "-135px",
         "links": []
     },
     {
@@ -71,7 +71,7 @@
             { "src": "concert-web/concert-admin.png", "title": "Administration" }
         ],
         "bgPositionX": "-30px",
-        "bgPositionY": "-65px",
+        "bgPositionY": "-60px",
         "links": []
     },
     {
@@ -85,8 +85,8 @@
         "company": "Glen Raven",
         "primaryImage": "sms/sms-alert.jpg",
         "bgImage": "sms/sms-alert.jpg",
-        "bgPositionX": "-30px",
-        "bgPositionY": "-40px",
+        "bgPositionX": "-140px",
+        "bgPositionY": "-50px",
         "links": [{ "title": "Nexmo (now Vonage) - Communication APIs", "url": "https://www.vonage.com/communications-apis/" }]
     },
     {
@@ -100,8 +100,8 @@
         "company": "Glen Raven",
         "primaryImage": "web-requests/web-requests-bg.png",
         "bgImage": "web-requests/web-requests-bg.png",
-        "bgPositionX": "0",
-        "bgPositionY": "0",
+        "bgPositionX": "5px",
+        "bgPositionY": "5px",
         "links": []
     },
     {

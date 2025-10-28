@@ -30,7 +30,7 @@ const hasModalRight = (project: any) => {
     return projectHasProp(project, 'skills') || projectHasProp(project, 'technologies') || projectHasProp(project, 'tools');
 };
 
-const title = `<span>project: </span>${props.project.title}`;
+const title = `<span>project: </span><br class='md:hidden'>${props.project.title}`;
 </script>
 
 <template>
@@ -48,18 +48,19 @@ const title = `<span>project: </span>${props.project.title}`;
 
         <div class="modal-center">
             <div v-if="projectHasProp(project, 'company')" class="company">
-                <h3 class="mt-3 font-space-mono text-lg font-bold">
-                    company: <span class="font-space-mono font-normal">{{ project.company }}</span>
+                <h3>
+                    company:
+                    <span class="font-space-mono font-normal !text-white">{{ project.company }}</span>
                 </h3>
             </div>
 
             <div v-if="projectHasProp(project, 'description')" class="description">
-                <h3 class="mt-3 font-space-mono text-lg font-bold">description:</h3>
+                <h3>description:</h3>
                 <div v-html="project.description" class="" />
             </div>
 
             <div v-if="projectHasProp(project, 'links')" class="links">
-                <h3 class="mt-3 font-space-mono text-lg font-bold">links:</h3>
+                <h3>links:</h3>
                 <ul class="fa-ul" style="list-style-type: disc;">
                     <li v-for="(link, index) in project.links" :key="index">
                         <a :href="link.url" target="_blank">{{ link.title }}</a>
@@ -71,30 +72,30 @@ const title = `<span>project: </span>${props.project.title}`;
 
         <div v-if="hasModalRight(project)" class="modal-right">
             <div v-if="projectHasProp(project, 'skills')" class="skills">
-                <h3 class="mt-3 font-space-mono text-lg font-bold">skills:</h3>
+                <h3>skills:</h3>
                 <ul class="fa-ul">
                     <li v-for="(skill, index) in project.skills" :key="index">
-                        <span class="fa-li"><FontAwesomeIcon icon="fa-solid fa-caret-right" class="text-gold" /></span>
+                        <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" /></span>
                         {{ skill }}
                     </li>
                 </ul>
             </div>
 
             <div v-if="projectHasProp(project, 'technologies')" class="technologies">
-                <h3 class="mt-3 font-space-mono text-lg font-bold">tech:</h3>
+                <h3>tech:</h3>
                 <ul class="fa-ul">
                     <li v-for="(tech, index) in project.technologies" :key="index">
-                        <span class="fa-li"><FontAwesomeIcon icon="fa-solid fa-caret-right" class="text-gold" /></span>
+                        <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" /></span>
                         {{ tech }}
                     </li>
                 </ul>
             </div>
 
             <div v-if="projectHasProp(project, 'tools')" class="tools">
-                <h3 class="mt-3 font-space-mono text-lg font-bold">tools:</h3>
+                <h3>tools:</h3>
                 <ul class="fa-ul">
                     <li v-for="(tool, index) in project.tools" :key="index">
-                        <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" class="text-gold" /></span>
+                        <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" /></span>
                         {{ tool }}
                     </li>
                 </ul>
@@ -106,6 +107,12 @@ const title = `<span>project: </span>${props.project.title}`;
 </template>
 
 <style scoped>
+@reference "@/css/app.css";
+
+h3 {
+    @apply mt-3 font-space-mono text-lg font-bold;
+}
+
 .primary-image img {
     width: 100%;
     object-fit: fill;

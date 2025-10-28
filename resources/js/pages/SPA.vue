@@ -6,23 +6,34 @@ import ContactModal from '@/js/components/modals/ContactModal.vue';
 import { useModal } from '@/js/composables/useModal';
 import { computed } from 'vue';
 
+import AboutSection from '@/js/sections/AboutSection.vue';
+import ProjectsSection from '@/js/sections/ProjectsSection.vue';
+import Nav from '@/js/layout/Nav.vue';
+
 const { isOpen } = useModal();
 const isContactOpen = computed(() => isOpen('contact-modal'));
 </script>
 
 <template>
+    <div class="app-layout" id="home">
 
-    <div class="app-layout">
+        <Nav ref="navigation" />
+
         <header>
             <!-- Header / Intro / Navigation -->
             <Header ref="header" />
         </header>
 
-        <!-- Main content -->
+        <!-- Main content with all sections -->
         <main ref="main">
-
+            <!-- About Section -->
             <ContentFrame>
-                <slot />
+                <AboutSection />
+            </ContentFrame>
+
+            <!-- Projects Section -->
+            <ContentFrame>
+                <ProjectsSection />
             </ContentFrame>
 
             <!-- Contact Modal -->
