@@ -87,7 +87,7 @@ const openProjectModal = (project: any) => {
 @reference "@/css/app.css";
 
 .project {
-    @apply relative z-0 h-[260px] overflow-hidden rounded-lg border-1 border-terminal-black-700 align-bottom;
+    @apply relative z-0 h-[260px] overflow-hidden rounded-lg border border-terminal-black-700 align-bottom;
 }
 
 .project-image {
@@ -107,14 +107,14 @@ const openProjectModal = (project: any) => {
 
 .project-title-backdrop {
     @apply absolute z-20 m-1 w-[98%] rounded-md p-0.5 md:mt-15;
-    @apply border-1 border-s-0 border-t-0 border-terminal-black-700;
+    @apply border border-s-0 border-t-0 border-terminal-black-700;
     @apply md:transition-all md:duration-300 md:ease-in-out md:group-hover:mt-5 md:group-hover:border-transparent;
     @apply sm:max-md:mt-2;
 }
 
 h1 {
     @apply text-2xl lg:text-3xl font-extrabold text-secondary;
-    @apply rounded-md border-1 border-blue-100 p-1 ps-8 backdrop-blur-sm;
+    @apply rounded-md border border-blue-100 p-1 ps-8 backdrop-blur-sm;
     @apply bg-white/5 backdrop-filter md:transition-[bg-white] md:duration-300 md:ease-in md:group-hover:bg-white/45;
     @apply sm:max-md:bg-white/45;
 }
@@ -124,11 +124,11 @@ div.awards {
 }
 
 div.awards .pill {
-    @apply w-max border-1 border-white bg-dark-blue font-bold text-white;
+    @apply w-max border border-white bg-dark-blue font-bold text-white;
 }
 
 .pill {
-    @apply inline-flex w-max items-center border-1 border-terminal-black-300 select-none;
+    @apply inline-flex w-max items-center border border-terminal-black-300 select-none;
     @apply rounded-full p-0.5 text-xs shadow-sm;
 }
 </style>

@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHouse } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+library.add(faHouse);
+
+import { useScrollToSection } from '@/js/composables/useScrollToSection';
+const { scrollToSection } = useScrollToSection();
 
 import { useModal } from '@/js/composables/useModal';
 const { openModal } = useModal();
@@ -15,27 +21,7 @@ const navigation = [
     }
 ];
 
-const scrollToSection = (sectionRef: string) => {
-    console.log('123 scrolltosection() - ', sectionRef);
-
-    // Use the global scrollToSection function if available
-    if (typeof window !== 'undefined' && window.scrollToSection) {
-        window.scrollToSection(sectionRef);
-    } else {
-        // Fallback: try to find the section by ID
-        const element = document.getElementById(sectionRef);
-        if (element) {
-            element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    }
-
-    mobileMenuOpen.value = false;
-};
-
-const mobileMenuOpen = ref(false);
+// const mobileMenuOpen = ref(isMobileMenuOpen);
 </script>
 
 <template>
@@ -43,8 +29,11 @@ const mobileMenuOpen = ref(false);
     <nav class="sticky top-0 overflow-visible bg-dark-blue border-b border-b-terminal-black-700 z-[999]">
         <div class="section-wrapper">
 
-            <div class="flex items-center justify-center">
-                <div class="hidden md:block">
+            <div class="flex justify-center">
+                <div class="md:block">
+                    <button @click="scrollToSection('home')" class="btn-home">
+                        <FontAwesomeIcon :icon="faHouse" size="lg" />
+                    </button>
                     <button v-for="item in navigation" :key="item.name" @click="scrollToSection(item.ref)" class="primary-nav">
                         {{ item.name }}
                     </button>
@@ -53,28 +42,6 @@ const mobileMenuOpen = ref(false);
                     </button>
                 </div>
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="hover:text-primary-600 p-2 text-gray-600">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mobile menu -->
-            <div v-if="mobileMenuOpen" class="md:hidden">
-                <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-                    <button
-                        v-for="item in navigation"
-                        :key="item.name"
-                        @click="scrollToSection(item.ref)"
-                        class="hover:text-primary-600 block rounded-md px-3 py-2 text-base font-medium text-gray-600"
-                    >
-                        {{ item.name }}
-                    </button>
-                </div>
             </div>
 
             <div class="absolute right-0">
@@ -87,45 +54,18 @@ const mobileMenuOpen = ref(false);
 <style scoped>
 @reference "@/css/app.css";
 
-/*button {
-    @apply relative h-12 w-40 cursor-pointer rounded-xl bg-transparent font-bold text-white uppercase;
-    !*    width: 10em;
-    height: 3.5em;*!
-    border: 3px ridge var(--color-primary);
-    outline: none;
-    transition: 1s;
-    font-size: 16px;
-    margin: 3rem 1rem 0 1rem;
+.btn-home {
+    @apply text-xl md:text-lg text-white me-4 opacity-80 hover:opacity-100 flex-none;
 }
 
-button::after {
-    @apply absolute bg-dark-blue;
-    content: '';
-    top: -10px;
-    left: 3%;
-    width: 94%;
-    height: 10px;
-    transition: 0.5s;
-    transform-origin: center;
+.primary-nav {
+    @apply w-auto md:w-40 md:h-8 text-white mx-1 my-4 md:mx-2 md:my-2 rounded-lg;
+    @apply border border-secondary outline-none bg-transparent;
+    @apply font-space-mono uppercase text-lg px-4 py-2 md:px-2 md:py-1 md:text-sm cursor-pointer;
+    @apply transition-all duration-400;
 }
 
-button::before {
-    @apply absolute bg-dark-blue;
-    content: '';
-    transform-origin: center;
-    top: 98%;
-    left: 3%;
-    width: 94%;
-    height: 10%;
-    transition: 0.5s;
+.primary-nav:hover {
+    @apply rounded-xl font-bold border-white;
 }
-
-button:hover::before,
-button:hover::after {
-    transform: scale(0);
-}
-
-button:hover {
-    box-shadow: inset 0 0 25px #1479ea;
-}*/
 </style>

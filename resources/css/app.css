@@ -148,22 +148,12 @@ p {
 }
 
 .btn-wrapper {
-    @apply flex w-full;
+    @apply flex flex-col items-end;
 }
 
 .btn {
     @apply mx-auto rounded-lg border-2 border-secondary bg-terminal-black/90 text-white px-7 py-1;
     @apply font-space-mono font-bold uppercase transition-all duration-100 cursor-pointer;
-}
-
-.primary-nav {
-    @apply w-40 h-8 border-1 border-secondary outline-none bg-transparent text-white m-2 rounded-lg;
-    @apply font-space-mono uppercase text-sm cursor-pointer;
-    @apply transition-all duration-400;
-}
-
-.primary-nav:hover {
-    @apply rounded-xl font-bold border-white;
 }
 
 .secondary-nav {
@@ -177,7 +167,7 @@ p {
 }
 
 .content-btn {
-    @apply border-1 border-secondary mx-2 py-1 px-5;
+    @apply border border-secondary mx-2 py-1 px-5;
     @apply font-space-mono text-sm cursor-pointer font-bold uppercase;
     @apply transition-all duration-200 rounded-lg;
 }

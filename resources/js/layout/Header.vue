@@ -1,4 +1,6 @@
-<script setup lang="ts" xmlns:md="http://www.w3.org/1999/html">
+<script setup lang="ts">
+import { useScrollToSection } from '@/js/composables/useScrollToSection';
+const { scrollToSection } = useScrollToSection();
 
 import { useModal } from '@/js/composables/useModal';
 
@@ -29,24 +31,6 @@ onMounted(() => {
         // showBackground.value = true;
     // }, 50);
 });
-
-const scrollToSection = (sectionName: string) => {
-    console.log('scrollToSection() - ', sectionName);
-
-    // Use the global scrollToSection function if available
-    if (typeof window !== 'undefined' && window.scrollToSection) {
-        window.scrollToSection(sectionName);
-    } else {
-        // Fallback: try to find the section by ID
-        const element = document.getElementById(sectionName);
-        if (element) {
-            element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    }
-};
 </script>
 
 <template>
@@ -73,7 +57,7 @@ const scrollToSection = (sectionName: string) => {
                         <span class="name text-outline">Jon Russell</span>
                     </h1>
 
-                    <p class="me-20">
+                    <p class="md:me-20">
                         A <strong>full-stack software engineer</strong>
                         who creates robust, scalable solutions that power modern web applications.
                     </p>
@@ -89,7 +73,7 @@ const scrollToSection = (sectionName: string) => {
                         </div>
                         <div class="profile-pill">
                             <FontAwesomeIcon :icon="faCertificate" size="sm" class="me-1" />
-                            ScrumMaster Certification
+                            Certified ScrumMaster
                         </div>
                         <div class="profile-pill">
                             <FontAwesomeIcon :icon="faUserShield" size="sm" class="me-1" />
@@ -97,27 +81,24 @@ const scrollToSection = (sectionName: string) => {
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div>
-                <div class="flex flex-col gap-8 lg:gap-0 lg:flex-row lg:items-center justify-between max-w-[600px] mt-8 mx-auto">
+                <div class="flex flex-col gap-8 lg:flex-row lg:items-center justify-between max-w-[600px] mt-8 mx-auto">
                     <div class="flex gap-2 lg:gap-4">
-                        <button class="secondary-nav"
-                                @click="openModal('contact-modal')">
+                        <button class="secondary-nav" @click="openModal('contact-modal')">
                             <FontAwesomeIcon :icon="faEnvelope" size="lg" class="me-3" />
                             Contact Me
                         </button>
-                        <button class="secondary-nav"
-                                @click="() => scrollToSection('projects')">
+                        <button class="secondary-nav" @click="scrollToSection('projects')">
                             <FontAwesomeIcon :icon="faObjectGroup" size="lg" class="me-3" />
                             View Projects
                         </button>
                     </div>
 
-                    <div data-orientation="vertical" role="none" class="shrink-0 w-[2px] bg-white h-5 hidden md:block"></div>
+                    <div data-orientation="vertical" role="none" class="shrink-0 w-[2px] bg-white h-5 hidden lg:block"></div>
 
-                    <div class="flex items-center pb-10 sm:pb-0 px-5 md:px-0 gap-14 md:gap-8 text-xl">
+                    <div class="flex mx-auto md:items-center pb-10 sm:pb-0 px-5 md:px-0 gap-14 md:gap-8 text-xl">
                         <a href="https://www.linkedin.com/in/russell-jonathan/" target="_blank">
                             <FontAwesomeIcon :icon="faLinkedin" size="lg" />
                         </a>
@@ -132,7 +113,6 @@ const scrollToSection = (sectionName: string) => {
             </div>
 
         </div>
-
     </div>
 
     <div class="intro-bottom"></div>
@@ -140,8 +120,6 @@ const scrollToSection = (sectionName: string) => {
 
 <style scoped>
 @reference "@/css/app.css";
-
-
 
 .intro-wrapper {
     @apply w-full text-white;
@@ -189,7 +167,7 @@ h1.welcome {
 }
 
 .name {
-    @apply font-bold font-space-mono ps-6 /*w-full md:w-auto lg:w-4/5 mx-auto*/ /*align-text-bottom*/;
+    @apply font-bold font-space-mono md:ps-6 /*w-full md:w-auto lg:w-4/5 mx-auto*/ /*align-text-bottom*/;
     @apply uppercase text-center text-dark-blue text-nowrap tracking-tighter;
     /*@apply text-6xl md:text-7xl lg:text-5xl;*/
 }
@@ -197,45 +175,39 @@ h1.welcome {
 p {
     /*@apply ms-4 md:ms-0 mt-10 md:mt-14 lg:mt-40 mb-8;*/
     /*@apply w-full md:w-5/6 lg:w-[93%] md:mx-auto md:-indent-8;*/
-    @apply text-xl lg:text-2xl text-terminal-black-100 text-start;
+    @apply text-2xl text-terminal-black-100 text-start;
     /*@apply md:leading-relaxed;*/
 }
 
 strong {
-    @apply /*px-3 text-3xl lg:text-4xl lg:tracking-wider*/ font-extrabold;
+    @apply md:px-3 lg:tracking-wider font-extrabold;
 }
 
 .profile-avatar-wrapper {
     @apply flex flex-col rounded-full w-full;
-    @apply lg:max-w-[132px] mt-[-16px];
+    @apply lg:max-w-[150px] mt-[-16px];
 /*    @apply md:h-80 md:w-73;
     @apply lg:h-90 lg:w-84;*/
-    @apply items-center lg:items-end;
+    @apply items-center md:items-end;
 }
 
 .profile-avatar-backdrop {
-    @apply absolute z-30 w-40 h-50;
-    @apply lg:max-w-[132px] lg:max-h-[140px];
-    /*@apply md:w-52 md:h-50;*/
-    @apply mt-8;
-/*    @apply md:me-4 md:mt-16;
-    @apply lg:me-2 lg:mt-18;*/
+    @apply absolute z-30 w-55 h-57;
+    @apply mt-10 lg:w-60;
+    @apply md:mt-4 md:w-31 md:h-35;
     @apply rounded-sm border-2 border-secondary to-purple-100;
     @apply bg-white/20 backdrop-blur-sm backdrop-opacity-50 backdrop-saturate-100;
+    @apply lg:max-w-[140px] lg:max-h-[160px];
 }
 
 .profile-avatar {
-    @apply z-40 m-0 w-34 /*w-76 md:h-full md:w-full lg:w-60*/ rounded-full object-cover;
-    /*width:180px;*/
+    @apply z-40 m-0 mt-[-20px] md:me-[-5px] w-55 md:w-34 rounded-full object-cover;
+
 }
 
 .profile-pill {
-    @apply w-max rounded-full border-1 border-white bg-blue font-semibold;
-    @apply my-1 p-0.5 px-2 text-[18px] md:text-xs;
-}
-
-.profile-icons {
-    @apply z-50 text-right pe-4;
+    @apply w-max rounded-full border border-white bg-blue font-semibold;
+    @apply my-1 py-1 px-2 text-[18px] md:text-xs;
 }
 
 a svg {
