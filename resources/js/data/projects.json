@@ -5,7 +5,7 @@
         "byline": "SaaS budgeting platform supporting the Navy's Strategic Systems Programs.",
         "description": "<p>At Pioneering Evolution, I worked on a budgeting platform used by the Department of Defense to plan and simulate complex financial scenarios. The system lets analysts manage detailed data, test \"what-if\" projections, and track approvals across multiple leadership levels.</p><p>I worked full stack across Laravel 11, PHP 8, MySQL 8, Vue 3, and TypeScript, contributing to both the backend architecture and the frontend experience. One of my biggest contributions was leading the migration from Vue 2 to Vue 3, a major overhaul that modernized the codebase and improved long-term maintainability. I also focused on performance-critical areas, rewriting API endpoints and optimizing queries to cut response times and reduce memory usage.</p><p>Beyond code, I worked closely with QA and DevOps to ensure smooth deployments, and I paired with teammates for mentoring, reviews, and shared problem-solving. The result was a faster, cleaner, and more resilient platform that helped users make smarter, data-driven budget decisions with confidence.</p>",
         "skills": ["Laravel", "Vue.js", "PHP", "MySQL", "TypeScript", "JavaScript", "BootstrapVue", "BootstrapVueNext"],
-        "technologies": ["AWS", "Microservices", "Vuex", "Pinia", "RestAPIs", "Node.js"],
+        "technologies": ["AWS", "Microservices", "Vuex", "Pinia", "REST APIs", "Node.js"],
         "tools": ["Docker", "PEST", "Vite", "Bitbucket", "Git"],
         "company": "Pioneering Evolution",
         "icon": "",
