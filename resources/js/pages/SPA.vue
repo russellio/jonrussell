@@ -17,22 +17,22 @@ const isContactOpen = computed(() => isOpen('contact-modal'));
 <template>
     <div class="app-layout" id="home">
 
-        <Nav ref="navigation" />
+        <Nav />
 
         <header>
             <!-- Header / Intro / Navigation -->
-            <Header ref="header" />
+            <Header />
         </header>
 
         <!-- Main content with all sections -->
-        <main ref="main">
+        <main>
             <!-- About Section -->
-            <ContentFrame>
+            <ContentFrame id="about">
                 <AboutSection />
             </ContentFrame>
 
             <!-- Projects Section -->
-            <ContentFrame>
+            <ContentFrame id="projects">
                 <ProjectsSection />
             </ContentFrame>
 
