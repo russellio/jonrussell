@@ -211,7 +211,7 @@ const submitForm = async () => {
         title="Contact Me"
         :showSubmit="true"
         :submitDisabled="!isFormValid || isFormSubmitted"
-        submitText="Send Message"
+        submitText="send message"
         :isLoading="isLoading"
         @submit="submitForm"
     >
@@ -278,7 +278,7 @@ const submitForm = async () => {
                 </div>
 
                 <div class="flex justify-center">
-                    <div id="turnstile-container"></div>
+                    <div class="scale-80 md:scale-100" id="turnstile-container"></div>
                 </div>
             </div>
         </div>
