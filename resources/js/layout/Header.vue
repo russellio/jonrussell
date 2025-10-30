@@ -99,9 +99,9 @@ onMounted(() => {
                         <a href="https://www.linkedin.com/in/russell-jonathan/" target="_blank">
                             <FontAwesomeIcon :icon="faLinkedin" size="lg" />
                         </a>
-<!--                        <a href="https://github.com/russellio" target="_blank">-->
-<!--                            <FontAwesomeIcon :icon="faGithub" size="lg" />-->
-<!--                        </a>-->
+                        <a href="https://github.com/russellio" target="_blank">
+                            <FontAwesomeIcon :icon="faGithub" size="lg" />
+                        </a>
                         <a type="button" @click="openModal('contact-modal')" class="cursor-pointer">
                             <FontAwesomeIcon :icon="faEnvelope" size="lg" />
                         </a>
