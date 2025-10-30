@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 const { scrollToSection } = useScrollToSection();
 
@@ -24,12 +25,7 @@ const techStack = [
     { tech: 'Agile', percent: '90' },
     { tech: 'OOP / MVC', percent: '95' },
 ];
-const techStackRefs = ref([]);
-
-const progressOffset = (percent:number): number => {
-    const offset = 140;
-    return (percent) ? offset * (percent/100) : offset;
-}
+const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
 </script>
 
 <template>
@@ -63,7 +59,7 @@ const progressOffset = (percent:number): number => {
                 <ul class="ms-6">
                     <li v-for="(item, index) in techStack"
                         :key="item.tech"
-                        :style="{ '--width': 'calc(' + item.percent + '% - ' + progressOffset(item.percent) + 'px)' }"
+                        :style="{ '--percent': parseInt(item.percent) / 100 }"
                         class="ms-6"
                         :ref="(el) => { techStackRefs[index] = el }"
                     >
@@ -223,7 +219,7 @@ ul li {
     position: absolute;
     left: 140px;
     top: 50%;
-    width: var(--width);
+    width: calc((100% - 140px) * var(--percent));
     height: 4px;
     background: linear-gradient(90deg, var(--color-bright-green), var(--color-bright-green));
     transform: translateY(-50%);
