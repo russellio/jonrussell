@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 const { scrollToSection } = useScrollToSection();
-
 import { useModal } from '@/js/composables/useModal';
-
+import ToggleSwitch from '@/js/components/ToggleSwitch.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faObjectGroup } from '@fortawesome/free-regular-svg-icons';
@@ -34,14 +33,18 @@ onMounted(() => {
 </script>
 
 <template>
+
+    <div class="absolute top-0 right-0 z-[9999]">
+        <ToggleSwitch v-model="showBackground" />
+    </div>
+
     <div class="fallback-background" :class="{ 'fade-out': showBackground }"></div>
 
     <Transition name="background-fade" appear>
-<!--        <BackgroundStars v-if="showBackground" ref="stars" @backgroundReady="handleBackgroundReady" />-->
-        <BackgroundStars v-if="showBackground" ref="stars" />
+        <BackgroundStars v-if="showBackground" ref="stars" @backgroundReady="handleBackgroundReady" />
     </Transition>
 
-    <div class="intro-wrapper flex justify-center items-center p-6 min-h-[calc(100vh-80px)] mx-auto">
+    <div class="intro-wrapper flex justify-center items-center px-2 md:px-6 py-6 min-h-[calc(100vh-80px)] mx-auto">
        <div class="intro-backdrop hidden"></div>
 
         <div class="intro-content grid grid-cols-1 max-w-[768px]">
@@ -57,7 +60,7 @@ onMounted(() => {
                         <span class="name text-outline">Jon Russell</span>
                     </h1>
 
-                    <p class="md:me-20">
+                    <p class="md:me-0 lg:me-20">
                         A <strong>full-stack software engineer</strong>
                         who creates robust, scalable solutions that power modern web applications.
                     </p>
@@ -84,7 +87,7 @@ onMounted(() => {
             </div>
 
             <div>
-                <div class="flex flex-col gap-8 lg:flex-row lg:items-center justify-between max-w-[600px] mt-8 mx-auto">
+                <div class="flex flex-col gap-8 md:flex-row items-center justify-between max-w-[600px] mt-8 mx-auto">
                     <div class="flex gap-2 lg:gap-4">
                         <button class="secondary-nav" @click="openModal('contact-modal')">
                             <FontAwesomeIcon :icon="faEnvelope" size="lg" class="me-3" />
@@ -96,15 +99,15 @@ onMounted(() => {
                         </button>
                     </div>
 
-                    <div data-orientation="vertical" role="none" class="shrink-0 w-[2px] bg-white h-5 hidden lg:block"></div>
+                    <div data-orientation="vertical" role="none" class="shrink-0 w-[2px] bg-white h-5 hidden md:block"></div>
 
-                    <div class="flex mx-auto md:items-center pb-10 sm:pb-0 px-5 md:px-0 gap-14 md:gap-8 text-xl">
+                    <div class="flex pb-10 sm:pb-0 px-5 md:px-0 gap-4 md:gap-8 text-xl">
                         <a href="https://www.linkedin.com/in/russell-jonathan/" target="_blank">
                             <FontAwesomeIcon :icon="faLinkedin" size="lg" />
                         </a>
-                        <a href="https://github.com/russellio" target="_blank">
-                            <FontAwesomeIcon :icon="faGithub" size="lg" />
-                        </a>
+<!--                        <a href="https://github.com/russellio" target="_blank">-->
+<!--                            <FontAwesomeIcon :icon="faGithub" size="lg" />-->
+<!--                        </a>-->
                         <a type="button" @click="openModal('contact-modal')" class="cursor-pointer">
                             <FontAwesomeIcon :icon="faEnvelope" size="lg" />
                         </a>
@@ -143,44 +146,33 @@ onMounted(() => {
     @apply hidden md:block;
     @apply max-w-7xl px-4 sm:px-6 lg:px-8;
     @apply relative z-[-1] mx-auto h-3 w-9/10;
-    /*@apply bg-gradient-to-b from-transparent to-dark-blue;*/
 }
 
-/*div.welcome {
-    !*@apply w-full mt-40 max-w-7xl lg:w-3/4 mx-auto;*!
-    @apply px-2 lg:px-10;
-}*/
 
 h1 {
-    @apply /*absolute top-20*/ text-primary font-sixtyfour /*md:text-6xl lg:text-7xl*/;
-    /*@apply w-full md:w-3/4 md:text-nowrap md:-indent-10;*/
+    @apply text-primary font-sixtyfour;
 }
 
 h1.welcome {
-    /*@apply block*/ /*md:text-6xl lg:text-5xl*/;
     @apply text-5xl;
 }
 
 .clause-head {
     @apply text-5xl text-center text-white;
-    /*@apply text-white md:text-6xl lg:text-7xl align-top block   mt-4 md:text-start;*/
 }
 
 .name {
-    @apply font-bold font-space-mono md:ps-6 /*w-full md:w-auto lg:w-4/5 mx-auto*/ /*align-text-bottom*/;
+    @apply font-bold font-space-mono md:ps-6;
     @apply uppercase text-center text-dark-blue text-nowrap tracking-tighter;
-    /*@apply text-6xl md:text-7xl lg:text-5xl;*/
 }
 
 p {
-    /*@apply ms-4 md:ms-0 mt-10 md:mt-14 lg:mt-40 mb-8;*/
-    /*@apply w-full md:w-5/6 lg:w-[93%] md:mx-auto md:-indent-8;*/
     @apply text-2xl text-terminal-black-100 text-start;
     /*@apply md:leading-relaxed;*/
 }
 
 strong {
-    @apply md:px-3 lg:tracking-wider font-extrabold;
+    @apply md:px-0 lg:px-3 md:tracking-wider font-extrabold md:text-[2rem];
 }
 
 .profile-avatar-wrapper {

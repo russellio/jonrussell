@@ -20,8 +20,6 @@ const navigation = [
         ref: 'projects',
     }
 ];
-
-// const mobileMenuOpen = ref(isMobileMenuOpen);
 </script>
 
 <template>
@@ -43,10 +41,6 @@ const navigation = [
                 </div>
 
             </div>
-
-            <div class="absolute right-0">
-
-            </div>
         </div>
     </nav>
 </template>
@@ -61,7 +55,7 @@ const navigation = [
 .primary-nav {
     @apply w-auto md:w-40 md:h-8 text-white mx-1 my-4 md:mx-2 md:my-2 rounded-lg;
     @apply border border-secondary outline-none bg-transparent;
-    @apply font-space-mono uppercase text-lg px-4 py-2 md:px-2 md:py-1 md:text-sm cursor-pointer;
+    @apply font-space-mono uppercase text-lg px-2 lg:px-4 py-2 md:px-2 md:py-1 md:text-sm cursor-pointer;
     @apply transition-all duration-400;
 }
 

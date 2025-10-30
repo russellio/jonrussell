@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 const { scrollToSection } = useScrollToSection();
 
@@ -7,6 +8,28 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faCaretRight);
+
+const techStack = [
+    { tech: 'Laravel', percent: '90' },
+    { tech: 'PHP', percent: '95' },
+    { tech: 'REST APIs', percent: '95' },
+    { tech: 'MySQL / RDMS', percent: '90' },
+    { tech: 'Vue', percent: '80' },
+    { tech: 'React', percent: '45' },
+    { tech: 'JavaScript', percent: '95' },
+    { tech: 'TypeScript', percent: '80' },
+    { tech: 'HTML5', percent: '95' },
+    { tech: 'CSS3', percent: '95' },
+    { tech: 'PEST / PHPUnit', percent: '75' },
+    { tech: 'Agile', percent: '90' },
+    { tech: 'OOP / MVC', percent: '95' },
+];
+const techStackRefs = ref([]);
+
+const progressOffset = (percent:number): number => {
+    const offset = 140;
+    return (percent) ? offset * (percent/100) : offset;
+}
 </script>
 
 <template>
@@ -38,23 +61,19 @@ library.add(faCaretRight);
             <div class="tech-stack">
                 <h3>Tech Stack</h3>
                 <ul class="ms-6">
-                    <li style="--percent: 90%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> Laravel</li>
-                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> PHP</li>
-                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> REST APIs</li>
-                    <li style="--percent: 90%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> MySQL / RDMS</li>
-                    <li style="--percent: 80%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> Vue</li>
-                    <li style="--percent: 45%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> React</li>
-                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> JavaScript</li>
-                    <li style="--percent: 80%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> TypeScript</li>
-                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> HTML5</li>
-                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> CSS3</li>
-                    <li style="--percent: 75%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> PEST / PHPUnit</li>
-                    <li style="--percent: 90%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> Agile</li>
-                    <li style="--percent: 95%" class="ms-6"><span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span> OOP / MVC</li>
+                    <li v-for="(item, index) in techStack"
+                        :key="item.tech"
+                        :style="{ '--width': 'calc(' + item.percent + '% - ' + progressOffset(item.percent) + 'px)' }"
+                        class="ms-6"
+                        :ref="(el) => { techStackRefs[index] = el }"
+                    >
+                        <span class="fa-li text-gold"><FontAwesomeIcon :icon="faCaretRight" /></span>
+                        {{ item.tech }}
+                    </li>
                 </ul>
 
                 <div class="btn-wrapper">
-                    <button @click="scrollToSection('projects')" class="content-btn">Projects</button>
+                    <button @click="scrollToSection('projects')" class="btn-content">Projects</button>
                 </div>
             </div>
 
@@ -150,7 +169,6 @@ library.add(faCaretRight);
             </div>
         </div>
 
-
     </section>
 </template>
 
@@ -205,8 +223,7 @@ ul li {
     position: absolute;
     left: 140px;
     top: 50%;
-    width: calc(var(--percent) - 140px);
-    min-width: 140px;
+    width: var(--width);
     height: 4px;
     background: linear-gradient(90deg, var(--color-bright-green), var(--color-bright-green));
     transform: translateY(-50%);

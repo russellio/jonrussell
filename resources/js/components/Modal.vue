@@ -66,15 +66,15 @@ const handleSubmit = () => {
                 <button
                     @click="closeModal(modalId)"
                     :disabled="isLoading"
-                    class="rounded-md bg-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-400 disabled:opacity-50 cursor-pointer"
+                    class="btn-cancel"
                 >
-                    Close
+                    cancel
                 </button>
                 <button
                     v-if="showSubmit"
                     @click="handleSubmit"
                     :disabled="isLoading || submitDisabled"
-                    class="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+                    class="btn"
                 >
                     <span v-if="isLoading" class="animate-spin">
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -93,4 +93,15 @@ const handleSubmit = () => {
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+@reference "@/css/app.css";
+
+.btn {
+    @apply mx-0;
+}
+
+.btn-submit {
+    @apply flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50;
+}
+
+</style>
