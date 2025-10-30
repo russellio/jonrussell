@@ -90,7 +90,7 @@ const leadershipSkills = [
 </script>
 
 <template>
-    <section id="about">
+    <section>
         <div class="mt-10 mb-16 text-center">
             <h2>About</h2>
         </div>

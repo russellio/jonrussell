@@ -24,7 +24,7 @@ const openProjectModal = (project: any) => {
 </script>
 
 <template>
-    <section id="projects">
+    <section>
         <!-- Page Header -->
         <div class="mt-10 mb-16 text-center">
             <h2>Projects</h2>
@@ -63,7 +63,7 @@ const openProjectModal = (project: any) => {
                             <p>{{ project.byline }}</p>
 
                             <!-- Technologies -->
-                            <div v-if="project.technologies" class="w-full mt-2 flex flex-wrap gap-1 justify-center absolute bottom-4 left-0">
+                            <div v-if="project.technologies" class="w-full flex flex-wrap gap-1 justify-center absolute bottom-4 left-0">
                                 <div v-for="(tech, index) in project.technologies" :key="index" class="pill">
                                     <span class="mx-3 my-0.5">{{ tech }}</span>
                                 </div>
@@ -101,13 +101,13 @@ const openProjectModal = (project: any) => {
     @apply absolute bottom-0 z-50 w-full border-t-1 border-terminal-black-300 bg-terminal-black px-4 pt-2 text-white;
     @apply bg-gradient-to-t from-black via-terminal-black to-transparent;
     @apply opacity-100 lg:opacity-0 lg:transition-opacity lg:duration-300 lg:ease-in-out lg:group-hover:opacity-100;
-    @apply h-[9.5rem];
+    @apply h-[8.5rem];
 }
 
 .project-title-backdrop {
     @apply absolute z-20 m-1 w-[98%] rounded-md p-0.5 lg:mt-15;
     @apply border border-s-0 border-t-0 border-terminal-black-700;
-    @apply lg:transition-all lg:duration-300 lg:ease-in-out lg:group-hover:mt-5;
+    @apply lg:transition-all lg:duration-300 lg:ease-in-out lg:group-hover:mt-2;
     @apply sm:max-lg:mt-2;
 }
 
