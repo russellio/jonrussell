@@ -34,7 +34,7 @@ const openProjectModal = (project: any) => {
         </div>
 
         <!-- Projects Grid -->
-        <div class="grid w-11/12 mx-auto justify-evenly grid-cols-1 gap-12 md:grid-cols-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-12 w-full lg:w-11/12 lg:mx-auto">
             <div v-for="(project, index) in projects" :key="index" class="card">
                 <a aria-label="View project details" class="cursor-pointer">
                     <div class="group project" @click="openProjectModal(project)">
@@ -63,9 +63,9 @@ const openProjectModal = (project: any) => {
                             <p>{{ project.byline }}</p>
 
                             <!-- Technologies -->
-                            <div v-if="project.technologies" class="mt-2 mb-4 flex flex-wrap gap-2">
+                            <div v-if="project.technologies" class="w-full mt-2 flex flex-wrap gap-1 justify-center absolute bottom-4 left-0">
                                 <div v-for="(tech, index) in project.technologies" :key="index" class="pill">
-                                    <span class="mx-2.5 my-1 leading-none">{{ tech }}</span>
+                                    <span class="mx-3 my-0.5">{{ tech }}</span>
                                 </div>
                             </div>
                         </div>
@@ -87,38 +87,39 @@ const openProjectModal = (project: any) => {
 @reference "@/css/app.css";
 
 .project {
-    @apply relative z-0 h-[260px] overflow-hidden rounded-lg border border-terminal-black-200 align-bottom bg-terminal-black;
+    @apply relative z-0 h-[290px] lg:h-[260px] overflow-hidden rounded-lg border border-terminal-black-200 align-bottom bg-terminal-black;
 }
 
 .project-image {
     @apply absolute opacity-80 transition-opacity duration-300 group-hover:opacity-100;
-    @apply z-10 object-none;
+    @apply z-10 object-none blur-[1px] lg:blur-none;
     object-position: -30px -130px;
-    @apply transition-[blur] duration-300 ease-in-out group-hover:blur-[1px];
+    @apply transition-[blur] duration-300 ease-in-out group-hover:blur-[2px];
 }
 
 .project-info-wrapper {
     @apply absolute bottom-0 z-50 w-full border-t-1 border-terminal-black-300 bg-terminal-black px-4 pt-2 text-white;
-    @apply bg-gradient-to-t from-black via-terminal-black to-transparent md:opacity-0 md:transition-opacity md:duration-300 md:ease-in-out md:group-hover:opacity-100;
-    @apply max-md:opacity-100;
+    @apply bg-gradient-to-t from-black via-terminal-black to-transparent;
+    @apply opacity-100 lg:opacity-0 lg:transition-opacity lg:duration-300 lg:ease-in-out lg:group-hover:opacity-100;
+    @apply h-[9.5rem];
 }
 
 .project-title-backdrop {
-    @apply absolute z-20 m-1 w-[98%] rounded-md p-0.5 md:mt-15;
+    @apply absolute z-20 m-1 w-[98%] rounded-md p-0.5 lg:mt-15;
     @apply border border-s-0 border-t-0 border-terminal-black-700;
-    @apply md:transition-all md:duration-300 md:ease-in-out md:group-hover:mt-5;
-    @apply sm:max-md:mt-2;
+    @apply lg:transition-all lg:duration-300 lg:ease-in-out lg:group-hover:mt-5;
+    @apply sm:max-lg:mt-2;
 }
 
 h1 {
     @apply text-2xl lg:text-3xl font-extrabold text-secondary;
     @apply rounded-md border border-white p-1 ps-8 backdrop-blur-sm;
-    @apply bg-white/80 backdrop-filter md:transition-[bg-white] md:duration-300 md:ease-in md:group-hover:bg-white/45;
-    @apply sm:max-md:bg-white/45;
+    @apply bg-white/80 backdrop-filter lg:transition-[bg-white] lg:duration-300 lg:ease-in lg:group-hover:bg-white/45;
+    @apply sm:max-lg:bg-white/45;
 }
 
 div.awards {
-    @apply absolute mt-2 grid w-full grid-cols-1 justify-items-end pe-2 opacity-90;
+    @apply absolute mt-2 grid grid-cols-1 justify-items-center lg:justify-items-end lg:pe-2 opacity-90;
 }
 
 div.awards .pill {
@@ -127,10 +128,10 @@ div.awards .pill {
 
 .pill {
     @apply inline-flex w-max items-center border border-terminal-black-300 select-none;
-    @apply rounded-full p-0.5 text-xs shadow-sm;
+    @apply rounded-full p-0 lg:p-0.5 text-xs shadow-sm;
 }
 
 .card {
-    @apply bg-white rounded-lg shadow-md border border-gray-200;
+
 }
 </style>
