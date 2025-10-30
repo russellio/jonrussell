@@ -2,7 +2,6 @@
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 const { scrollToSection } = useScrollToSection();
 import { useModal } from '@/js/composables/useModal';
-import ToggleSwitch from '@/js/components/ToggleSwitch.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faObjectGroup } from '@fortawesome/free-regular-svg-icons';
@@ -33,11 +32,6 @@ onMounted(() => {
 </script>
 
 <template>
-
-    <div class="absolute top-0 right-0 z-[9999]">
-        <ToggleSwitch v-model="showBackground" />
-    </div>
-
     <div class="fallback-background" :class="{ 'fade-out': showBackground }"></div>
 
     <Transition name="background-fade" appear>
