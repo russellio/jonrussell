@@ -26,10 +26,71 @@ const techStack = [
     { tech: 'OOP / MVC', percent: '95' },
 ];
 const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
+
+const softwareSkills = [
+    'PHP 8',
+    'JavaScript',
+    'TypeScript',
+    'SQL',
+    'MySQL 8',
+    'Node.js',
+    'Laravel',
+    'Vue 3',
+    'Vuex',
+    'Pinia',
+    'jQuery',
+    'webpack',
+    'Vite',
+    'HTML5',
+    'CSS3',
+    'SCSS',
+    'Bootstrap',
+    'Tailwind CSS',
+    'JSON',
+    'XML',
+    'Git',
+    'Jira',
+    'REST APIs',
+    'Microservices',
+    'OOP',
+    'MVC',
+    'SDLC',
+    'SaaS',
+    'SEO',
+    'a11y',
+];
+
+const devOpsSkills = [
+    'AWS',
+    'Linux',
+    'Docker',
+    'CI/CD automation',
+    'Jenkins',
+    'Azure Pipelines',
+    'Github',
+    'Bitbucket',
+];
+
+const qualitySkills = [
+    'Unit testing',
+    'PEST',
+    'PHPUnit',
+    'Code reviews',
+    'Pair programming',
+    'API optimization',
+    'Plays well with others',
+];
+
+const leadershipSkills = [
+    'Team mentoring',
+    'Innovative process improvement',
+    'Experienced Manager, Project Manager',
+    'Certified ScrumMaster (CSM)',
+];
 </script>
 
 <template>
-    <section id="about">
+    <section>
         <div class="mt-10 mb-16 text-center">
             <h2>About</h2>
         </div>
@@ -80,38 +141,21 @@ const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
                     <div class="lg:w-3/5">
                         <h4>Software Engineering</h4>
                         <div class="skills">
-                            <span class="pill">Node.js</span>
-                            <span class="pill">SQL</span>
-                            <span class="pill">SCSS</span>
-                            <span class="pill">Bootstrap</span>
-                            <span class="pill">jQuery</span>
-                            <span class="pill">JSON</span>
-                            <span class="pill">XML</span>
-                            <span class="pill">Vuex</span>
-                            <span class="pill">Pinia</span>
-                            <span class="pill">SaaS</span>
-                            <span class="pill">SDLC</span>
-                            <span class="pill">OOP</span>
-                            <span class="pill">MVC</span>
-                            <span class="pill">Jira</span>
-                            <span class="pill">webpack</span>
-                            <span class="pill">Vite</span>
-                            <span class="pill">Git</span>
-                            <span class="pill">SEO</span>
-                            <span class="pill">a11y</span>
+                            <span
+                                v-for="skill in softwareSkills"
+                                :key="skill"
+                                class="pill"
+                            >{{ skill }}</span>
                         </div>
                     </div>
                     <div class="lg:w-2/5">
                         <h4>Architecture & DevOps</h4>
                         <div class="skills">
-                            <span class="pill">AWS</span>
-                            <span class="pill">Docker</span>
-                            <span class="pill">CI/CD automation</span>
-                            <span class="pill">Azure Pipelines</span>
-                            <span class="pill">Jenkins</span>
-                            <span class="pill">Github</span>
-                            <span class="pill">Bitbucket</span>
-                            <span class="pill">Linux</span>
+                            <span
+                                v-for="skill in devOpsSkills"
+                                :key="skill"
+                                class="pill"
+                            >{{ skill }}</span>
                         </div>
                     </div>
                 </div>
@@ -119,22 +163,21 @@ const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
                     <div class="lg:w-1/2">
                         <h4>Quality & Collaboration</h4>
                         <div class="skills">
-                            <span class="pill">Unit testing</span>
-                            <span class="pill">PEST</span>
-                            <span class="pill">PHPUnit</span>
-                            <span class="pill">Code reviews</span>
-                            <span class="pill">Pair programming</span>
-                            <span class="pill">API optimization</span>
-                            <span class="pill">Plays well with others</span>
+                            <span
+                                v-for="skill in qualitySkills"
+                                :key="skill"
+                                class="pill"
+                            >{{ skill }}</span>
                         </div>
                     </div>
                     <div class="lg:w-1/2">
                         <h4>Leadership & Team Building</h4>
                         <div class="skills">
-                            <span class="pill">Team mentoring</span>
-                            <span class="pill">Innovative process improvement</span>
-                            <span class="pill">Experienced Manager, Project Manager</span>
-                            <span class="pill">ScrumMaster Certification (CSM)</span>
+                            <span
+                                v-for="skill in leadershipSkills"
+                                :key="skill"
+                                class="pill"
+                            >{{ skill }}</span>
                         </div>
                     </div>
                 </div>
