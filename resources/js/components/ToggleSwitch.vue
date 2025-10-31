@@ -34,7 +34,7 @@ const emitChange = () => {
 
 <template>
     <label class="flex items-center cursor-pointer">
-        <span v-if="label" class="text-terminal-black-50 me-2" :class="{'text-bright-green': internalValue, 'font-bold': internalValue}">
+        <span v-if="label" class="text-terminal-black-50 me-2" :class="{'font-bold': internalValue}">
             {{ label }}
         </span>
         <div class="relative">
