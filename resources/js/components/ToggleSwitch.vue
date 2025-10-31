@@ -1,38 +1,42 @@
-<script lang="ts">
-import {defineComponent} from 'vue'
+<script setup lang="ts">
+import { ref, watch } from 'vue';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-export default defineComponent({
-    name: "ToggleSwitch",
-    props: {
-        modelValue: {
-            type: Boolean,
-            default: false,
-        },
-        label: {
-            type: String,
-            default: '',
-        },
+library.add(faStar);
+
+const props = defineProps({
+    modelValue: {
+        type: Boolean,
+        default: false,
     },
-    data() {
-        return {
-            internalValue: this.modelValue,
-        };
+    label: {
+        type: String,
+        default: '',
     },
-    watch: {
-        modelValue(newValue) {
-            this.internalValue = newValue;
-        },
-    },
-    methods: {
-        emitChange() {
-            this.$emit('update:modelValue', this.internalValue);
-        },
-    },
-})
+});
+
+const emit = defineEmits<{
+    (e: 'update:modelValue', value: boolean): void;
+}>();
+
+const internalValue = ref(props.modelValue);
+
+watch(() => props.modelValue, (newValue) => {
+    internalValue.value = newValue;
+});
+
+const emitChange = () => {
+    emit('update:modelValue', internalValue.value);
+};
 </script>
 
 <template>
     <label class="flex items-center cursor-pointer">
+        <span v-if="label" class="text-terminal-black-50 me-2" :class="{'font-bold': internalValue}">
+            {{ label }}
+        </span>
         <div class="relative">
             <input
                 type="checkbox"
@@ -41,13 +45,13 @@ export default defineComponent({
                 @change="emitChange"
             />
             <div
-                class="w-10 h-6 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-500 transition-colors duration-200 ease-in-out"
+                class="w-8 h-4 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-500 transition-colors duration-200 ease-in-out"
             ></div>
             <div
-                class="absolute left-0 top-0 w-6 h-6 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out peer-checked:translate-x-full"
+                class="absolute left-0 top-0 w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out peer-checked:translate-x-full"
             ></div>
         </div>
-        <span v-if="label" class="ml-3 text-gray-700">{{ label }}</span>
+        <FontAwesomeIcon :icon="faStar" class="ms-2 text-gold opacity-40 rotate-12" :class="{ 'visible': internalValue, 'collapse': !internalValue }" size="lg" />
     </label>
 </template>
 

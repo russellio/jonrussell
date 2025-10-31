@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ToggleSwitch from '@/js/components/ToggleSwitch.vue';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 const { scrollToSection } = useScrollToSection();
 import { useModal } from '@/js/composables/useModal';
@@ -7,35 +8,25 @@ import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCertificate, faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { defineAsyncComponent, onMounted, ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 
 library.add(faLocationDot, faLinkedin, faEnvelope, faObjectGroup, faUserShield, faCertificate, faGithub);
 
 const { openModal } = useModal();
 
 const BackgroundStars = defineAsyncComponent(() => import('@/js/components/BackgroundStars.vue'));
-// const backgroundLoaded = ref(false);
 const showBackground = ref(false);
-// const handleBackgroundReady = () => {
-//     backgroundLoaded.value = true;
-//     // Small delay to ensure smooth transition
-//     setTimeout(() => {
-//         showBackground.value = true;
-//     }, 100);
-// };
-
-onMounted(() => {
-    // setTimeout(() => {
-        // showBackground.value = true;
-    // }, 50);
-});
 </script>
 
 <template>
+    <div class="fixed top-4 right-10 z-[999] text-white font-space-mono text-sm">
+        <ToggleSwitch label="space mode:" v-model="showBackground" />
+    </div>
+
     <div class="fallback-background" :class="{ 'fade-out': showBackground }"></div>
 
     <Transition name="background-fade" appear>
-        <BackgroundStars v-if="showBackground" ref="stars" @backgroundReady="handleBackgroundReady" />
+        <BackgroundStars v-if="showBackground" />
     </Transition>
 
     <div class="intro-wrapper flex justify-center items-center px-2 md:px-6 py-6 min-h-[calc(100vh-80px)] mx-auto">
