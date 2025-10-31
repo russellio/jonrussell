@@ -16,7 +16,7 @@ class SkillTypeSeeder extends Seeder
         $skillTypes = [
             [
                 'name' => 'Software Engineering',
-                'slug' => 'software-engineering',
+                'slug' => 'software',
                 'order' => 1,
                 'skills' => [
                     'PHP 8',
@@ -53,7 +53,7 @@ class SkillTypeSeeder extends Seeder
             ],
             [
                 'name' => 'Architecture & DevOps',
-                'slug' => 'architecture-devops',
+                'slug' => 'devops',
                 'order' => 2,
                 'skills' => [
                     'AWS',
@@ -68,7 +68,7 @@ class SkillTypeSeeder extends Seeder
             ],
             [
                 'name' => 'Quality & Collaboration',
-                'slug' => 'quality-collaboration',
+                'slug' => 'quality',
                 'order' => 3,
                 'skills' => [
                     'Unit testing',
@@ -82,7 +82,7 @@ class SkillTypeSeeder extends Seeder
             ],
             [
                 'name' => 'Leadership & Team Building',
-                'slug' => 'leadership-team-building',
+                'slug' => 'leadership',
                 'order' => 4,
                 'skills' => [
                     'Team mentoring',

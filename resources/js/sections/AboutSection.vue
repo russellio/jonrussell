@@ -164,7 +164,7 @@ onMounted(() => {
                             <h4>Software Engineering</h4>
                             <div class="skills">
                                 <span
-                                    v-for="skill in getSkillsBySlug('software-engineering')"
+                                    v-for="skill in getSkillsBySlug('software')"
                                     :key="skill.id"
                                     class="pill"
                                 >{{ skill.name }}</span>
@@ -174,7 +174,7 @@ onMounted(() => {
                             <h4>Architecture & DevOps</h4>
                             <div class="skills">
                                 <span
-                                    v-for="skill in getSkillsBySlug('architecture-devops')"
+                                    v-for="skill in getSkillsBySlug('devops')"
                                     :key="skill.id"
                                     class="pill"
                                 >{{ skill.name }}</span>
@@ -186,7 +186,7 @@ onMounted(() => {
                             <h4>Quality & Collaboration</h4>
                             <div class="skills">
                                 <span
-                                    v-for="skill in getSkillsBySlug('quality-collaboration')"
+                                    v-for="skill in getSkillsBySlug('quality')"
                                     :key="skill.id"
                                     class="pill"
                                 >{{ skill.name }}</span>
@@ -196,7 +196,7 @@ onMounted(() => {
                             <h4>Leadership & Team Building</h4>
                             <div class="skills">
                                 <span
-                                    v-for="skill in getSkillsBySlug('leadership-team-building')"
+                                    v-for="skill in getSkillsBySlug('leadership')"
                                     :key="skill.id"
                                     class="pill"
                                 >{{ skill.name }}</span>
