@@ -33,7 +33,7 @@ const emitChange = () => {
 </script>
 
 <template>
-    <label class="flex items-center cursor-pointer">
+    <label class="flex flex-col lg:flex-row items-center justify-items-center cursor-pointer">
         <span v-if="label" class="text-terminal-black-50 me-2" :class="{'font-bold': internalValue}">
             {{ label }}
         </span>
@@ -51,7 +51,9 @@ const emitChange = () => {
                 class="absolute left-0 top-0 w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out peer-checked:translate-x-full"
             ></div>
         </div>
-        <FontAwesomeIcon :icon="faStar" class="ms-2 text-gold opacity-40 rotate-12" :class="{ 'visible': internalValue, 'collapse': !internalValue }" size="lg" />
+        <div class="hidden lg:inline-block">
+            <FontAwesomeIcon :icon="faStar" class="ms-2 text-gold opacity-40 rotate-12" :class="{ 'visible': internalValue, 'collapse': !internalValue }" size="lg" />
+        </div>
     </label>
 </template>
 
