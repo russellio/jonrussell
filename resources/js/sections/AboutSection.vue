@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 const { scrollToSection } = useScrollToSection();
@@ -9,6 +9,25 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faCaretRight);
+
+// TypeScript interfaces
+interface Skill {
+    id: number;
+    name: string;
+}
+
+interface SkillType {
+    id: number;
+    name: string;
+    slug: string;
+    skills: Skill[];
+}
+
+// API response interface
+interface SkillsResponse {
+    success: boolean;
+    data: SkillType[];
+}
 
 const techStack = [
     { tech: 'Laravel', percent: '90' },
@@ -27,66 +46,54 @@ const techStack = [
 ];
 const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
 
-const softwareSkills = [
-    'PHP 8',
-    'JavaScript',
-    'TypeScript',
-    'SQL',
-    'MySQL 8',
-    'Node.js',
-    'Laravel',
-    'Vue 3',
-    'Vuex',
-    'Pinia',
-    'jQuery',
-    'webpack',
-    'Vite',
-    'HTML5',
-    'CSS3',
-    'SCSS',
-    'Bootstrap',
-    'Tailwind CSS',
-    'JSON',
-    'XML',
-    'Git',
-    'Jira',
-    'REST APIs',
-    'Microservices',
-    'OOP',
-    'MVC',
-    'SDLC',
-    'SaaS',
-    'SEO',
-    'a11y',
-];
+// Skills data from API
+const skillTypes = ref<SkillType[]>([]);
+const isLoadingSkills = ref(false);
+const skillsError = ref<string | null>(null);
 
-const devOpsSkills = [
-    'AWS',
-    'Linux',
-    'Docker',
-    'CI/CD automation',
-    'Jenkins',
-    'Azure Pipelines',
-    'Github',
-    'Bitbucket',
-];
+// Computed properties to get skills by type slug for easy template access
+const getSkillsBySlug = (slug: string): Skill[] => {
+    const skillType = skillTypes.value.find(st => st.slug === slug);
+    return skillType?.skills || [];
+};
 
-const qualitySkills = [
-    'Unit testing',
-    'PEST',
-    'PHPUnit',
-    'Code reviews',
-    'Pair programming',
-    'API optimization',
-    'Plays well with others',
-];
+// Fetch skills from API
+const fetchSkills = async () => {
+    isLoadingSkills.value = true;
+    skillsError.value = null;
 
-const leadershipSkills = [
-    'Team mentoring',
-    'Innovative process improvement',
-    'Experienced Manager, Project Manager',
-    'Certified ScrumMaster (CSM)',
-];
+    try {
+        const response = await fetch('/api/skills', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch skills');
+        }
+
+        const data: SkillsResponse = await response.json();
+
+        if (data.success && data.data) {
+            skillTypes.value = data.data;
+        } else {
+            throw new Error('Invalid response format');
+        }
+    } catch (error) {
+        console.error('Error fetching skills:', error);
+        skillsError.value = error instanceof Error ? error.message : 'Failed to load skills';
+    } finally {
+        isLoadingSkills.value = false;
+    }
+};
+
+// Fetch skills on component mount
+onMounted(() => {
+    fetchSkills();
+});
 </script>
 
 <template>
@@ -137,50 +144,66 @@ const leadershipSkills = [
             <div class="md:col-span-2">
                 <h3>Skills & Tools</h3>
 
-                <div class="flex flex-col lg:flex-row gap-6">
-                    <div class="lg:w-3/5">
-                        <h4>Software Engineering</h4>
-                        <div class="skills">
-                            <span
-                                v-for="skill in softwareSkills"
-                                :key="skill"
-                                class="pill"
-                            >{{ skill }}</span>
-                        </div>
-                    </div>
-                    <div class="lg:w-2/5">
-                        <h4>Architecture & DevOps</h4>
-                        <div class="skills">
-                            <span
-                                v-for="skill in devOpsSkills"
-                                :key="skill"
-                                class="pill"
-                            >{{ skill }}</span>
-                        </div>
-                    </div>
+                <div v-if="isLoadingSkills" class="text-center py-8">
+                    <p class="text-gray-500">Loading skills...</p>
                 </div>
-                <div class="flex flex-col md:flex-row gap-6">
-                    <div class="lg:w-1/2">
-                        <h4>Quality & Collaboration</h4>
-                        <div class="skills">
-                            <span
-                                v-for="skill in qualitySkills"
-                                :key="skill"
-                                class="pill"
-                            >{{ skill }}</span>
-                        </div>
-                    </div>
-                    <div class="lg:w-1/2">
-                        <h4>Leadership & Team Building</h4>
-                        <div class="skills">
-                            <span
-                                v-for="skill in leadershipSkills"
-                                :key="skill"
-                                class="pill"
-                            >{{ skill }}</span>
-                        </div>
-                    </div>
+
+                <div v-else-if="skillsError" class="text-center py-8">
+                    <p class="text-red-500">{{ skillsError }}</p>
+                    <button
+                        @click="fetchSkills"
+                        class="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark"
+                    >
+                        Retry
+                    </button>
                 </div>
+
+                <template v-else>
+                    <div class="flex flex-col lg:flex-row gap-6">
+                        <div class="lg:w-3/5">
+                            <h4>Software Engineering</h4>
+                            <div class="skills">
+                                <span
+                                    v-for="skill in getSkillsBySlug('software-engineering')"
+                                    :key="skill.id"
+                                    class="pill"
+                                >{{ skill.name }}</span>
+                            </div>
+                        </div>
+                        <div class="lg:w-2/5">
+                            <h4>Architecture & DevOps</h4>
+                            <div class="skills">
+                                <span
+                                    v-for="skill in getSkillsBySlug('architecture-devops')"
+                                    :key="skill.id"
+                                    class="pill"
+                                >{{ skill.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="lg:w-1/2">
+                            <h4>Quality & Collaboration</h4>
+                            <div class="skills">
+                                <span
+                                    v-for="skill in getSkillsBySlug('quality-collaboration')"
+                                    :key="skill.id"
+                                    class="pill"
+                                >{{ skill.name }}</span>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <h4>Leadership & Team Building</h4>
+                            <div class="skills">
+                                <span
+                                    v-for="skill in getSkillsBySlug('leadership-team-building')"
+                                    :key="skill.id"
+                                    class="pill"
+                                >{{ skill.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
 
             </div>
 
