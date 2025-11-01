@@ -13,7 +13,7 @@ export function useScrollToSection() {
 
     container.scrollIntoView({
       behavior: 'smooth',
-      block: 'start'
+      block: 'nearest'
     });
 
     mobileMenuOpen.value = false;
