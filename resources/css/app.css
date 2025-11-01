@@ -240,3 +240,6 @@ p {
     @apply mx-auto w-2/3;
 }
 
+#about, #projects {
+    scroll-margin-top: 56px;
+}

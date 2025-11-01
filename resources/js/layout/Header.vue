@@ -19,7 +19,7 @@ const showBackground = ref(false);
 </script>
 
 <template>
-    <div class="fixed top-4 right-10 z-[999] text-white font-space-mono text-sm">
+    <div class="hidden md:block fixed top-0 right-[-0.5rem] lg:top-4 lg:right-10 z-[999] text-white font-space-mono text-sm">
         <ToggleSwitch label="space mode:" v-model="showBackground" />
     </div>
 
