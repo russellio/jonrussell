@@ -1,6 +1,6 @@
 # Jon Russell - Portfolio Website
 
-A modern, responsive portfolio website built with Laravel, Vue.js, and Inertia.js, showcasing professional software engineering projects and experience.
+A modern, responsive portfolio website built with Laravel, Vue.js, and TailwindCSS, showcasing professional software engineering projects and experience.
 
 ## 🚀 Live Demo
 
