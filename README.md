@@ -1,6 +1,6 @@
 # Jon Russell - Portfolio Website
 
-[![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![Laravel](https://img.shields.io/badge/Laravel-BA1B2F?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
@@ -10,23 +10,22 @@ A modern, responsive portfolio website built with Laravel, Vue.js, and TailwindC
 
 ## 📑 Table of Contents
 
-- [🚀 Live Demo](#-live-demo)
-- [🛠️ Tech Stack](#%EF%B8%8F-tech-stack)
-- [✨ Features](#-features)
-- [🏗️ Project Structure](#%EF%B8%8F-project-structure)
-- [🚀 Getting Started](#-getting-started)
-- [🧪 Testing](#-testing)
-- [🎨 Customization](#-customization)
+- [🚀 Live Demo](#live-demo)
+- [🛠️ Tech Stack](#tech-stack)
+- [✨ Features](#features)
+- [🏗️ Project Structure](#project-structure)
+- [🚀 Getting Started](#getting-started)
+- [🧪 Testing](#testing)
+- [🎨 Customization](#customization)
   - [Styling](#styling)
-- [🔧 Development](#-development)
+- [🔧 Development](#development)
   - [Available Scripts](#available-scripts)
   - [Code Style](#code-style)
-- [📱 Responsive Design](#-responsive-design)
-- [🚀 Deployment](#-deployment)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👨‍💻 Author](#-author)
-- [🙏 Acknowledgments](#-acknowledgments)
+- [📱 Responsive Design](#responsive-design)
+- [🚀 Deployment](#deployment)
+- [📄 License](#license)
+- [👨‍💻 Author](#author)
+- [🙏 Acknowledgments](#acknowledgments)
 
 ## 📊 Project Status
 
@@ -35,26 +34,26 @@ A modern, responsive portfolio website built with Laravel, Vue.js, and TailwindC
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-[![Jon Russell Portfolio](https://jonrussell.dev/storage/external/ss-intro-jonrussell.dev.png)](https://jonrussell.dev)
+[![Jon Russell Portfolio](https://jonrussell.dev/storage/external/ss-intro-jonrussell-dev.png)](https://jonrussell.dev)
 
-[View Live Site](https://jonrussell.dev) | [Screenshot Source](https://jonrussell.dev/storage/external/ss-intro-jonrussell.dev.png)
+[View Live Site](https://jonrussell.dev) | [Screenshot Source](https://jonrussell.dev/storage/external/ss-intro-jonrussell-dev.png)
 
 ## 🛠️ Tech Stack <a name="tech-stack"></a>
 
-### Backend <a name="backend"></a>
+### Backend
 - **Laravel 11** - PHP framework
 - **Inertia.js** - Modern monolith approach
 - **SQLite** - Database
 - **PHP 8.4** - Runtime
 
-### Frontend <a name="frontend"></a>
+### Frontend
 - **Vue.js 3** - Progressive JavaScript framework
 - **TypeScript** - Type safety
 - **Tailwind CSS 4** - Utility-first CSS
 - **Vite** - Build tool
 - **Pinia** - State management
 
-### Development Tools <a name="development-tools"></a>
+### Development Tools 
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
 - **PEST** - PHP testing
