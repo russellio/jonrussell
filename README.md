@@ -1,33 +1,64 @@
 # Jon Russell - Portfolio Website
 
+[![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
 A modern, responsive portfolio website built with Laravel, Vue.js, and TailwindCSS, showcasing professional software engineering projects and experience.
 
-## 🚀 Live Demo
+## 📑 Table of Contents
 
-[View Live Site](https://jonrussell.dev) <!-- Update with your actual domain -->
+- [🚀 Live Demo](#-live-demo)
+- [🛠️ Tech Stack](#%EF%B8%8F-tech-stack)
+- [✨ Features](#-features)
+- [🏗️ Project Structure](#%EF%B8%8F-project-structure)
+- [🚀 Getting Started](#-getting-started)
+- [🧪 Testing](#-testing)
+- [🎨 Customization](#-customization)
+  - [Styling](#styling)
+- [🔧 Development](#-development)
+  - [Available Scripts](#available-scripts)
+  - [Code Style](#code-style)
+- [📱 Responsive Design](#-responsive-design)
+- [🚀 Deployment](#-deployment)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [👨‍💻 Author](#-author)
+- [🙏 Acknowledgments](#-acknowledgments)
 
-## 🛠️ Tech Stack
+## 📊 Project Status
 
-### Backend
+[![Tests](https://github.com/russellio/jonrussell.dev/actions/workflows/tests.yml/badge.svg)](https://github.com/russellio/jonrussell.dev/actions/workflows/tests.yml)
+[![Lint](https://github.com/russellio/jonrussell.dev/actions/workflows/lint.yml/badge.svg)](https://github.com/russellio/jonrussell.dev/actions/workflows/lint.yml)
+
+## 🚀 Live Demo <a name="live-demo"></a>
+
+[View Live Site](https://jonrussell.dev)
+
+## 🛠️ Tech Stack <a name="tech-stack"></a>
+
+### Backend <a name="backend"></a>
 - **Laravel 11** - PHP framework
 - **Inertia.js** - Modern monolith approach
 - **SQLite** - Database
 - **PHP 8.4** - Runtime
 
-### Frontend
+### Frontend <a name="frontend"></a>
 - **Vue.js 3** - Progressive JavaScript framework
 - **TypeScript** - Type safety
 - **Tailwind CSS 4** - Utility-first CSS
 - **Vite** - Build tool
 - **Pinia** - State management
 
-### Development Tools
+### Development Tools <a name="development-tools"></a>
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
 - **PEST** - PHP testing
 - **GitHub Actions** - CI/CD
 
-## ✨ Features
+## ✨ Features <a name="features"></a>
 
 - **Responsive Design** - Mobile-first approach
 - **Modern UI/UX** - Clean, professional interface
@@ -37,73 +68,114 @@ A modern, responsive portfolio website built with Laravel, Vue.js, and TailwindC
 - **Performance Optimized** - Fast loading times
 - **SEO Ready** - Meta tags and structured data
 
-## 🏗️ Project Structure
+## 🏗️ Project Structure <a name="project-structure"></a>
 
 ```
-├── app/                    # Laravel backend
+├── app/                    # Laravel application
+│   ├── Http/              # Controllers and middleware
+│   ├── Models/            # Eloquent models
+│   └── Providers/         # Service providers
+├── config/                # Configuration files
+├── database/
+│   ├── factories/         # Model factories
+│   ├── migrations/        # Database migrations
+│   └── seeders/          # Database seeders
+├── public/                # Publicly accessible files
 ├── resources/
-│   ├── js/                # Vue.js frontend
-│   │   ├── components/     # Reusable components
-│   │   ├── layout/         # Layout components
-│   │   ├── pages/          # Page components
-│   │   ├── stores/         # Pinia stores
-│   │   └── types/          # TypeScript definitions
-│   ├── css/               # Stylesheets
-│   └── views/             # Blade templates
-├── public/                # Static assets
-└── tests/                 # Test suites
+│   ├── js/                # Frontend assets
+│   │   ├── components/    # Reusable Vue components
+│   │   ├── composables/   # Vue 3 composables
+│   │   ├── data/          # Static data files
+│   │   ├── layout/        # Layout components
+│   │   ├── sections/      # Page sections
+│   │   └── types/         # TypeScript type definitions
+│   ├── css/              # Global styles
+│   └── views/            # Blade templates
+├── routes/               # Application routes
+├── storage/              # Storage directory
+├── tests/               # Test suites
+├── .github/workflows/    # GitHub Actions workflows
+├── .env.example         # Environment variables example
+└── package.json         # Node.js dependencies
 ```
 
-## 🚀 Getting Started
+## 🚀 Getting Started <a name="getting-started"></a>
 
-### Prerequisites
+### Prerequisites <a name="prerequisites"></a>
 
-- PHP 8.4+
-- Node.js 22+
-- Composer
-- NPM
+- PHP 8.2+ (8.3 recommended)
+- Node.js 20+ (LTS recommended)
+- Composer 2.5+
+- SQLite (or your preferred database)
 
-### Installation
+### Environment Setup <a name="environment-setup"></a>
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/portfolio.git
-   cd portfolio
+   git clone https://github.com/russellio/jonrussell.dev.git
+   cd jonrussell.dev
    ```
 
 2. **Install PHP dependencies**
    ```bash
-   composer install
+   composer install --no-interaction --prefer-dist --optimize-autoloader
    ```
 
 3. **Install Node dependencies**
    ```bash
-   npm install
+   npm ci
    ```
 
-4. **Environment setup**
+4. **Environment configuration**
+   Copy the example environment file and generate an application key:
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
-5. **Database setup**
-   ```bash
-   php artisan migrate
+   Update the following environment variables in `.env`:
+   ```env
+   APP_ENV=local
+   APP_DEBUG=true
+   APP_URL=http://localhost:8000
+   
+   DB_CONNECTION=sqlite
+   DB_DATABASE=/absolute/path/to/database.sqlite
+   
+   # For production
+   # APP_ENV=production
+   # APP_DEBUG=false
    ```
 
-6. **Build assets**
+### Database Setup <a name="database-setup"></a>
+
+1. **SQLite Setup** (Recommended for development)
    ```bash
-   npm run build
+   touch database/database.sqlite
+   php artisan migrate --seed
    ```
 
-7. **Start development server**
+   Or for MySQL/PostgreSQL:
    ```bash
-   php artisan serve
-   npm run dev
+   # Create database and update .env with credentials
+   # Then run migrations
+   php artisan migrate --seed
    ```
 
-## 🧪 Testing
+### Development Server <a name="development-server"></a>
+
+Start the development servers:
+
+```bash
+# Terminal 1: Start Laravel development server
+php artisan serve
+
+# Terminal 2: Start Vite dev server
+npm run dev
+```
+Visit [http://localhost:8000](http://localhost:8000) in your browser.
+
+## 🧪 Testing <a name="testing"></a>
 
 Run the test suite:
 
@@ -117,47 +189,17 @@ npm run lint
 # Code formatting
 npm run format
 ```
-
-## 📦 Build for Production
-
-```bash
-# Build assets
-npm run build
-
-# Build with SSR
-npm run build:ssr
-```
-
 ## 🎨 Customization
 
-### Adding New Projects
-
-Edit `resources/js/data/projects.json` to add new projects:
-
-```json
-{
-  "id": "project-name",
-  "title": "Project Title",
-  "byline": "Brief description",
-  "description": "<p>Detailed description with HTML</p>",
-  "skills": ["Laravel", "Vue.js"],
-  "technologies": ["REST APIs", "MySQL"],
-  "tools": ["Docker", "Git"],
-  "company": "Company Name",
-  "primaryImage": "/images/project.png",
-  "links": [{"title": "Live Demo", "url": "https://example.com"}]
-}
-```
-
-### Styling
+### Styling <a name="styling"></a>
 
 The project uses Tailwind CSS with custom theme configuration. Colors and fonts are defined in:
 - `resources/css/app.css` - Custom CSS variables
 - `tailwind.config.ts` - Tailwind configuration
 
-## 🔧 Development
+## 🔧 Development <a name="development"></a>
 
-### Available Scripts
+### Available Scripts <a name="available-scripts"></a>
 
 ```bash
 npm run dev          # Start development server
@@ -167,21 +209,21 @@ npm run lint         # Run ESLint
 npm run format       # Format code with Prettier
 ```
 
-### Code Style
+### Code Style <a name="code-style"></a>
 
 - **PHP**: Follows PSR-12 standards
 - **JavaScript/TypeScript**: ESLint + Prettier
 - **Vue.js**: Vue 3 Composition API
 - **CSS**: Tailwind CSS utility classes
 
-## 📱 Responsive Design
+## 📱 Responsive Design <a name="responsive-design"></a>
 
 The site is fully responsive with breakpoints:
 - **Mobile**: < 768px
 - **Tablet**: 768px - 1024px  
 - **Desktop**: > 1024px
 
-## 🚀 Deployment
+## 🚀 Deployment <a name="deployment"></a>
 
 ### Laravel Forge / Vapor
 ```bash
@@ -194,36 +236,35 @@ php artisan deploy
 
 ### Docker
 ```bash
-docker build -t portfolio .
-docker run -p 8000:8000 portfolio
+docker build -t jonrussell.dev .
+docker run -p 8000:8000 jonrussell.dev
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
+## 📄 License <a name="license"></a>
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 👨‍💻 Author
+## 👨‍💻 Author <a name="author"></a>
 
 **Jon Russell** - Senior Software Engineer
 - Portfolio: [jonrussell.dev](https://jonrussell.dev)
 - LinkedIn: [linkedin.com/in/russell-jonathan](https://linkedin.com/in/russell-jonathan)
 - GitHub: [@russellio](https://github.com/russellio)
 
-## 🙏 Acknowledgments
+## 🙏 Acknowledgments <a name="acknowledgments"></a>
 
+- [Night Sky by jo_Geek](https://codepen.io/jo_Geek) - Inspiration for "Space Mode"
 - [Laravel](https://laravel.com) - The PHP framework
 - [Vue.js](https://vuejs.org) - The progressive JavaScript framework
-- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS framework
-- [Inertia.js](https://inertiajs.com) - Modern monolith approach
+- [Inertia.js](https://inertiajs.com/) - Modern monolith approach
 
 ---
 
-⭐ **Star this repository if you found it helpful!**
+<div style="text-align: center; margin:auto">
+    <p>📫 Contact: <a href="https://jonrussell.dev/contact">jonrussell.dev/contact</a> &nbsp; | &nbsp;
+🌐   Visit my portfolio: <a href="https://jonrussell.dev" target="_blank">jonrussell.dev</a>
+    </p>
+    <p>⭐ <strong>Star this repository if you found it helpful!</strong> ⭐</p>
+</div>
+
+[🔝 Back to Top](#jon-russell---portfolio-website)
