@@ -28,3 +28,4 @@ yarn-error.log
 auto-imports.d.ts
 components.d.ts
 WARP.md
+deploy.sh

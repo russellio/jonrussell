@@ -54,6 +54,7 @@
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "concurrently": "^9.0.1",
+        "depcheck": "^1.4.7",
         "laravel-vite-plugin": "^2.0.0",
         "pinia": "^3.0.3",
         "tailwind-merge": "^3.2.0",
