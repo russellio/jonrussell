@@ -35,7 +35,9 @@ A modern, responsive portfolio website built with Laravel, Vue.js, and TailwindC
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-[View Live Site](https://jonrussell.dev)
+[![Jon Russell Portfolio](https://jonrussell.dev/storage/external/ss-intro-jonrussell.dev.png)](https://jonrussell.dev)
+
+[View Live Site](https://jonrussell.dev) | [Screenshot Source](https://jonrussell.dev/storage/external/ss-intro-jonrussell.dev.png)
 
 ## 🛠️ Tech Stack <a name="tech-stack"></a>
 
