@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        'infinite-scroll': 'infinite-scroll 25s linear infinite',
+      },
       fontFamily: {
         'space-mono': ['Space Mono', 'monospace'],
         'sixtyfour': ['Sixtyfour', 'monospace'],
@@ -28,6 +31,12 @@ export default {
         burgundy: 'var(--color-burgundy)',
         'terminal-black': 'var(--color-terminal-black)',
       },
+      keyframes: {
+        'infinite-scroll': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        }
+      }
     },
   },
   plugins: [],

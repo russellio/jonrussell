@@ -243,3 +243,17 @@ p {
 #about, #projects {
     scroll-margin-top: 56px;
 }
+
+/* Infinite scroll animation */
+@keyframes infinite-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-infinite-scroll {
+    animation: infinite-scroll 25s linear infinite;
+}
