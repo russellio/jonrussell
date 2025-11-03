@@ -2,6 +2,7 @@
 import ContentFrame from '@/js/components/ContentFrame.vue';
 import Footer from '@/js/layout/Footer.vue';
 import Header from '@/js/layout/Header.vue';
+import ScrollingThingsILike from '@/js/components/ScrollingThingsILike.vue';
 import ContactModal from '@/js/components/modals/ContactModal.vue';
 import { useModal } from '@/js/composables/useModal';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
@@ -61,6 +62,8 @@ watch(
             <ContentFrame id="about">
                 <AboutSection />
             </ContentFrame>
+
+            <ScrollingThingsILike />
 
             <!-- Projects Section -->
             <ContentFrame id="projects">
