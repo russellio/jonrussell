@@ -51,8 +51,8 @@ onMounted(() => {
         <div class="uppercase text-center w-full font-sixtyfour opacity-30 text-2xl text-white">
             Things I <FontAwesomeIcon :icon="['fas', 'heart']" />
         </div>
-        <div class="flex items-center justify-center md:justify-start flex-nowrap animate-infinite-scroll">
-            <ul v-for="index in 2" :key="index" class="flex items-center justify-center md:justify-start flex-nowrap [&_li]:mx-8 [&_img]:max-w-none">
+        <div class="flex items-center justify-center md:justify-start flex-nowrap animate-infinite-scroll w-max">
+            <ul v-for="index in 2" :key="index" class="m-0 p-0 flex-shrink-0 flex items-center justify-center md:justify-start flex-nowrap [&_li]:mx-8 [&_img]:max-w-none">
                 <li
                     v-for="(thing, idx) in things"
                     :key="`${index}-${idx}`"
@@ -62,9 +62,10 @@ onMounted(() => {
                 >
                     <template v-if="thing.icon">
                         <img v-if="!thing.type" :src="`/images/icons/${thing.icon}`"
-                             class="w-12 h-12 fill-white align-top"
-                             style="filter: grayscale(100%)"
-                             :alt="thing.title" />
+                            class="w-12 h-12 fill-white align-top"
+                            style="filter: grayscale(100%)"
+                            :alt="thing.title"
+                        />
                         <FontAwesomeIcon
                             v-else-if="thing.type === 'fa'"
                             :icon="['fab', thing.icon]"
@@ -74,7 +75,6 @@ onMounted(() => {
                             v-else-if="simpleIconModules[thing.icon]"
                             :is="simpleIconModules[thing.icon]"
                             class="w-12 h-12 fill-white"
-                            style="width: 3rem; height: 3rem;"
                         />
                         <span v-else>{{ thing.title }}</span>
                     </template>
@@ -103,7 +103,7 @@ onMounted(() => {
 
 .icon-title {
     @apply rounded text-xs;
-    color: #fff;
+    color: #cccccc;
 }
 
 .icon-item {
