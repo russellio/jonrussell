@@ -1,53 +1,91 @@
 <script setup lang="ts">
+import { shallowRef, onMounted, reactive, markRaw } from 'vue';
+import * as SimpleIcons from 'vue3-simple-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-library.add(fab);
+library.add(fab, faHeart);
 
-const things = [
+const things = shallowRef([
+    { title: 'Tailwind CSS', icon: 'TailwindCssIcon', type: 'si' },
     { title: 'PHP', icon: 'php', type: 'fa' },
     { title: 'Laravel', icon: 'laravel', type: 'fa' },
-    { title: 'Cursor', icon: 'CursorA', type: 'si' },
-    { title: 'Warp', icon: ''},
-    { title: 'PHPStorm', icon: '' },
-    { title: 'VSCode', icon: '' },
-    { title: 'Gitkraken', icon: 'gitkraken' },
-    { title: 'Github', icon: 'github' },
-    { title: 'Bootstrap', icon: 'bootstrap' },
-    { title: 'Vue.js', icon: 'vuejs' },
-    { title: 'CSS3', icon: 'css3' },
-    { title: 'HTML5', icon: 'html5' },
-    { title: 'Bitbucket', icon: 'bitbucket' },
-    { title: 'Tailwind CSS', icon: '' },
-    { title: 'Vite', icon: '' },
-];
+    { title: 'Cursor', icon: 'cursor-alt.svg', type: '' },
+    { title: 'Warp', icon: 'WarpIcon', type: 'si'},
+    { title: 'PhpStorm', icon: 'PhpStormIcon', type: 'si' },
+    { title: 'VS Code', icon: 'vscode-alt.svg', type: '' },
+    { title: 'Gitkraken', icon: 'gitkraken', type: 'fa' },
+    { title: 'Github', icon: 'github', type: 'fa' },
+    { title: 'Bootstrap', icon: 'bootstrap', type: 'fa' },
+    { title: 'Vue.js', icon: 'vuejs', type: 'fa' },
+    { title: 'CSS3', icon: 'css3', type: 'fa' },
+    { title: 'HTML5', icon: 'html5', type: 'fa' },
+    { title: 'Bitbucket', icon: 'bitbucket', type: 'fa' },
+    { title: 'Vite', icon: 'ViteIcon', type: 'si' },
+]);
 
-const getIcon = (icon) => {
-    let thing = things.find(thing => icon === thing.icon);
-    if (!thing) return icon;
+const simpleIconModules = reactive<Record<string, any>>({});
+const hoveredIndex = shallowRef<string | null>(null);
 
-    let output;
-    switch (thing.type) {
-        case 'fa':
-            output = `<FontAwesomeIcon :icon="['fab', ${thing.icon}]" class="fa-2xl" />`;
-            break;
-        case 'si':
-            output = `< />`;
-            break;
-        default:
-            output = ``
-    }
-    return output;
-}
+const setHovered = (index: string | null) => {
+    hoveredIndex.value = index;
+};
+
+onMounted(() => {
+    things.value.forEach(thing => {
+        if (thing.type === 'si' && thing.icon) {
+            const iconKey = thing.icon as keyof typeof SimpleIcons;
+            if (iconKey in SimpleIcons) {
+                simpleIconModules[thing.icon] = markRaw(SimpleIcons[iconKey]);
+            } else {
+                console.warn(`Icon not found: ${iconKey} for ${thing.title}`);
+            }
+        }
+    });
+});
 </script>
 
 <template>
-    <div class="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+    <div class="things">
+        <div class="uppercase text-center w-full font-sixtyfour opacity-30 text-2xl text-white">
+            Things I <FontAwesomeIcon :icon="['fas', 'heart']" />
+        </div>
         <div class="flex items-center justify-center md:justify-start flex-nowrap animate-infinite-scroll">
             <ul v-for="index in 2" :key="index" class="flex items-center justify-center md:justify-start flex-nowrap [&_li]:mx-8 [&_img]:max-w-none">
-                <li v-for="(thing, idx) in things" :key="`${index}-${idx}`" class="thing whitespace-nowrap text-white">
-                    <FontAwesomeIcon v-if="thing.icon" :icon="['fab', thing.icon]" :alt="thing.title" class="fa-2xl" />
-                    <div v-if="!thing.icon && thing.title" v-html="thing.title" />
+                <li
+                    v-for="(thing, idx) in things"
+                    :key="`${index}-${idx}`"
+                    class="icon-item opacity-40 whitespace-nowrap text-white flex flex-col items-center"
+                    @mouseenter="setHovered(`${index}-${idx}`)"
+                    @mouseleave="setHovered(null)"
+                >
+                    <template v-if="thing.icon">
+                        <img v-if="!thing.type" :src="`/images/icons/${thing.icon}`"
+                             class="w-12 h-12 fill-white align-top"
+                             style="filter: grayscale(100%)"
+                             :alt="thing.title" />
+                        <FontAwesomeIcon
+                            v-else-if="thing.type === 'fa'"
+                            :icon="['fab', thing.icon]"
+                            class="text-5xl"
+                        />
+                        <component
+                            v-else-if="simpleIconModules[thing.icon]"
+                            :is="simpleIconModules[thing.icon]"
+                            class="w-12 h-12 fill-white"
+                            style="width: 3rem; height: 3rem;"
+                        />
+                        <span v-else>{{ thing.title }}</span>
+                    </template>
+                     <transition name="fade">
+                        <div
+                            v-show="hoveredIndex === `${index}-${idx}`"
+                            class="icon-title"
+                        >
+                            {{ thing.title }}
+                        </div>
+                     </transition>
                 </li>
             </ul>
         </div>
@@ -57,8 +95,36 @@ const getIcon = (icon) => {
 <style scoped>
 @reference "@/css/app.css";
 
-.thing {
-    color: #ffffff;
+.things {
+    @apply [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)];
+    width: 100%;
+    overflow-x: hidden;
 }
 
+.icon-title {
+    @apply rounded text-xs;
+    color: #fff;
+}
+
+.icon-item {
+    margin-top: 1rem;
+    height: 4rem;
+    width: 4rem;
+    transition: opacity 0.2s ease;
+}
+
+.icon-item:hover {
+    opacity: 1;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+    transform: translateY(-5px);
+}
 </style>
