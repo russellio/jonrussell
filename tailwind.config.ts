@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        'infinite-scroll': 'infinite-scroll linear infinite',
+      },
       fontFamily: {
         'space-mono': ['Space Mono', 'monospace'],
         'sixtyfour': ['Sixtyfour', 'monospace'],
@@ -27,7 +30,14 @@ export default {
         red: 'var(--color-red)',
         burgundy: 'var(--color-burgundy)',
         'terminal-black': 'var(--color-terminal-black)',
+        'bulldog-red': 'var(--color-bulldog-red)',
       },
+      keyframes: {
+        'infinite-scroll': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        }
+      }
     },
   },
   plugins: [],
