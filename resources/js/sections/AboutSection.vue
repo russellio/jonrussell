@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faCaretRight);
 
-// TypeScript interfaces
 interface Skill {
     id: number;
     name: string;
@@ -23,7 +22,6 @@ interface SkillType {
     skills: Skill[];
 }
 
-// API response interface
 interface SkillsResponse {
     success: boolean;
     data: SkillType[];
@@ -46,18 +44,15 @@ const techStack = [
 ];
 const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
 
-// Skills data from API
 const skillTypes = ref<SkillType[]>([]);
 const isLoadingSkills = ref(false);
 const skillsError = ref<string | null>(null);
 
-// Computed properties to get skills by type slug for easy template access
 const getSkillsBySlug = (slug: string): Skill[] => {
     const skillType = skillTypes.value.find(st => st.slug === slug);
     return skillType?.skills || [];
 };
 
-// Fetch skills from API
 const fetchSkills = async () => {
     isLoadingSkills.value = true;
     skillsError.value = null;
@@ -90,7 +85,6 @@ const fetchSkills = async () => {
     }
 };
 
-// Fetch skills on component mount
 onMounted(() => {
     fetchSkills();
 });
