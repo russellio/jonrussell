@@ -142,9 +142,6 @@ h3 {
 .thumbnails {
     @apply flex flex-wrap gap-1 mx-auto mt-1 content-start;
     @apply lg:grid lg:grid-cols-2 lg:gap-2 lg:w-full;
-    /*display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.25rem;*/
 }
 
 .thumbnail {
@@ -154,14 +151,10 @@ h3 {
     /*max-width: 90px;*/
     overflow: hidden;
 }
-/*.no-thumbnails {
+.no-thumbnails {
     @apply w-50 items-center;
-}*/
-
-.thumbnail img {
-    /*@apply object-none self;
-    object-position: 0 0;*/
 }
+
 
 .key-takeaways {
     @apply mt-5 mb-4;
@@ -179,27 +172,4 @@ h3 {
     @apply py-2;
     list-style-type: disc;
 }
-
-/*   .modal-left {
-    @apply self-start;
-}
-
-.modal-left .primary-image {
-    @apply self-start;
-}
-
-.modal-left .thumbnails {
-    @apply self-start;
-}
-
-.modal-right {
-    @apply self-start;
-    @apply grid-cols-1;
-}
-
-.modal-right .skills,
-.modal-right .technologies,
-.modal-right .tools {
-    @apply self-start;
-} */
 </style>
