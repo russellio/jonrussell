@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { shallowRef, onMounted, reactive, markRaw } from 'vue';
-import * as SimpleIcons from 'vue3-simple-icons';
+import { shallowRef, reactive, onMounted, markRaw } from 'vue';
+import { TailwindCssIcon, WarpIcon, PhpStormIcon, ViteIcon } from 'vue3-simple-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -25,25 +25,34 @@ const things = shallowRef([
     { title: 'Vite', icon: 'ViteIcon', type: 'si' },
 ]);
 
-const simpleIconModules = reactive<Record<string, any>>({});
+// Icon registry - maps icon names to their imported components
+// Add new icons here when you add them to the things array
+const iconRegistry: Record<string, any> = {
+    TailwindCssIcon: markRaw(TailwindCssIcon),
+    WarpIcon: markRaw(WarpIcon),
+    PhpStormIcon: markRaw(PhpStormIcon),
+    ViteIcon: markRaw(ViteIcon),
+};
+
+// Dynamically build icon map from things array - only includes icons with type="si"
+const simpleIconMap = reactive<Record<string, any>>({});
+
+onMounted(() => {
+    // Automatically populate simpleIconMap based on things array
+    things.value.forEach(thing => {
+        if (thing.type === 'si' && thing.icon && iconRegistry[thing.icon]) {
+            simpleIconMap[thing.icon] = iconRegistry[thing.icon];
+        } else if (thing.type === 'si' && thing.icon && !iconRegistry[thing.icon]) {
+            console.warn(`Add icon "${thing.icon}" to the vue3-simple-icons imports and iconRegistry.`);
+        }
+    });
+});
+
 const hoveredIndex = shallowRef<string | null>(null);
 
 const setHovered = (index: string | null) => {
     hoveredIndex.value = index;
 };
-
-onMounted(() => {
-    things.value.forEach(thing => {
-        if (thing.type === 'si' && thing.icon) {
-            const iconKey = thing.icon as keyof typeof SimpleIcons;
-            if (iconKey in SimpleIcons) {
-                simpleIconModules[thing.icon] = markRaw(SimpleIcons[iconKey]);
-            } else {
-                console.warn(`Icon not found: ${iconKey} for ${thing.title}`);
-            }
-        }
-    });
-});
 </script>
 
 <template>
@@ -72,8 +81,8 @@ onMounted(() => {
                             class="text-5xl"
                         />
                         <component
-                            v-else-if="simpleIconModules[thing.icon]"
-                            :is="simpleIconModules[thing.icon]"
+                            v-else-if="simpleIconMap[thing.icon]"
+                            :is="simpleIconMap[thing.icon]"
                             class="w-12 h-12 fill-white"
                         />
                         <span v-else>{{ thing.title }}</span>

@@ -4,6 +4,7 @@ export function useScrollToSection() {
   const mobileMenuOpen = ref(false);
 
   const scrollToSection = (section: string) => {
+    console.log(section)
     let container = document.getElementById(section);
 
     if (!container) {

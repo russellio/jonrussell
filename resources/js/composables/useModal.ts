@@ -1,4 +1,5 @@
 import { useModalStore } from '@/js/stores/modalStore';
+import { useEscapeKey } from '@/js/composables/useEscapeKey';
 
 export function useModal() {
     const modalStore = useModalStore();
@@ -40,6 +41,10 @@ export function useModal() {
         document.body.style.overflow = '';
     }
 
+    const escapeToClose = (modalId): void => {
+      useEscapeKey(() => closeModal(modalId));
+    };
+
     return {
         toggleModal,
         openModal,
@@ -47,5 +52,6 @@ export function useModal() {
         closeAllModals,
         isOpen,
         modalStore,
+        escapeToClose,
     };
 }

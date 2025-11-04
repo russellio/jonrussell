@@ -221,15 +221,15 @@ p {
 }
 
 .modal-left {
-    @apply grid grid-cols-1 pt-4 text-sm h-full mx-auto pe-0;
+    @apply grid grid-cols-1 pt-4 text-sm mx-auto pe-0 self-start;
 }
 
 .modal-center {
-    @apply mx-auto grid h-full grid-cols-1 gap-0 lg:w-4/5 md:mb-10 md:ms-3;
+    @apply mx-auto grid grid-cols-1 items-start gap-0 lg:w-11/12 lg:mx-auto lg:self-start md:mb-10 md:ms-3;
 }
 
 .modal-right {
-    @apply mx-auto ms-4 h-full w-4/5 grid grid-cols-3 lg:grid-cols-1 pt-2 text-sm md:w-full lg:w-1/4;
+    @apply mx-auto ms-4 w-full grid grid-cols-3 lg:grid-cols-1 pt-2 text-sm lg:self-start;
 }
 
 .links ul {

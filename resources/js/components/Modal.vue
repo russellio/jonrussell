@@ -1,6 +1,7 @@
 <script setup lang="ts">
+// import { useEscapeKey } from '@/js/composables/useEscapeKey';
 import { useModal } from '@/js/composables/useModal';
-const { closeModal } = useModal();
+const { closeModal, escapeToClose } = useModal();
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -46,6 +47,8 @@ const handleSubmit = () => {
         emit('submit');
     }
 };
+
+escapeToClose(modalId);
 </script>
 
 <template>
