@@ -14,6 +14,7 @@
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "laravel/wayfinder": "^0.1.11",
+        "sentry/sentry-laravel": "^4.18",
         "symfony/http-client": "^7.3",
         "symfony/mailgun-mailer": "^7.3"
     },
