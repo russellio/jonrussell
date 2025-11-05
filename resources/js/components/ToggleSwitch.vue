@@ -39,6 +39,7 @@ const emitChange = () => {
         </span>
         <div class="relative">
             <input
+                id="toggleSwitchInput"
                 type="checkbox"
                 class="sr-only peer"
                 v-model="internalValue"
