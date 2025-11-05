@@ -1,6 +1,9 @@
 {
+    "name": "jonrussell-portfolio",
+    "version": "1.0.0",
     "private": true,
     "type": "module",
+    "description": "Modern portfolio website built with Laravel, Vue.js, and TailwindCSS",
     "scripts": {
         "build": "vite build",
         "build:ssr": "vite build && vite build --ssr",
