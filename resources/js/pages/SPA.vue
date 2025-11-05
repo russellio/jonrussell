@@ -47,11 +47,11 @@ watch(
 </script>
 
 <template>
-    <div class="app-layout" id="home">
+    <div class="app-layout">
 
         <Nav />
 
-        <header>
+        <header id="home">
             <!-- Header / Intro / Navigation -->
             <Header />
         </header>
