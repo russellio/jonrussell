@@ -207,7 +207,7 @@ onMounted(() => {
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     <div class="card p-6 text-center">
                         <div class="mb-2 text-3xl font-bold text-primary">Master of Business<br> & Technology</div>
-                        <img src="/images/uga-logo.png" class="" alt="UGA Logo" />
+                        <img src="/images/uga-logo.png" class="mx-auto" alt="UGA Logo" />
                     </div>
                     <div class="card p-6 text-center">
                         <div class="mb-2 text-6xl font-bold text-primary">12+</div>

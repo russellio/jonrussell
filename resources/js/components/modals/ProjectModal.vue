@@ -35,16 +35,16 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
 
 <template>
     <Modal modalId="project-modal" :title="title">
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(17%,120px)_auto] w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%] w-full">
 
             <div v-if="hasModalLeft(project)"
                  class="modal-left"
                  :class="{'no-thumbnails': !projectHasProp(project, 'images')}"
             >
                 <div v-if="projectHasProp(project, 'primaryImage')"
-                     class="primary-image cursor-pointer "
+                     class="primary-image cursor-pointer"
                      @click="imageModalRef?.openImageModal(project.primaryImage)">
-                    <img :src="`/images/projects/${project.primaryImage}`" :title="project.primaryImage.title" :alt="project.primaryImage.alt ?? ''" />
+                    <img :src="`/images/projects/${project.primaryImage}`" :title="project.primaryImage.title" :alt="project.primaryImage.alt ?? project.primaryImage.title" />
                 </div>
                 <div v-if="projectHasProp(project, 'images')" class="thumbnails">
                     <div v-for="(image, index) in project.images"
@@ -56,12 +56,21 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
                 </div>
             </div>
 
-            <div class="modal-center">
+            <div class="modal-center w-full">
                 <div v-if="projectHasProp(project, 'company')" class="company">
                     <h3>
                         company:
-                        <span class="font-space-mono font-normal !text-white">{{ project.company }}</span>
+                        <span class="font-sans !text-white" v-html="project.company" />
                     </h3>
+                </div>
+
+                <div v-if="projectHasProp(project, 'keyTakeaways')" class="key-takeaways">
+                    <h3>key takeaways:</h3>
+                    <ul>
+                        <li v-for="(takeaway, index) in project.keyTakeaways" :key="index">
+                            {{ takeaway }}
+                        </li>
+                    </ul>
                 </div>
 
                 <div v-if="projectHasProp(project, 'description')" class="description">
@@ -114,7 +123,6 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
 
         </div>
 
-
         <ImageModal ref="imageModalRef" />
     </Modal>
 </template>
@@ -126,12 +134,8 @@ h3 {
     @apply mt-3 font-space-mono text-lg font-bold;
 }
 
-.description p {
-    margin-top:10px;
-}
-
 .primary-image img {
-    @apply w-full;
+    width: 100%;
     object-fit: fill;
 }
 
@@ -151,8 +155,21 @@ h3 {
     @apply w-50 items-center;
 }
 
-.thumbnail img {
-    /*@apply object-none self;
-    object-position: 0 0;*/
+
+.key-takeaways {
+    @apply mt-5 mb-4;
+}
+
+.key-takeaways h3 {
+    @apply text-lg text-white mt-0 mb-2 ps-4;
+}
+
+.key-takeaways ul {
+    @apply ps-10 rounded border-l-1 border-terminal-black-700;
+}
+
+.key-takeaways ul li {
+    @apply py-2;
+    list-style-type: disc;
 }
 </style>

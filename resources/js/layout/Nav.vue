@@ -49,7 +49,7 @@ const navigation = [
 @reference "@/css/app.css";
 
 .btn-home {
-    @apply text-xl md:text-lg text-white me-4 opacity-80 hover:opacity-100 flex-none;
+    @apply text-xl md:text-lg text-white me-4 opacity-80 hover:opacity-100 flex-none cursor-pointer w-auto;
 }
 
 .primary-nav {
