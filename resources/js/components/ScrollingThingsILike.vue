@@ -2,10 +2,20 @@
 import { shallowRef, reactive, onMounted, markRaw } from 'vue';
 import { TailwindCssIcon, WarpIcon, PhpStormIcon, ViteIcon } from 'vue3-simple-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons'
+import { 
+    faPhp, 
+    faLaravel, 
+    faGitkraken, 
+    faGithub, 
+    faBootstrap, 
+    faVuejs, 
+    faCss3, 
+    faHtml5, 
+    faBitbucket 
+} from '@fortawesome/free-brands-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-library.add(fab, faHeart);
+library.add(faPhp, faLaravel, faGitkraken, faGithub, faBootstrap, faVuejs, faCss3, faHtml5, faBitbucket, faHeart);
 
 const things = shallowRef([
     { title: 'Tailwind CSS', icon: 'TailwindCssIcon', type: 'si' },

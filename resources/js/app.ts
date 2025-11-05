@@ -27,7 +27,10 @@ createInertiaApp({
           dsn: "https://8c80a6050e1ee8cc8bdad1e24ab7b0a7@o4509299183583232.ingest.us.sentry.io/4510304183451648",
           // Setting this option to true will send default PII data to Sentry.
           // For example, automatic IP address collection on events
-          sendDefaultPii: true
+          sendDefaultPii: true,
+          integrations: [Sentry.browserTracingIntegration()],
+          tracesSampleRate: 1.0,
+          tracePropagationTargets: ["localhost", /^https:\/\/jonrussell\.*/],
         });
 
         app.mount(el)
