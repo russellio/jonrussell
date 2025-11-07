@@ -2,16 +2,16 @@
 import { shallowRef, reactive, onMounted, markRaw } from 'vue';
 import { TailwindCssIcon, WarpIcon, PhpStormIcon, ViteIcon } from 'vue3-simple-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { 
-    faPhp, 
-    faLaravel, 
-    faGitkraken, 
-    faGithub, 
-    faBootstrap, 
-    faVuejs, 
-    faCss3, 
-    faHtml5, 
-    faBitbucket 
+import {
+    faPhp,
+    faLaravel,
+    faGitkraken,
+    faGithub,
+    faBootstrap,
+    faVuejs,
+    faCss3,
+    faHtml5,
+    faBitbucket
 } from '@fortawesome/free-brands-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

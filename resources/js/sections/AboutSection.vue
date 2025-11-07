@@ -5,10 +5,11 @@ import { useScrollToSection } from '@/js/composables/useScrollToSection';
 const { scrollToSection } = useScrollToSection();
 
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faCaretRight);
+library.add( faCaretRight,faObjectGroup );
 
 interface Skill {
     id: number;
@@ -99,7 +100,7 @@ onMounted(() => {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="description">
                 <p>
-                    Hi! I’m a Senior Software Engineer with more than a decade of experience designing, developing, and scaling
+                    I’m a Senior Software Engineer with more than a decade of experience designing, developing, and scaling
                     enterprise applications. I bring deep expertise in Laravel, PHP, REST APIs, JavaScript/TypeScript, and Vue.js,
                     paired with Agile leadership and a drive to keep learning new technologies.
                 </p>
@@ -131,7 +132,10 @@ onMounted(() => {
                 </ul>
 
                 <div class="btn-wrapper">
-                    <button @click="scrollToSection('projects')" class="btn-content">Projects</button>
+                    <button @click="scrollToSection('projects')" class="btn-content">
+                        <FontAwesomeIcon :icon="faObjectGroup" size="lg" class="me-3" />
+                        View Projects
+                    </button>
                 </div>
             </div>
 

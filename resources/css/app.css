@@ -139,22 +139,26 @@ p {
 
 .secondary-nav {
     @apply cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm mx-1;
-    @apply border-2 border-s-3 border-y-terminal-black-500 bg-dark-blue/35 h-10 px-5 py-3 font-bold shadow-xl;
-    @apply transition-all duration-300;
+    @apply rounded-sm border border-secondary to-purple-100;
+    @apply bg-white/20 backdrop-blur-sm backdrop-opacity-50;
+    @apply h-10 px-5 py-3 font-bold shadow-xl;
+    @apply transition-[background-color] duration-200;
+    @apply font-space-mono uppercase;
 }
 
 .secondary-nav:hover {
-    @apply border-white bg-dark-blue/100;
+    @apply bg-secondary;
 }
 
 .btn-content {
-    @apply border border-secondary mx-2 py-1 px-5;
+    @apply cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm mx-1;
+    @apply border-2 border-secondary mx-2 py-1 px-5 bg-terminal-black-100/100;
     @apply font-space-mono text-sm cursor-pointer font-bold uppercase;
     @apply transition-all duration-200 rounded-lg;
 }
 
 .btn-content:hover {
-    @apply bg-secondary text-white border-terminal-black;
+    @apply bg-secondary text-white border-terminal-black shadow-xl;
 }
 
 .btn-wrapper {
@@ -171,7 +175,7 @@ p {
 }
 
 .btn-primary {
-    @apply mx-4 rounded-md bg-secondary px-7 py-1 font-space-mono font-bold text-white uppercase transition-[background-color] duration-200;
+    @apply mx-4 border-2 rounded-md bg-secondary px-7 py-1 font-space-mono font-bold text-white uppercase transition-[background-color] duration-200;
 }
 
 .btn-primary:hover {

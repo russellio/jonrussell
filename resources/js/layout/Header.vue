@@ -46,7 +46,7 @@ const showBackground = ref(false);
                     </h1>
 
                     <p class="md:me-0 lg:me-20">
-                        A <strong>full-stack software engineer</strong>
+                        A <strong>full stack software engineer</strong>
                         who creates robust, scalable solutions that power modern web applications.
                     </p>
                 </div>
@@ -114,10 +114,6 @@ const showBackground = ref(false);
     @apply bg-radial-[at_70%_50%] from-white/45 to-transparent to-65% backdrop-opacity-5;
 }
 
-.intro-content {
-    /*@apply mx-auto max-w-[768px];*/
-}
-
 .intro {
     @apply w-full;
 }
@@ -153,7 +149,6 @@ h1.welcome {
 
 p {
     @apply text-2xl text-terminal-black-100 text-start;
-    /*@apply md:leading-relaxed;*/
 }
 
 strong {
@@ -163,8 +158,6 @@ strong {
 .profile-avatar-wrapper {
     @apply flex flex-col rounded-full w-full;
     @apply lg:max-w-[150px] mt-[-16px];
-/*    @apply md:h-80 md:w-73;
-    @apply lg:h-90 lg:w-84;*/
     @apply items-center md:items-end;
 }
 
@@ -195,13 +188,14 @@ a svg {
     @apply grid grid-cols-1 justify-items-center md:justify-items-end;
 }
 
-/* Fallback background for immediate visibility */
 .fallback-background {
     @apply fixed h-full w-full overflow-hidden;
     z-index: -2;
     background:
-        radial-gradient(at 51% 46%, #041028 0, transparent 50%), radial-gradient(at 85% 99%, #330509 0, transparent 50%),
-        radial-gradient(at 18% 22%, #111b4f 0, transparent 50%), #041028;
+        radial-gradient(at 51% 46%, #041028 0, transparent 50%),
+        radial-gradient(at 85% 99%, #330509 0, transparent 50%),
+        radial-gradient(at 18% 22%, #111b4f 0, transparent 50%),
+        #041028;
     transition: opacity 1.5s ease-in-out;
     opacity: 1;
 }
