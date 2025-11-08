@@ -34,23 +34,27 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
 </script>
 
 <template>
-    <Modal modalId="project-modal" :title="title">
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%] w-full">
-
-            <div v-if="hasModalLeft(project)"
-                 class="modal-left"
-                 :class="{'no-thumbnails': !projectHasProp(project, 'images')}"
-            >
-                <div v-if="projectHasProp(project, 'primaryImage')"
-                     class="primary-image cursor-pointer"
-                     @click="imageModalRef?.openImageModal(project.primaryImage)">
-                    <img :src="`/images/projects/${project.primaryImage}`" :title="project.primaryImage.title" :alt="project.primaryImage.alt ?? project.primaryImage.title" />
+    <Modal modalId="project-modal" :title="title" cancelText="Close">
+        <div class="grid w-full grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%]">
+            <div v-if="hasModalLeft(project)" class="modal-left" :class="{ 'no-thumbnails': !projectHasProp(project, 'images') }">
+                <div
+                    v-if="projectHasProp(project, 'primaryImage')"
+                    class="primary-image cursor-pointer"
+                    @click="imageModalRef?.openImageModal(project.primaryImage)"
+                >
+                    <img
+                        :src="`/images/projects/${project.primaryImage}`"
+                        :title="project.primaryImage.title"
+                        :alt="project.primaryImage.alt ?? project.primaryImage.title"
+                    />
                 </div>
                 <div v-if="projectHasProp(project, 'images')" class="thumbnails">
-                    <div v-for="(image, index) in project.images"
-                         :key="index"
-                         class="thumbnail cursor-pointer"
-                         @click="imageModalRef?.openImageModal(image)">
+                    <div
+                        v-for="(image, index) in project.images"
+                        :key="index"
+                        class="thumbnail cursor-pointer"
+                        @click="imageModalRef?.openImageModal(image)"
+                    >
                         <img v-if="image?.src" :src="`/images/projects/${image.src}`" :title="image.title" :alt="image.alt" />
                     </div>
                 </div>
@@ -80,7 +84,7 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
 
                 <div v-if="projectHasProp(project, 'links')" class="links">
                     <h3>links:</h3>
-                    <ul class="fa-ul" style="list-style-type: disc;">
+                    <ul class="fa-ul" style="list-style-type: disc">
                         <li v-for="(link, index) in project.links" :key="index">
                             <a :href="link.url" target="_blank">{{ link.title }}</a>
                             <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-gold" size="sm" />
@@ -120,7 +124,6 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
                     </ul>
                 </div>
             </div>
-
         </div>
 
         <ImageModal ref="imageModalRef" />
@@ -131,7 +134,11 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
 @reference "@/css/app.css";
 
 h3 {
-    @apply mt-3 font-space-mono text-lg font-bold;
+    @apply mt-3 font-space-mono text-lg font-bold text-bright-green;
+}
+
+h3 span {
+    @apply rounded-md bg-black/65 p-1;
 }
 
 .primary-image img {
@@ -140,32 +147,28 @@ h3 {
 }
 
 .thumbnails {
-    @apply flex flex-wrap gap-1 mx-auto mt-1 content-start;
-    @apply lg:grid lg:grid-cols-2 lg:gap-2 lg:w-full;
+    @apply mx-auto mt-1 flex flex-wrap content-start gap-1;
+    @apply lg:grid lg:w-full lg:grid-cols-2 lg:gap-2;
 }
 
 .thumbnail {
-    @apply cursor-pointer max-w-[8rem] max-h-[8rem] md:h-[5rem] md:w-[5rem] my-1 mx-auto;
-    /*margin-top: 0.25rem;*/
-    /*max-height: 60px;*/
-    /*max-width: 90px;*/
+    @apply mx-auto my-1 max-h-[8rem] max-w-[8rem] cursor-pointer md:h-[5rem] md:w-[5rem];
     overflow: hidden;
 }
 .no-thumbnails {
     @apply w-50 items-center;
 }
 
-
 .key-takeaways {
     @apply mt-5 mb-4;
 }
 
 .key-takeaways h3 {
-    @apply text-lg text-white mt-0 mb-2 ps-4;
+    @apply mt-0 mb-2 ps-4 text-lg text-white;
 }
 
 .key-takeaways ul {
-    @apply ps-10 rounded border-l-1 border-terminal-black-700;
+    @apply rounded border-s border-terminal-black-700 ps-10;
 }
 
 .key-takeaways ul li {

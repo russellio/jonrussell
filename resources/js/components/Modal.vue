@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import { useEscapeKey } from '@/js/composables/useEscapeKey';
 import { useModal } from '@/js/composables/useModal';
 const { closeModal, escapeToClose } = useModal();
 
@@ -32,6 +31,10 @@ const props = defineProps({
     submitText: {
         type: String,
         default: 'Submit',
+    },
+    cancelText: {
+        type: String,
+        default: 'Cancel',
     },
     isLoading: {
         type: Boolean,
@@ -66,19 +69,8 @@ escapeToClose(modalId);
             </div>
 
             <div class="modal-footer">
-                <button
-                    @click="closeModal(modalId)"
-                    :disabled="isLoading"
-                    class="btn-cancel"
-                >
-                    cancel
-                </button>
-                <button
-                    v-if="showSubmit"
-                    @click="handleSubmit"
-                    :disabled="isLoading || submitDisabled"
-                    class="btn"
-                >
+                <button @click="closeModal(modalId)" :disabled="isLoading" class="btn-cancel">{{ props.cancelText }}</button>
+                <button v-if="showSubmit" @click="handleSubmit" :disabled="isLoading || submitDisabled" class="btn">
                     <span v-if="isLoading" class="animate-spin">
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -106,5 +98,4 @@ escapeToClose(modalId);
 .btn-submit {
     @apply flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50;
 }
-
 </style>

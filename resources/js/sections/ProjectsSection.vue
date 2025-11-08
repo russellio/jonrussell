@@ -28,13 +28,11 @@ const openProjectModal = (project: any) => {
         <!-- Page Header -->
         <div class="mt-10 mb-16 text-center">
             <h2>Projects</h2>
-            <p class="text-2xl text-terminal-black-500">
-                A collection of projects I've worked on.
-            </p>
+            <p class="text-2xl text-terminal-black-500">A collection of projects I've worked on.</p>
         </div>
 
         <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-12 w-full lg:w-11/12 lg:mx-auto">
+        <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:mx-auto lg:w-11/12 lg:gap-12">
             <div v-for="(project, index) in projects" :key="index" class="card">
                 <a aria-label="View project details" class="cursor-pointer">
                     <div class="group project" @click="openProjectModal(project)">
@@ -63,7 +61,7 @@ const openProjectModal = (project: any) => {
                             <p>{{ project.byline }}</p>
 
                             <!-- Technologies -->
-                            <div v-if="project.technologies" class="w-full flex flex-wrap gap-1 justify-center absolute bottom-4 left-0">
+                            <div v-if="project.technologies" class="absolute bottom-4 left-0 flex w-full flex-wrap justify-center gap-1">
                                 <div v-for="(tech, index) in project.technologies" :key="index" class="pill">
                                     <span class="mx-3 my-0.5">{{ tech }}</span>
                                 </div>
@@ -75,19 +73,15 @@ const openProjectModal = (project: any) => {
         </div>
 
         <!-- Single Project Modal -->
-        <ProjectModal
-            v-if="isModalOpen && selectedProject"
-            :project="selectedProject"
-        />
+        <ProjectModal v-if="isModalOpen && selectedProject" :project="selectedProject" />
     </section>
 </template>
-
 
 <style scoped>
 @reference "@/css/app.css";
 
 .project {
-    @apply relative z-0 h-[290px] lg:h-[260px] overflow-hidden rounded-lg border border-terminal-black-200 align-bottom bg-terminal-black;
+    @apply relative z-0 h-[290px] overflow-hidden rounded-lg border border-terminal-black-200 bg-terminal-black align-bottom lg:h-[260px];
 }
 
 .project-image {
@@ -98,7 +92,7 @@ const openProjectModal = (project: any) => {
 }
 
 .project-info-wrapper {
-    @apply absolute bottom-0 z-50 w-full border-t-1 border-terminal-black-300 bg-terminal-black px-4 pt-2 text-white;
+    @apply absolute bottom-0 z-50 w-full border-t border-terminal-black-300 bg-terminal-black px-4 pt-2 text-white;
     @apply bg-gradient-to-t from-black via-terminal-black to-transparent;
     @apply opacity-100 lg:opacity-0 lg:transition-opacity lg:duration-300 lg:ease-in-out lg:group-hover:opacity-100;
     @apply h-[8.5rem];
@@ -112,14 +106,14 @@ const openProjectModal = (project: any) => {
 }
 
 h1 {
-    @apply text-2xl lg:text-3xl font-extrabold text-secondary;
+    @apply text-2xl font-extrabold text-secondary lg:text-3xl;
     @apply rounded-md border border-white p-1 ps-8 backdrop-blur-sm;
     @apply bg-white/80 backdrop-filter lg:transition-[bg-white] lg:duration-300 lg:ease-in lg:group-hover:bg-white/45;
     @apply sm:max-lg:bg-white/45;
 }
 
 div.awards {
-    @apply absolute mt-2 grid grid-cols-1 justify-items-center lg:justify-items-end lg:pe-2 opacity-90;
+    @apply absolute mt-2 grid grid-cols-1 justify-items-center opacity-90 lg:justify-items-end lg:pe-2;
 }
 
 div.awards .pill {
@@ -128,10 +122,9 @@ div.awards .pill {
 
 .pill {
     @apply inline-flex w-max items-center border border-terminal-black-300 select-none;
-    @apply rounded-full p-0 lg:p-0.5 text-xs shadow-sm;
+    @apply rounded-full p-0 text-xs shadow-sm lg:p-0.5;
 }
 
 .card {
-
 }
 </style>

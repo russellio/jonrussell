@@ -31,6 +31,7 @@
 
     --color-gold: #efbf04;
     --color-bright-green: #45f415;
+    /* --color-bright-green: #b2ff27; */
     --color-red: #f50538;
     --color-bulldog-red: #BA0C2F;
     --color-burgundy: #ef4957;
@@ -90,9 +91,9 @@ p {
     @apply text-3xl font-extrabold text-secondary;
 }
 
-.card:hover {
+/* .card:hover {
     @apply lg:shadow-2xl lg:-translate-y-2;
-}
+} */
 
 .text-outline {
     text-shadow:
@@ -217,7 +218,7 @@ p {
 }
 
 .modal-content {
-    @apply flex w-full flex-col md:flex-row bg-terminal-black p-4 pt-2 text-white;
+    @apply flex w-full flex-col md:flex-row bg-[#222] p-4 pt-2 text-white;
 }
 
 .modal-footer {

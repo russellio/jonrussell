@@ -211,7 +211,7 @@ const submitForm = async () => {
         title="Contact Me"
         :showSubmit="true"
         :submitDisabled="!isFormValid || isFormSubmitted"
-        submitText="send message"
+        submitText="Send"
         :isLoading="isLoading"
         @submit="submitForm"
     >
