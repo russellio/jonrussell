@@ -1,6 +1,6 @@
 {
     "name": "jonrussell-portfolio",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "private": true,
     "type": "module",
     "description": "Modern portfolio website built with Laravel, Vue.js, and TailwindCSS",
