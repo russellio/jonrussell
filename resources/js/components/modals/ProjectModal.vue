@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import Modal from '@/js/components/Modal.vue';
 import ImageModal from '@/js/components/modals/ImageModal.vue';
-import { ref } from 'vue';
+import Modal from '@/js/components/modals/Modal.vue';
+import { computed, ref } from 'vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faArrowUpRightFromSquare, faAward, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare, faAward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faAward, faCaretRight, faArrowUpRightFromSquare);
+library.add(faAward, faArrowUpRightFromSquare);
 
 const props = defineProps({
     project: {
@@ -19,38 +19,53 @@ const props = defineProps({
 const imageModalRef = ref<InstanceType<typeof ImageModal> | null>(null);
 
 const projectHasProp = (project: any, property: any) => {
-    return project.hasOwnProperty(property) && project[property].length > 0;
+    if (project.hasOwnProperty(property)) {
+        if (typeof project[property] === 'object') {
+            return Object.keys(project[property]).length > 0;
+        }
+    }
+    return project.hasOwnProperty(property) && Object.keys(project[property]).length > 0;
 };
 
-const hasModalLeft = (project: any) => {
-    return projectHasProp(project, 'primaryImage');
-};
+const hasModalLeft = computed(() => {
+    return projectHasProp(props.project, 'primaryImage');
+});
 
-const hasModalRight = (project: any) => {
-    return projectHasProp(project, 'skills') || projectHasProp(project, 'technologies') || projectHasProp(project, 'tools');
-};
+const hasModalRight = computed(() => {
+    return projectHasProp(props.project, 'skills') || projectHasProp(props.project, 'technologies') || projectHasProp(props.project, 'tools');
+});
 
-const title = `<span>project: </span><br class='lg:hidden'>${props.project.title}`;
+const title = computed(() => {
+    return `<span class='text-secondary!''>project: </span><br class='md:hidden'>${props.project.title}`;
+});
+
+const companyLogoSrc = computed(() => {
+    return props.project.company?.logo?.src ? `/images/logos/${props.project.company.logo.src}` : null;
+});
+const companyLogoText = computed(() => {
+    return props.project.company?.logo?.displayName ? props.project.company.name : null;
+});
 </script>
 
 <template>
-    <Modal modalId="project-modal" :title="title">
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%] w-full">
-
-            <div v-if="hasModalLeft(project)"
-                 class="modal-left"
-                 :class="{'no-thumbnails': !projectHasProp(project, 'images')}"
-            >
-                <div v-if="projectHasProp(project, 'primaryImage')"
-                     class="primary-image cursor-pointer"
-                     @click="imageModalRef?.openImageModal(project.primaryImage)">
-                    <img :src="`/images/projects/${project.primaryImage}`" :title="project.primaryImage.title" :alt="project.primaryImage.alt ?? project.primaryImage.title" />
+    <Modal modalId="project-modal" :title="title" cancelText="Close">
+        <div class="grid w-full grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%]">
+            <div v-if="hasModalLeft" class="modal-left mb-10" :class="{ '': !projectHasProp(project, 'images') }">
+                <div
+                    v-if="projectHasProp(project, 'primaryImage')"
+                    class="mb-6 cursor-pointer"
+                    @click="imageModalRef?.openImageModal(project.primaryImage)"
+                >
+                    <img
+                        :src="`/images/projects/${project.primaryImage.src}`"
+                        :title="project.primaryImage.title"
+                        :alt="project.primaryImage.alt ?? project.primaryImage.title"
+                        class="mx-auto w-4/5 rounded-md object-fill lg:w-full"
+                    />
                 </div>
+
                 <div v-if="projectHasProp(project, 'images')" class="thumbnails">
-                    <div v-for="(image, index) in project.images"
-                         :key="index"
-                         class="thumbnail cursor-pointer"
-                         @click="imageModalRef?.openImageModal(image)">
+                    <div v-for="(image, index) in project.images" :key="index" class="thumbnail" @click="imageModalRef?.openImageModal(image)">
                         <img v-if="image?.src" :src="`/images/projects/${image.src}`" :title="image.title" :alt="image.alt" />
                     </div>
                 </div>
@@ -58,29 +73,42 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
 
             <div class="modal-center w-full">
                 <div v-if="projectHasProp(project, 'company')" class="company">
-                    <h3>
-                        company:
-                        <span class="font-sans !text-white" v-html="project.company" />
-                    </h3>
+                    <div class="flex w-full flex-col font-sans tracking-widest text-white! md:flex-row">
+                        <h3>company:</h3>
+                        <div v-if="companyLogoSrc" class="flex grow flex-col justify-center py-2 md:flex-row">
+                            <div class="align-end pe-4">
+                                <img
+                                    v-if="companyLogoSrc"
+                                    :src="companyLogoSrc"
+                                    :alt="project.company.logo.alt || project.company.name"
+                                    class="mx-auto h-10"
+                                />
+                            </div>
+                            <div v-if="companyLogoText" class="self-center text-xl" v-html="companyLogoText" />
+                        </div>
+                        <span v-else class="" v-html="project.company.name" />
+                    </div>
                 </div>
 
-                <div v-if="projectHasProp(project, 'keyTakeaways')" class="key-takeaways">
-                    <h3>key takeaways:</h3>
-                    <ul>
-                        <li v-for="(takeaway, index) in project.keyTakeaways" :key="index">
-                            {{ takeaway }}
-                        </li>
-                    </ul>
+                <div v-if="projectHasProp(project, 'keyTakeaways')" class="key-takeaways mx-auto mt-5 mb-4 w-11/12">
+                    <h4 class="mt-0 mb-2 font-space-mono text-white!">key takeaways:</h4>
+                    <div class="rounded-md border-y border-terminal-black-700 bg-black/65 p-2 py-6 ps-8">
+                        <ul class="list-disc space-y-2 border-s border-terminal-black-700 ps-10">
+                            <li v-for="(takeaway, index) in project.keyTakeaways" :key="index" class="">
+                                {{ takeaway }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div v-if="projectHasProp(project, 'description')" class="description">
+                <div v-if="projectHasProp(project, 'description')" class="">
                     <h3>description:</h3>
-                    <div v-html="project.description" />
+                    <div v-html="project.description" class="description" />
                 </div>
 
                 <div v-if="projectHasProp(project, 'links')" class="links">
-                    <h3>links:</h3>
-                    <ul class="fa-ul" style="list-style-type: disc;">
+                    <h4 class="mt-0 mb-2 ps-4 font-space-mono text-white!">links:</h4>
+                    <ul class="list-disc space-y-2 rounded-md border border-s-4 border-terminal-black-700 bg-black/65 p-2 py-3 ps-10">
                         <li v-for="(link, index) in project.links" :key="index">
                             <a :href="link.url" target="_blank">{{ link.title }}</a>
                             <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-gold" size="sm" />
@@ -89,22 +117,11 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
                 </div>
             </div>
 
-            <div v-if="hasModalRight(project)" class="modal-right">
-                <div v-if="projectHasProp(project, 'skills')" class="skills">
-                    <h3>skills:</h3>
-                    <ul class="fa-ul">
-                        <li v-for="(skill, index) in project.skills" :key="index">
-                            <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" /></span>
-                            {{ skill }}
-                        </li>
-                    </ul>
-                </div>
-
+            <div v-if="hasModalRight" class="modal-right">
                 <div v-if="projectHasProp(project, 'technologies')" class="technologies">
-                    <h3>tech:</h3>
-                    <ul class="fa-ul">
+                    <h3>skills:</h3>
+                    <ul>
                         <li v-for="(tech, index) in project.technologies" :key="index">
-                            <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" /></span>
                             {{ tech }}
                         </li>
                     </ul>
@@ -112,15 +129,13 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
 
                 <div v-if="projectHasProp(project, 'tools')" class="tools">
                     <h3>tools:</h3>
-                    <ul class="fa-ul">
+                    <ul>
                         <li v-for="(tool, index) in project.tools" :key="index">
-                            <span class="fa-li"><FontAwesomeIcon :icon="faCaretRight" /></span>
                             {{ tool }}
                         </li>
                     </ul>
                 </div>
             </div>
-
         </div>
 
         <ImageModal ref="imageModalRef" />
@@ -131,45 +146,47 @@ const title = `<span>project: </span><br class='lg:hidden'>${props.project.title
 @reference "@/css/app.css";
 
 h3 {
-    @apply mt-3 font-space-mono text-lg font-bold;
-}
-
-.primary-image img {
-    width: 100%;
-    object-fit: fill;
+    @apply mt-3 font-space-mono text-bright-green!;
 }
 
 .thumbnails {
-    @apply flex flex-wrap gap-1 mx-auto mt-1 content-start;
-    @apply lg:grid lg:grid-cols-2 lg:gap-2 lg:w-full;
+    @apply mx-auto mt-1 flex flex-wrap gap-1;
+    @apply md:grid md:w-4/5 md:grid-cols-6;
+    @apply lg:mt-0 lg:w-full lg:grid-cols-2 lg:gap-2;
 }
 
 .thumbnail {
-    @apply cursor-pointer max-w-[8rem] max-h-[8rem] md:h-[5rem] md:w-[5rem] my-1 mx-auto;
-    /*margin-top: 0.25rem;*/
-    /*max-height: 60px;*/
-    /*max-width: 90px;*/
-    overflow: hidden;
-}
-.no-thumbnails {
-    @apply w-50 items-center;
+    @apply mx-auto my-1 h-32 w-32 cursor-pointer overflow-hidden border-y border-terminal-black-700;
+    @apply rounded-md bg-black/65 md:h-20 md:w-20;
 }
 
-
-.key-takeaways {
-    @apply mt-5 mb-4;
+.thumbnail img {
+    @apply h-full w-full object-cover;
 }
 
-.key-takeaways h3 {
-    @apply text-lg text-white mt-0 mb-2 ps-4;
+.company {
+    @apply flex flex-row rounded-md border border-y-4 border-b-0 border-terminal-black-700 bg-black/65 px-4;
 }
 
-.key-takeaways ul {
-    @apply ps-10 rounded border-l-1 border-terminal-black-700;
+.description {
+    @apply rounded-md border-t border-b-4 border-terminal-black-700 bg-black/65 px-4 py-5;
 }
 
-.key-takeaways ul li {
-    @apply py-2;
-    list-style-type: disc;
+.modal-left {
+    @apply mx-auto grid grid-cols-1 self-start p-4 py-6 lg:mt-20;
+    @apply rounded-md border-2 border-y-4 border-e-0 border-terminal-black-700 bg-black/65;
+}
+
+.modal-right {
+    @apply grid w-full grid-cols-2 justify-evenly gap-2 pt-2;
+    @apply lg:ms-0 lg:mt-15 lg:grid-cols-1 lg:self-start lg:text-sm;
+}
+
+.modal-right ul {
+    @apply mt-2 mb-4 list-disc space-y-2 rounded-md border-4 border-s-0 border-e-2 border-terminal-black-700 bg-black/65 p-2 py-3 ps-10;
+}
+
+.modal-center {
+    @apply mx-auto grid grid-cols-1 items-start gap-0 lg:w-11/12 lg:self-start;
 }
 </style>
