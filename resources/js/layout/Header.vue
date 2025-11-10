@@ -181,13 +181,35 @@ a svg {
     @apply grid grid-cols-1 justify-items-center md:justify-items-end;
 }
 
+.secondary-nav {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-lg whitespace-nowrap;
+    @apply mx-2 border border-white bg-secondary text-sm;
+    @apply h-10 px-5 py-3 font-space-mono font-bold uppercase;
+    @apply shadow-none transition-[background-color] duration-200;
+}
+
+.secondary-nav:hover {
+    @apply border-secondary bg-terminal-black-200 text-black shadow-xl shadow-black;
+}
+
+.btn-primary {
+    @apply mx-4 rounded-md border-2 bg-secondary px-7 py-1 font-space-mono font-bold text-white uppercase transition-[background-color] duration-200;
+}
+
+.btn-primary:hover {
+    @apply bg-primary;
+}
+
 .fallback-background {
-    @apply fixed h-full w-full overflow-hidden;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
     z-index: -2;
     background:
         radial-gradient(at 51% 46%, #041028 0, transparent 50%), radial-gradient(at 85% 99%, #330509 0, transparent 50%),
         radial-gradient(at 18% 22%, #111b4f 0, transparent 50%), #041028;
-    transition: opacity 1.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
     opacity: 1;
 }
 
@@ -196,7 +218,7 @@ a svg {
 }
 
 .background-fade-enter-active {
-    transition: opacity 1.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .background-fade-enter-from {

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
-import type { ComponentPublicInstance } from 'vue';
-import { onMounted, ref } from 'vue';
+import { ComponentPublicInstance, onMounted, ref } from 'vue';
 const { scrollToSection } = useScrollToSection();
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -124,13 +123,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <section>
-        <div class="mt-10 mb-16 text-center">
+    <section class="md:pb-10!">
+        <!-- <div class="mt-10 mb-16 text-center">
             <h2 class="subpixel-antialiased">About Me</h2>
-        </div>
+        </div> -->
 
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
             <div class="description">
+                <h2 class="md:mb-6! md:text-start! md:text-4xl!">About Me</h2>
+
                 <p>
                     As a Senior Software Engineer with over a decade of experience, I specialize in designing, developing, and scaling enterprise
                     applications. My work centers on Laravel, PHP, REST APIs, JavaScript/TypeScript, and Vue.js, backed by Agile leadership and a
@@ -150,7 +151,7 @@ onMounted(() => {
                 </p>
             </div>
 
-            <div class="tech-stack">
+            <div class="tech-stack content-top pt-0 lg:content-end">
                 <h3>Tech Stack</h3>
                 <ul class="ms-6">
                     <li
@@ -199,30 +200,29 @@ onMounted(() => {
                 </div>
 
                 <template v-else>
-                    <div class="flex flex-col gap-6 lg:flex-row">
-                        <div class="lg:w-3/5">
-                            <h4>Software Engineering</h4>
-                            <div class="skills">
-                                <span v-for="skill in getSkillsBySlug('software')" :key="skill.id" class="pill">{{ skill.name }}</span>
-                            </div>
+                    <div class="flex flex-col">
+                        <h4>Software Engineering</h4>
+                        <div class="skills justify-center">
+                            <span v-for="skill in getSkillsBySlug('software')" :key="skill.id" class="pill">{{ skill.name }}</span>
                         </div>
-                        <div class="lg:w-2/5">
-                            <h4>Architecture & DevOps</h4>
-                            <div class="skills">
+                    </div>
+
+                    <div class="flex flex-col gap-6 md:flex-row">
+                        <div class="">
+                            <h4 class="text-center! lg:text-start!">Architecture & DevOps</h4>
+                            <div class="skills justify-center lg:justify-start">
                                 <span v-for="skill in getSkillsBySlug('devops')" :key="skill.id" class="pill">{{ skill.name }}</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex flex-col gap-6 md:flex-row">
-                        <div class="lg:w-1/2">
-                            <h4>Quality & Collaboration</h4>
-                            <div class="skills">
+                        <div class="">
+                            <h4 class="text-center!">Quality & Collaboration</h4>
+                            <div class="skills justify-center">
                                 <span v-for="skill in getSkillsBySlug('quality')" :key="skill.id" class="pill">{{ skill.name }}</span>
                             </div>
                         </div>
-                        <div class="lg:w-1/2">
-                            <h4>Leadership & Team Building</h4>
-                            <div class="skills">
+                        <div>
+                            <h4 class="text-center! lg:text-end!">Leadership & Team Building</h4>
+                            <div class="skills justify-center lg:justify-end">
                                 <span v-for="skill in getSkillsBySlug('leadership')" :key="skill.id" class="pill">{{ skill.name }}</span>
                             </div>
                         </div>
@@ -234,24 +234,24 @@ onMounted(() => {
                 <h3 class="mb-4">Experience</h3>
 
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    <div class="card p-6 text-center">
-                        <div class="mb-2 text-3xl font-bold text-primary">
+                    <div class="card p-4 text-center">
+                        <div class="mb-2 text-2xl font-bold text-primary">
                             Master of Business<br />
                             & Technology
                         </div>
                         <img src="/images/uga-logo.png" class="mx-auto" alt="UGA Logo" />
                     </div>
-                    <div class="card p-6 text-center">
-                        <div class="mb-2 text-6xl font-bold text-primary">12+</div>
-                        <div class="mb-2 text-2xl">Years of Professional SWE Experience</div>
+                    <div class="card flex flex-row items-center gap-4 p-4">
+                        <div class="text-4xl font-bold text-primary">10+</div>
+                        <div class="text-lg">Years of Professional SWE Experience</div>
                     </div>
-                    <div class="card p-6 text-center">
-                        <div class="mb-2 text-6xl font-bold text-primary">2.5+</div>
-                        <div class="mb-2 text-2xl">Years of Management</div>
+                    <div class="card flex flex-row items-center gap-4 p-4">
+                        <div class="text-4xl font-bold text-primary">2.5+</div>
+                        <div class="text-xl">Years of Management</div>
                     </div>
-                    <div class="card p-6 text-center">
-                        <div class="mb-2 text-6xl font-bold text-primary">3+</div>
-                        <div class="mb-2 text-2xl">Years of Project Management</div>
+                    <div class="card flex flex-row items-center gap-4 p-4">
+                        <div class="text-4xl font-bold text-primary">3+</div>
+                        <div class="text-xl">Years of Project Management</div>
                     </div>
                 </div>
             </div>
@@ -267,7 +267,7 @@ onMounted(() => {
 }
 
 .skills {
-    @apply mb-8 flex flex-wrap justify-center gap-2 lg:justify-start;
+    @apply mb-8 flex flex-wrap gap-2;
 }
 
 .pill {

@@ -13,6 +13,10 @@ const openImageModal = (image: Image) => {
     if (!image?.src) return;
     currentImage.value = image;
     isImageModalOpen.value = true;
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    });
 };
 
 const closeImageModal = () => {
@@ -26,10 +30,10 @@ defineExpose({
 </script>
 
 <template>
-    <div class="image-modal-wrapper" :class="isImageModalOpen ? 'flex' : 'hidden'">
-        <div class="image-modal">
+    <div class="image-modal-wrapper" :class="isImageModalOpen ? 'flex' : 'hidden'" @click="closeImageModal()">
+        <div class="image-modal" @click.stop>
             <button @click="closeImageModal()" aria-label="Close">
-                <FontAwesomeIcon icon="fa-outline fa-xmark" class="h-4 w-4" />
+                <FontAwesomeIcon :icon="faXmark" class="bg-blur-sm m-1 h-4 w-4 rounded-md border border-white bg-white/50 p-2 text-black" />
             </button>
             <img v-if="currentImage?.src" :src="`/images/projects/${currentImage.src}`" :title="currentImage.title" :alt="currentImage.alt" />
         </div>
@@ -49,6 +53,8 @@ defineExpose({
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.75);
     padding: 1rem;
+    height: 100%;
+    overflow-y: hidden;
 }
 
 .image-modal-wrapper.hidden {

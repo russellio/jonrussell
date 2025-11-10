@@ -4,6 +4,7 @@ import { AppPageProps } from '@/js/types/index';
 declare module 'vite/client' {
     interface ImportMetaEnv {
         readonly VITE_APP_NAME: string;
+        readonly VITE_TURNSTILE_SITE_KEY: string;
         [key: string]: string | boolean | undefined;
     }
 
@@ -23,4 +24,10 @@ declare module 'vue' {
         $page: Page;
         $headManager: ReturnType<typeof createHeadManager>;
     }
+}
+
+declare module '@/js/data/projects.json' {
+    import { Project } from '@/js/types/index';
+    const projects: Project[];
+    export default projects;
 }
