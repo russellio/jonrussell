@@ -4,8 +4,10 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ref } from 'vue';
+
 library.add(faXmark);
 
+const imageModalWrapper = ref<HTMLElement | null>(null);
 const isImageModalOpen = ref(false);
 const currentImage = ref<Image | null>(null);
 
@@ -13,10 +15,10 @@ const openImageModal = (image: Image) => {
     if (!image?.src) return;
     currentImage.value = image;
     isImageModalOpen.value = true;
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-    });
+
+    if (!imageModalWrapper.value) return;
+
+    imageModalWrapper.value?.scrollIntoView({ behavior: 'smooth' });
 };
 
 const closeImageModal = () => {
@@ -30,7 +32,7 @@ defineExpose({
 </script>
 
 <template>
-    <div class="image-modal-wrapper" :class="isImageModalOpen ? 'flex' : 'hidden'" @click="closeImageModal()">
+    <div ref="imageModalWrapper" class="image-modal-wrapper" :class="isImageModalOpen ? 'flex' : 'hidden'" @click="closeImageModal()">
         <div class="image-modal" @click.stop>
             <button @click="closeImageModal()" aria-label="Close">
                 <FontAwesomeIcon :icon="faXmark" class="bg-blur-sm m-1 h-4 w-4 rounded-md border border-white bg-white/50 p-2 text-black" />
@@ -53,7 +55,7 @@ defineExpose({
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.75);
     padding: 1rem;
-    height: 100%;
+    height: 100vh;
     overflow-y: hidden;
 }
 

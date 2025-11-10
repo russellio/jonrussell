@@ -239,6 +239,7 @@ const submitForm = async () => {
                             'border-red-500': errors.email || validationErrors.email,
                             'border-success': form.email && !validationErrors.email && !errors.email,
                         }"
+                        autocomplete="true"
                     />
                     <div v-if="errors.email" class="error">{{ errors.email[0] }}</div>
                     <div v-if="validationErrors.email" class="error">{{ validationErrors.email }}</div>
@@ -256,6 +257,7 @@ const submitForm = async () => {
                             'border-red-500': errors.subject || validationErrors.subject,
                             'border-success': form.subject && !validationErrors.subject && !errors.subject,
                         }"
+                        autocomplete="false"
                     />
                     <div v-if="errors.subject" class="error">{{ errors.subject[0] }}</div>
                     <div v-if="validationErrors.subject" class="error">{{ validationErrors.subject }}</div>

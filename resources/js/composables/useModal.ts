@@ -41,7 +41,7 @@ export function useModal() {
         document.body.style.overflow = '';
     }
 
-    const escapeToClose = (modalId): void => {
+    const escapeToClose = (modalId: string): void => {
       useEscapeKey(() => closeModal(modalId));
     };
 
