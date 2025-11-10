@@ -5,7 +5,96 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2025-01-05
+## [1.0.1] - 2025-11-10
+
+### 🎨 Design Updates & Enhancements
+
+This release focuses on improving user experience, code organization, and adding new features to the portfolio.
+
+### ✨ Added
+
+#### Modal Enhancements
+- **Click-outside-to-close functionality** - Users can now close modals by clicking outside the modal content
+- **Customizable cancel button text** - Modal component now supports customizable cancel button text via `cancelText` prop
+- **Improved ImageModal UX** - Image modal now scrolls to top when opened for better viewing experience
+- **Enhanced close button styling** - Close buttons now have improved visual styling with backdrop blur and better contrast
+
+#### Project Data Structure
+- **Company logos support** - Projects now display company logos with configurable display options
+- **Enhanced project data structure** - Company and primaryImage now use object-based structure for better flexibility
+- **Highlighted skills field** - New `highlightedSkills` field in project data to distinguish key technologies
+- **Company logo assets** - Added logos for Arca Sesami, Glen Raven, NCR Digital Insight, and Pioneering Evolution
+
+#### Tech Stack Updates
+- **Python added to tech stack** - Added Python to the About section tech stack with current focus indicator
+- **Python icon support** - Added PythonIcon from vue3-simple-icons library
+
+#### Form Improvements
+- **Autocomplete attributes** - Contact form now includes proper autocomplete attributes for better browser support and accessibility
+
+### 🔄 Changed
+
+#### Code Organization
+- **Reorganized component structure** - Modal component moved to `modals/` directory for better organization
+- **Improved import organization** - All imports are now consistently organized and formatted
+- **Tailwind class ordering** - All Tailwind classes are now consistently ordered for better readability
+- **Code formatting improvements** - Consistent formatting applied across all components
+
+#### Modal Components
+- **Improved modal styling** - Updated modal content background color for better visual hierarchy
+- **Better close button implementation** - Close buttons now use proper FontAwesome icons instead of string references
+- **Enhanced ImageModal scroll behavior** - Changed from `window.scrollTo` to ref-based `scrollIntoView` for better reliability
+
+#### CSS Improvements
+- **Removed unused styles** - Cleaned up unused CSS classes including `.secondary-nav`, `.text-outline-dark`, and commented code
+- **Improved button styling** - Enhanced `.btn-content` styling with better hover states and shadows
+- **Modal content styling** - Updated modal content background color from terminal-black to a lighter shade
+
+#### Type Safety
+- **Type annotations** - Added proper TypeScript type annotation to `escapeToClose` function in useModal composable
+
+### 🐛 Fixed
+
+#### Accessibility
+- **Removed invalid HTML attribute** - Fixed invalid `type="button"` attribute on anchor tag in Header component
+- **Added role attribute** - Email link now has proper `role="button"` for better accessibility
+
+### 🔧 Refactored
+
+#### Component Improvements
+- **ToggleSwitch component** - Improved code formatting, reorganized imports, and cleaned up empty style tags
+- **BackgroundStars component** - Removed commented code and unnecessary comments for better maintainability
+- **AboutSection component** - Removed commented code, improved styling, and better positioning of current focus indicator
+- **ProjectModal component** - Improved code formatting, better attribute organization, and cleaner template structure
+
+#### Code Quality
+- **Removed commented code** - Cleaned up all commented code across components
+- **Improved code consistency** - Consistent formatting and organization throughout the codebase
+- **Better component structure** - Improved component organization and file structure
+
+### 📦 Dependencies
+
+- Updated package-lock.json with latest dependency versions
+
+### 🎯 Technical Details
+
+#### File Structure Changes
+- `resources/js/components/Modal.vue` → `resources/js/components/modals/Modal.vue` (moved for better organization)
+
+#### New Assets
+- `public/images/logos/arca-sesami-dark.png`
+- `public/images/logos/glen-raven.svg`
+- `public/images/logos/ncr-digital-insight.png`
+- `public/images/logos/pioneering-evolution.png`
+- `public/images/logos/sesami-arca.jpg`
+
+### 📝 Notes
+
+This release primarily focuses on code quality improvements, user experience enhancements, and better project data structure. All changes maintain backward compatibility while improving the overall codebase maintainability.
+
+---
+
+## [1.0.0] - 2025-11-05
 
 ### 🎉 Initial Release
 
@@ -123,6 +212,7 @@ Initial development version with core features.
 
 ---
 
+[1.0.1]: https://github.com/russellio/jonrussell.dev/releases/tag/v1.0.1
 [1.0.0]: https://github.com/russellio/jonrussell.dev/releases/tag/v1.0.0
 [0.9.0]: https://github.com/russellio/jonrussell.dev/releases/tag/v0.9.0
 
