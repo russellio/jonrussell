@@ -8,9 +8,14 @@ import { faCss3, faHtml5, faJs, faLaravel, faPhp, faReact, faVuejs } from '@fort
 import { faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCode, faDatabase, faProjectDiagram, faSitemap, faVial } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { MySqlIcon, ReactIcon, TypeScriptIcon } from 'vue3-simple-icons';
+import { PythonIcon, MySqlIcon, ReactIcon, TypeScriptIcon } from 'vue3-simple-icons';
 
-const simpleIcons = [{ component: TypeScriptIcon }, { component: ReactIcon }, { component: MySqlIcon }];
+const simpleIcons = [
+    { component: TypeScriptIcon },
+    { component: ReactIcon },
+    { component: MySqlIcon },
+    { component: PythonIcon }
+];
 
 const faIcons = [
     { group: 'far', name: faObjectGroup },
@@ -58,6 +63,7 @@ interface SkillsResponse {
 const techStack = [
     { tech: 'Laravel', percent: '90', iconType: 'fa', iconName: 'laravel' },
     { tech: 'PHP', percent: '95', iconType: 'fa', iconName: 'php' },
+    { tech: 'Python', percent: '20', iconType: 'si', iconName: 'PythonIcon', active: true },
     { tech: 'REST APIs', percent: '95', iconType: 'fa', iconName: 'code' },
     { tech: 'MySQL / RDMS', percent: '90', iconType: 'si', iconName: 'MySqlIcon' },
     { tech: 'Vue', percent: '80', iconType: 'fa', iconName: 'vuejs' },
@@ -124,10 +130,6 @@ onMounted(() => {
 
 <template>
     <section class="md:pb-10!">
-        <!-- <div class="mt-10 mb-16 text-center">
-            <h2 class="subpixel-antialiased">About Me</h2>
-        </div> -->
-
         <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
             <div class="description">
                 <h2 class="md:mb-6! md:text-start! md:text-4xl!">About Me</h2>
@@ -175,7 +177,7 @@ onMounted(() => {
                             class="-ms-6 inline-block h-5 w-5 fill-current"
                         />
                         {{ item.tech }}
-                        <div v-if="item.active" class="position-absolute ms-[150px] mt-[-4px] text-xs text-gray-500">(current focus)</div>
+                        <div v-if="item.active" class="position-absolute text-end mt-[-4px] text-xs text-gray-500">(current focus)</div>
                     </li>
                 </ul>
 
