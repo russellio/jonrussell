@@ -70,15 +70,16 @@ h4 {
 }
 
 html {
+    @apply min-h-full relative;
     scroll-behavior: smooth;
 }
 
 body {
-    @apply bg-dark-blue;
+    @apply bg-dark-blue h-full;
 }
 
 p {
-    @apply text-sm px-0.5 py-0;
+    @apply px-0.5 py-0;
 }
 
 .card {
@@ -88,10 +89,6 @@ p {
 
 .card h1 {
     @apply text-3xl font-extrabold text-secondary;
-}
-
-.card:hover {
-    @apply lg:shadow-2xl lg:-translate-y-2;
 }
 
 .text-outline {
@@ -105,19 +102,6 @@ p {
         -1px 1px 1px var(--color-white),
         1px 1px 1px var(--color-white),
         0 1px 1px var(--color-white);
-}
-
-.text-outline-dark {
-    text-shadow:
-        -1px 0 1px var(--color-terminal-black),
-        1px 0 1px var(--color-terminal-black),
-        0 0 1px var(--color-terminal-black),
-        -1px -1px 1px var(--color-terminal-black),
-        1px -1px 1px var(--color-terminal-black),
-        0 -1px 1px var(--color-terminal-black),
-        -1px 1px 1px var(--color-terminal-black),
-        1px 1px 1px var(--color-terminal-black),
-        0 1px 1px var(--color-terminal-black);
 }
 
 .section-wrapper {
@@ -137,24 +121,15 @@ p {
     @apply bg-red-100 px-4 py-2 text-error;
 }
 
-.secondary-nav {
-    @apply cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm mx-1;
-    @apply border-2 border-s-3 border-y-terminal-black-500 bg-dark-blue/35 h-10 px-5 py-3 font-bold shadow-xl;
-    @apply transition-all duration-300;
-}
-
-.secondary-nav:hover {
-    @apply border-white bg-dark-blue/100;
-}
-
 .btn-content {
-    @apply border border-secondary mx-2 py-1 px-5;
-    @apply font-space-mono text-sm cursor-pointer font-bold uppercase;
-    @apply transition-all duration-200 rounded-lg;
+    @apply inline-flex items-center justify-center whitespace-nowrap;
+    @apply border border-white mx-2 py-1 px-5 bg-secondary;
+    @apply font-space-mono text-sm cursor-pointer font-bold uppercase text-white;
+    @apply transition-all duration-200 rounded-lg shadow-terminal-black-500 shadow-sm;
 }
 
 .btn-content:hover {
-    @apply bg-secondary text-white border-terminal-black;
+    @apply bg-terminal-black-200 border-secondary text-black shadow-none;
 }
 
 .btn-wrapper {
@@ -170,78 +145,45 @@ p {
     @apply border-x-4 border-secondary;
 }
 
-.btn-primary {
-    @apply mx-4 rounded-md bg-secondary px-7 py-1 font-space-mono font-bold text-white uppercase transition-[background-color] duration-200;
+.btn-submit {
+    @apply inline-flex items-center justify-center whitespace-nowrap;
+    @apply border border-white mx-2 py-1 px-8 lg:px-15 bg-secondary;
+    @apply font-space-mono text-lg cursor-pointer font-bold uppercase text-white;
+    @apply transition-all duration-200 rounded-lg shadow-terminal-black-500 shadow-md;
 }
 
-.btn-primary:hover {
-    @apply bg-primary;
-}
-
-.btn-secondary {
-    @apply rounded-md bg-blue px-0.5 py-1 font-bold text-white transition-[background-color] duration-200;
-}
-
-.btn-secondary:hover {
-    @apply bg-bright-green;
+.btn-submit:hover {
+    @apply bg-terminal-black-200 border-secondary text-black shadow-none;
 }
 
 .btn-cancel {
-    @apply rounded-md bg-gray-300 px-7 py-1 text-gray-800 hover:bg-gray-400 disabled:opacity-50 cursor-pointer;
-    @apply font-space-mono uppercase transition-all duration-100;
+    @apply inline-flex items-center justify-center whitespace-nowrap;
+    @apply bg-terminal-black-200 border border-secondary text-black mx-2 py-1 px-5 lg:px-15;
+    @apply font-space-mono text-lg cursor-pointer uppercase font-semibold;
+    @apply transition-all duration-200 rounded-lg shadow-terminal-black-500 shadow-md;
 }
 
-/* Modal styles */
-.modal-wrapper {
-    @apply fixed top-0 left-0 right-0 bottom-0 z-[9999] flex items-start justify-center overflow-y-auto bg-terminal-black/5 pt-30 backdrop-blur-sm;
-}
-
-.modal {
-    @apply relative mx-auto w-5/6 max-w-7xl rounded-xl bg-white border border-terminal-black-200 shadow-2xl shadow-terminal-black-950/5;
-}
-
-.modal-header {
-    @apply flex items-center justify-between p-4 pb-2;
-}
-
-.modal-header h1 {
-    @apply text-4xl font-extrabold text-primary align-top;
-}
-
-.modal-header h1 span {
-    @apply font-sixtyfour text-2xl font-normal text-secondary;
-}
-
-.modal-content {
-    @apply flex w-full flex-col md:flex-row bg-terminal-black p-4 pt-2 text-white;
-}
-
-.modal-footer {
-    @apply flex flex-row justify-end gap-2 p-4;
-}
-
-.modal-left {
-    @apply grid grid-cols-1 pt-4 text-sm mx-auto pe-0 self-start;
-}
-
-.modal-center {
-    @apply mx-auto grid grid-cols-1 items-start gap-0 lg:w-11/12 lg:mx-auto lg:self-start md:mb-10 md:ms-3;
-}
-
-.modal-right {
-    @apply mx-auto ms-4 w-full grid grid-cols-3 lg:grid-cols-1 pt-2 text-sm lg:self-start;
-}
-
-.links ul {
-    list-style-type: disc;
-}
-
-#contact-modal .modal {
-    @apply mx-auto w-2/3;
+.btn-cancel:hover {
+    @apply bg-terminal-black-200 border-secondary text-black font-bold shadow-none;
 }
 
 #about, #projects {
     scroll-margin-top: 56px;
+}
+
+/* needs to stay global */
+.modal-wrapper {
+    @apply fixed top-0 left-0 right-0 bottom-0 z-999 flex items-start justify-center overflow-y-auto;
+    @apply bg-terminal-black/5 pt-30 backdrop-blur-sm;
+}
+
+.modal {
+    @apply relative mx-auto w-5/6 max-w-7xl rounded-xl bg-white border-2 border-terminal-black-300;
+    @apply shadow-lg shadow-terminal-black-600;
+}
+
+#contact-modal .modal {
+    @apply mx-auto w-2/3;
 }
 
 /* Infinite scroll animation */

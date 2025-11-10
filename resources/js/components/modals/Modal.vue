@@ -1,12 +1,13 @@
 <script setup lang="ts">
-// import { useEscapeKey } from '@/js/composables/useEscapeKey';
-import { useModal } from '@/js/composables/useModal';
+import { useModal } from '../../composables/useModal';
 const { closeModal, escapeToClose } = useModal();
 
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHeadphones } from '@fortawesome/free-regular-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-library.add(faXmark);
+
+library.add(faXmark, faHeadphones);
 
 const emit = defineEmits(['submit']);
 
@@ -33,6 +34,10 @@ const props = defineProps({
         type: String,
         default: 'Submit',
     },
+    cancelText: {
+        type: String,
+        default: 'Close',
+    },
     isLoading: {
         type: Boolean,
         default: false,
@@ -52,12 +57,12 @@ escapeToClose(modalId);
 </script>
 
 <template>
-    <div :id="modalId" class="modal-wrapper">
+    <div :id="modalId" class="modal-wrapper" @click="closeModal(modalId)">
         <div class="modal" @click.stop>
             <div class="modal-header">
                 <h1 v-html="title" />
                 <button @click="closeModal(modalId)" aria-label="Close" class="absolute top-0 right-0 m-2 cursor-pointer">
-                    <FontAwesomeIcon icon="fa-outline fa-xmark" class="h-6 w-6" />
+                    <FontAwesomeIcon :icon="faXmark" class="bg-blur-sm m-1 h-6 w-6 rounded-md border border-white bg-white/50 p-2 text-black" />
                 </button>
             </div>
 
@@ -66,30 +71,12 @@ escapeToClose(modalId);
             </div>
 
             <div class="modal-footer">
-                <button
-                    @click="closeModal(modalId)"
-                    :disabled="isLoading"
-                    class="btn-cancel"
-                >
-                    cancel
-                </button>
-                <button
-                    v-if="showSubmit"
-                    @click="handleSubmit"
-                    :disabled="isLoading || submitDisabled"
-                    class="btn"
-                >
+                <button @click="closeModal(modalId)" class="btn-cancel" v-html="props.cancelText" />
+                <button v-if="showSubmit" @click="handleSubmit" :disabled="isLoading || submitDisabled" class="btn-submit">
                     <span v-if="isLoading" class="animate-spin">
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path
-                                class="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            ></path>
-                        </svg>
+                        <FontAwesomeIcon :icon="faHeadphones" class="h-5 w-5 opacity-75" />
                     </span>
-                    {{ submitText }}
+                    <span v-html="props.submitText" />
                 </button>
             </div>
         </div>
@@ -98,13 +85,23 @@ escapeToClose(modalId);
 
 <style scoped>
 @reference "@/css/app.css";
-
-.btn {
-    @apply mx-0;
+.modal-header {
+    @apply flex items-center justify-between p-4 pb-2;
 }
 
-.btn-submit {
-    @apply flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50;
+.modal-header h1 {
+    @apply align-top text-4xl font-extrabold text-primary;
 }
 
+.modal-header h1 span {
+    @apply font-sixtyfour text-2xl font-normal text-secondary!;
+}
+
+.modal-content {
+    @apply flex w-full flex-col bg-[#222] p-4 pt-2 text-white md:flex-row;
+}
+
+.modal-footer {
+    @apply flex flex-row justify-end gap-2 p-4 lg:pe-20;
+}
 </style>

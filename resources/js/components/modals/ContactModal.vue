@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Modal from '@/js/components/Modal.vue';
+import Modal from '@/js/components/modals/Modal.vue';
 import { onMounted, onUnmounted, ref } from 'vue';
 
-const turnstileSitekey = '0x4AAAAAAB73z-5VUEsEm3_p';
+const turnstileSitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
 
 const form = ref({
     email: '',
@@ -209,10 +209,11 @@ const submitForm = async () => {
     <Modal
         modalId="contact-modal"
         title="Contact Me"
-        :showSubmit="true"
+        :showSubmit="!isFormSubmitted"
         :submitDisabled="!isFormValid || isFormSubmitted"
-        submitText="send message"
+        :submitText="`Send <span class='hidden sm:inline-block'> Message</span>`"
         :isLoading="isLoading"
+        :cancelText="!isFormSubmitted ? `Cancel` : `Close`"
         @submit="submitForm"
     >
         <!-- Contact Modal -->

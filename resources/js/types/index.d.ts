@@ -23,3 +23,40 @@ export interface Image {
     alt: string;
     title: string;
 }
+
+export interface CompanyLogo {
+    src: string;
+    alt: string;
+    displayName: boolean;
+}
+
+export interface Company {
+    name: string;
+    logo: CompanyLogo;
+    link?: string;
+}
+
+export interface ProjectLink {
+    title: string;
+    url: string;
+}
+
+export interface Project {
+    id: string;
+    title: string;
+    byline: string;
+    keyTakeaways: string[];
+    description: string;
+    highlightedSkills: string[];
+    skills: string[];
+    technologies: string[];
+    tools: string[];
+    company: Company;
+    primaryImage: Image;
+    bgImage: string;
+    bgPositionX: string;
+    bgPositionY: string;
+    images?: Image[];
+    links: ProjectLink[];
+    awards?: string[];
+}

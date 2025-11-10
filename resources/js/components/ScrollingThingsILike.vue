@@ -1,20 +1,10 @@
 <script setup lang="ts">
-import { shallowRef, reactive, onMounted, markRaw } from 'vue';
-import { TailwindCssIcon, WarpIcon, PhpStormIcon, ViteIcon } from 'vue3-simple-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { 
-    faPhp, 
-    faLaravel, 
-    faGitkraken, 
-    faGithub, 
-    faBootstrap, 
-    faVuejs, 
-    faCss3, 
-    faHtml5, 
-    faBitbucket 
-} from '@fortawesome/free-brands-svg-icons';
+import { faBitbucket, faBootstrap, faCss3, faGithub, faGitkraken, faHtml5, faLaravel, faPhp, faVuejs } from '@fortawesome/free-brands-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { markRaw, onMounted, reactive, shallowRef } from 'vue';
+import { PhpStormIcon, TailwindCssIcon, ViteIcon, WarpIcon } from 'vue3-simple-icons';
 library.add(faPhp, faLaravel, faGitkraken, faGithub, faBootstrap, faVuejs, faCss3, faHtml5, faBitbucket, faHeart);
 
 const things = shallowRef([
@@ -22,7 +12,7 @@ const things = shallowRef([
     { title: 'PHP', icon: 'php', type: 'fa' },
     { title: 'Laravel', icon: 'laravel', type: 'fa' },
     { title: 'Cursor', icon: 'cursor-alt.svg', type: '' },
-    { title: 'Warp', icon: 'WarpIcon', type: 'si'},
+    { title: 'Warp', icon: 'WarpIcon', type: 'si' },
     { title: 'PhpStorm', icon: 'PhpStormIcon', type: 'si' },
     { title: 'VS Code', icon: 'vscode-alt.svg', type: '' },
     { title: 'Gitkraken', icon: 'gitkraken', type: 'fa' },
@@ -49,7 +39,7 @@ const simpleIconMap = reactive<Record<string, any>>({});
 
 onMounted(() => {
     // Automatically populate simpleIconMap based on things array
-    things.value.forEach(thing => {
+    things.value.forEach((thing) => {
         if (thing.type === 'si' && thing.icon && iconRegistry[thing.icon]) {
             simpleIconMap[thing.icon] = iconRegistry[thing.icon];
         } else if (thing.type === 'si' && thing.icon && !iconRegistry[thing.icon]) {
@@ -67,44 +57,39 @@ const setHovered = (index: string | null) => {
 
 <template>
     <div class="things">
-        <div class="uppercase text-center w-full font-sixtyfour opacity-30 text-2xl text-white">
+        <div class="w-full text-center font-sixtyfour text-2xl text-white uppercase opacity-30">
             Things I <FontAwesomeIcon :icon="['fas', 'heart']" />
         </div>
-        <div class="flex items-center justify-center md:justify-start flex-nowrap animate-infinite-scroll w-max">
-            <ul v-for="index in 2" :key="index" class="m-0 p-0 flex-shrink-0 flex items-center justify-center md:justify-start flex-nowrap [&_li]:mx-8 [&_img]:max-w-none">
+        <div class="animate-infinite-scroll flex w-max flex-nowrap items-center justify-center md:justify-start">
+            <ul
+                v-for="index in 2"
+                :key="index"
+                class="m-0 flex flex-shrink-0 flex-nowrap items-center justify-center p-0 md:justify-start [&_img]:max-w-none [&_li]:mx-8"
+            >
                 <li
                     v-for="(thing, idx) in things"
                     :key="`${index}-${idx}`"
-                    class="icon-item opacity-40 whitespace-nowrap text-white flex flex-col items-center"
+                    class="icon-item flex flex-col items-center whitespace-nowrap text-white opacity-40"
                     @mouseenter="setHovered(`${index}-${idx}`)"
                     @mouseleave="setHovered(null)"
                 >
                     <template v-if="thing.icon">
-                        <img v-if="!thing.type" :src="`/images/icons/${thing.icon}`"
-                            class="w-12 h-12 fill-white align-top"
+                        <img
+                            v-if="!thing.type"
+                            :src="`/images/icons/${thing.icon}`"
+                            class="h-12 w-12 fill-white align-top"
                             style="filter: grayscale(100%)"
                             :alt="thing.title"
                         />
-                        <FontAwesomeIcon
-                            v-else-if="thing.type === 'fa'"
-                            :icon="['fab', thing.icon]"
-                            class="text-5xl"
-                        />
-                        <component
-                            v-else-if="simpleIconMap[thing.icon]"
-                            :is="simpleIconMap[thing.icon]"
-                            class="w-12 h-12 fill-white"
-                        />
+                        <FontAwesomeIcon v-else-if="thing.type === 'fa'" :icon="['fab', thing.icon]" class="text-5xl" />
+                        <component v-else-if="simpleIconMap[thing.icon]" :is="simpleIconMap[thing.icon]" class="h-12 w-12 fill-white" />
                         <span v-else>{{ thing.title }}</span>
                     </template>
-                     <transition name="fade">
-                        <div
-                            v-show="hoveredIndex === `${index}-${idx}`"
-                            class="icon-title"
-                        >
+                    <transition name="fade">
+                        <div v-show="hoveredIndex === `${index}-${idx}`" class="icon-title">
                             {{ thing.title }}
                         </div>
-                     </transition>
+                    </transition>
                 </li>
             </ul>
         </div>
@@ -115,7 +100,7 @@ const setHovered = (index: string | null) => {
 @reference "@/css/app.css";
 
 .things {
-    @apply [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)];
+    @apply mask-[linear-gradient(to_right,transparent_0,black_128px,black_calc(100%-200px),transparent_100%)];
     width: 100%;
     overflow-x: hidden;
 }
@@ -138,7 +123,9 @@ const setHovered = (index: string | null) => {
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
 }
 
 .fade-enter-from,
