@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useModal } from '../../composables/useModal';
-const { closeModal, escapeToClose } = useModal();
-
+import { useModal } from '@/js/composables/useModal';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHeadphones } from '@fortawesome/free-regular-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+const { closeModal, escapeToClose } = useModal();
 
 library.add(faXmark, faHeadphones);
 

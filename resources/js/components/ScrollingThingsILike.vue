@@ -4,11 +4,12 @@ import { faBitbucket, faBootstrap, faCss3, faGithub, faGitkraken, faHtml5, faLar
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { markRaw, onMounted, reactive, shallowRef } from 'vue';
-import { PhpStormIcon, TailwindCssIcon, ViteIcon, WarpIcon } from 'vue3-simple-icons';
+import { BraveIcon, PhpStormIcon, SentryIcon, TailwindCssIcon, ViteIcon, WarpIcon } from 'vue3-simple-icons';
 library.add(faPhp, faLaravel, faGitkraken, faGithub, faBootstrap, faVuejs, faCss3, faHtml5, faBitbucket, faHeart);
 
 const things = shallowRef([
     { title: 'Tailwind CSS', icon: 'TailwindCssIcon', type: 'si' },
+    { title: 'Brave', icon: 'BraveIcon', type: 'si', color: '#FB542B' },
     { title: 'PHP', icon: 'php', type: 'fa' },
     { title: 'Laravel', icon: 'laravel', type: 'fa' },
     { title: 'Cursor', icon: 'cursor-alt.svg', type: '' },
@@ -19,26 +20,31 @@ const things = shallowRef([
     { title: 'Github', icon: 'github', type: 'fa' },
     { title: 'Bootstrap', icon: 'bootstrap', type: 'fa' },
     { title: 'Vue.js', icon: 'vuejs', type: 'fa' },
+    { title: 'Sentry', icon: 'SentryIcon', type: 'si', color: '#362D59' },
     { title: 'CSS3', icon: 'css3', type: 'fa' },
     { title: 'HTML5', icon: 'html5', type: 'fa' },
     { title: 'Bitbucket', icon: 'bitbucket', type: 'fa' },
     { title: 'Vite', icon: 'ViteIcon', type: 'si' },
 ]);
 
-// Icon registry - maps icon names to their imported components
-// Add new icons here when you add them to the things array
 const iconRegistry: Record<string, any> = {
     TailwindCssIcon: markRaw(TailwindCssIcon),
     WarpIcon: markRaw(WarpIcon),
     PhpStormIcon: markRaw(PhpStormIcon),
     ViteIcon: markRaw(ViteIcon),
+    BraveIcon: markRaw(BraveIcon),
+    SentryIcon: markRaw(SentryIcon),
 };
 
-// Dynamically build icon map from things array - only includes icons with type="si"
 const simpleIconMap = reactive<Record<string, any>>({});
 
+const hoveredIndex = shallowRef<string | null>(null);
+
+const setHovered = (index: string | null) => {
+    hoveredIndex.value = index;
+};
+
 onMounted(() => {
-    // Automatically populate simpleIconMap based on things array
     things.value.forEach((thing) => {
         if (thing.type === 'si' && thing.icon && iconRegistry[thing.icon]) {
             simpleIconMap[thing.icon] = iconRegistry[thing.icon];
@@ -47,12 +53,6 @@ onMounted(() => {
         }
     });
 });
-
-const hoveredIndex = shallowRef<string | null>(null);
-
-const setHovered = (index: string | null) => {
-    hoveredIndex.value = index;
-};
 </script>
 
 <template>
@@ -64,7 +64,7 @@ const setHovered = (index: string | null) => {
             <ul
                 v-for="index in 2"
                 :key="index"
-                class="m-0 flex flex-shrink-0 flex-nowrap items-center justify-center p-0 md:justify-start [&_img]:max-w-none [&_li]:mx-8"
+                class="m-0 flex shrink-0 flex-nowrap items-center justify-center p-0 md:justify-start [&_img]:max-w-none [&_li]:mx-8"
             >
                 <li
                     v-for="(thing, idx) in things"

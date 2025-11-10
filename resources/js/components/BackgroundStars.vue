@@ -61,12 +61,10 @@ function generateStars() {
         return;
     }
 
-    // Use DocumentFragment for better performance
     const starsFragment = document.createDocumentFragment();
     const crossFragment = document.createDocumentFragment();
     const auxFragment = document.createDocumentFragment();
 
-    // Generate basic stars in batches to avoid blocking
     for (let i = 0; i < 250; i++) {
         starsFragment.appendChild(createStarElement('star-0', getRandomInt(0, 100), getRandomInt(0, 100), getRandomInt(1, 2)));
         starsFragment.appendChild(createStarElement('star-1 blink', getRandomInt(0, 100), getRandomInt(0, 100), getRandomInt(2, 5)));
@@ -74,7 +72,6 @@ function generateStars() {
         starsFragment.appendChild(createStarElement('star-3 blink', getRandomInt(0, 70), getRandomInt(0, 100), getRandomInt(5, 7)));
     }
 
-    // Generate cross stars
     for (let i = 0; i < 150; i++) {
         starsFragment.appendChild(createStarElement('star-4 blink', getRandomInt(0, 100), getRandomInt(0, 100), getRandomInt(5, 7)));
 
@@ -85,7 +82,6 @@ function generateStars() {
         );
     }
 
-    // Generate auxiliary cross stars
     for (let i = 0; i < 50; i++) {
         if (i % 2 === 0) {
             const color = nightSky[Math.ceil(getRandomInt(0, nightSky.length - 1))];
@@ -97,18 +93,14 @@ function generateStars() {
         auxFragment.appendChild(createStar2WithPercentage(getRandomInt(0, 100), getRandomInt(0, 100), getRandomInt(4, 10), color, color));
     }
 
-    // Append all fragments at once for better performance
     starsContainer.value.appendChild(starsFragment);
     starsCrossContainer.value.appendChild(crossFragment);
     starsCrossAuxContainer.value.appendChild(auxFragment);
 }
 
-// Generate stars when component is mounted
 onMounted(() => {
-    // Use requestAnimationFrame to ensure DOM is ready and not block rendering
     requestAnimationFrame(() => {
         generateStars();
-        // Emit event when background is ready
         emit('background-ready');
     });
 });
@@ -117,14 +109,11 @@ onMounted(() => {
 <template>
     <div class="sky">
         <div class="mountains">
-            <!--            <div class="mountain-1"></div>-->
-            <!--            <div class="mountain-2"></div>-->
             <div class="land-1"></div>
             <div class="land-2"></div>
             <div class="land-3"></div>
         </div>
         <div class="sky-base"></div>
-        <!--        <div class="light-base"></div>-->
         <div class="stars" ref="starsContainer"></div>
         <div class="stars-cross" ref="starsCrossContainer"></div>
         <div class="stars-cross-aux" ref="starsCrossAuxContainer"></div>

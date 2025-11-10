@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { ref, watch } from 'vue';
 
 library.add(faStar);
 
@@ -23,9 +23,12 @@ const emit = defineEmits<{
 
 const internalValue = ref(props.modelValue);
 
-watch(() => props.modelValue, (newValue) => {
-    internalValue.value = newValue;
-});
+watch(
+    () => props.modelValue,
+    (newValue) => {
+        internalValue.value = newValue;
+    },
+);
 
 const emitChange = () => {
     emit('update:modelValue', internalValue.value);
@@ -33,31 +36,26 @@ const emitChange = () => {
 </script>
 
 <template>
-    <label class="flex flex-col lg:flex-row items-center justify-items-center cursor-pointer">
-        <span v-if="label" class="text-terminal-black-50 me-2" :class="{'font-bold': internalValue}">
+    <label class="flex cursor-pointer flex-col items-center justify-items-center lg:flex-row">
+        <span v-if="label" class="me-2 text-terminal-black-50" :class="{ 'font-bold': internalValue }">
             {{ label }}
         </span>
         <div class="relative">
-            <input
-                id="toggleSwitchInput"
-                type="checkbox"
-                class="sr-only peer"
-                v-model="internalValue"
-                @change="emitChange"
-            />
+            <input id="toggleSwitchInput" type="checkbox" class="peer sr-only" v-model="internalValue" @change="emitChange" />
+            <div class="h-4 w-8 rounded-full bg-gray-300 shadow-inner transition-colors duration-200 ease-in-out peer-checked:bg-blue-500"></div>
             <div
-                class="w-8 h-4 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-500 transition-colors duration-200 ease-in-out"
-            ></div>
-            <div
-                class="absolute left-0 top-0 w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out peer-checked:translate-x-full"
+                class="absolute top-0 left-0 h-4 w-4 transform rounded-full bg-white shadow transition-transform duration-200 ease-in-out peer-checked:translate-x-full"
             ></div>
         </div>
         <div class="hidden lg:inline-block">
-            <FontAwesomeIcon :icon="faStar" class="ms-2 text-gold opacity-40 rotate-12" :class="{ 'visible': internalValue, 'collapse': !internalValue }" size="lg" />
+            <FontAwesomeIcon
+                :icon="faStar"
+                class="ms-2 rotate-12 text-gold opacity-40"
+                :class="{ visible: internalValue, collapse: !internalValue }"
+                size="lg"
+            />
         </div>
     </label>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
