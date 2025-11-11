@@ -33,7 +33,7 @@ const openProjectModal = (project: Project) => {
         </div>
 
         <!-- Projects Grid -->
-        <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:mx-auto lg:w-11/12 lg:gap-12">
+        <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:mx-auto xl:w-11/12 xl:gap-12">
             <div v-for="(project, index) in projects" :key="index" class="card">
                 <a aria-label="View project details" class="cursor-pointer">
                     <div class="group project" @click="openProjectModal(project)">
@@ -59,7 +59,7 @@ const openProjectModal = (project: Project) => {
                         </div>
 
                         <div class="project-info-wrapper">
-                            <p class="max-lg:leading-4.5">{{ project.byline }}</p>
+                            <p class="max-xl:leading-4.5">{{ project.byline }}</p>
 
                             <!-- Highlighted Skills -->
                             <div v-if="project.highlightedSkills" class="absolute bottom-4 left-0 flex w-full flex-wrap justify-center gap-1">
@@ -94,17 +94,25 @@ const openProjectModal = (project: Project) => {
 }
 
 .project-info-wrapper {
-    @apply absolute bottom-0 z-50 w-full border-t border-terminal-black-300 bg-terminal-black px-2 pt-2 text-white lg:px-4;
+    /*    @apply absolute bottom-0 z-50 w-full border-t border-terminal-black-300 bg-terminal-black px-2 pt-2 text-white lg:px-4;
+    @apply bg-linear-to-t from-transparent via-terminal-black to-terminal-black;
+    @apply opacity-100 lg:transition-opacity lg:duration-300 lg:ease-in-out lg:group-hover:opacity-100;
+    */
+    @apply absolute bottom-0 z-50 w-full border-t border-terminal-black-300 bg-terminal-black px-2 pt-2 text-white xl:px-4;
     @apply bg-linear-to-t from-black via-terminal-black to-transparent;
-    @apply opacity-100 lg:opacity-0 lg:transition-opacity lg:duration-300 lg:ease-in-out lg:group-hover:opacity-100;
-    @apply h-34;
+    @apply opacity-100 xl:opacity-0 xl:transition-opacity xl:duration-300 xl:ease-in-out xl:group-hover:opacity-100;
+    @apply no-hover:h-34 h-22 transition-[height] group-hover:h-34;
+}
+
+.project-info-wrapper p {
+    @apply opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100;
 }
 
 .project-title-backdrop {
-    @apply absolute z-20 m-1 w-[98%] rounded-md p-0.5 lg:mt-15;
-    @apply border border-s-0 border-t-0 border-terminal-black-700;
-    @apply lg:transition-all lg:duration-300 lg:ease-in-out lg:group-hover:mt-2;
-    @apply sm:max-lg:mt-2;
+    @apply absolute z-20 m-1 w-[98%] rounded-md p-0.5;
+    @apply border border-s-0 border-t-0 border-terminal-black/70;
+    @apply no-hover:mt-1 mt-10 md:mt-6 xl:mt-15;
+    @apply transition-all duration-300 ease-in-out group-hover:mt-2;
 }
 
 h1 {
@@ -126,7 +134,7 @@ div.awards .pill {
 }
 
 .pill {
-    @apply inline-flex w-max items-center border border-terminal-black-300 select-none;
+    @apply inline-flex w-max items-center border border-terminal-black/30 select-none;
     @apply rounded-full p-0 text-xs shadow-sm lg:p-0.5;
 }
 </style>

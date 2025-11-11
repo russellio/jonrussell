@@ -28,10 +28,10 @@ export default {
         gold: 'var(--color-gold)',
         'bright-green': 'var(--color-bright-green)',
         red: 'var(--color-red)',
-        burgundy: 'var(--color-burgundy)',
         'terminal-black': 'var(--color-terminal-black)',
         'bulldog-red': 'var(--color-bulldog-red)',
       },
+      screens: {},
       keyframes: {
         'infinite-scroll': {
           '0%': { transform: 'translateX(0)' },
@@ -40,6 +40,5 @@ export default {
       }
     },
   },
-  plugins: [],
 } satisfies Config
 

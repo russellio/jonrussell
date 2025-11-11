@@ -129,7 +129,7 @@ h1 {
 }
 
 h1.welcome {
-    @apply text-5xl;
+    @apply text-5xl lg:text-6xl;
 }
 
 .clause-head {
@@ -170,7 +170,7 @@ strong {
 
 .profile-pill {
     @apply w-max rounded-full border border-white bg-blue font-semibold;
-    @apply my-1 px-2 py-1 text-[18px] md:text-xs;
+    @apply my-1 px-2 py-1 text-[18px] md:text-xs lg:text-sm;
 }
 
 a svg {

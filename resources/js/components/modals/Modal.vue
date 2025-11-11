@@ -90,11 +90,11 @@ escapeToClose(modalId);
 }
 
 .modal-header h1 {
-    @apply align-top text-4xl font-extrabold text-primary;
+    @apply font-sixtyfour text-xl font-normal text-secondary uppercase md:text-2xl;
 }
 
 .modal-header h1 span {
-    @apply font-sixtyfour text-2xl font-normal text-secondary!;
+    @apply align-top text-4xl font-extrabold text-primary normal-case;
 }
 
 .modal-content {
