@@ -36,7 +36,7 @@ const hasModalRight = computed(() => {
 });
 
 const title = computed(() => {
-    return `<span class='text-secondary!''>project: </span><br class='md:hidden'>${props.project.title}`;
+    return `project: <span class='inline-block md:block text-primary! normal-case'>${props.project.title}</span>`;
 });
 
 const companyLogoSrc = computed(() => {

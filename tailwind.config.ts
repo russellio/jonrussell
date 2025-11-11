@@ -28,9 +28,12 @@ export default {
         gold: 'var(--color-gold)',
         'bright-green': 'var(--color-bright-green)',
         red: 'var(--color-red)',
-        burgundy: 'var(--color-burgundy)',
         'terminal-black': 'var(--color-terminal-black)',
         'bulldog-red': 'var(--color-bulldog-red)',
+      },
+      screens: {
+        'can-hover': { 'raw': '(hover: hover)' },
+        'no-hover': { 'raw': '(hover: none)' },
       },
       keyframes: {
         'infinite-scroll': {
