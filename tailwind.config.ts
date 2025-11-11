@@ -31,10 +31,7 @@ export default {
         'terminal-black': 'var(--color-terminal-black)',
         'bulldog-red': 'var(--color-bulldog-red)',
       },
-      screens: {
-        'can-hover': { 'raw': '(hover: hover)' },
-        'no-hover': { 'raw': '(hover: none)' },
-      },
+      screens: {},
       keyframes: {
         'infinite-scroll': {
           '0%': { transform: 'translateX(0)' },
@@ -43,6 +40,5 @@ export default {
       }
     },
   },
-  plugins: [],
 } satisfies Config
 

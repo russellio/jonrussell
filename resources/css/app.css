@@ -2,6 +2,9 @@
 @import '@fontsource/space-mono';
 @import '@fontsource/sixtyfour';
 
+@variant can-hover (@media (hover: hover) and (pointer: fine));
+@variant no-hover (@media (hover: none) or (pointer: coarse));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
