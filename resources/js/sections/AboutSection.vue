@@ -8,14 +8,9 @@ import { faCss3, faHtml5, faJs, faLaravel, faPhp, faReact, faVuejs } from '@fort
 import { faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCode, faDatabase, faProjectDiagram, faSitemap, faVial } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { PythonIcon, MySqlIcon, ReactIcon, TypeScriptIcon } from 'vue3-simple-icons';
+import { MySqlIcon, PythonIcon, ReactIcon, TypeScriptIcon } from 'vue3-simple-icons';
 
-const simpleIcons = [
-    { component: TypeScriptIcon },
-    { component: ReactIcon },
-    { component: MySqlIcon },
-    { component: PythonIcon }
-];
+const simpleIcons = [{ component: TypeScriptIcon }, { component: ReactIcon }, { component: MySqlIcon }, { component: PythonIcon }];
 
 const faIcons = [
     { group: 'far', name: faObjectGroup },
@@ -63,18 +58,18 @@ interface SkillsResponse {
 const techStack = [
     { tech: 'Laravel', percent: '90', iconType: 'fa', iconName: 'laravel' },
     { tech: 'PHP', percent: '95', iconType: 'fa', iconName: 'php' },
-    { tech: 'Python', percent: '20', iconType: 'si', iconName: 'PythonIcon', active: true },
-    { tech: 'REST APIs', percent: '95', iconType: 'fa', iconName: 'code' },
-    { tech: 'MySQL / RDMS', percent: '90', iconType: 'si', iconName: 'MySqlIcon' },
-    { tech: 'Vue', percent: '80', iconType: 'fa', iconName: 'vuejs' },
+    { tech: 'Vue', percent: '75', iconType: 'fa', iconName: 'vuejs' },
     { tech: 'React', percent: '45', iconType: 'si', iconName: 'ReactIcon', active: true },
     { tech: 'JavaScript', percent: '95', iconType: 'fa', iconName: 'js' },
-    { tech: 'TypeScript', percent: '80', iconType: 'si', iconName: 'TypeScriptIcon' },
+    { tech: 'TypeScript', percent: '90', iconType: 'si', iconName: 'TypeScriptIcon' },
+    { tech: 'Python', percent: '20', iconType: 'si', iconName: 'PythonIcon', active: true },
+    { tech: 'REST APIs', percent: '90', iconType: 'fa', iconName: 'code' },
+    { tech: 'MySQL / RDMS', percent: '90', iconType: 'si', iconName: 'MySqlIcon' },
     { tech: 'HTML5', percent: '95', iconType: 'fa', iconName: 'html5' },
     { tech: 'CSS3', percent: '95', iconType: 'fa', iconName: 'css3' },
-    { tech: 'PEST / PHPUnit', percent: '75', iconType: 'fa', iconName: 'vial' },
+    { tech: 'PEST / PHPUnit', percent: '80', iconType: 'fa', iconName: 'vial' },
     { tech: 'Agile', percent: '90', iconType: 'fa', iconName: 'project-diagram' },
-    { tech: 'OOP / MVC', percent: '95', iconType: 'fa', iconName: 'sitemap' },
+    { tech: 'OOP / MVC', percent: '90', iconType: 'fa', iconName: 'sitemap' },
 ];
 const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
 
@@ -133,7 +128,6 @@ onMounted(() => {
         <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
             <div class="description">
                 <h2 class="md:mb-6! md:text-start! md:text-4xl!">About Me</h2>
-
                 <p>
                     As a Senior Software Engineer with over a decade of experience, I specialize in designing, developing, and scaling enterprise
                     applications. My work centers on Laravel, PHP, REST APIs, JavaScript/TypeScript, and Vue.js, backed by Agile leadership and a
@@ -153,7 +147,7 @@ onMounted(() => {
                 </p>
             </div>
 
-            <div class="tech-stack content-top pt-0 lg:content-end">
+            <div class="tech-stack content-top pt-0 xl:content-end">
                 <h3>Tech Stack</h3>
                 <ul class="ms-6">
                     <li
@@ -177,7 +171,7 @@ onMounted(() => {
                             class="-ms-6 inline-block h-5 w-5 fill-current"
                         />
                         {{ item.tech }}
-                        <div v-if="item.active" class="position-absolute text-end mt-[-4px] text-xs text-gray-500">(current focus)</div>
+                        <div v-if="item.active" class="position-absolute mt-[-4px] mb-[-4px] text-end text-xs text-gray-500">(current focus)</div>
                     </li>
                 </ul>
 
@@ -243,16 +237,19 @@ onMounted(() => {
                         </div>
                         <img src="/images/uga-logo.png" class="mx-auto" alt="UGA Logo" />
                     </div>
-                    <div class="card flex flex-row items-center gap-4 p-4">
-                        <div class="text-4xl font-bold text-primary">10+</div>
+
+                    <div class="card flex flex-col items-center justify-center gap-2 p-4 sm:flex-row lg:flex-row">
+                        <div class="text-end text-4xl font-bold text-primary">10+</div>
                         <div class="text-lg">Years of Professional SWE Experience</div>
                     </div>
-                    <div class="card flex flex-row items-center gap-4 p-4">
-                        <div class="text-4xl font-bold text-primary">2.5+</div>
+
+                    <div class="card flex flex-col items-center justify-center gap-2 p-4 sm:flex-row lg:flex-row">
+                        <div class="text-end text-4xl font-bold text-primary lg:text-2xl xl:text-4xl">2.5+</div>
                         <div class="text-xl">Years of Management</div>
                     </div>
-                    <div class="card flex flex-row items-center gap-4 p-4">
-                        <div class="text-4xl font-bold text-primary">3+</div>
+
+                    <div class="card flex flex-col items-center justify-center gap-2 p-4 sm:flex-row lg:flex-row">
+                        <div class="text-end text-4xl font-bold text-primary">3+</div>
                         <div class="text-xl">Years of Project Management</div>
                     </div>
                 </div>
@@ -273,9 +270,8 @@ onMounted(() => {
 }
 
 .pill {
-    @apply inline-block items-center px-4 py-2 select-none;
-    @apply rounded-sm bg-terminal-black-100 text-xs font-semibold shadow-sm;
-    @apply transition-all duration-200 ease-in-out hover:bg-terminal-black-400;
+    @apply inline-block items-center px-4 py-1 select-none;
+    @apply rounded-md border border-terminal-black/60 bg-white/50 font-semibold shadow-md;
 }
 
 ul {

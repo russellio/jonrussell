@@ -217,7 +217,7 @@ const submitForm = async () => {
         @submit="submitForm"
     >
         <!-- Contact Modal -->
-        <div class="flex w-full flex-col gap-4 p-6">
+        <div class="flex w-full flex-col">
             <div v-if="successMessage" class="success">
                 {{ successMessage }}
             </div>
@@ -226,9 +226,9 @@ const submitForm = async () => {
                 <span v-if="error">{{ key }} {{ error }}</span>
             </div>
 
-            <div v-if="!isFormSubmitted" class="form-wrapper">
-                <div>
-                    <label for="email">Email:</label>
+            <div v-if="!isFormSubmitted" class="grid w-full grid-cols-1 gap-1 p-4 md:grid-cols-[20%_auto] md:gap-4 md:p-6">
+                <label for="email" class="">Email:</label>
+                <div class="flex flex-col">
                     <input
                         id="email"
                         :value="form.email"
@@ -245,14 +245,14 @@ const submitForm = async () => {
                     <div v-if="validationErrors.email" class="error">{{ validationErrors.email }}</div>
                 </div>
 
-                <div>
-                    <label for="subject">Subject:</label>
+                <label for="subject" class="">Subject:</label>
+                <div class="flex flex-col">
                     <input
                         id="subject"
                         :value="form.subject"
                         @change="handleSubjectChange"
                         type="text"
-                        placeholder="Hey!!!"
+                        placeholder="Tacos are delicious!"
                         :class="{
                             'border-red-500': errors.subject || validationErrors.subject,
                             'border-success': form.subject && !validationErrors.subject && !errors.subject,
@@ -263,8 +263,8 @@ const submitForm = async () => {
                     <div v-if="validationErrors.subject" class="error">{{ validationErrors.subject }}</div>
                 </div>
 
-                <div>
-                    <label for="message">Message:</label>
+                <label for="message" class="">Message:</label>
+                <div class="flex flex-col">
                     <textarea
                         id="message"
                         :value="form.message"
@@ -279,10 +279,10 @@ const submitForm = async () => {
                     <div v-if="errors.message" class="error">{{ errors.message[0] }}</div>
                     <div v-if="validationErrors.message" class="error">{{ validationErrors.message }}</div>
                 </div>
+            </div>
 
-                <div class="flex justify-center">
-                    <div class="scale-80 md:scale-100" id="turnstile-container"></div>
-                </div>
+            <div class="flex justify-center">
+                <div class="scale-80 md:scale-100" id="turnstile-container"></div>
             </div>
         </div>
     </Modal>
@@ -292,14 +292,15 @@ const submitForm = async () => {
 @reference "@/css/app.css";
 
 label {
-    @apply mt-3 mb-2 block font-space-mono text-xl font-bold text-white;
+    @apply mt-3 mb-2 font-space-mono text-xl font-semibold tracking-widest text-white;
+    @apply md:mt-1 md:text-end md:text-lg lg:text-2xl;
 }
 
 input,
 textarea {
-    @apply font-mono;
+    @apply font-sans;
     @apply w-full rounded-md border bg-white px-3 py-2 text-lg text-terminal-black;
-    @apply placeholder:text-terminal-black-400 placeholder:italic;
+    @apply placeholder:text-terminal-black/40 placeholder:italic;
     @apply focus:border-blue focus:shadow focus:outline-none;
 }
 </style>
