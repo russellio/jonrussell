@@ -204,13 +204,13 @@ onMounted(() => {
                     </div>
 
                     <div class="flex flex-col gap-6 md:flex-row">
-                        <div class="">
+                        <div>
                             <h4 class="text-center! lg:text-start!">Architecture & DevOps</h4>
                             <div class="skills justify-center lg:justify-start">
                                 <span v-for="skill in getSkillsBySlug('devops')" :key="skill.id" class="pill">{{ skill.name }}</span>
                             </div>
                         </div>
-                        <div class="">
+                        <div>
                             <h4 class="text-center!">Quality & Collaboration</h4>
                             <div class="skills justify-center">
                                 <span v-for="skill in getSkillsBySlug('quality')" :key="skill.id" class="pill">{{ skill.name }}</span>

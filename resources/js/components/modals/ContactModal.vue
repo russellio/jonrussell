@@ -227,7 +227,7 @@ const submitForm = async () => {
             </div>
 
             <div v-if="!isFormSubmitted" class="grid w-full grid-cols-1 gap-1 p-4 md:grid-cols-[20%_auto] md:gap-4 md:p-6">
-                <label for="email" class="">Email:</label>
+                <label for="email">Email:</label>
                 <div class="flex flex-col">
                     <input
                         id="email"
@@ -245,7 +245,7 @@ const submitForm = async () => {
                     <div v-if="validationErrors.email" class="error">{{ validationErrors.email }}</div>
                 </div>
 
-                <label for="subject" class="">Subject:</label>
+                <label for="subject">Subject:</label>
                 <div class="flex flex-col">
                     <input
                         id="subject"
@@ -263,7 +263,7 @@ const submitForm = async () => {
                     <div v-if="validationErrors.subject" class="error">{{ validationErrors.subject }}</div>
                 </div>
 
-                <label for="message" class="">Message:</label>
+                <label for="message">Message:</label>
                 <div class="flex flex-col">
                     <textarea
                         id="message"
