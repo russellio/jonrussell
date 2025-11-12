@@ -86,7 +86,7 @@ const companyLogoText = computed(() => {
                             </div>
                             <div v-if="companyLogoText" class="self-center text-xl" v-html="companyLogoText" />
                         </div>
-                        <span v-else class="" v-html="project.company.name" />
+                        <span v-else v-html="project.company.name" />
                     </div>
                 </div>
 
@@ -94,21 +94,21 @@ const companyLogoText = computed(() => {
                     <h4 class="mt-0 mb-2 font-space-mono text-white!">key takeaways:</h4>
                     <div class="rounded-md border-y border-terminal-black-700 bg-black/65 p-2 py-6 ps-8">
                         <ul class="list-disc space-y-2 border-s border-terminal-black-700 ps-10">
-                            <li v-for="(takeaway, index) in project.keyTakeaways" :key="index" class="">
+                            <li v-for="(takeaway, index) in project.keyTakeaways" :key="index">
                                 {{ takeaway }}
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div v-if="projectHasProp(project, 'description')" class="">
+                <div v-if="projectHasProp(project, 'description')">
                     <h3>description:</h3>
                     <div v-html="project.description" class="description" />
                 </div>
 
                 <div v-if="projectHasProp(project, 'links')" class="links">
                     <h4 class="mt-0 mb-2 ps-4 font-space-mono text-white!">links:</h4>
-                    <ul class="list-disc space-y-2 rounded-md border border-s-4 border-terminal-black-700 bg-black/65 p-2 py-3 ps-10">
+                    <ul class="list-disc space-y-2 rounded-md border-t border-b-4 border-terminal-black-700 bg-black/65 p-2 py-3 ps-10">
                         <li v-for="(link, index) in project.links" :key="index">
                             <a :href="link.url" target="_blank">{{ link.title }}</a>
                             <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-gold" size="sm" />
