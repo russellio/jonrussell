@@ -82,22 +82,13 @@ class TechStackItem extends Model
             return $this->percent;
         }
 
-        // Calculate from position_skill pivot table
-        $totalMonths = 0;
-
-        if ($this->skill_id) {
-            $skill = $this->skill;
-            if ($skill) {
-                // Get all positions that used this skill
-                $positions = \App\Models\Position::whereHas('skills', function ($query) use ($skill) {
-                    $query->where('skills.id', $skill->id);
-                })->get();
-
-                foreach ($positions as $position) {
-                    $totalMonths += $position->months;
-                }
-            }
+        if (!$this->skill_id) {
+            return 0;
         }
+
+        $totalMonths = Position::whereHas('skills', function ($query) {
+            $query->where('skills.id', $this->skill_id);
+        })->get()->sum('months');
 
         // Calculate percentage: (total_months / max_expected_months) * 100
         $calculatedPercent = (int) round(($totalMonths / self::MAX_EXPECTED_MONTHS) * 100);

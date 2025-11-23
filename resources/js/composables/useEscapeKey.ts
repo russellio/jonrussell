@@ -1,8 +1,8 @@
 import { onMounted, onBeforeUnmount } from 'vue';
 
-export function useEscapeKey(callback): void {
-  const handleKeydown = (event) => {
-    if (event.keyCode === 27) {
+export function useEscapeKey(callback: () => void): void {
+  const handleKeydown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
       callback();
     }
   };
