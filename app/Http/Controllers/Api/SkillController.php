@@ -13,7 +13,7 @@ class SkillController extends Controller
      */
     public function index(): JsonResponse
     {
-        $skillTypes = SkillType::with('skills')
+        $skillTypes = SkillType::with(['skills.icon'])
             ->orderBy('order')
             ->orderBy('name')
             ->get()
@@ -26,6 +26,8 @@ class SkillController extends Controller
                         return [
                             'id' => $skill->id,
                             'name' => $skill->name,
+                            'iconType' => $skill->icon?->icon_type,
+                            'iconName' => $skill->icon?->icon_name,
                         ];
                     }),
                 ];

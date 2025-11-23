@@ -55,23 +55,23 @@ interface SkillsResponse {
     data: SkillType[];
 }
 
-const techStack = [
-    { tech: 'Laravel', percent: '90', iconType: 'fa', iconName: 'laravel' },
-    { tech: 'PHP', percent: '95', iconType: 'fa', iconName: 'php' },
-    { tech: 'Vue', percent: '75', iconType: 'fa', iconName: 'vuejs' },
-    { tech: 'React', percent: '45', iconType: 'si', iconName: 'ReactIcon', active: true },
-    { tech: 'JavaScript', percent: '95', iconType: 'fa', iconName: 'js' },
-    { tech: 'TypeScript', percent: '90', iconType: 'si', iconName: 'TypeScriptIcon' },
-    { tech: 'Python', percent: '20', iconType: 'si', iconName: 'PythonIcon', active: true },
-    { tech: 'REST APIs', percent: '90', iconType: 'fa', iconName: 'code' },
-    { tech: 'MySQL / RDMS', percent: '90', iconType: 'si', iconName: 'MySqlIcon' },
-    { tech: 'HTML5', percent: '95', iconType: 'fa', iconName: 'html5' },
-    { tech: 'CSS3', percent: '95', iconType: 'fa', iconName: 'css3' },
-    { tech: 'PEST / PHPUnit', percent: '80', iconType: 'fa', iconName: 'vial' },
-    { tech: 'Agile', percent: '90', iconType: 'fa', iconName: 'project-diagram' },
-    { tech: 'OOP / MVC', percent: '90', iconType: 'fa', iconName: 'sitemap' },
-];
+interface TechStackItem {
+    tech: string;
+    percent: string;
+    iconType: string;
+    iconName: string;
+    active?: boolean;
+}
+
+interface TechStackResponse {
+    success: boolean;
+    data: TechStackItem[];
+}
+
+const techStack = ref<TechStackItem[]>([]);
 const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
+const isLoadingTechStack = ref(false);
+const techStackError = ref<string | null>(null);
 
 const skillTypes = ref<SkillType[]>([]);
 const isLoadingSkills = ref(false);
@@ -118,8 +118,43 @@ const getSimpleIcon = (iconName: string) => {
     return simpleIcons.find((icon) => icon.component.__name === iconName)?.component || '';
 };
 
+const fetchTechStack = async () => {
+    isLoadingTechStack.value = true;
+    techStackError.value = null;
+
+    try {
+        const response = await fetch('/api/tech-stack', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch tech stack');
+        }
+
+        const data: TechStackResponse = await response.json();
+
+        if (data.success && data.data) {
+            techStack.value = data.data;
+        } else {
+            throw new Error('Invalid response format');
+        }
+    } catch (error) {
+        console.error('Error fetching tech stack:', error);
+        techStackError.value = error instanceof Error ? error.message : 'Failed to load tech stack';
+        // Fallback to empty array on error
+        techStack.value = [];
+    } finally {
+        isLoadingTechStack.value = false;
+    }
+};
+
 onMounted(() => {
     fetchSkills();
+    fetchTechStack();
 });
 </script>
 
@@ -149,7 +184,14 @@ onMounted(() => {
 
             <div class="tech-stack content-top pt-0 xl:content-end">
                 <h3>Tech Stack</h3>
-                <ul class="ms-6">
+                <div v-if="isLoadingTechStack" class="py-4 text-center">
+                    <p class="text-gray-500">Loading tech stack...</p>
+                </div>
+                <div v-else-if="techStackError" class="py-4 text-center">
+                    <p class="text-red-500">{{ techStackError }}</p>
+                    <button @click="fetchTechStack" class="hover:bg-primary-dark mt-2 rounded bg-primary px-4 py-2 text-white">Retry</button>
+                </div>
+                <ul v-else class="ms-6">
                     <li
                         v-for="(item, index) in techStack"
                         :key="item.tech"

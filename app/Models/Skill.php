@@ -19,6 +19,7 @@ class Skill extends Model
         'skill_type_id',
         'name',
         'order',
+        'icon_id',
     ];
 
     /**
@@ -27,5 +28,13 @@ class Skill extends Model
     public function skillType(): BelongsTo
     {
         return $this->belongsTo(SkillType::class);
+    }
+
+    /**
+     * Get the icon for this skill.
+     */
+    public function icon(): BelongsTo
+    {
+        return $this->belongsTo(Icon::class);
     }
 }
