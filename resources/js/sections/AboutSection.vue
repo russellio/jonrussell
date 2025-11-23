@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useApiFetch } from '@/js/composables/useApi';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 import { ComponentPublicInstance, onMounted, ref } from 'vue';
 const { scrollToSection } = useScrollToSection();
@@ -50,11 +51,6 @@ interface SkillType {
     skills: Skill[];
 }
 
-interface SkillsResponse {
-    success: boolean;
-    data: SkillType[];
-}
-
 interface TechStackItem {
     tech: string;
     percent: string;
@@ -63,93 +59,40 @@ interface TechStackItem {
     active?: boolean;
 }
 
-interface TechStackResponse {
-    success: boolean;
-    data: TechStackItem[];
-}
-
-const techStack = ref<TechStackItem[]>([]);
 const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
-const isLoadingTechStack = ref(false);
-const techStackError = ref<string | null>(null);
 
-const skillTypes = ref<SkillType[]>([]);
-const isLoadingSkills = ref(false);
-const skillsError = ref<string | null>(null);
+// Use API composable for tech stack
+const {
+    data: techStack,
+    loading: isLoadingTechStack,
+    error: techStackError,
+    execute: fetchTechStack,
+} = useApiFetch<TechStackItem[]>('/api/tech-stack', {
+    errorMessage: 'Failed to load tech stack',
+    showSuccessToast: false, // No success toast for initial page load
+    showErrorToast: true,
+});
+
+// Use API composable for skills
+const {
+    data: skillTypes,
+    loading: isLoadingSkills,
+    error: skillsError,
+    execute: fetchSkills,
+} = useApiFetch<SkillType[]>('/api/skills', {
+    errorMessage: 'Failed to load skills',
+    showSuccessToast: false, // No success toast for initial page load
+    showErrorToast: true,
+});
 
 const getSkillsBySlug = (slug: string): Skill[] => {
+    if (!skillTypes.value) return [];
     const skillType = skillTypes.value.find((st) => st.slug === slug);
     return skillType?.skills || [];
 };
 
-const fetchSkills = async () => {
-    isLoadingSkills.value = true;
-    skillsError.value = null;
-
-    try {
-        const response = await fetch('/api/skills', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch skills');
-        }
-
-        const data: SkillsResponse = await response.json();
-
-        if (data.success && data.data) {
-            skillTypes.value = data.data;
-        } else {
-            throw new Error('Invalid response format');
-        }
-    } catch (error) {
-        console.error('Error fetching skills:', error);
-        skillsError.value = error instanceof Error ? error.message : 'Failed to load skills';
-    } finally {
-        isLoadingSkills.value = false;
-    }
-};
-
 const getSimpleIcon = (iconName: string) => {
     return simpleIcons.find((icon) => icon.component.__name === iconName)?.component || '';
-};
-
-const fetchTechStack = async () => {
-    isLoadingTechStack.value = true;
-    techStackError.value = null;
-
-    try {
-        const response = await fetch('/api/tech-stack', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch tech stack');
-        }
-
-        const data: TechStackResponse = await response.json();
-
-        if (data.success && data.data) {
-            techStack.value = data.data;
-        } else {
-            throw new Error('Invalid response format');
-        }
-    } catch (error) {
-        console.error('Error fetching tech stack:', error);
-        techStackError.value = error instanceof Error ? error.message : 'Failed to load tech stack';
-        // Fallback to empty array on error
-        techStack.value = [];
-    } finally {
-        isLoadingTechStack.value = false;
-    }
 };
 
 onMounted(() => {
@@ -191,7 +134,7 @@ onMounted(() => {
                     <p class="text-red-500">{{ techStackError }}</p>
                     <button @click="fetchTechStack" class="hover:bg-primary-dark mt-2 rounded bg-primary px-4 py-2 text-white">Retry</button>
                 </div>
-                <ul v-else class="ms-6">
+                <ul v-else-if="techStack" class="ms-6">
                     <li
                         v-for="(item, index) in techStack"
                         :key="item.tech"
