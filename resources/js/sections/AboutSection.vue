@@ -60,6 +60,8 @@ interface TechStackItem {
 }
 
 const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
+const isLoadingTechStack = ref(false);
+const techStackError = ref<string | null>(null);
 
 // Use API composable for tech stack
 const {
@@ -95,8 +97,43 @@ const getSimpleIcon = (iconName: string) => {
     return simpleIcons.find((icon) => icon.component.__name === iconName)?.component || '';
 };
 
+const fetchTechStack = async () => {
+    isLoadingTechStack.value = true;
+    techStackError.value = null;
+
+    try {
+        const response = await fetch('/api/tech-stack', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch tech stack');
+        }
+
+        const data: TechStackResponse = await response.json();
+
+        if (data.success && data.data) {
+            techStack.value = data.data;
+        } else {
+            throw new Error('Invalid response format');
+        }
+    } catch (error) {
+        console.error('Error fetching tech stack:', error);
+        techStackError.value = error instanceof Error ? error.message : 'Failed to load tech stack';
+        // Fallback to empty array on error
+        techStack.value = [];
+    } finally {
+        isLoadingTechStack.value = false;
+    }
+};
+
 onMounted(() => {
     fetchSkills();
+    fetchTechStack();
 });
 </script>
 

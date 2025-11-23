@@ -24,7 +24,11 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->call([
-            SkillTypeSeeder::class,
+            SkillTypeSeeder::class,      // Creates skill types and skills (no dependencies)
+            CompanySeeder::class,         // Creates companies (no dependencies)
+            PositionSeeder::class,        // Creates positions (depends on Company)
+            PositionSkillSeeder::class,   // Links skills to positions (depends on Position and Skill)
+            TechStackItemSeeder::class,   // Creates tech stack items (depends on Skill)
         ]);
     }
 }
