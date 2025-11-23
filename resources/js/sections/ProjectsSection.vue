@@ -134,7 +134,7 @@ div.awards .pill {
 }
 
 .pill {
-    @apply inline-flex w-max items-center border border-terminal-black/30 select-none;
+    @apply inline-flex w-max items-center border border-terminal-black-300 select-none;
     @apply rounded-full p-0 text-xs shadow-sm lg:p-0.5;
 }
 </style>
