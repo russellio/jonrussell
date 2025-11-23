@@ -109,8 +109,7 @@ const handleMessageChange = (event: Event) => {
 function onLoadTurnstile() {
     turnstileWidgetId.value = turnstile.render('#turnstile-container', {
         sitekey: turnstileSitekey,
-        callback: function (token: string) {
-            console.log('Turnstile challenge completed:', token);
+        callback: (token: string) => {
             turnstileToken.value = token;
         },
     });
@@ -194,10 +193,11 @@ const submitForm = async () => {
         form.value = { email: '', subject: '', message: '' };
         successMessage.value = data.message || 'Message sent successfully!';
         isFormSubmitted.value = true;
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.warn('Error submitting form:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Failed to send message. Please try again.';
         if (!errors.value || Object.keys(errors.value).length === 0) {
-            errors.value.general = error?.message || 'Failed to send message. Please try again.';
+            errors.value.general = errorMessage;
         }
     } finally {
         isLoading.value = false;

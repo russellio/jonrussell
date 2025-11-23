@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ImageModal from '@/js/components/modals/ImageModal.vue';
 import Modal from '@/js/components/modals/Modal.vue';
+import type { Project } from '@/js/types';
 import { computed, ref } from 'vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -9,22 +10,21 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faAward, faArrowUpRightFromSquare);
 
-const props = defineProps({
-    project: {
-        type: Object,
-        required: true,
-    },
-});
+const props = defineProps<{
+    project: Project;
+}>();
 
 const imageModalRef = ref<InstanceType<typeof ImageModal> | null>(null);
 
-const projectHasProp = (project: any, property: any) => {
-    if (project.hasOwnProperty(property)) {
-        if (typeof project[property] === 'object') {
-            return Object.keys(project[property]).length > 0;
-        }
+const projectHasProp = (project: Project, property: string): boolean => {
+    if (!project.hasOwnProperty(property)) {
+        return false;
     }
-    return project.hasOwnProperty(property) && Object.keys(project[property]).length > 0;
+    const value = project[property];
+    if (typeof value === 'object' && value !== null) {
+        return Object.keys(value).length > 0;
+    }
+    return Boolean(value);
 };
 
 const hasModalLeft = computed(() => {

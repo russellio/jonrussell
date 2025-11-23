@@ -57,5 +57,3 @@ const emitChange = () => {
         </div>
     </label>
 </template>
-
-<style scoped></style>

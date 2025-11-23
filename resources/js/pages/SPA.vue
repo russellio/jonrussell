@@ -34,13 +34,12 @@ const performScrollAction = async (scrollTo: string | undefined) => {
 };
 
 onMounted(async () => {
-    const scrollTo = (page.props as any).scrollTo as string | undefined;
+    const scrollTo = (page.props as Record<string, unknown>).scrollTo as string | undefined;
     await performScrollAction(scrollTo);
 });
 
-// Watch for route changes
 watch(
-    () => (page.props as any).scrollTo,
+    () => (page.props as Record<string, unknown>).scrollTo as string | undefined,
     async (newScrollTo) => {
         await performScrollAction(newScrollTo);
     }
@@ -79,5 +78,3 @@ watch(
         <Footer ref="footer" />
     </div>
 </template>
-
-<style scoped></style>
