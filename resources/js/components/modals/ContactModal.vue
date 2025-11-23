@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import Modal from '@/js/components/modals/Modal.vue';
-import { onMounted, onUnmounted, ref } from 'vue';
+import type { ValidationRule } from '@vuelidate/core';
+import { useVuelidate } from '@vuelidate/core';
+import { email } from '@vuelidate/validators';
+import { onMounted, onUnmounted, reactive, ref } from 'vue';
 
 const turnstileSitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
 
-const form = ref({
+const form = reactive({
     email: '',
     subject: '',
     message: '',
@@ -17,94 +20,42 @@ const turnstileToken = ref('');
 const turnstileWidgetId = ref<string | null>(null);
 const isFormSubmitted = ref(false);
 
-// Validation state
-const validationErrors = ref<Record<string, string>>({});
-const isFormValid = ref(false);
-
-// Validation functions
-const validateEmail = (email: string): string => {
-    if (!email.trim()) {
-        return 'Email is required.';
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        return 'Please enter a valid email address.';
-    }
-    return '';
+// Custom validators for trim-based validation
+const trimmedRequired = (value: string): boolean => {
+    return !!value?.trim();
 };
 
-const validateSubject = (subject: string): string => {
-    if (!subject.trim()) {
-        return 'Subject is required.';
-    }
-    if (subject.trim().length < 2) {
-        return 'Subject must be at least 2 characters long.';
-    }
-    if (subject.trim().length > 100) {
-        return 'Subject must be less than 100 characters.';
-    }
-    return '';
+const trimmedMinLength = (min: number): ValidationRule => {
+    return (value: string): boolean => {
+        return !value || value.trim().length >= min;
+    };
 };
 
-const validateMessage = (message: string): string => {
-    if (!message.trim()) {
-        return 'Message is required.';
-    }
-    if (message.trim().length < 10) {
-        return 'Message must be at least 10 characters long.';
-    }
-    if (message.trim().length > 1000) {
-        return 'Message must be less than 1000 characters.';
-    }
-    return '';
+const trimmedMaxLength = (max: number): ValidationRule => {
+    return (value: string): boolean => {
+        return !value || value.trim().length <= max;
+    };
 };
 
-const validateField = (field: string, value: string) => {
-    let error = '';
-    switch (field) {
-        case 'email':
-            error = validateEmail(value);
-            break;
-        case 'subject':
-            error = validateSubject(value);
-            break;
-        case 'message':
-            error = validateMessage(value);
-            break;
-    }
-
-    if (error) {
-        validationErrors.value[field] = error;
-    } else {
-        delete validationErrors.value[field];
-    }
-
-    updateFormValidity();
+// Validation rules
+const rules = {
+    email: {
+        required: { $validator: trimmedRequired, $message: 'Email is required.' },
+        email: { $validator: email, $message: 'Please enter a valid email address.' },
+    },
+    subject: {
+        required: { $validator: trimmedRequired, $message: 'Subject is required.' },
+        minLength: { $validator: trimmedMinLength(2), $message: 'Subject must be at least 2 characters long.' },
+        maxLength: { $validator: trimmedMaxLength(100), $message: 'Subject must be less than 100 characters.' },
+    },
+    message: {
+        required: { $validator: trimmedRequired, $message: 'Message is required.' },
+        minLength: { $validator: trimmedMinLength(10), $message: 'Message must be at least 10 characters long.' },
+        maxLength: { $validator: trimmedMaxLength(1000), $message: 'Message must be less than 1000 characters.' },
+    },
 };
 
-const updateFormValidity = () => {
-    const hasErrors = Object.keys(validationErrors.value).length > 0;
-    const hasEmptyFields = !form.value.email.trim() || !form.value.subject.trim() || !form.value.message.trim();
-    isFormValid.value = !hasErrors && !hasEmptyFields;
-};
-
-const handleEmailChange = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    form.value.email = target.value;
-    validateField('email', target.value);
-};
-
-const handleSubjectChange = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    form.value.subject = target.value;
-    validateField('subject', target.value);
-};
-
-const handleMessageChange = (event: Event) => {
-    const target = event.target as HTMLTextAreaElement;
-    form.value.message = target.value;
-    validateField('message', target.value);
-};
+const v$ = useVuelidate(rules, form);
 
 function onLoadTurnstile() {
     turnstileWidgetId.value = turnstile.render('#turnstile-container', {
@@ -130,13 +81,14 @@ onUnmounted(() => {
 });
 
 const resetForm = async () => {
-    form.value = { email: '', subject: '', message: '' };
+    form.email = '';
+    form.subject = '';
+    form.message = '';
     errors.value = {};
-    validationErrors.value = {};
     successMessage.value = '';
     turnstileToken.value = '';
-    isFormValid.value = false;
     isFormSubmitted.value = false;
+    v$.value.$reset();
 
     try {
         onLoadTurnstile();
@@ -151,11 +103,9 @@ const submitForm = async () => {
     errors.value = {};
     successMessage.value = '';
 
-    validateField('email', form.value.email);
-    validateField('subject', form.value.subject);
-    validateField('message', form.value.message);
+    const isFormValid = await v$.value.$validate();
 
-    if (!isFormValid.value) {
+    if (!isFormValid) {
         errors.value.validation = 'Please fix the errors above before submitting.';
         isLoading.value = false;
         return;
@@ -176,7 +126,7 @@ const submitForm = async () => {
                 Accept: 'application/json',
             },
             body: JSON.stringify({
-                ...form.value,
+                ...form,
                 turnstile_token: turnstileToken.value,
             }),
         });
@@ -190,7 +140,9 @@ const submitForm = async () => {
             throw new Error(data.message || 'Failed to send message');
         }
 
-        form.value = { email: '', subject: '', message: '' };
+        form.email = '';
+        form.subject = '';
+        form.message = '';
         successMessage.value = data.message || 'Message sent successfully!';
         isFormSubmitted.value = true;
     } catch (error: unknown) {
@@ -210,7 +162,7 @@ const submitForm = async () => {
         modalId="contact-modal"
         title="Contact Me"
         :showSubmit="!isFormSubmitted"
-        :submitDisabled="!isFormValid || isFormSubmitted"
+        :submitDisabled="v$.$invalid || isFormSubmitted"
         :submitText="`Send <span class='hidden sm:inline-block'> Message</span>`"
         :isLoading="isLoading"
         :cancelText="!isFormSubmitted ? `Cancel` : `Close`"
@@ -231,53 +183,56 @@ const submitForm = async () => {
                 <div class="flex flex-col">
                     <input
                         id="email"
-                        :value="form.email"
-                        @change="handleEmailChange"
+                        v-model="form.email"
                         type="email"
                         placeholder="your.email@example.com"
                         :class="{
-                            'border-red-500': errors.email || validationErrors.email,
-                            'border-success': form.email && !validationErrors.email && !errors.email,
+                            'border-red-500': errors.email || v$.email.$error,
+                            'border-success': form.email && !v$.email.$error && !errors.email,
                         }"
                         autocomplete="true"
                     />
                     <div v-if="errors.email" class="error">{{ errors.email[0] }}</div>
-                    <div v-if="validationErrors.email" class="error">{{ validationErrors.email }}</div>
+                    <div v-for="error of v$.email.$errors" :key="error.$uid" class="error">
+                        {{ error.$message }}
+                    </div>
                 </div>
 
                 <label for="subject">Subject:</label>
                 <div class="flex flex-col">
                     <input
                         id="subject"
-                        :value="form.subject"
-                        @change="handleSubjectChange"
+                        v-model="form.subject"
                         type="text"
                         placeholder="Tacos are delicious!"
                         :class="{
-                            'border-red-500': errors.subject || validationErrors.subject,
-                            'border-success': form.subject && !validationErrors.subject && !errors.subject,
+                            'border-red-500': errors.subject || v$.subject.$error,
+                            'border-success': form.subject && !v$.subject.$error && !errors.subject,
                         }"
                         autocomplete="false"
                     />
                     <div v-if="errors.subject" class="error">{{ errors.subject[0] }}</div>
-                    <div v-if="validationErrors.subject" class="error">{{ validationErrors.subject }}</div>
+                    <div v-for="error of v$.subject.$errors" :key="error.$uid" class="error">
+                        {{ error.$message }}
+                    </div>
                 </div>
 
                 <label for="message">Message:</label>
                 <div class="flex flex-col">
                     <textarea
                         id="message"
-                        :value="form.message"
-                        @change="handleMessageChange"
+                        v-model="form.message"
                         placeholder="Your message here..."
                         rows="4"
                         :class="{
-                            'border-error': errors.message || validationErrors.message,
-                            'border-success': form.message && !validationErrors.message && !errors.message,
+                            'border-error': errors.message || v$.message.$error,
+                            'border-success': form.message && !v$.message.$error && !errors.message,
                         }"
                     ></textarea>
                     <div v-if="errors.message" class="error">{{ errors.message[0] }}</div>
-                    <div v-if="validationErrors.message" class="error">{{ validationErrors.message }}</div>
+                    <div v-for="error of v$.message.$errors" :key="error.$uid" class="error">
+                        {{ error.$message }}
+                    </div>
                 </div>
             </div>
 
