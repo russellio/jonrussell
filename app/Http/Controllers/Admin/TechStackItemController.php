@@ -5,11 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Icon;
 use App\Models\TechStackItem;
+use App\Services\TechStackMetricsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TechStackItemController extends Controller
 {
+    public function __construct(private TechStackMetricsService $metrics)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -17,15 +22,22 @@ class TechStackItemController extends Controller
     {
         $items = TechStackItem::with(['skill', 'icon'])->orderBy('order')->get();
 
+        $data = $items->map(function (TechStackItem $item) {
+            return [
+                'item' => $item,
+                'metrics' => $this->metrics->metricsFor($item),
+            ];
+        });
+
         return response()->json([
             'success' => true,
-            'data' => $items,
+            'data' => $data,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
-     * 
+     *
      * Supports both new format (icon_id) and legacy format (icon_type + icon_name) for backward compatibility.
      */
     public function store(Request $request): JsonResponse
@@ -66,19 +78,22 @@ class TechStackItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): JsonResponse
+    public function show(TechStackItem $item): JsonResponse
     {
-        $item = TechStackItem::with(['skill', 'icon'])->findOrFail($id);
+        $item->load(['skill', 'icon']);
 
         return response()->json([
             'success' => true,
-            'data' => $item,
+            'data' => [
+                'item' => $item,
+                'metrics' => $this->metrics->metricsFor($item),
+            ],
         ]);
     }
 
     /**
      * Update the specified resource in storage.
-     * 
+     *
      * Supports both new format (icon_id) and legacy format (icon_type + icon_name) for backward compatibility.
      */
     public function update(Request $request, string $id): JsonResponse

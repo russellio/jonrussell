@@ -24,6 +24,7 @@ export function useScrollToSection() {
   }
 
   const toggleMobileMenu = () => {
+    // console.log('toggling - old state: ' + mobileMenuOpen.value);
     mobileMenuOpen.value = !mobileMenuOpen.value;
   }
 

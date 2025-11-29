@@ -94,6 +94,10 @@ const openProjectModal = (project: Project) => {
 }
 
 .project-info-wrapper {
+    /*    @apply absolute bottom-0 z-50 w-full border-t border-terminal-black-300 bg-terminal-black px-2 pt-2 text-white lg:px-4;
+    @apply bg-linear-to-t from-transparent via-terminal-black to-terminal-black;
+    @apply opacity-100 lg:transition-opacity lg:duration-300 lg:ease-in-out lg:group-hover:opacity-100;
+    */
     @apply absolute bottom-0 z-50 w-full border-t border-terminal-black-300 bg-terminal-black px-2 pt-2 text-white xl:px-4;
     @apply bg-linear-to-t from-black via-terminal-black to-transparent;
     @apply opacity-100 xl:opacity-0 xl:transition-opacity xl:duration-300 xl:ease-in-out xl:group-hover:opacity-100;
@@ -130,7 +134,7 @@ div.awards .pill {
 }
 
 .pill {
-    @apply inline-flex w-max items-center border border-terminal-black-300 select-none;
+    @apply inline-flex w-max items-center border border-terminal-black/30 select-none;
     @apply rounded-full p-0 text-xs shadow-sm lg:p-0.5;
 }
 </style>

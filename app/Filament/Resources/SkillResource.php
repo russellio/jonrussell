@@ -3,12 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SkillResource\Pages;
+use App\Filament\Resources\SkillResource\RelationManagers;
 use App\Models\Skill;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SkillResource extends Resource
 {
@@ -72,6 +75,7 @@ class SkillResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                //
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -86,7 +90,9 @@ class SkillResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array
