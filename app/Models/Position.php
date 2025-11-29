@@ -12,6 +12,13 @@ class Position extends Model
     use HasFactory;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'positions';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

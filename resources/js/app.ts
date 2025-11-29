@@ -1,12 +1,9 @@
-import { createApp, h, nextTick } from 'vue';
+import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import * as Sentry from "@sentry/vue";
-import Toastify from 'vue3-toastify';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
 import '@/css/app.css';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Jon Russell - Senior Software Engineer';
@@ -23,36 +20,7 @@ createInertiaApp({
 
         const app = createApp({ render: () => h(App, props) })
             .use(pinia)
-            .use(plugin)
-            .use(Toastify, {
-                position: 'top-right',
-                transition: 'slide',
-                autoClose: 5000,
-            });
-
-        // Global error handler for Vue errors
-        app.config.errorHandler = (err, instance, info) => {
-            // Log to console
-            console.error('Global error:', err, instance, info);
-
-            // Send to Sentry
-            Sentry.captureException(err, {
-                contexts: {
-                    vue: {
-                        componentName: instance?.$options?.name || 'Unknown',
-                        propsData: instance?.$props,
-                        info,
-                    },
-                },
-            });
-
-            // Show user-friendly toast notification (use nextTick to ensure toast is initialized)
-            nextTick(() => {
-                toast.error('An unexpected error occurred. Please refresh the page if the problem persists.', {
-                    autoClose: 7000,
-                });
-            });
-        };
+            .use(plugin);
 
         Sentry.init({
           app,

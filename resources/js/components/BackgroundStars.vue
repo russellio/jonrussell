@@ -141,6 +141,22 @@ onMounted(() => {
     z-index: 2;
 }
 
+.light-base {
+    position: absolute;
+    bottom: -80px;
+    left: 10vw;
+    width: 80vw;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow:
+        -0px -10px 30px 10px #ffc1a0,
+        -0px -20px 40px 20px #fe9c7f,
+        -0px -30px 60px 30px #be6590,
+        -0px -50px 150px 75px #632b6c;
+    background-color: #ffc1a0;
+    z-index: 1;
+}
+
 .sky-base {
     content: '';
     background: linear-gradient(to bottom, rgba(55, 5, 105, 0) 0%, rgba(9, 0, 22, 1) 100%);

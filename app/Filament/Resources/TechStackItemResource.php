@@ -3,12 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TechStackItemResource\Pages;
+use App\Filament\Resources\TechStackItemResource\RelationManagers;
 use App\Models\TechStackItem;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TechStackItemResource extends Resource
 {
@@ -85,6 +88,7 @@ class TechStackItemResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                //
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -99,7 +103,9 @@ class TechStackItemResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array

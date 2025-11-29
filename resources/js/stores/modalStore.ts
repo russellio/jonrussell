@@ -2,16 +2,16 @@ import { defineStore } from 'pinia';
 
 export const useModalStore = defineStore('modal', {
     state: () => ({
-        openModals: new Set<string>(),
+        openModals: new Set(),
     }),
     actions: {
-        addModal(modalId: string): void {
+        addModal(modalId) {
             this.openModals.add(modalId);
         },
-        removeModal(modalId: string): void {
+        removeModal(modalId) {
             this.openModals.delete(modalId);
         },
-        toggleModal(modalId: string): void {
+        toggleModal(modalId) {
             if (this.openModals.has(modalId)) {
                 this.removeModal(modalId);
             } else {
@@ -20,6 +20,6 @@ export const useModalStore = defineStore('modal', {
         },
     },
     getters: {
-        isModalOpen: (state) => (modalId: string): boolean => state.openModals.has(modalId),
+        isModalOpen: (state) => (modalId) => state.openModals.has(modalId),
     },
 });

@@ -33,3 +33,5 @@ const isContactOpen = computed(() => isOpen('contact-modal'));
         <Footer ref="footer" />
     </div>
 </template>
+
+<style scoped></style>

@@ -37,7 +37,7 @@ class TechStackItemController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * 
+     *
      * Supports both new format (icon_id) and legacy format (icon_type + icon_name) for backward compatibility.
      */
     public function store(Request $request): JsonResponse
@@ -93,7 +93,7 @@ class TechStackItemController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * 
+     *
      * Supports both new format (icon_id) and legacy format (icon_type + icon_name) for backward compatibility.
      */
     public function update(Request $request, string $id): JsonResponse
