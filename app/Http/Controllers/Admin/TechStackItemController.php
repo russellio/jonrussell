@@ -5,16 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Icon;
 use App\Models\TechStackItem;
-use App\Services\TechStackMetricsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TechStackItemController extends Controller
 {
-    public function __construct(private TechStackMetricsService $metrics)
-    {
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -22,16 +17,9 @@ class TechStackItemController extends Controller
     {
         $items = TechStackItem::with(['skill', 'icon'])->orderBy('order')->get();
 
-        $data = $items->map(function (TechStackItem $item) {
-            return [
-                'item' => $item,
-                'metrics' => $this->metrics->metricsFor($item),
-            ];
-        });
-
         return response()->json([
             'success' => true,
-            'data' => $data,
+            'data' => $items,
         ]);
     }
 
@@ -78,16 +66,13 @@ class TechStackItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TechStackItem $item): JsonResponse
+    public function show(string $id): JsonResponse
     {
-        $item->load(['skill', 'icon']);
+        $item = TechStackItem::with(['skill', 'icon'])->findOrFail($id);
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'item' => $item,
-                'metrics' => $this->metrics->metricsFor($item),
-            ],
+            'data' => $item,
         ]);
     }
 

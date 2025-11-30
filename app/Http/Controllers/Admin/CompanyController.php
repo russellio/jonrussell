@@ -4,16 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company;
-use App\Services\CompanyStatsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function __construct(private CompanyStatsService $stats)
-    {
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -21,16 +16,9 @@ class CompanyController extends Controller
     {
         $companies = Company::with('positions')->orderBy('name')->get();
 
-        $data = $companies->map(function (Company $company) {
-            return [
-                'company' => $company,
-                'stats' => $this->stats->statsFor($company),
-            ];
-        });
-
         return response()->json([
             'success' => true,
-            'data' => $data,
+            'data' => $companies,
         ]);
     }
 
@@ -54,16 +42,13 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Company $company): JsonResponse
+    public function show(string $id): JsonResponse
     {
-        $company->load('positions');
+        $company = Company::with('positions')->findOrFail($id);
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'company' => $company,
-                'stats' => $this->stats->statsFor($company),
-            ],
+            'data' => $company,
         ]);
     }
 
