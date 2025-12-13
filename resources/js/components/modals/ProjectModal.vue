@@ -4,10 +4,53 @@ import Modal from '@/js/components/modals/Modal.vue';
 import { computed, ref } from 'vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faArrowUpRightFromSquare, faAward } from '@fortawesome/free-solid-svg-icons';
+import { faCss3, faHtml5, faJs, faLaravel, faPhp, faReact, faVuejs } from '@fortawesome/free-brands-svg-icons';
+import { faArrowUpRightFromSquare, faAward, faCode, faDatabase, faProjectDiagram, faSitemap, faVial } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { MySqlIcon, PythonIcon, ReactIcon, TypeScriptIcon } from 'vue3-simple-icons';
 
-library.add(faAward, faArrowUpRightFromSquare);
+library.add(
+    faAward,
+    faArrowUpRightFromSquare,
+    faLaravel,
+    faPhp,
+    faVuejs,
+    faReact,
+    faJs,
+    faHtml5,
+    faCss3,
+    faDatabase,
+    faCode,
+    faVial,
+    faProjectDiagram,
+    faSitemap,
+);
+
+const simpleIcons = [{ component: TypeScriptIcon }, { component: ReactIcon }, { component: MySqlIcon }, { component: PythonIcon }];
+
+const faIcons = [
+    { group: 'fas', name: faDatabase },
+    { group: 'fas', name: faCode },
+    { group: 'fas', name: faVial },
+    { group: 'fas', name: faProjectDiagram },
+    { group: 'fas', name: faSitemap },
+    { group: 'fab', name: faLaravel },
+    { group: 'fab', name: faPhp },
+    { group: 'fab', name: faVuejs },
+    { group: 'fab', name: faReact },
+    { group: 'fab', name: faJs },
+    { group: 'fab', name: faHtml5 },
+    { group: 'fab', name: faCss3 },
+];
+
+const getFaIcon = (iconName: string): [string, string] => {
+    const icon = faIcons.find((icon) => icon.name.iconName === iconName);
+    return icon ? [icon.group, iconName] : ['', ''];
+};
+
+const getSimpleIcon = (iconName: string) => {
+    return simpleIcons.find((icon) => icon.component.__name === iconName)?.component || '';
+};
 
 const props = defineProps({
     project: {
@@ -32,7 +75,7 @@ const hasModalLeft = computed(() => {
 });
 
 const hasModalRight = computed(() => {
-    return projectHasProp(props.project, 'skills') || projectHasProp(props.project, 'technologies') || projectHasProp(props.project, 'tools');
+    return (props.project.technologies && props.project.technologies.length > 0) || (props.project.tools && props.project.tools.length > 0);
 });
 
 const title = computed(() => {
@@ -118,20 +161,38 @@ const companyLogoText = computed(() => {
             </div>
 
             <div v-if="hasModalRight" class="modal-right">
-                <div v-if="projectHasProp(project, 'technologies')" class="technologies">
+                <div v-if="project.technologies && project.technologies.length > 0" class="technologies">
                     <h3>skills:</h3>
                     <ul>
-                        <li v-for="(tech, index) in project.technologies" :key="index">
-                            {{ tech }}
+                        <li v-for="(tech, index) in project.technologies" :key="index" class="flex items-center gap-2">
+                            <span v-if="tech.iconType === 'fa' && tech.iconName && getFaIcon(tech.iconName)[0]" class="fa-li">
+                                <FontAwesomeIcon :icon="getFaIcon(tech.iconName)" />
+                            </span>
+                            <component
+                                v-else-if="tech.iconType === 'si' && tech.iconName && getSimpleIcon(tech.iconName)"
+                                :is="getSimpleIcon(tech.iconName)"
+                                class="inline-block h-5 w-5 fill-current"
+                            />
+                            <span v-else class="list-marker">•</span>
+                            {{ tech.name }}
                         </li>
                     </ul>
                 </div>
 
-                <div v-if="projectHasProp(project, 'tools')" class="tools">
+                <div v-if="project.tools && project.tools.length > 0" class="tools">
                     <h3>tools:</h3>
                     <ul>
-                        <li v-for="(tool, index) in project.tools" :key="index">
-                            {{ tool }}
+                        <li v-for="(tool, index) in project.tools" :key="index" class="flex items-center gap-2">
+                            <span v-if="tool.iconType === 'fa' && tool.iconName && getFaIcon(tool.iconName)[0]" class="fa-li">
+                                <FontAwesomeIcon :icon="getFaIcon(tool.iconName)" />
+                            </span>
+                            <component
+                                v-else-if="tool.iconType === 'si' && tool.iconName && getSimpleIcon(tool.iconName)"
+                                :is="getSimpleIcon(tool.iconName)"
+                                class="inline-block h-5 w-5 fill-current"
+                            />
+                            <span v-else class="list-marker">•</span>
+                            {{ tool.name }}
                         </li>
                     </ul>
                 </div>
@@ -183,7 +244,11 @@ h3 {
 }
 
 .modal-right ul {
-    @apply mt-2 mb-4 list-disc space-y-2 rounded-md border-4 border-s-0 border-e-2 border-terminal-black-700 bg-black/65 p-2 py-3 ps-10;
+    @apply mt-2 mb-4 space-y-2 rounded-md border-4 border-s-0 border-e-2 border-terminal-black-700 bg-black/65 p-2 py-3 ps-4;
+}
+
+.modal-right ul li .list-marker {
+    @apply inline-block w-5 text-center;
 }
 
 .modal-center {

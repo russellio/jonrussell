@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\SkillController;
-use App\Http\Controllers\Api\TechStackController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\PositionController;
 use App\Http\Controllers\Admin\TechStackItemController;
+use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\SkillController;
+use App\Http\Controllers\Api\TechStackController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/contact', [ContactController::class, 'store']);
 
+Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/skills', [SkillController::class, 'index']);
 Route::get('/tech-stack', [TechStackController::class, 'index']);
 
