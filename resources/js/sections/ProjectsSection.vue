@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import ProjectModal from '@/js/components/modals/ProjectModal.vue';
 import { useModal } from '@/js/composables/useModal';
-import projectData from '@/js/data/projects.json';
 import type { Project } from '@/js/types/index';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAward } from '@fortawesome/free-solid-svg-icons';
@@ -11,10 +10,17 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faAward);
 
+interface ProjectsResponse {
+    success: boolean;
+    data: Project[];
+}
+
 const { isOpen, openModal } = useModal();
 
-const projects = ref<Project[]>(projectData);
+const projects = ref<Project[]>([]);
 const selectedProject = ref<Project | null>(null);
+const isLoadingProjects = ref(false);
+const projectsError = ref<string | null>(null);
 
 const isModalOpen = computed(() => isOpen('project-modal'));
 
@@ -22,6 +28,42 @@ const openProjectModal = (project: Project) => {
     selectedProject.value = project;
     openModal('project-modal');
 };
+
+const fetchProjects = async () => {
+    isLoadingProjects.value = true;
+    projectsError.value = null;
+
+    try {
+        const response = await fetch('/api/projects', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch projects');
+        }
+
+        const data: ProjectsResponse = await response.json();
+
+        if (data.success && data.data) {
+            projects.value = data.data;
+        } else {
+            throw new Error('Invalid response format');
+        }
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        projectsError.value = error instanceof Error ? error.message : 'Failed to load projects';
+    } finally {
+        isLoadingProjects.value = false;
+    }
+};
+
+onMounted(() => {
+    fetchProjects();
+});
 </script>
 
 <template>
@@ -33,16 +75,24 @@ const openProjectModal = (project: Project) => {
         </div>
 
         <!-- Projects Grid -->
-        <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:mx-auto xl:w-11/12 xl:gap-12">
+        <div v-if="isLoadingProjects" class="py-4 text-center">
+            <p class="text-gray-500">Loading projects...</p>
+        </div>
+        <div v-else-if="projectsError" class="py-4 text-center">
+            <p class="text-red-500">{{ projectsError }}</p>
+            <button @click="fetchProjects" class="hover:bg-primary-dark mt-2 rounded bg-primary px-4 py-2 text-white">Retry</button>
+        </div>
+        <div v-else class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:mx-auto xl:w-11/12 xl:gap-12">
             <div v-for="(project, index) in projects" :key="index" class="card">
                 <a aria-label="View project details" class="cursor-pointer">
                     <div class="group project" @click="openProjectModal(project)">
                         <img
+                            v-if="project.bgImage"
                             :src="`/images/projects/${project.bgImage}`"
                             alt="Project Image"
                             :title="`Project: ${project.title}`"
                             class="project-image"
-                            :style="`object-position: ${project.bgPositionX} ${project.bgPositionY}`"
+                            :style="project.bgPositionX && project.bgPositionY ? `object-position: ${project.bgPositionX} ${project.bgPositionY}` : ''"
                         />
 
                         <div class="project-title-backdrop">
@@ -62,7 +112,7 @@ const openProjectModal = (project: Project) => {
                             <p class="max-xl:leading-4.5">{{ project.byline }}</p>
 
                             <!-- Highlighted Skills -->
-                            <div v-if="project.highlightedSkills" class="absolute bottom-4 left-0 flex w-full flex-wrap justify-center gap-1">
+                            <div v-if="project.highlightedSkills && project.highlightedSkills.length > 0" class="absolute bottom-4 left-0 flex w-full flex-wrap justify-center gap-1">
                                 <div v-for="(skill, index) in project.highlightedSkills" :key="index" class="pill">
                                     <span class="mx-3 my-0.5">{{ skill }}</span>
                                 </div>
@@ -136,5 +186,9 @@ div.awards .pill {
 .pill {
     @apply inline-flex w-max items-center border border-terminal-black/30 select-none;
     @apply rounded-full p-0 text-xs shadow-sm lg:p-0.5;
+}
+
+.project-info-wrapper .pill {
+    @apply border border-white/50 bg-terminal-black-700/80 text-white;
 }
 </style>

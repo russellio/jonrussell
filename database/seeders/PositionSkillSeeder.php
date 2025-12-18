@@ -52,7 +52,7 @@ class PositionSkillSeeder extends Seeder
             'SaaS' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
             'Docker' => ['ARCA', 'Pioneering Evolution'],
             'Linux' => ['Glen Raven', 'Pioneering Evolution'],
-            
+
             // Architecture & DevOps
             'Git' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
             'Bitbucket' => ['ARCA', 'Pioneering Evolution'],
@@ -60,13 +60,13 @@ class PositionSkillSeeder extends Seeder
             'Azure Pipelines' => ['Glen Raven'],
             'Jenkins' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
             'CI/CD automation' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            
+
             // Quality & Collaboration
             'Unit testing' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
             'Code reviews' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
             'Pair programming' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
             'API optimization' => ['Pioneering Evolution'],
-            
+
             // Leadership & Team Building
             'Team mentoring' => ['DI - Manager'],
             'Manager' => ['DI - Manager'],
@@ -75,21 +75,21 @@ class PositionSkillSeeder extends Seeder
 
         foreach ($skillPositionMap as $skillName => $companyNames) {
             $skill = Skill::where('name', $skillName)->first();
-            
-            if (!$skill) {
+
+            if (! $skill) {
                 continue;
             }
 
             foreach ($companyNames as $companyName) {
                 $company = Company::where('name', $companyName)->first();
-                
-                if (!$company) {
+
+                if (! $company) {
                     continue;
                 }
 
                 // Find the position for this company
                 $positionTitle = $companyPositionMap[$companyName] ?? null;
-                if (!$positionTitle) {
+                if (! $positionTitle) {
                     continue;
                 }
 
@@ -97,7 +97,7 @@ class PositionSkillSeeder extends Seeder
                     ->where('title', $positionTitle)
                     ->first();
 
-                if ($position && !$position->skills->contains($skill->id)) {
+                if ($position && ! $position->skills->contains($skill->id)) {
                     $position->skills()->attach($skill->id);
                 }
             }

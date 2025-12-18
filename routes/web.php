@@ -9,18 +9,18 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     return Inertia::render('SPA', [
-        'scrollTo' => 'about'
+        'scrollTo' => 'about',
     ]);
 })->name('about');
 
 Route::get('/projects', function () {
     return Inertia::render('SPA', [
-        'scrollTo' => 'projects'
+        'scrollTo' => 'projects',
     ]);
 })->name('projects');
 
 Route::get('/contact', function () {
     return Inertia::render('SPA', [
-        'scrollTo' => 'contact'
+        'scrollTo' => 'contact',
     ]);
 })->name('contact');

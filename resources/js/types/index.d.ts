@@ -41,6 +41,18 @@ export interface ProjectLink {
     url: string;
 }
 
+export interface Technology {
+    name: string;
+    iconType?: string;
+    iconName?: string;
+}
+
+export interface Tool {
+    name: string;
+    iconType?: string;
+    iconName?: string;
+}
+
 export interface Project {
     id: string;
     title: string;
@@ -49,13 +61,13 @@ export interface Project {
     description: string;
     highlightedSkills: string[];
     skills: string[];
-    technologies: string[];
-    tools: string[];
-    company: Company;
-    primaryImage: Image;
-    bgImage: string;
-    bgPositionX: string;
-    bgPositionY: string;
+    technologies: Technology[];
+    tools: Tool[];
+    company: Company | null;
+    primaryImage: Image | null;
+    bgImage: string | null;
+    bgPositionX: string | null;
+    bgPositionY: string | null;
     images?: Image[];
     links: ProjectLink[];
     awards?: string[];

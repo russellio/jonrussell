@@ -17,7 +17,23 @@ class Company extends Model
      */
     protected $fillable = [
         'name',
+        'logo_src',
+        'logo_alt',
+        'logo_display_name',
+        'link',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'logo_display_name' => 'boolean',
+        ];
+    }
 
     /**
      * Get the positions for the company.

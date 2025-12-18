@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
@@ -23,16 +21,16 @@ return new class extends Migration
         // Create Icon records for each unique combination using DB facade
         $iconMap = [];
         $now = now();
-        
+
         foreach ($uniqueIcons as $iconData) {
             // Check if icon already exists
             $iconId = DB::table('icons')
                 ->where('icon_type', $iconData->icon_type)
                 ->where('icon_name', $iconData->icon_name)
                 ->value('id');
-            
+
             // Create if it doesn't exist
-            if (!$iconId) {
+            if (! $iconId) {
                 $iconId = DB::table('icons')->insertGetId([
                     'icon_type' => $iconData->icon_type,
                     'icon_name' => $iconData->icon_name,
@@ -40,21 +38,21 @@ return new class extends Migration
                     'updated_at' => $now,
                 ]);
             }
-            
-            $iconMap[$iconData->icon_type . '|' . $iconData->icon_name] = $iconId;
+
+            $iconMap[$iconData->icon_type.'|'.$iconData->icon_name] = $iconId;
         }
 
         // Update tech_stack_items to reference the new icons
         // Group updates by icon_id for efficiency
         $updatesByIcon = [];
         $techStackItems = DB::table('tech_stack_items')->get();
-        
+
         foreach ($techStackItems as $item) {
             if ($item->icon_type && $item->icon_name) {
-                $key = $item->icon_type . '|' . $item->icon_name;
+                $key = $item->icon_type.'|'.$item->icon_name;
                 if (isset($iconMap[$key])) {
                     $iconId = $iconMap[$key];
-                    if (!isset($updatesByIcon[$iconId])) {
+                    if (! isset($updatesByIcon[$iconId])) {
                         $updatesByIcon[$iconId] = [];
                     }
                     $updatesByIcon[$iconId][] = $item->id;

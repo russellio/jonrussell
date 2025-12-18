@@ -22,7 +22,7 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 422);
         }
 
@@ -36,14 +36,14 @@ class ContactController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Your message has been sent successfully!'
+                'message' => 'Your message has been sent successfully!',
             ]);
         } catch (Exception $e) {
-            Log::error('Contact form error: ' . $e->getMessage());
+            Log::error('Contact form error: '.$e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to send message. Please try again later.'
+                'message' => 'Failed to send message. Please try again later.',
             ], 500);
         }
     }

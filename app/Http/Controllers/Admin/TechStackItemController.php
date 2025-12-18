@@ -42,7 +42,7 @@ class TechStackItemController extends Controller
         ]);
 
         // Handle backward compatibility: if icon_type and icon_name provided, find or create icon
-        if ($request->has('icon_type') && $request->has('icon_name') && !$request->has('icon_id')) {
+        if ($request->has('icon_type') && $request->has('icon_name') && ! $request->has('icon_id')) {
             $icon = Icon::firstOrCreate(
                 [
                     'icon_type' => $request->icon_type,
@@ -97,7 +97,7 @@ class TechStackItemController extends Controller
         ]);
 
         // Handle backward compatibility: if icon_type and icon_name provided, find or create icon
-        if ($request->has('icon_type') && $request->has('icon_name') && !$request->has('icon_id')) {
+        if ($request->has('icon_type') && $request->has('icon_name') && ! $request->has('icon_id')) {
             $icon = Icon::firstOrCreate(
                 [
                     'icon_type' => $request->icon_type,
