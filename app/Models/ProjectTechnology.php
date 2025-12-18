@@ -20,7 +20,20 @@ class ProjectTechnology extends Model
         'name',
         'icon_id',
         'order',
+        'is_highlighted',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_highlighted' => 'boolean',
+        ];
+    }
 
     /**
      * Get the project that owns the technology.

@@ -108,6 +108,7 @@ class ProjectSeeder extends Seeder
 
             // Create technologies
             if (isset($projectData['technologies']) && is_array($projectData['technologies'])) {
+                $highlightedSkills = $projectData['highlightedSkills'] ?? [];
                 foreach ($projectData['technologies'] as $order => $techName) {
                     $iconId = $this->findIconForName($techName);
                     ProjectTechnology::create([
@@ -115,6 +116,7 @@ class ProjectSeeder extends Seeder
                         'name' => $techName,
                         'icon_id' => $iconId,
                         'order' => $order,
+                        'is_highlighted' => in_array($techName, $highlightedSkills),
                     ]);
                 }
             }

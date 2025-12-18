@@ -72,6 +72,14 @@ class Project extends Model
     }
 
     /**
+     * Get the highlighted technologies for the project.
+     */
+    public function highlightedTechnologies(): HasMany
+    {
+        return $this->hasMany(ProjectTechnology::class)->where('is_highlighted', true)->orderBy('order');
+    }
+
+    /**
      * Get the tools for the project.
      */
     public function tools(): HasMany
