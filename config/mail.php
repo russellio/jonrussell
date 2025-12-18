@@ -38,7 +38,7 @@ return [
     'mailers' => [
 
         'mailgun' => [
-            'transport' => 'mailgun'
+            'transport' => 'mailgun',
         ],
 
         'smtp' => [

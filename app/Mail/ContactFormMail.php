@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
@@ -15,7 +14,9 @@ class ContactFormMail extends Mailable
     use Queueable, SerializesModels;
 
     public $email;
+
     public $subject;
+
     public $message;
 
     /**
@@ -35,7 +36,7 @@ class ContactFormMail extends Mailable
     {
         return new Envelope(
             replyTo: $this->email,
-            subject: 'Contact Form Submission: ' . $this->subject
+            subject: 'Contact Form Submission: '.$this->subject
         );
     }
 
@@ -49,7 +50,7 @@ class ContactFormMail extends Mailable
             with: [
                 'email' => $this->email,
                 'subject' => $this->subject,
-                'messageContent' => $this->message
+                'messageContent' => $this->message,
             ]
         );
     }

@@ -62,6 +62,7 @@ class Position extends Model
     public function getMonthsAttribute(): int
     {
         $endDate = $this->end_date ?? now();
+
         return $this->start_date->diffInMonths($endDate);
     }
 }

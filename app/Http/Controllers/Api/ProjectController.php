@@ -50,11 +50,11 @@ class ProjectController extends Controller
                     'company' => $project->company ? [
                         'name' => $project->company->name,
                         'logo' => [
-                            'src' => null,
-                            'alt' => null,
-                            'displayName' => false,
+                            'src' => $project->company->logo_src,
+                            'alt' => $project->company->logo_alt,
+                            'displayName' => $project->company->logo_display_name,
                         ],
-                        'link' => null,
+                        'link' => $project->company->link,
                     ] : null,
                     'primaryImage' => $project->primary_image_src ? [
                         'src' => $project->primary_image_src,

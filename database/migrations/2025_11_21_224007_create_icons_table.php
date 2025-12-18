@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('icon_type')->default('fa'); // 'fa' or 'si'
             $table->string('icon_name');
             $table->timestamps();
-            
+
             // Ensure unique combination of icon_type and icon_name
             $table->unique(['icon_type', 'icon_name']);
         });

@@ -8,9 +8,6 @@ class TechStackMetricsServiceImpl implements TechStackMetricsService
 {
     /**
      * Get metrics for a tech stack item.
-     *
-     * @param TechStackItem $item
-     * @return array
      */
     public function metricsFor(TechStackItem $item): array
     {
@@ -18,6 +15,3 @@ class TechStackMetricsServiceImpl implements TechStackMetricsService
         return [];
     }
 }
-
-
-

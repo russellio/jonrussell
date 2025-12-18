@@ -37,14 +37,16 @@ class DbSql extends Command
         $normalized = rtrim($sql);
         if (str_contains(substr($normalized, 0, -1), ';')) {
             $this->error('Multiple statements are not allowed.');
+
             return self::FAILURE;
         }
 
         $firstWord = strtolower(strtok(ltrim($sql), " \t\r\n(") ?: '');
         $readOnly = in_array($firstWord, ['select', 'with', 'pragma', 'explain'], true);
 
-        if (!$readOnly && !$this->option('unsafe')) {
+        if (! $readOnly && ! $this->option('unsafe')) {
             $this->error('Blocked non-read query. Re-run with --unsafe if you really mean it.');
+
             return self::FAILURE;
         }
 
@@ -55,6 +57,7 @@ class DbSql extends Command
         try {
             if ($readOnly) {
                 $rows = $conn->select($this->applyLimitIfNeeded($sql));
+
                 return $this->outputRows($rows);
             }
 
@@ -70,6 +73,7 @@ class DbSql extends Command
             return self::SUCCESS;
         } catch (\Throwable $e) {
             $this->error($e->getMessage());
+
             return self::FAILURE;
         }
     }
@@ -77,13 +81,19 @@ class DbSql extends Command
     private function applyLimitIfNeeded(string $sql): string
     {
         $limit = (int) $this->option('limit');
-        if ($limit <= 0) return $sql;
+        if ($limit <= 0) {
+            return $sql;
+        }
 
         $lower = strtolower($sql);
-        if (str_contains($lower, ' limit ')) return $sql;
+        if (str_contains($lower, ' limit ')) {
+            return $sql;
+        }
 
         $firstWord = strtolower(strtok(ltrim($sql), " \t\r\n(") ?: '');
-        if (!in_array($firstWord, ['select', 'with'], true)) return $sql;
+        if (! in_array($firstWord, ['select', 'with'], true)) {
+            return $sql;
+        }
 
         // Wrap to enforce a limit without trying to parse SQL.
         return "select * from ({$sql}) as _q limit {$limit}";
@@ -92,15 +102,17 @@ class DbSql extends Command
     private function outputRows(array $rows): int
     {
         // $rows is array of stdClass objects.
-        $arr = array_map(fn($r) => (array) $r, $rows);
+        $arr = array_map(fn ($r) => (array) $r, $rows);
 
         if ($this->option('json')) {
             $this->line(json_encode($arr, JSON_PRETTY_PRINT));
+
             return self::SUCCESS;
         }
 
         if (empty($arr)) {
             $this->info('0 rows.');
+
             return self::SUCCESS;
         }
 

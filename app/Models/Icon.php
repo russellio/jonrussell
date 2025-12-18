@@ -30,8 +30,8 @@ class Icon extends Model
      */
     public function setIconTypeAttribute(?string $value): void
     {
-        if ($value !== null && !in_array($value, self::VALID_ICON_TYPES, true)) {
-            throw new \InvalidArgumentException("Invalid icon_type: {$value}. Must be one of: " . implode(', ', self::VALID_ICON_TYPES));
+        if ($value !== null && ! in_array($value, self::VALID_ICON_TYPES, true)) {
+            throw new \InvalidArgumentException("Invalid icon_type: {$value}. Must be one of: ".implode(', ', self::VALID_ICON_TYPES));
         }
         $this->attributes['icon_type'] = $value;
     }
