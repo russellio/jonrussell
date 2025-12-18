@@ -208,6 +208,9 @@ class ProjectSeeder extends Seeder
                 if ($icon) {
                     return $icon->id;
                 }
+            } else {
+                // Explicit null entry found - don't fall through to partial matching
+                return null;
             }
         }
 
