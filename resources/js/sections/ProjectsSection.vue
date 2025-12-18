@@ -187,4 +187,8 @@ div.awards .pill {
     @apply inline-flex w-max items-center border border-terminal-black/30 select-none;
     @apply rounded-full p-0 text-xs shadow-sm lg:p-0.5;
 }
+
+.project-info-wrapper .pill {
+    @apply border border-white/50 bg-terminal-black-700/80 text-white;
+}
 </style>

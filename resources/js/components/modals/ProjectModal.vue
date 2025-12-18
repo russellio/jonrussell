@@ -165,9 +165,11 @@ const companyLogoText = computed(() => {
                     <h3>skills:</h3>
                     <ul>
                         <li v-for="(tech, index) in project.technologies" :key="index" class="flex items-center gap-2">
-                            <span v-if="tech.iconType === 'fa' && tech.iconName && getFaIcon(tech.iconName)[0]" class="fa-li">
-                                <FontAwesomeIcon :icon="getFaIcon(tech.iconName)" />
-                            </span>
+                            <FontAwesomeIcon
+                                v-if="tech.iconType === 'fa' && tech.iconName && getFaIcon(tech.iconName)[0]"
+                                :icon="getFaIcon(tech.iconName)"
+                                class="inline-block h-5 w-5"
+                            />
                             <component
                                 v-else-if="tech.iconType === 'si' && tech.iconName && getSimpleIcon(tech.iconName)"
                                 :is="getSimpleIcon(tech.iconName)"
@@ -183,9 +185,11 @@ const companyLogoText = computed(() => {
                     <h3>tools:</h3>
                     <ul>
                         <li v-for="(tool, index) in project.tools" :key="index" class="flex items-center gap-2">
-                            <span v-if="tool.iconType === 'fa' && tool.iconName && getFaIcon(tool.iconName)[0]" class="fa-li">
-                                <FontAwesomeIcon :icon="getFaIcon(tool.iconName)" />
-                            </span>
+                            <FontAwesomeIcon
+                                v-if="tool.iconType === 'fa' && tool.iconName && getFaIcon(tool.iconName)[0]"
+                                :icon="getFaIcon(tool.iconName)"
+                                class="inline-block h-5 w-5"
+                            />
                             <component
                                 v-else-if="tool.iconType === 'si' && tool.iconName && getSimpleIcon(tool.iconName)"
                                 :is="getSimpleIcon(tool.iconName)"
