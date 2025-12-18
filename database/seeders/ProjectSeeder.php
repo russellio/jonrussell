@@ -58,21 +58,32 @@ class ProjectSeeder extends Seeder
                 );
             }
 
-            // Create project
-            $project = Project::create([
-                'slug' => $projectData['id'] ?? Str::slug($projectData['title']),
-                'title' => $projectData['title'],
-                'byline' => $projectData['byline'] ?? null,
-                'description' => $projectData['description'] ?? null,
-                'primary_image_src' => isset($projectData['primaryImage']) ? ($projectData['primaryImage']['src'] ?? null) : null,
-                'primary_image_title' => isset($projectData['primaryImage']) ? ($projectData['primaryImage']['title'] ?? null) : null,
-                'primary_image_alt' => isset($projectData['primaryImage']) ? ($projectData['primaryImage']['alt'] ?? null) : null,
-                'bg_image' => $projectData['bgImage'] ?? null,
-                'bg_position_x' => $projectData['bgPositionX'] ?? null,
-                'bg_position_y' => $projectData['bgPositionY'] ?? null,
-                'company_id' => $company?->id,
-                'order' => $index,
-            ]);
+            // Create or update project
+            $slug = $projectData['id'] ?? Str::slug($projectData['title']);
+            $project = Project::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'title' => $projectData['title'],
+                    'byline' => $projectData['byline'] ?? null,
+                    'description' => $projectData['description'] ?? null,
+                    'primary_image_src' => isset($projectData['primaryImage']) ? ($projectData['primaryImage']['src'] ?? null) : null,
+                    'primary_image_title' => isset($projectData['primaryImage']) ? ($projectData['primaryImage']['title'] ?? null) : null,
+                    'primary_image_alt' => isset($projectData['primaryImage']) ? ($projectData['primaryImage']['alt'] ?? null) : null,
+                    'bg_image' => $projectData['bgImage'] ?? null,
+                    'bg_position_x' => $projectData['bgPositionX'] ?? null,
+                    'bg_position_y' => $projectData['bgPositionY'] ?? null,
+                    'company_id' => $company?->id,
+                    'order' => $index,
+                ]
+            );
+
+            // Delete existing related records to ensure fresh data
+            $project->keyTakeaways()->delete();
+            $project->images()->delete();
+            $project->links()->delete();
+            $project->technologies()->delete();
+            $project->tools()->delete();
+            $project->awards()->delete();
 
             // Create key takeaways
             if (isset($projectData['keyTakeaways']) && is_array($projectData['keyTakeaways'])) {

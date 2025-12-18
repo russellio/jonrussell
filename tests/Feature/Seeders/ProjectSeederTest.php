@@ -79,3 +79,41 @@ test('project seeder handles companies without logo information', function () {
         file_put_contents($projectsJsonPath, $originalContent);
     }
 });
+
+test('project seeder is idempotent and can be run multiple times', function () {
+    // Run the seeder once
+    (new ProjectSeeder)->run();
+
+    // Get initial count and data
+    $initialProjectCount = Project::count();
+    $initialCompanyCount = Company::count();
+
+    // Get a specific project to verify its data
+    $project = Project::where('slug', 'project-dod')->first();
+    expect($project)->not->toBeNull();
+
+    $initialTitle = $project->title;
+    $initialKeyTakeawaysCount = $project->keyTakeaways()->count();
+    $initialImagesCount = $project->images()->count();
+    $initialLinksCount = $project->links()->count();
+    $initialTechnologiesCount = $project->technologies()->count();
+    $initialToolsCount = $project->tools()->count();
+    $initialAwardsCount = $project->awards()->count();
+
+    // Run the seeder again
+    (new ProjectSeeder)->run();
+
+    // Verify counts remain the same (no duplicates)
+    expect(Project::count())->toBe($initialProjectCount);
+    expect(Company::count())->toBe($initialCompanyCount);
+
+    // Verify the project data is still correct
+    $project->refresh();
+    expect($project->title)->toBe($initialTitle);
+    expect($project->keyTakeaways()->count())->toBe($initialKeyTakeawaysCount);
+    expect($project->images()->count())->toBe($initialImagesCount);
+    expect($project->links()->count())->toBe($initialLinksCount);
+    expect($project->technologies()->count())->toBe($initialTechnologiesCount);
+    expect($project->tools()->count())->toBe($initialToolsCount);
+    expect($project->awards()->count())->toBe($initialAwardsCount);
+});
