@@ -44,7 +44,13 @@ class ProjectSeeder extends Seeder
                 $companyName = strip_tags($projectData['company']['name']);
                 $company = Company::firstOrCreate(
                     ['name' => $companyName],
-                    ['name' => $companyName]
+                    [
+                        'name' => $companyName,
+                        'logo_src' => isset($projectData['company']['logo']) ? ($projectData['company']['logo']['src'] ?? null) : null,
+                        'logo_alt' => isset($projectData['company']['logo']) ? ($projectData['company']['logo']['alt'] ?? null) : null,
+                        'logo_display_name' => isset($projectData['company']['logo']) ? ($projectData['company']['logo']['displayName'] ?? false) : false,
+                        'link' => $projectData['company']['link'] ?? null,
+                    ]
                 );
             }
 
@@ -54,9 +60,9 @@ class ProjectSeeder extends Seeder
                 'title' => $projectData['title'],
                 'byline' => $projectData['byline'] ?? null,
                 'description' => $projectData['description'] ?? null,
-                'primary_image_src' => $projectData['primaryImage']['src'] ?? null,
-                'primary_image_title' => $projectData['primaryImage']['title'] ?? null,
-                'primary_image_alt' => $projectData['primaryImage']['alt'] ?? null,
+                'primary_image_src' => isset($projectData['primaryImage']) ? ($projectData['primaryImage']['src'] ?? null) : null,
+                'primary_image_title' => isset($projectData['primaryImage']) ? ($projectData['primaryImage']['title'] ?? null) : null,
+                'primary_image_alt' => isset($projectData['primaryImage']) ? ($projectData['primaryImage']['alt'] ?? null) : null,
                 'bg_image' => $projectData['bgImage'] ?? null,
                 'bg_position_x' => $projectData['bgPositionX'] ?? null,
                 'bg_position_y' => $projectData['bgPositionY'] ?? null,
