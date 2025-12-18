@@ -8,8 +8,8 @@ use Database\Seeders\ProjectSeeder;
 uses()->group('seeders');
 
 test('project seeder updates existing companies with logo information', function () {
-    // First, run CompanySeeder which creates companies without logo info
-    (new CompanySeeder)->run();
+    // First, create a company without logo info
+    Company::create(['name' => 'Pioneering Evolution']);
 
     // Verify company exists without logo info
     $company = Company::where('name', 'Pioneering Evolution')->first();
