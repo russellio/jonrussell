@@ -24,7 +24,9 @@ class ProjectSeeder extends Seeder
         $projectsJsonPath = resource_path('js/data/projects.json');
 
         if (! file_exists($projectsJsonPath)) {
-            $this->command->error('projects.json file not found');
+            if ($this->command) {
+                $this->command->error('projects.json file not found');
+            }
 
             return;
         }
@@ -32,7 +34,9 @@ class ProjectSeeder extends Seeder
         $projectsData = json_decode(file_get_contents($projectsJsonPath), true);
 
         if (! is_array($projectsData)) {
-            $this->command->error('Invalid JSON format in projects.json');
+            if ($this->command) {
+                $this->command->error('Invalid JSON format in projects.json');
+            }
 
             return;
         }
@@ -42,7 +46,7 @@ class ProjectSeeder extends Seeder
             $company = null;
             if (isset($projectData['company']['name'])) {
                 $companyName = strip_tags($projectData['company']['name']);
-                $company = Company::firstOrCreate(
+                $company = Company::updateOrCreate(
                     ['name' => $companyName],
                     [
                         'name' => $companyName,
@@ -146,7 +150,9 @@ class ProjectSeeder extends Seeder
             }
         }
 
-        $this->command->info('Projects seeded successfully');
+        if ($this->command) {
+            $this->command->info('Projects seeded successfully');
+        }
     }
 
     /**
