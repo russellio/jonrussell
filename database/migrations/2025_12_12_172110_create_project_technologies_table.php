@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('icon_id')->nullable()->constrained()->onDelete('set null');
             $table->integer('order')->default(0);
+            $table->boolean('is_highlighted')->default(false);
             $table->timestamps();
         });
     }
