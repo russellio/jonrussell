@@ -19,6 +19,6 @@ const { openModal } = useModal();
 @reference "@/css/app.css";
 
 footer {
-    @apply py-8 text-terminal-black-500;
+    @apply py-12 text-terminal-black-500;
 }
 </style>
