@@ -162,7 +162,7 @@ onMounted(() => {
     <section class="md:pb-10!">
         <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
             <div class="description">
-                <h2 class="md:mb-6! md:text-start! md:text-4xl!">About Me</h2>
+                <h2 class="text-start md:mb-6 md:text-4xl">About Me</h2>
                 <p>
                     As a Senior Software Engineer with over a decade of experience, I specialize in designing, developing, and scaling enterprise
                     applications. My work centers on Laravel, PHP, REST APIs, JavaScript/TypeScript, and Vue.js, backed by Agile leadership and a

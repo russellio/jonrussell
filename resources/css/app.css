@@ -60,7 +60,11 @@ h1 {
 }
 
 h2 {
-    @apply text-center font-sixtyfour text-secondary uppercase text-3xl md:text-5xl mb-2;
+    @apply font-sixtyfour text-secondary uppercase text-3xl md:text-5xl mb-2;
+}
+
+h2:not(.text-start) {
+    @apply text-center;
 }
 
 h3 {
