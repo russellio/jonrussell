@@ -86,7 +86,7 @@ p {
 
 .card {
     @apply overflow-hidden rounded-lg bg-white shadow-2xl lg:shadow-lg lg:transition-shadow lg:duration-300;
-    @apply border border-gray-200;
+    @apply border border-terminal-black-200;
 }
 
 .card h1 {
