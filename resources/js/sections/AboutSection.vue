@@ -185,7 +185,7 @@ onMounted(() => {
             <div class="tech-stack content-top pt-0 xl:content-end">
                 <h3>Tech Stack</h3>
                 <div v-if="isLoadingTechStack" class="py-4 text-center">
-                    <p class="text-gray-500">Loading tech stack...</p>
+                    <p class="text-terminal-black-500">Loading tech stack...</p>
                 </div>
                 <div v-else-if="techStackError" class="py-4 text-center">
                     <p class="text-red-500">{{ techStackError }}</p>
@@ -213,7 +213,7 @@ onMounted(() => {
                             class="-ms-6 inline-block h-5 w-5 fill-current"
                         />
                         {{ item.tech }}
-                        <div v-if="item.active" class="position-absolute mt-[-4px] mb-[-4px] text-end text-xs text-gray-500">(current focus)</div>
+                        <div v-if="item.active" class="position-absolute mt-[-4px] mb-[-4px] text-end text-xs text-terminal-black-500">(current focus)</div>
                     </li>
                 </ul>
 
@@ -229,7 +229,7 @@ onMounted(() => {
                 <h3>Skills & Tools</h3>
 
                 <div v-if="isLoadingSkills" class="py-8 text-center">
-                    <p class="text-gray-500">Loading skills...</p>
+                    <p class="text-terminal-black-500">Loading skills...</p>
                 </div>
 
                 <div v-else-if="skillsError" class="py-8 text-center">
@@ -304,7 +304,7 @@ onMounted(() => {
 @reference "@/css/app.css";
 
 .description p {
-    @apply mb-4 text-lg text-gray-600 md:mx-auto md:leading-relaxed;
+    @apply mb-4 text-lg text-terminal-black-600 md:mx-auto md:leading-relaxed;
 }
 
 .skills {
