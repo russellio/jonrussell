@@ -76,7 +76,7 @@ onMounted(() => {
 
         <!-- Projects Grid -->
         <div v-if="isLoadingProjects" class="py-4 text-center">
-            <p class="text-gray-500">Loading projects...</p>
+            <p class="text-terminal-black-500">Loading projects...</p>
         </div>
         <div v-else-if="projectsError" class="py-4 text-center">
             <p class="text-red-500">{{ projectsError }}</p>
