@@ -159,7 +159,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <section class="md:pb-10!">
+    <section class="about-section">
         <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
             <div class="description">
                 <h2 class="text-start md:mb-6 md:text-4xl">About Me</h2>
@@ -302,6 +302,10 @@ onMounted(() => {
 
 <style scoped>
 @reference "@/css/app.css";
+
+.about-section {
+    @apply md:pb-10;
+}
 
 .description p {
     @apply mb-4 text-lg text-terminal-black-600 md:mx-auto md:leading-relaxed;
