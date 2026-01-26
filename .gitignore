@@ -29,3 +29,10 @@ auto-imports.d.ts
 components.d.ts
 WARP.md
 deploy.sh
+/.claude
+/.cursor
+/.github
+/.tmp
+/.junie
+/.vscode
+/docs
