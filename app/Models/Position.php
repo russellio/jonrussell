@@ -26,6 +26,7 @@ class Position extends Model
     protected $fillable = [
         'company_id',
         'title',
+        'description',
         'start_date',
         'end_date',
     ];
