@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ImageModal from '@/js/components/modals/ImageModal.vue';
 import Modal from '@/js/components/modals/Modal.vue';
+import type { Component } from 'vue';
 import { computed, ref } from 'vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -48,26 +49,62 @@ const getFaIcon = (iconName: string): [string, string] => {
     return icon ? [icon.group, iconName] : ['', ''];
 };
 
-const getSimpleIcon = (iconName: string) => {
-    return simpleIcons.find((icon) => icon.component.__name === iconName)?.component || '';
+const getSimpleIcon = (iconName: string): Component | null => {
+    return simpleIcons.find((icon) => icon.component.__name === iconName)?.component ?? null;
 };
 
-const props = defineProps({
-    project: {
-        type: Object,
-        required: true,
-    },
-});
+type ProjectImage = {
+    src: string;
+    title: string;
+    alt?: string | null;
+};
+
+type ProjectLink = {
+    url: string;
+    title: string;
+};
+
+type ProjectCompany = {
+    name: string;
+    logo?: {
+        src?: string;
+        alt?: string;
+        displayName?: string;
+    };
+};
+
+type Project = {
+    title: string;
+    primaryImage?: ProjectImage;
+    images?: ProjectImage[];
+    company?: ProjectCompany;
+    keyTakeaways?: string[];
+    description?: string;
+    links?: ProjectLink[];
+    technologies?: Array<{ name: string; iconType?: string; iconName?: string }>;
+    tools?: Array<{ name: string; iconType?: string; iconName?: string }>;
+};
+
+const props = defineProps<{ project: Project }>();
 
 const imageModalRef = ref<InstanceType<typeof ImageModal> | null>(null);
 
-const projectHasProp = (project: any, property: any) => {
-    if (project.hasOwnProperty(property)) {
-        if (typeof project[property] === 'object') {
-            return Object.keys(project[property]).length > 0;
-        }
+const projectHasProp = <K extends keyof Project>(project: Project, property: K): boolean => {
+    const value = project[property];
+
+    if (Array.isArray(value)) {
+        return value.length > 0;
     }
-    return project.hasOwnProperty(property) && Object.keys(project[property]).length > 0;
+
+    if (typeof value === 'string') {
+        return value.length > 0;
+    }
+
+    if (value && typeof value === 'object') {
+        return Object.keys(value).length > 0;
+    }
+
+    return Boolean(value);
 };
 
 const hasModalLeft = computed(() => {

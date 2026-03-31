@@ -3,6 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBitbucket, faBootstrap, faCss3, faGithub, faGitkraken, faHtml5, faLaravel, faPhp, faVuejs } from '@fortawesome/free-brands-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import type { Component } from 'vue';
 import { markRaw, onMounted, reactive, shallowRef } from 'vue';
 import { BraveIcon, PhpStormIcon, SentryIcon, TailwindCssIcon, ViteIcon, WarpIcon } from 'vue3-simple-icons';
 library.add(faPhp, faLaravel, faGitkraken, faGithub, faBootstrap, faVuejs, faCss3, faHtml5, faBitbucket, faHeart);
@@ -27,7 +28,7 @@ const things = shallowRef([
     { title: 'Vite', icon: 'ViteIcon', type: 'si' },
 ]);
 
-const iconRegistry: Record<string, any> = {
+const iconRegistry: Record<string, Component> = {
     TailwindCssIcon: markRaw(TailwindCssIcon),
     WarpIcon: markRaw(WarpIcon),
     PhpStormIcon: markRaw(PhpStormIcon),
@@ -36,7 +37,7 @@ const iconRegistry: Record<string, any> = {
     SentryIcon: markRaw(SentryIcon),
 };
 
-const simpleIconMap = reactive<Record<string, any>>({});
+const simpleIconMap = reactive<Record<string, Component>>({});
 
 const hoveredIndex = shallowRef<string | null>(null);
 
@@ -48,8 +49,6 @@ onMounted(() => {
     things.value.forEach((thing) => {
         if (thing.type === 'si' && thing.icon && iconRegistry[thing.icon]) {
             simpleIconMap[thing.icon] = iconRegistry[thing.icon];
-        } else if (thing.type === 'si' && thing.icon && !iconRegistry[thing.icon]) {
-            console.warn(`Add icon "${thing.icon}" to the vue3-simple-icons imports and iconRegistry.`);
         }
     });
 });
