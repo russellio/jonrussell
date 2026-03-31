@@ -141,8 +141,8 @@ onUnmounted(() => {
     if (turnstileWidgetId.value && window.turnstile) {
         try {
             window.turnstile.remove(turnstileWidgetId.value);
-        } catch (error) {
-            console.warn('Failed to remove Turnstile widget:', error);
+        } catch {
+            errors.value.turnstile = 'Failed to clean up security verification. Please refresh the page.';
         }
     }
 });
@@ -158,8 +158,7 @@ const resetForm = async () => {
 
     try {
         onLoadTurnstile();
-    } catch (error) {
-        console.warn('Failed to load Turnstile:', error);
+    } catch {
         errors.value.turnstile = 'Failed to load security verification. Please refresh the page.';
     }
 };
