@@ -16,7 +16,12 @@ const ScrollingThingsILike = defineAsyncComponent(() => import('@/js/components/
 
 const { isOpen, openModal } = useModal();
 const { scrollToSection } = useScrollToSection();
-const page = usePage();
+
+type PageProps = {
+    scrollTo?: string;
+};
+
+const page = usePage<PageProps>();
 const isContactOpen = computed(() => isOpen('contact-modal'));
 
 const performScrollAction = async (scrollTo: string | undefined) => {
@@ -34,13 +39,12 @@ const performScrollAction = async (scrollTo: string | undefined) => {
 };
 
 onMounted(async () => {
-    const scrollTo = (page.props as any).scrollTo as string | undefined;
+    const scrollTo = page.props.scrollTo;
     await performScrollAction(scrollTo);
 });
 
-// Watch for route changes
 watch(
-    () => (page.props as any).scrollTo,
+    () => page.props.scrollTo,
     async (newScrollTo) => {
         await performScrollAction(newScrollTo);
     }
@@ -53,29 +57,23 @@ watch(
         <Nav />
 
         <header id="home">
-            <!-- Header / Intro / Navigation -->
             <Header />
         </header>
 
-        <!-- Main content with all sections -->
         <main>
-            <!-- About Section -->
             <ContentFrame id="about">
                 <AboutSection />
             </ContentFrame>
 
             <ScrollingThingsILike />
 
-            <!-- Projects Section -->
             <ContentFrame id="projects">
                 <ProjectsSection />
             </ContentFrame>
 
-            <!-- Contact Modal -->
             <ContactModal v-if="isContactOpen" />
         </main>
 
-        <!-- Footer -->
         <Footer ref="footer" />
     </div>
 </template>

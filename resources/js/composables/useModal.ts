@@ -25,7 +25,7 @@ export function useModal() {
     };
 
     const closeAllModals = (): void => {
-        modalStore.openModals.clear();
+        modalStore.closeAll();
         removeFocusTrap();
     };
 
