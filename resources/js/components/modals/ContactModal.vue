@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import Modal from '@/js/components/modals/Modal.vue';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 const turnstileSitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
+
+type ErrorValue = string | string[];
+type Errors = Record<string, ErrorValue>;
 
 const form = ref({
     email: '',
@@ -11,7 +14,7 @@ const form = ref({
 });
 
 const isLoading = ref(false);
-const errors = ref<Record<string, any>>({});
+const errors = ref<Errors>({});
 const successMessage = ref('');
 const turnstileToken = ref('');
 const turnstileWidgetId = ref<string | null>(null);
@@ -20,6 +23,21 @@ const isFormSubmitted = ref(false);
 // Validation state
 const validationErrors = ref<Record<string, string>>({});
 const isFormValid = ref(false);
+
+const emailError = computed(() => {
+    const value = errors.value.email;
+    return Array.isArray(value) ? value[0] : value;
+});
+
+const subjectError = computed(() => {
+    const value = errors.value.subject;
+    return Array.isArray(value) ? value[0] : value;
+});
+
+const messageError = computed(() => {
+    const value = errors.value.message;
+    return Array.isArray(value) ? value[0] : value;
+});
 
 // Validation functions
 const validateEmail = (email: string): string => {
@@ -110,7 +128,6 @@ function onLoadTurnstile() {
     turnstileWidgetId.value = turnstile.render('#turnstile-container', {
         sitekey: turnstileSitekey,
         callback: function (token: string) {
-            console.log('Turnstile challenge completed:', token);
             turnstileToken.value = token;
         },
     });
@@ -124,8 +141,8 @@ onUnmounted(() => {
     if (turnstileWidgetId.value && window.turnstile) {
         try {
             window.turnstile.remove(turnstileWidgetId.value);
-        } catch (error) {
-            console.warn('Failed to remove Turnstile widget:', error);
+        } catch {
+            errors.value.turnstile = 'Failed to clean up security verification. Please refresh the page.';
         }
     }
 });
@@ -141,8 +158,7 @@ const resetForm = async () => {
 
     try {
         onLoadTurnstile();
-    } catch (error) {
-        console.warn('Failed to load Turnstile:', error);
+    } catch {
         errors.value.turnstile = 'Failed to load security verification. Please refresh the page.';
     }
 };
@@ -182,7 +198,7 @@ const submitForm = async () => {
             }),
         });
 
-        const data = await response.json();
+        const data = (await response.json()) as { message?: string; errors?: Record<string, string[]> };
 
         if (!response.ok) {
             if (response.status === 422) {
@@ -194,10 +210,9 @@ const submitForm = async () => {
         form.value = { email: '', subject: '', message: '' };
         successMessage.value = data.message || 'Message sent successfully!';
         isFormSubmitted.value = true;
-    } catch (error: any) {
-        console.warn('Error submitting form:', error);
-        if (!errors.value || Object.keys(errors.value).length === 0) {
-            errors.value.general = error?.message || 'Failed to send message. Please try again.';
+    } catch (error: unknown) {
+        if (Object.keys(errors.value).length === 0) {
+            errors.value.general = error instanceof Error ? error.message : 'Failed to send message. Please try again.';
         }
     } finally {
         isLoading.value = false;
@@ -216,7 +231,6 @@ const submitForm = async () => {
         :cancelText="!isFormSubmitted ? `Cancel` : `Close`"
         @submit="submitForm"
     >
-        <!-- Contact Modal -->
         <div class="flex w-full flex-col">
             <div v-if="successMessage" class="success">
                 {{ successMessage }}
@@ -241,7 +255,7 @@ const submitForm = async () => {
                         }"
                         autocomplete="true"
                     />
-                    <div v-if="errors.email" class="error">{{ errors.email[0] }}</div>
+                    <div v-if="emailError" class="error">{{ emailError }}</div>
                     <div v-if="validationErrors.email" class="error">{{ validationErrors.email }}</div>
                 </div>
 
@@ -259,7 +273,7 @@ const submitForm = async () => {
                         }"
                         autocomplete="false"
                     />
-                    <div v-if="errors.subject" class="error">{{ errors.subject[0] }}</div>
+                    <div v-if="subjectError" class="error">{{ subjectError }}</div>
                     <div v-if="validationErrors.subject" class="error">{{ validationErrors.subject }}</div>
                 </div>
 
@@ -276,7 +290,7 @@ const submitForm = async () => {
                             'border-success': form.message && !validationErrors.message && !errors.message,
                         }"
                     ></textarea>
-                    <div v-if="errors.message" class="error">{{ errors.message[0] }}</div>
+                    <div v-if="messageError" class="error">{{ messageError }}</div>
                     <div v-if="validationErrors.message" class="error">{{ validationErrors.message }}</div>
                 </div>
             </div>

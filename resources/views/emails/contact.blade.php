@@ -12,6 +12,6 @@
     </div>
 
     <div style="margin-top: 20px; font-size: 12px; color: #666;">
-        <p>This email was sent from the contact form on {{ env('APP_NAME') }}.</p>
+        <p>This email was sent from the contact form on {{ config('app.name') }}.</p>
     </div>
 </div>
