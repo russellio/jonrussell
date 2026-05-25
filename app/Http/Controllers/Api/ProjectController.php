@@ -54,7 +54,6 @@ class ProjectController extends Controller
             'images',
             'links',
             'technologies.icon',
-            'highlightedTechnologies',
             'tools.icon',
             'awards',
         ])->orderBy('order');
@@ -71,7 +70,7 @@ class ProjectController extends Controller
             'byline' => $project->byline,
             'keyTakeaways' => $project->keyTakeaways->pluck('text')->toArray(),
             'description' => $project->description,
-            'highlightedSkills' => $project->highlightedTechnologies->pluck('name')->toArray(),
+            'highlightedSkills' => $project->technologies->where('is_highlighted', true)->pluck('name')->values()->toArray(),
             'technologies' => $project->technologies->map(function ($tech) {
                 return [
                     'name' => $tech->name,
