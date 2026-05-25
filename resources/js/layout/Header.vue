@@ -2,13 +2,11 @@
 import ToggleSwitch from '@/js/components/ToggleSwitch.vue';
 import { useModal } from '@/js/composables/useModal';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCertificate, faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { defineAsyncComponent, ref } from 'vue';
-library.add(faLocationDot, faLinkedin, faEnvelope, faObjectGroup, faUserShield, faCertificate, faGithub);
 
 const { scrollToSection } = useScrollToSection();
 const { openModal } = useModal();

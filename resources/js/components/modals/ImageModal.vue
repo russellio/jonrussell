@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import type { Image } from '@/js/types';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ref } from 'vue';
-
-library.add(faXmark);
 
 const imageModalWrapper = ref<HTMLElement | null>(null);
 const isImageModalOpen = ref(false);

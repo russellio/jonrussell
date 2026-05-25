@@ -113,72 +113,57 @@ A modern, responsive portfolio website built with Laravel, Vue.js, and TailwindC
 
 ```
 ├── app/                           # Laravel application
+│   ├── Filament/Resources/        # Filament CMS resources (primary content management)
 │   ├── Http/
-│   │   ├── Controllers/          # Application controllers
-│   │   │   ├── Api/              # API controllers (SkillController)
+│   │   ├── Controllers/
+│   │   │   ├── Admin/             # Admin CRUD API controllers (Company, Position, TechStackItem)
+│   │   │   ├── Api/               # Public read-only API controllers (Project, Skill, Timeline, TechStack)
 │   │   │   └── ContactController.php
-│   │   └── Middleware/           # HTTP middleware
-│   ├── Mail/                      # Mail classes (ContactFormMail)
-│   ├── Models/                    # Eloquent models (Skill, SkillType, User)
-│   └── Providers/                 # Service providers
+│   │   └── Middleware/            # HandleInertiaRequests
+│   ├── Mail/                      # ContactFormMail
+│   ├── Models/                    # Eloquent models (Project, Position, Company, Skill, TechStackItem, Icon, ...)
+│   ├── Services/                  # Service interfaces + implementations
+│   └── Providers/                 # AppServiceProvider (DI bindings)
 ├── config/                        # Configuration files
-│   ├── inertia.php                # Inertia.js configuration
-│   ├── mail.php                   # Mail configuration
-│   └── sentry.php                 # Sentry error tracking config
 ├── database/
-│   ├── factories/                 # Model factories
-│   ├── migrations/                # Database migrations
-│   ├── seeders/                   # Database seeders (SkillTypeSeeder)
-│   └── database.sqlite            # SQLite database file
-├── public/                        # Publicly accessible files
-│   ├── build/                     # Compiled assets
-│   ├── images/                    # Static images (projects, icons, profile)
-│   └── favicons/                  # Favicon files
+│   ├── migrations/                # Schema migrations
+│   └── database.sqlite            # SQLite database (dev)
+├── public/
+│   ├── images/                    # Static images (projects/, logos/, profile-avatar.svg)
+│   └── favicons/
 ├── resources/
 │   ├── js/
-│   │   ├── actions/               # Action utilities
 │   │   ├── components/            # Reusable Vue components
-│   │   │   ├── modals/            # Modal components (Contact, Project, Image)
-│   │   │   ├── BackgroundStars.vue
-│   │   │   ├── ScrollingThingsILike.vue
-│   │   │   └── ToggleSwitch.vue
-│   │   ├── composables/           # Vue 3 composables
-│   │   │   ├── useEscapeKey.ts
-│   │   │   ├── useModal.ts
-│   │   │   └── useScrollToSection.ts
-│   │   ├── data/                  # Static data files (projects.json)
-│   │   ├── layout/                # Layout components (Header, Footer, Nav)
-│   │   ├── pages/                 # Inertia page components (SPA.vue)
-│   │   ├── sections/              # Page sections (AboutSection, ProjectsSection)
-│   │   ├── stores/                # Pinia stores
-│   │   ├── types/                 # TypeScript type definitions
-│   │   ├── wayfinder/             # Wayfinder route utilities
-│   │   ├── app.ts                 # Main application entry point
+│   │   │   └── modals/            # Modal.vue, ProjectModal.vue, ContactModal.vue, ImageModal.vue
+│   │   ├── composables/           # useModal.ts, useScrollToSection.ts, useEscapeKey.ts
+│   │   ├── layout/                # Header.vue, Footer.vue, Nav.vue
+│   │   ├── lib/                   # utils.ts (cn helper)
+│   │   ├── pages/                 # SPA.vue (sole Inertia page)
+│   │   ├── sections/              # AboutSection.vue, ProjectsSection.vue
+│   │   ├── stores/                # modalStore.ts (Pinia)
+│   │   ├── types/                 # index.d.ts (canonical TS types), globals.d.ts
+│   │   ├── app.ts                 # Inertia + Pinia + Sentry bootstrap
 │   │   └── ssr.ts                 # SSR entry point
 │   ├── css/
-│   │   ├── app.css                # Main stylesheet with Tailwind
+│   │   ├── app.css                # Tailwind entry + custom CSS vars + global styles
 │   │   ├── background-stars.css   # Starfield animation styles
-│   │   └── modal.css              # Modal component styles
+│   │   └── modal.css              # Modal global styles
 │   └── views/
-│       ├── app.blade.php          # Main Inertia layout
-│       └── emails/                # Email templates
+│       ├── app.blade.php          # Inertia HTML shell
+│       └── emails/                # contact.blade.php
 ├── routes/
-│   ├── api.php                    # API routes (skills, contact)
-│   ├── web.php                    # Web routes
-│   └── console.php                # Console commands
-├── storage/                        # Storage directory
-├── tests/                         # Test suites
-│   ├── Feature/                   # Feature tests
-│   └── Unit/                      # Unit tests (ContactController, SkillController)
-├── .github/workflows/             # GitHub Actions workflows
-│   ├── tests.yml                  # CI test workflow
-│   └── lint.yml                   # Linting workflow
-├── .env.example                   # Environment variables example
-├── composer.json                  # PHP dependencies
-├── package.json                   # Node.js dependencies
-├── vite.config.ts                 # Vite configuration
-├── tailwind.config.ts             # Tailwind CSS configuration
-└── tsconfig.json                  # TypeScript configuration
+│   ├── api.php                    # API routes (public + admin prefix)
+│   ├── web.php                    # Web routes (all render SPA.vue via Inertia)
+│   └── console.php
+├── tests/
+│   ├── Feature/Api/               # HTTP-level API tests
+│   └── Unit/                      # Unit + some misplaced feature tests
+├── .env.example                   # Environment variable reference
+├── composer.json                  # PHP dependencies + dev scripts
+├── package.json                   # Node dependencies + build scripts
+├── vite.config.ts
+├── tailwind.config.ts
+└── tsconfig.json
 ```
 
 ## 🚀 Getting Started <a name="getting-started"></a>
@@ -304,9 +289,10 @@ npm run format
 ```
 
 ### Test Coverage
-- **Unit Tests**: ContactController, SkillController
-- **Feature Tests**: Example feature tests included
+- **Unit Tests**: `ContactControllerTest`, `SkillControllerTest`, `Models/CompanyTest`, `Models/ProjectTest`
+- **Feature Tests**: `Api/ProjectControllerTest`, `Api/ProjectHighlightedSkillsTest`, `Seeders/ProjectSeederTest`
 - **CI/CD**: Automated testing on push to `main` and `develop` branches via GitHub Actions
+- **Note**: No frontend test runner is configured (no Vitest/Playwright)
 ## 🎨 Customization
 
 ### Styling <a name="styling"></a>
