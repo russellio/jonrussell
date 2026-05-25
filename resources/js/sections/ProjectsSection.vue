@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import ProjectModal from '@/js/components/modals/ProjectModal.vue';
 import { useModal } from '@/js/composables/useModal';
-import type { Project } from '@/js/types/index';
+import { get } from '@/js/lib/api';
+import type { ApiResponse, Project } from '@/js/types/index';
 import { computed, onMounted, ref } from 'vue';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-library.add(faAward);
-
-interface ProjectsResponse {
-    success: boolean;
-    data: Project[];
-}
 
 const { isOpen, openModal } = useModal();
 
@@ -34,25 +27,8 @@ const fetchProjects = async () => {
     projectsError.value = null;
 
     try {
-        const response = await fetch('/api/projects', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch projects');
-        }
-
-        const data: ProjectsResponse = await response.json();
-
-        if (data.success && data.data) {
-            projects.value = data.data;
-        } else {
-            throw new Error('Invalid response format');
-        }
+        const { data } = await get<ApiResponse<Project[]>>('/api/projects');
+        projects.value = data;
     } catch (error) {
         console.error('Error fetching projects:', error);
         projectsError.value = error instanceof Error ? error.message : 'Failed to load projects';

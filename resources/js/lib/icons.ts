@@ -1,0 +1,71 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+    faBitbucket,
+    faBootstrap,
+    faCss3,
+    faGithub,
+    faGitkraken,
+    faHtml5,
+    faJs,
+    faLaravel,
+    faLinkedin,
+    faPhp,
+    faReact,
+    faVuejs,
+} from '@fortawesome/free-brands-svg-icons';
+import {
+    faEnvelope,
+    faHeadphones,
+    faHouse,
+    faObjectGroup,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+    faArrowUpRightFromSquare,
+    faAward,
+    faCertificate,
+    faCode,
+    faDatabase,
+    faHeart,
+    faLocationDot,
+    faProjectDiagram,
+    faSitemap,
+    faStar,
+    faUserShield,
+    faVial,
+    faXmark,
+} from '@fortawesome/free-solid-svg-icons';
+
+library.add(
+    // brands
+    faBitbucket,
+    faBootstrap,
+    faCss3,
+    faGithub,
+    faGitkraken,
+    faHtml5,
+    faJs,
+    faLaravel,
+    faLinkedin,
+    faPhp,
+    faReact,
+    faVuejs,
+    // regular
+    faEnvelope,
+    faHeadphones,
+    faHouse,
+    faObjectGroup,
+    // solid
+    faArrowUpRightFromSquare,
+    faAward,
+    faCertificate,
+    faCode,
+    faDatabase,
+    faHeart,
+    faLocationDot,
+    faProjectDiagram,
+    faSitemap,
+    faStar,
+    faUserShield,
+    faVial,
+    faXmark,
+);

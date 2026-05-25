@@ -226,11 +226,11 @@ const submitForm = async () => {
         title="Contact Me"
         :showSubmit="!isFormSubmitted"
         :submitDisabled="!isFormValid || isFormSubmitted"
-        :submitText="`Send <span class='hidden sm:inline-block'> Message</span>`"
         :isLoading="isLoading"
         :cancelText="!isFormSubmitted ? `Cancel` : `Close`"
         @submit="submitForm"
     >
+        <template #submitText>Send <span class='hidden sm:inline-block'> Message</span></template>
         <div class="flex w-full flex-col">
             <div v-if="successMessage" class="success">
                 {{ successMessage }}

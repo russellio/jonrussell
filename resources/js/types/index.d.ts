@@ -53,6 +53,31 @@ export interface Tool {
     iconName?: string;
 }
 
+export interface ApiResponse<T> {
+    success: boolean;
+    data: T;
+}
+
+export interface Skill {
+    id: number;
+    name: string;
+}
+
+export interface SkillType {
+    id: number;
+    name: string;
+    slug: string;
+    skills: Skill[];
+}
+
+export interface TechStackItem {
+    tech: string;
+    percent: string;
+    iconType: string;
+    iconName: string;
+    active?: boolean;
+}
+
 export interface Project {
     id: string;
     title: string;
