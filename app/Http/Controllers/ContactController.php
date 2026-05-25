@@ -5,33 +5,25 @@ namespace App\Http\Controllers;
 use App\Mail\ContactFormMail;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
-use Log;
 
 class ContactController extends Controller
 {
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validated = $request->validate([
             'email' => 'required|email',
             'subject' => 'required|string|max:255',
             'message' => 'required|string|min:10',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-
         try {
-            Mail::to('info@jonrussell.dev')
+            Mail::to(config('mail.contact_email'))
                 ->send(new ContactFormMail(
-                    $request->email,
-                    $request->subject,
-                    $request->message
+                    $validated['email'],
+                    $validated['subject'],
+                    $validated['message']
                 ));
 
             return response()->json([
