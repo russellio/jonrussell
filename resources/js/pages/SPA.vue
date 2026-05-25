@@ -7,6 +7,7 @@ import { useModal } from '@/js/composables/useModal';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 import { usePage } from '@inertiajs/vue3';
 import { computed, onMounted, nextTick, watch, defineAsyncComponent } from 'vue';
+import type { AppPageProps } from '@/js/types/index';
 
 import AboutSection from '@/js/sections/AboutSection.vue';
 import ProjectsSection from '@/js/sections/ProjectsSection.vue';
@@ -17,9 +18,7 @@ const ScrollingThingsILike = defineAsyncComponent(() => import('@/js/components/
 const { isOpen, openModal } = useModal();
 const { scrollToSection } = useScrollToSection();
 
-type PageProps = {
-    scrollTo?: string;
-};
+type PageProps = AppPageProps<{ scrollTo?: string }>;
 
 const page = usePage<PageProps>();
 const isContactOpen = computed(() => isOpen('contact-modal'));
