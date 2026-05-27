@@ -13,12 +13,7 @@ import {
     faReact,
     faVuejs,
 } from '@fortawesome/free-brands-svg-icons';
-import {
-    faEnvelope,
-    faHeadphones,
-    faHouse,
-    faObjectGroup,
-} from '@fortawesome/free-regular-svg-icons';
+import { faEnvelope, faHeadphones, faHouse, faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import {
     faArrowUpRightFromSquare,
     faAward,

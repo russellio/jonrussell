@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import ContentFrame from '@/js/components/ContentFrame.vue';
-import Footer from '@/js/layout/Footer.vue';
-import Header from '@/js/layout/Header.vue';
 import ContactModal from '@/js/components/modals/ContactModal.vue';
 import { useModal } from '@/js/composables/useModal';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
-import { usePage } from '@inertiajs/vue3';
-import { computed, onMounted, nextTick, watch, defineAsyncComponent } from 'vue';
+import Footer from '@/js/layout/Footer.vue';
+import Header from '@/js/layout/Header.vue';
 import type { AppPageProps } from '@/js/types/index';
+import { usePage } from '@inertiajs/vue3';
+import { computed, defineAsyncComponent, nextTick, onMounted, ref, watch } from 'vue';
 
+import Nav from '@/js/layout/Nav.vue';
 import AboutSection from '@/js/sections/AboutSection.vue';
 import ProjectsSection from '@/js/sections/ProjectsSection.vue';
-import Nav from '@/js/layout/Nav.vue';
 
 const ScrollingThingsILike = defineAsyncComponent(() => import('@/js/components/ScrollingThingsILike.vue'));
 
@@ -23,18 +23,31 @@ type PageProps = AppPageProps<{ scrollTo?: string }>;
 const page = usePage<PageProps>();
 const isContactOpen = computed(() => isOpen('contact-modal'));
 
+const readySections = ref(new Set<string>(['home']));
+const handleSectionReady = (id: string) => readySections.value.add(id);
+
 const performScrollAction = async (scrollTo: string | undefined) => {
     if (!scrollTo) return;
-
+    if (scrollTo === 'contact') {
+        openModal('contact-modal');
+        return;
+    }
+    if (!readySections.value.has(scrollTo)) {
+        await new Promise<void>((resolve) => {
+            const stop = watch(
+                readySections,
+                (set) => {
+                    if (set.has(scrollTo)) {
+                        stop();
+                        resolve();
+                    }
+                },
+                { deep: true },
+            );
+        });
+    }
     await nextTick();
-
-    setTimeout(() => {
-        if (scrollTo === 'contact') {
-            openModal('contact-modal');
-        } else {
-            scrollToSection(scrollTo);
-        }
-    }, 100);
+    scrollToSection(scrollTo);
 };
 
 onMounted(async () => {
@@ -46,13 +59,12 @@ watch(
     () => page.props.scrollTo,
     async (newScrollTo) => {
         await performScrollAction(newScrollTo);
-    }
+    },
 );
 </script>
 
 <template>
     <div class="app-layout">
-
         <Nav />
 
         <header id="home">
@@ -60,13 +72,13 @@ watch(
         </header>
 
         <main>
-            <ContentFrame id="about">
+            <ContentFrame id="about" @ready="handleSectionReady">
                 <AboutSection />
             </ContentFrame>
 
             <ScrollingThingsILike />
 
-            <ContentFrame id="projects">
+            <ContentFrame id="projects" @ready="handleSectionReady">
                 <ProjectsSection />
             </ContentFrame>
 
