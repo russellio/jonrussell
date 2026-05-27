@@ -79,7 +79,9 @@ const companyLogoText = computed(() => {
 
 <template>
     <Modal modalId="project-modal" cancelText="Close">
-        <template #title>project: <span class='inline-block md:block text-primary! normal-case'>{{ project.title }}</span></template>
+        <template #title
+            >project: <span class="inline-block text-primary! normal-case md:block">{{ project.title }}</span></template
+        >
         <div class="grid w-full grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%]">
             <div v-if="hasModalLeft" class="modal-left mb-10" :class="{ '': !projectHasProp(project, 'images') }">
                 <div
@@ -96,7 +98,7 @@ const companyLogoText = computed(() => {
                 </div>
 
                 <div v-if="projectHasProp(project, 'images')" class="thumbnails">
-                    <div v-for="(image, index) in project.images" :key="index" class="thumbnail" @click="imageModalRef?.openImageModal(image)">
+                    <div v-for="image in project.images" :key="image.src" class="thumbnail" @click="imageModalRef?.openImageModal(image)">
                         <img v-if="image?.src" :src="`/images/projects/${image.src}`" :title="image.title" :alt="image.alt" />
                     </div>
                 </div>
@@ -125,7 +127,7 @@ const companyLogoText = computed(() => {
                     <h4 class="mt-0 mb-2 font-space-mono text-white!">key takeaways:</h4>
                     <div class="rounded-md border-y border-terminal-black-700 bg-black/65 p-2 py-6 ps-8">
                         <ul class="list-disc space-y-2 border-s border-terminal-black-700 ps-10">
-                            <li v-for="(takeaway, index) in project.keyTakeaways" :key="index">
+                            <li v-for="takeaway in project.keyTakeaways" :key="takeaway">
                                 {{ takeaway }}
                             </li>
                         </ul>
@@ -140,7 +142,7 @@ const companyLogoText = computed(() => {
                 <div v-if="projectHasProp(project, 'links')" class="links">
                     <h4 class="mt-0 mb-2 ps-4 font-space-mono text-white!">links:</h4>
                     <ul class="list-disc space-y-2 rounded-md border-t border-b-4 border-terminal-black-700 bg-black/65 p-2 py-3 ps-10">
-                        <li v-for="(link, index) in project.links" :key="index">
+                        <li v-for="link in project.links" :key="link.url">
                             <a :href="link.url" target="_blank">{{ link.title }}</a>
                             <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-gold" size="sm" />
                         </li>
@@ -152,7 +154,7 @@ const companyLogoText = computed(() => {
                 <div v-if="project.technologies && project.technologies.length > 0" class="technologies">
                     <h3>skills:</h3>
                     <ul>
-                        <li v-for="(tech, index) in project.technologies" :key="index" class="flex items-center gap-2">
+                        <li v-for="tech in project.technologies" :key="tech.name" class="flex items-center gap-2">
                             <FontAwesomeIcon
                                 v-if="tech.iconType === 'fa' && tech.iconName && getFaIcon(tech.iconName)[0]"
                                 :icon="getFaIcon(tech.iconName)"
@@ -172,7 +174,7 @@ const companyLogoText = computed(() => {
                 <div v-if="project.tools && project.tools.length > 0" class="tools">
                     <h3>tools:</h3>
                     <ul>
-                        <li v-for="(tool, index) in project.tools" :key="index" class="flex items-center gap-2">
+                        <li v-for="tool in project.tools" :key="tool.name" class="flex items-center gap-2">
                             <FontAwesomeIcon
                                 v-if="tool.iconType === 'fa' && tool.iconName && getFaIcon(tool.iconName)[0]"
                                 :icon="getFaIcon(tool.iconName)"

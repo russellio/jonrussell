@@ -59,43 +59,44 @@ onMounted(() => {
             <button @click="fetchProjects" class="hover:bg-primary-dark mt-2 rounded bg-primary px-4 py-2 text-white">Retry</button>
         </div>
         <div v-else class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:mx-auto xl:w-11/12 xl:gap-12">
-            <div v-for="(project, index) in projects" :key="index" class="card">
-                <a aria-label="View project details" class="cursor-pointer">
-                    <div class="group project" @click="openProjectModal(project)">
-                        <img
-                            v-if="project.bgImage"
-                            :src="`/images/projects/${project.bgImage}`"
-                            alt="Project Image"
-                            :title="`Project: ${project.title}`"
-                            class="project-image"
-                            :style="project.bgPositionX && project.bgPositionY ? `object-position: ${project.bgPositionX} ${project.bgPositionY}` : ''"
-                        />
+            <div v-for="project in projects" :key="project.id" class="card">
+                <button type="button" aria-label="View project details" class="group project cursor-pointer" @click="openProjectModal(project)">
+                    <img
+                        v-if="project.bgImage"
+                        :src="`/images/projects/${project.bgImage}`"
+                        alt="Project Image"
+                        :title="`Project: ${project.title}`"
+                        class="project-image"
+                        :style="project.bgPositionX && project.bgPositionY ? `object-position: ${project.bgPositionX} ${project.bgPositionY}` : ''"
+                    />
 
-                        <div class="project-title-backdrop">
-                            <h1>{{ project.title }}</h1>
+                    <div class="project-title-backdrop">
+                        <h3>{{ project.title }}</h3>
 
-                            <div v-if="project.awards" class="awards">
-                                <div v-for="(award, index) in project.awards" :key="index" class="pill">
-                                    <span class="mx-2.5 my-1 leading-none">
-                                        <FontAwesomeIcon :icon="faAward" />
-                                        {{ award }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="project-info-wrapper">
-                            <p class="max-xl:leading-4.5">{{ project.byline }}</p>
-
-                            <!-- Highlighted Skills -->
-                            <div v-if="project.highlightedSkills && project.highlightedSkills.length > 0" class="absolute bottom-4 left-0 flex w-full flex-wrap justify-center gap-1">
-                                <div v-for="(skill, index) in project.highlightedSkills" :key="index" class="pill">
-                                    <span class="mx-3 my-0.5">{{ skill }}</span>
-                                </div>
+                        <div v-if="project.awards" class="awards">
+                            <div v-for="award in project.awards" :key="award" class="pill">
+                                <span class="mx-2.5 my-1 leading-none">
+                                    <FontAwesomeIcon :icon="faAward" />
+                                    {{ award }}
+                                </span>
                             </div>
                         </div>
                     </div>
-                </a>
+
+                    <div class="project-info-wrapper">
+                        <p class="max-xl:leading-4.5">{{ project.byline }}</p>
+
+                        <!-- Highlighted Skills -->
+                        <div
+                            v-if="project.highlightedSkills && project.highlightedSkills.length > 0"
+                            class="absolute bottom-4 left-0 flex w-full flex-wrap justify-center gap-1"
+                        >
+                            <div v-for="skill in project.highlightedSkills" :key="skill" class="pill">
+                                <span class="mx-3 my-0.5">{{ skill }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </button>
             </div>
         </div>
 
@@ -108,7 +109,7 @@ onMounted(() => {
 @reference "@/css/app.css";
 
 .project {
-    @apply relative z-0 h-[290px] overflow-hidden rounded-lg;
+    @apply relative z-0 h-[290px] w-full overflow-hidden rounded-lg p-0 text-left;
     @apply border-x border-y-4 border-terminal-black-600 bg-terminal-black align-bottom lg:h-[260px];
 }
 
@@ -127,7 +128,7 @@ onMounted(() => {
     @apply absolute bottom-0 z-50 w-full border-t border-terminal-black-300 bg-terminal-black px-2 pt-2 text-white xl:px-4;
     @apply bg-linear-to-t from-black via-terminal-black to-transparent;
     @apply opacity-100 xl:opacity-0 xl:transition-opacity xl:duration-300 xl:ease-in-out xl:group-hover:opacity-100;
-    @apply no-hover:h-34 h-22 transition-[height] group-hover:h-34;
+    @apply h-22 transition-[height] group-hover:h-34 no-hover:h-34;
 }
 
 .project-info-wrapper p {
@@ -137,17 +138,17 @@ onMounted(() => {
 .project-title-backdrop {
     @apply absolute z-20 m-1 w-[98%] rounded-md p-0.5;
     @apply border border-s-0 border-t-0 border-terminal-black/70;
-    @apply no-hover:mt-1 mt-10 md:mt-6 xl:mt-15;
+    @apply mt-10 md:mt-6 xl:mt-15 no-hover:mt-1;
     @apply transition-all duration-300 ease-in-out group-hover:mt-2;
 }
 
-h1 {
+h3 {
     @apply text-2xl font-extrabold text-secondary lg:text-3xl;
     @apply rounded-md border border-white p-1 ps-8 backdrop-blur-sm;
     @apply bg-white/90 backdrop-filter lg:transition-[bg-white] lg:duration-300 lg:ease-in lg:group-hover:bg-white;
 }
 
-h1 span {
+h3 span {
     @apply text-secondary!;
 }
 

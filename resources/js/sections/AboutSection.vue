@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { get } from '@/js/lib/api';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
+import { get } from '@/js/lib/api';
 import type { ApiResponse, Skill, SkillType, TechStackItem } from '@/js/types/index';
 import { ComponentPublicInstance, onMounted, ref } from 'vue';
 const { scrollToSection } = useScrollToSection();
@@ -34,7 +34,6 @@ const getFaIcon = (iconName: string): [string, string] => {
     const icon = faIcons.find((icon) => reverseKebabCase(icon.name.iconName) === iconName);
     return icon ? [icon.group, iconName] : ['', ''];
 };
-
 
 const techStack = ref<TechStackItem[]>([]);
 const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
@@ -146,7 +145,9 @@ onMounted(() => {
                             class="-ms-6 inline-block h-5 w-5 fill-current"
                         />
                         {{ item.tech }}
-                        <div v-if="item.active" class="position-absolute mt-[-4px] mb-[-4px] text-end text-xs text-terminal-black-500">(current focus)</div>
+                        <div v-if="item.active" class="position-absolute mt-[-4px] mb-[-4px] text-end text-xs text-terminal-black-500">
+                            (current focus)
+                        </div>
                     </li>
                 </ul>
 
