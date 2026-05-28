@@ -119,7 +119,7 @@ onMounted(() => {
 }
 
 .project-image {
-    @apply absolute opacity-80 transition-opacity duration-300 group-hover:opacity-100;
+    @apply opacity-80 transition-opacity duration-300 group-hover:opacity-100;
     @apply z-10 border-x-3 border-t border-white object-none blur-[1px] lg:blur-none;
     @apply transition-[blur] duration-300 ease-in-out group-hover:blur-[2px];
     object-position: -30px -130px;
