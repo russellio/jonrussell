@@ -6,11 +6,11 @@ use App\Models\Skill;
 use App\Models\SkillType;
 
 test('timeline api returns positions ordered by start date descending', function () {
-    $company = Company::create(['name' => 'Corp']);
+    $company = Company::factory()->create(['name' => 'Corp']);
 
-    Position::create(['company_id' => $company->id, 'title' => 'Junior Dev', 'start_date' => '2018-01-01', 'end_date' => '2020-01-01']);
-    Position::create(['company_id' => $company->id, 'title' => 'Senior Dev', 'start_date' => '2022-01-01', 'end_date' => '2024-01-01']);
-    Position::create(['company_id' => $company->id, 'title' => 'Mid Dev', 'start_date' => '2020-01-01', 'end_date' => '2022-01-01']);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Junior Dev', 'start_date' => '2018-01-01', 'end_date' => '2020-01-01']);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Senior Dev', 'start_date' => '2022-01-01', 'end_date' => '2024-01-01']);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Mid Dev', 'start_date' => '2020-01-01', 'end_date' => '2022-01-01']);
 
     $response = $this->getJson('/api/timeline');
 
@@ -24,10 +24,10 @@ test('timeline api returns positions ordered by start date descending', function
 });
 
 test('timeline api marks current position when end date is null', function () {
-    $company = Company::create(['name' => 'Corp']);
+    $company = Company::factory()->create(['name' => 'Corp']);
 
-    Position::create(['company_id' => $company->id, 'title' => 'Current Role', 'start_date' => '2024-01-01', 'end_date' => null]);
-    Position::create(['company_id' => $company->id, 'title' => 'Past Role', 'start_date' => '2020-01-01', 'end_date' => '2023-12-31']);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Current Role', 'start_date' => '2024-01-01', 'end_date' => null]);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Past Role', 'start_date' => '2020-01-01', 'end_date' => '2023-12-31']);
 
     $response = $this->getJson('/api/timeline');
 
@@ -42,7 +42,7 @@ test('timeline api marks current position when end date is null', function () {
 });
 
 test('timeline api includes company data', function () {
-    $company = Company::create([
+    $company = Company::factory()->create([
         'name' => 'Acme',
         'logo_src' => 'acme.png',
         'logo_alt' => 'Acme Logo',
@@ -50,7 +50,7 @@ test('timeline api includes company data', function () {
         'link' => 'https://acme.com',
     ]);
 
-    Position::create(['company_id' => $company->id, 'title' => 'Engineer', 'start_date' => '2023-01-01']);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Engineer', 'start_date' => '2023-01-01']);
 
     $response = $this->getJson('/api/timeline');
 
@@ -63,11 +63,11 @@ test('timeline api includes company data', function () {
 });
 
 test('timeline api includes skills for each position', function () {
-    $company = Company::create(['name' => 'Corp']);
-    $skillType = SkillType::create(['name' => 'Backend', 'slug' => 'backend', 'order' => 0]);
-    $skill = Skill::create(['skill_type_id' => $skillType->id, 'name' => 'Laravel', 'order' => 0]);
+    $company = Company::factory()->create(['name' => 'Corp']);
+    $skillType = SkillType::factory()->create(['name' => 'Backend', 'slug' => 'backend', 'order' => 0]);
+    $skill = Skill::factory()->create(['skill_type_id' => $skillType->id, 'name' => 'Laravel', 'order' => 0]);
 
-    $position = Position::create(['company_id' => $company->id, 'title' => 'Dev', 'start_date' => '2023-01-01']);
+    $position = Position::factory()->create(['company_id' => $company->id, 'title' => 'Dev', 'start_date' => '2023-01-01']);
     $position->skills()->attach($skill->id);
 
     $response = $this->getJson('/api/timeline');
@@ -79,8 +79,8 @@ test('timeline api includes skills for each position', function () {
 });
 
 test('timeline api includes months for a position', function () {
-    $company = Company::create(['name' => 'Corp']);
-    Position::create(['company_id' => $company->id, 'title' => 'Dev', 'start_date' => '2023-01-01', 'end_date' => '2023-07-01']);
+    $company = Company::factory()->create(['name' => 'Corp']);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Dev', 'start_date' => '2023-01-01', 'end_date' => '2023-07-01']);
 
     $response = $this->getJson('/api/timeline');
 
@@ -89,8 +89,8 @@ test('timeline api includes months for a position', function () {
 });
 
 test('timeline api returns formatted start and end dates', function () {
-    $company = Company::create(['name' => 'Corp']);
-    Position::create(['company_id' => $company->id, 'title' => 'Dev', 'start_date' => '2022-03-15', 'end_date' => '2024-09-30']);
+    $company = Company::factory()->create(['name' => 'Corp']);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Dev', 'start_date' => '2022-03-15', 'end_date' => '2024-09-30']);
 
     $response = $this->getJson('/api/timeline');
 
