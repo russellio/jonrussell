@@ -88,3 +88,4 @@ backend/storage/debugbar
 postman
 .postman
 *.original.md
+/.remember/
