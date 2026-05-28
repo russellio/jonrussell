@@ -73,9 +73,11 @@ test('start and end dates are cast to carbon instances', function () {
 
 test('end date cast is null when not set', function () {
     $company = Company::factory()->create(['name' => 'Acme']);
-    $position = Position::factory()->current()->create([
+    $position = Position::factory()->create([
         'company_id' => $company->id,
         'title' => 'Dev',
+        'start_date' => '2023-01-01',
+        'end_date' => null,
     ]);
 
     expect($position->end_date)->toBeNull();
