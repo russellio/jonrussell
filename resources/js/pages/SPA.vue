@@ -33,11 +33,18 @@ const performScrollAction = async (scrollTo: string | undefined) => {
         return;
     }
     if (!readySections.value.has(scrollTo)) {
+        let timedOut = false;
         await new Promise<void>((resolve) => {
+            const timeout = setTimeout(() => {
+                timedOut = true;
+                stop();
+                resolve();
+            }, 1500);
             const stop = watch(
                 readySections,
                 (set) => {
                     if (set.has(scrollTo)) {
+                        clearTimeout(timeout);
                         stop();
                         resolve();
                     }
@@ -45,6 +52,11 @@ const performScrollAction = async (scrollTo: string | undefined) => {
                 { deep: true },
             );
         });
+        if (timedOut) {
+            await nextTick();
+            scrollToSection('home');
+            return;
+        }
     }
     await nextTick();
     scrollToSection(scrollTo);

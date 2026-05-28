@@ -60,7 +60,13 @@ onMounted(() => {
         </div>
         <div v-else class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:mx-auto xl:w-11/12 xl:gap-12">
             <div v-for="project in projects" :key="project.id" class="card">
-                <button type="button" aria-label="View project details" class="group project cursor-pointer" @click="openProjectModal(project)">
+<!--                <button type="button" :aria-label="`View ${project.title} details`" class="group project cursor-pointer" @click="openProjectModal(project)">-->
+                <button
+                    type="button"
+                    :aria-label="`View project details for ${project.title}`"
+                    class="group project cursor-pointer"
+                    `@click`="openProjectModal(project)"
+                    >
                     <img
                         v-if="project.bgImage"
                         :src="`/images/projects/${project.bgImage}`"

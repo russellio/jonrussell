@@ -118,12 +118,14 @@ These are things the codebase has but are not yet complete or are actively wrong
 2. **Admin controllers duplicate Filament** — both manage the same models; the API-based admin controllers appear unused
 3. **Email address hardcoded** in `ContactController` — should use `env('CONTACT_EMAIL')` (key exists in `.env.example`)
 4. **`CompanyStatsServiceImpl` and `TechStackMetricsServiceImpl` are empty stubs** — return `[]` with TODO comments; both are registered in the DI container
-5. **No API Resources** — data transformation happens inline in controllers via `formatProject()`, `map()` closures, etc.
-6. **No caching** on read-only API endpoints (projects, skills, tech stack, timeline)
-7. **Duplicate type definitions** — `ProjectModal.vue` redefines types locally instead of importing from `types/index.d.ts`
-8. **`library.add()` called per-component** — FA icon registration scattered across 6+ components instead of centralized
-9. **No API client** — `fetch()` with manual headers duplicated in every section component
-10. **`v-html` on database content** — `ProjectModal.vue` renders `description` and `company.name` via `v-html`
+5. **No caching** on read-only API endpoints (projects, skills, tech stack, timeline)
+6. **Duplicate type definitions** — `ProjectModal.vue` redefines types locally instead of importing from `types/index.d.ts`
+7. **`v-html` on database content** — `ProjectModal.vue` renders `description` and `company.name` via `v-html`
+
+**Resolved (no longer issues):**
+- **API client** — centralized at `resources/js/lib/api.ts` with `get<T>()` function
+- **FontAwesome registration** — centralized at `resources/js/lib/icons.ts`, imported in `app.ts`
+- **API Resources** — controllers standardized with model-aware formatting and type safety
 
 ## Testing
 
