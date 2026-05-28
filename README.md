@@ -290,8 +290,8 @@ npm run format
 
 ### Test Coverage
 
-- **Unit Tests**: `ContactControllerTest`, `SkillControllerTest`, `Models/CompanyTest`, `Models/ProjectTest`, `Models/IconTest`, `Models/PositionTest`, `Models/SkillTest`, `Models/SkillTypeTest`, `Models/TechStackItemTest`, `Mail/ContactFormMailTest`
-- **Feature Tests**: `Api/ProjectControllerTest`, `Api/ProjectControllerShowTest`, `Api/ProjectHighlightedSkillsTest`, `Api/TechStackControllerTest`, `Api/TimelineControllerTest`, `Seeders/ProjectSeederTest`
+- **Unit Tests**: `SkillControllerTest`, `Models/CompanyTest`, `Models/ProjectTest`, `Models/IconTest`, `Models/PositionTest`, `Models/SkillTest`, `Models/SkillTypeTest`, `Models/TechStackItemTest`, `Mail/ContactFormMailTest`
+- **Feature Tests**: `Api/ContactControllerTest`, `Api/ProjectControllerTest`, `Api/ProjectControllerShowTest`, `Api/ProjectHighlightedSkillsTest`, `Api/TechStackControllerTest`, `Api/TimelineControllerTest`, `Seeders/ProjectSeederTest`
 - **CI/CD**: Automated testing on push to `main` and `develop` branches via GitHub Actions
 - **Note**: No frontend test runner is configured (no Vitest/Playwright)
 ## 🎨 Customization
