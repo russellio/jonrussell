@@ -26,8 +26,15 @@ class ProjectFactory extends Factory
             'bg_image' => $this->faker->imageUrl(),
             'bg_position_x' => $this->faker->randomElement(['left', 'center', 'right']),
             'bg_position_y' => $this->faker->randomElement(['top', 'center', 'bottom']),
-            'company_id' => Company::factory(),
+            'company_id' => null,
             'order' => $this->faker->numberBetween(0, 20),
         ];
+    }
+
+    public function withCompany(): static
+    {
+        return $this->state([
+            'company_id' => Company::factory(),
+        ]);
     }
 }
