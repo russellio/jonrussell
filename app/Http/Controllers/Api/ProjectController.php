@@ -24,13 +24,22 @@ class ProjectController extends Controller
 
     public function show(string $slug): JsonResponse
     {
-        $project = Cache::remember("projects:slug:{$slug}", now()->addHour(), function () use ($slug) {
-            return $this->getProjectsQuery()
-                ->where('slug', $slug)
-                ->first();
-        });
+        $cacheKey = "projects:slug:{$slug}";
+        $cached = Cache::get($cacheKey);
 
-        if (! $project) {
+        if ($cached === null) {
+            $project = $this->getProjectsQuery()->where('slug', $slug)->first();
+
+            if ($project) {
+                Cache::put($cacheKey, $project, now()->addHour());
+                $cached = $project;
+            } else {
+                Cache::put($cacheKey, false, now()->addMinutes(5));
+                $cached = false;
+            }
+        }
+
+        if ($cached === false) {
             return response()->json([
                 'success' => false,
                 'message' => 'Project not found',
@@ -39,7 +48,7 @@ class ProjectController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => new ProjectResource($project),
+            'data' => new ProjectResource($cached),
         ]);
     }
 

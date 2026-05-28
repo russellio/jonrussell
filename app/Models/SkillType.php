@@ -15,7 +15,10 @@ class SkillType extends Model
     {
         parent::boot();
 
-        $bust = fn () => Cache::forget('skills.index');
+        $bust = function () {
+            Cache::forget('skills.index');
+            Cache::forget('projects:list');
+        };
         static::saved($bust);
         static::deleted($bust);
     }

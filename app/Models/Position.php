@@ -16,7 +16,10 @@ class Position extends Model
     {
         parent::boot();
 
-        $bust = fn () => Cache::forget('timeline.index');
+        $bust = function () {
+            Cache::forget('timeline.index');
+            Cache::forget('projects:list');
+        };
         static::saved($bust);
         static::deleted($bust);
     }
