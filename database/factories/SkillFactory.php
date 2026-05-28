@@ -17,7 +17,14 @@ class SkillFactory extends Factory
             'skill_type_id' => SkillType::factory(),
             'name' => $this->faker->word(),
             'order' => $this->faker->numberBetween(0, 20),
-            'icon_id' => Icon::factory(),
+            'icon_id' => null,
         ];
+    }
+
+    public function withIcon(): static
+    {
+        return $this->state([
+            'icon_id' => Icon::factory(),
+        ]);
     }
 }
