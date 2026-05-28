@@ -117,4 +117,6 @@ return [
         'name' => env('MAIL_FROM_NAME', 'jonrussell.dev'),
     ],
 
+    'contact_email' => env('CONTACT_EMAIL', 'info@jonrussell.dev'),
+
 ];

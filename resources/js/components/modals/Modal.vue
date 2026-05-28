@@ -1,13 +1,11 @@
 <script setup lang="ts">
+import { useEscapeKey } from '@/js/composables/useEscapeKey';
 import { useModal } from '@/js/composables/useModal';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHeadphones } from '@fortawesome/free-regular-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-const { closeModal, escapeToClose } = useModal();
-
-library.add(faXmark, faHeadphones);
+const { closeModal } = useModal();
 
 const emit = defineEmits(['submit']);
 
@@ -53,14 +51,16 @@ const handleSubmit = () => {
     }
 };
 
-escapeToClose(modalId);
+useEscapeKey(() => closeModal(modalId));
 </script>
 
 <template>
     <div :id="modalId" class="modal-wrapper" @click="closeModal(modalId)">
         <div class="modal" @click.stop>
             <div class="modal-header">
-                <h1 v-html="title" />
+                <h1>
+                    <slot name="title">{{ title }}</slot>
+                </h1>
                 <button @click="closeModal(modalId)" aria-label="Close" class="absolute top-0 right-0 m-2 cursor-pointer">
                     <FontAwesomeIcon :icon="faXmark" class="bg-blur-sm m-1 h-6 w-6 rounded-md border border-white bg-white/50 p-2 text-black" />
                 </button>
@@ -71,12 +71,14 @@ escapeToClose(modalId);
             </div>
 
             <div class="modal-footer">
-                <button @click="closeModal(modalId)" class="btn-cancel" v-html="props.cancelText" />
+                <button @click="closeModal(modalId)" class="btn-cancel">{{ props.cancelText }}</button>
                 <button v-if="showSubmit" @click="handleSubmit" :disabled="isLoading || submitDisabled" class="btn-submit">
                     <span v-if="isLoading" class="animate-spin">
                         <FontAwesomeIcon :icon="faHeadphones" class="h-5 w-5 opacity-75" />
                     </span>
-                    <span v-html="props.submitText" />
+                    <span
+                        ><slot name="submitText">{{ submitText }}</slot></span
+                    >
                 </button>
             </div>
         </div>

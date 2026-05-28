@@ -25,6 +25,8 @@ class TechStackItem extends Model
         'name',
         'percent',
         'icon_id',
+        'icon_type',
+        'icon_name',
         'active',
         'order',
     ];

@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBitbucket, faBootstrap, faCss3, faGithub, faGitkraken, faHtml5, faLaravel, faPhp, faVuejs } from '@fortawesome/free-brands-svg-icons';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import type { Component } from 'vue';
 import { markRaw, onMounted, reactive, shallowRef } from 'vue';
 import { BraveIcon, PhpStormIcon, SentryIcon, TailwindCssIcon, ViteIcon, WarpIcon } from 'vue3-simple-icons';
-library.add(faPhp, faLaravel, faGitkraken, faGithub, faBootstrap, faVuejs, faCss3, faHtml5, faBitbucket, faHeart);
 
 const things = shallowRef([
     { title: 'Tailwind CSS', icon: 'TailwindCssIcon', type: 'si' },

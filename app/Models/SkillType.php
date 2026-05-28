@@ -5,10 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class SkillType extends Model
 {
     use HasFactory;
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        $bust = function () {
+            Cache::forget('skills.index');
+            Cache::forget('projects:list');
+        };
+        static::saved($bust);
+        static::deleted($bust);
+    }
 
     /**
      * The attributes that are mass assignable.
