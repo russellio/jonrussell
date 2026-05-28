@@ -11,7 +11,7 @@
         ],
         "description": "<p>At Pioneering Evolution, I worked on a budgeting platform used by the Department of Defense to plan and simulate complex financial scenarios. The system lets analysts manage detailed data, test \"what-if\" projections, and track approvals across multiple leadership levels.<br><br>I worked full stack across Laravel 11, PHP 8, MySQL 8, Vue 3, and TypeScript, contributing to both the backend architecture and the frontend experience. I was a key contributor to the app's migration from Vue 2 to Vue 3, a major overhaul that modernized the codebase and improved long-term maintainability. I also focused on performance-critical areas, rewriting API endpoints and optimizing queries to cut response times and reduce memory usage.<br><br>Beyond code, I worked closely with QA and DevOps to ensure a solid product and paired with teammates for mentoring, reviews, and pair programming. The result was a faster, cleaner, and more resilient platform that helped users make smarter, data-driven budget decisions with confidence.</p>",
         "highlightedSkills": ["Laravel", "PHP", "MySQL", "REST APIs", "TypeScript", "Node.js"],
-        "technologies":["Laravel", "Vue.js", "PHP", "MySQL", "TypeScript", "Vuex", "Pinia", "REST APIs", "Node.js", "BootstrapVue"],
+        "technologies": ["Laravel", "Vue.js", "PHP", "MySQL", "TypeScript", "Vuex", "Pinia", "REST APIs", "Node.js", "BootstrapVue"],
         "tools": ["Vite", "Bitbucket", "Docker", "PEST", "Git", "NPM", "Yarn", "Composer"],
         "company": {
             "name": "Pioneering Evolution",
@@ -77,7 +77,20 @@
         ],
         "description": "<p>At Glen Raven, I led the development of the Digital Flag Board from inception to fruition.  The Digital Flag Board is an enterprise ticketing platform built for factory operations, connecting machine operators, technicians, and management in real time. Operators use it to flag issues directly from kiosks and mobile devices stationed across the factory floor, while technicians track, resolve, and close those tickets through a responsive, purpose-built interface.<br><br>I worked full stack across Laravel, PHP, MySQL, and HTML5/CSS3, Bootstrap, jQuery, and JavaScript on the frontend, building features that kept the platform stable under constant use.<br><br>The system ran as a dedicated web app on every kiosk and device, authenticated through Active Directory and LDAP for secure, role-based access.<br><br>The admin console allowed senior management to review cycle time metrics, run performance reports, manage users, and handle all CRUD operations through a clean, intuitive dashboard. My focus was creating a reliable, high-availability system that kept production flowing and reduced downtime across the plant.</p>",
         "highlightedSkills": ["Laravel", "PHP", "MySQL", "LDAP", "Active Directory", "JWT", "REST APIs"],
-        "technologies": ["Laravel", "PHP", "MySQL", "REST APIs", "LDAP", "Active Directory", "JWT", "JavaScript", "jQuery", "Bootstrap", "SCSS", "Redis"],
+        "technologies": [
+            "Laravel",
+            "PHP",
+            "MySQL",
+            "REST APIs",
+            "LDAP",
+            "Active Directory",
+            "JWT",
+            "JavaScript",
+            "jQuery",
+            "Bootstrap",
+            "SCSS",
+            "Redis"
+        ],
         "tools": ["Github", "Azure Pipelines", "NPM", "webpack", "PHPUnit", "Composer"],
         "company": {
             "name": "Glen Raven, Inc.",

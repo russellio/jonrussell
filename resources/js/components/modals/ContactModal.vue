@@ -226,11 +226,11 @@ const submitForm = async () => {
         title="Contact Me"
         :showSubmit="!isFormSubmitted"
         :submitDisabled="!isFormValid || isFormSubmitted"
-        :submitText="`Send <span class='hidden sm:inline-block'> Message</span>`"
         :isLoading="isLoading"
         :cancelText="!isFormSubmitted ? `Cancel` : `Close`"
         @submit="submitForm"
     >
+        <template #submitText>Send <span class="hidden sm:inline-block"> Message</span></template>
         <div class="flex w-full flex-col">
             <div v-if="successMessage" class="success">
                 {{ successMessage }}
@@ -246,14 +246,14 @@ const submitForm = async () => {
                     <input
                         id="email"
                         :value="form.email"
-                        @change="handleEmailChange"
+                        @input="handleEmailChange"
                         type="email"
                         placeholder="your.email@example.com"
                         :class="{
                             'border-red-500': errors.email || validationErrors.email,
                             'border-success': form.email && !validationErrors.email && !errors.email,
                         }"
-                        autocomplete="true"
+                        autocomplete="email"
                     />
                     <div v-if="emailError" class="error">{{ emailError }}</div>
                     <div v-if="validationErrors.email" class="error">{{ validationErrors.email }}</div>
@@ -264,14 +264,14 @@ const submitForm = async () => {
                     <input
                         id="subject"
                         :value="form.subject"
-                        @change="handleSubjectChange"
+                        @input="handleSubjectChange"
                         type="text"
                         placeholder="Tacos are delicious!"
                         :class="{
                             'border-red-500': errors.subject || validationErrors.subject,
                             'border-success': form.subject && !validationErrors.subject && !errors.subject,
                         }"
-                        autocomplete="false"
+                        autocomplete="off"
                     />
                     <div v-if="subjectError" class="error">{{ subjectError }}</div>
                     <div v-if="validationErrors.subject" class="error">{{ validationErrors.subject }}</div>
@@ -282,7 +282,7 @@ const submitForm = async () => {
                     <textarea
                         id="message"
                         :value="form.message"
-                        @change="handleMessageChange"
+                        @input="handleMessageChange"
                         placeholder="Your message here..."
                         rows="4"
                         :class="{

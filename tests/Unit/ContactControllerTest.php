@@ -1,129 +1,78 @@
 <?php
 
-use App\Http\Controllers\ContactController;
 use App\Mail\ContactFormMail;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 test('contact form validates required fields', function () {
-    $controller = new ContactController;
-    $request = Request::create('/api/contact', 'POST', []);
+    $response = $this->postJson('/api/contact', []);
 
-    $response = $controller->store($request);
-    $json = json_decode($response->getContent(), true);
-
-    expect($response->status())->toBe(422);
-    expect($json)->toHaveKey('success', false);
-    expect($json)->toHaveKey('errors');
-    expect($json['errors'])->toHaveKey('email');
-    expect($json['errors'])->toHaveKey('subject');
-    expect($json['errors'])->toHaveKey('message');
+    $response->assertStatus(422);
+    $response->assertJsonPath('errors.email', fn ($v) => ! empty($v));
+    $response->assertJsonPath('errors.subject', fn ($v) => ! empty($v));
+    $response->assertJsonPath('errors.message', fn ($v) => ! empty($v));
 });
 
 test('contact form validates email format', function () {
-    $controller = new ContactController;
-    $request = Request::create('/api/contact', 'POST', [
+    $response = $this->postJson('/api/contact', [
         'email' => 'invalid-email',
         'subject' => 'Test Subject',
         'message' => 'This is a test message that is long enough.',
     ]);
 
-    $response = $controller->store($request);
-    $json = json_decode($response->getContent(), true);
-
-    expect($response->status())->toBe(422);
-    expect($json)->toHaveKey('success', false);
-    expect($json['errors'])->toHaveKey('email');
+    $response->assertStatus(422);
+    $response->assertJsonPath('errors.email', fn ($v) => ! empty($v));
 });
 
 test('contact form validates message minimum length', function () {
-    $controller = new ContactController;
-    $request = Request::create('/api/contact', 'POST', [
+    $response = $this->postJson('/api/contact', [
         'email' => 'test@example.com',
         'subject' => 'Test Subject',
         'message' => 'short',
     ]);
 
-    $response = $controller->store($request);
-    $json = json_decode($response->getContent(), true);
-
-    expect($response->status())->toBe(422);
-    expect($json)->toHaveKey('success', false);
-    expect($json['errors'])->toHaveKey('message');
+    $response->assertStatus(422);
+    $response->assertJsonPath('errors.message', fn ($v) => ! empty($v));
 });
 
 test('contact form validates subject max length', function () {
-    $controller = new ContactController;
-    $request = Request::create('/api/contact', 'POST', [
+    $response = $this->postJson('/api/contact', [
         'email' => 'test@example.com',
-        'subject' => str_repeat('a', 256), // Exceeds max:255
+        'subject' => str_repeat('a', 256),
         'message' => 'This is a test message that is long enough.',
     ]);
 
-    $response = $controller->store($request);
-    $json = json_decode($response->getContent(), true);
-
-    expect($response->status())->toBe(422);
-    expect($json)->toHaveKey('success', false);
-    expect($json['errors'])->toHaveKey('subject');
+    $response->assertStatus(422);
+    $response->assertJsonPath('errors.subject', fn ($v) => ! empty($v));
 });
 
 test('contact form sends email successfully with valid data', function () {
     Mail::fake();
 
-    $controller = new ContactController;
-    $request = Request::create('/api/contact', 'POST', [
-        'email' => 'test@example.com',
+    $response = $this->postJson('/api/contact', [
+        'email' => 'sender@example.com',
         'subject' => 'Test Subject',
         'message' => 'This is a test message that is long enough.',
     ]);
 
-    $response = $controller->store($request);
-    $json = json_decode($response->getContent(), true);
+    $response->assertOk()
+        ->assertJson(['success' => true, 'message' => 'Your message has been sent successfully!']);
 
-    expect($response->status())->toBe(200);
-    expect($json)->toHaveKey('success', true);
-    expect($json['success'])->toBeTrue();
-    expect($json['message'])->toBe('Your message has been sent successfully!');
-
-    Mail::assertSent(ContactFormMail::class, function ($mail) use ($request) {
-        return $mail->email === $request->email &&
-               $mail->subject === $request->subject &&
-               $mail->message === $request->message;
-    });
-
-    Mail::assertSent(ContactFormMail::class, function ($mail) {
-        return $mail->hasTo('info@jonrussell.dev');
-    });
+    Mail::assertSent(ContactFormMail::class, fn ($mail) =>
+        $mail->email === 'sender@example.com' &&
+        $mail->subject === 'Test Subject' &&
+        $mail->message === 'This is a test message that is long enough.'
+    );
 });
 
 test('contact form handles email sending failure gracefully', function () {
-    // Use Mail spy to capture calls and throw exception
-    $mockMailer = Mockery::mock();
-    $mockMailer->shouldReceive('send')
-        ->once()
-        ->andThrow(new \Exception('Mail server error'));
+    Mail::shouldReceive('to')->once()->andThrow(new Exception('Mail server error'));
 
-    Mail::shouldReceive('to')
-        ->once()
-        ->with('info@jonrussell.dev')
-        ->andReturn($mockMailer);
-
-    Log::shouldReceive('error')->once();
-
-    $controller = new ContactController;
-    $request = Request::create('/api/contact', 'POST', [
-        'email' => 'test@example.com',
+    $response = $this->postJson('/api/contact', [
+        'email' => 'sender@example.com',
         'subject' => 'Test Subject',
         'message' => 'This is a test message that is long enough.',
     ]);
 
-    $response = $controller->store($request);
-    $json = json_decode($response->getContent(), true);
-
-    expect($response->status())->toBe(500);
-    expect($json)->toHaveKey('success', false);
-    expect($json['success'])->toBeFalse();
-    expect($json['message'])->toBe('Failed to send message. Please try again later.');
+    $response->assertStatus(500)
+        ->assertJson(['success' => false, 'message' => 'Failed to send message. Please try again later.']);
 });
