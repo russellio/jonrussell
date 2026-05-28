@@ -1,4 +1,4 @@
-import { onMounted, onBeforeUnmount } from 'vue';
+import { onBeforeUnmount, onMounted } from 'vue';
 
 export function useEscapeKey(callback: () => void): void {
     const handleKeydown = (event: KeyboardEvent) => {

@@ -1,5 +1,25 @@
 import { AppPageProps } from '@/js/types/index';
 
+declare global {
+    interface TurnstileRenderOptions {
+        sitekey: string;
+        callback: (token: string) => void;
+        [key: string]: unknown;
+    }
+
+    interface TurnstileInstance {
+        render(container: string | HTMLElement, options: TurnstileRenderOptions): string;
+        remove(widgetId: string): void;
+        reset(widgetId?: string): void;
+    }
+
+    const turnstile: TurnstileInstance;
+
+    interface Window {
+        turnstile: TurnstileInstance;
+    }
+}
+
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
     interface ImportMetaEnv {

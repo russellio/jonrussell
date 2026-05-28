@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
+import { get } from '@/js/lib/api';
+import type { ApiResponse, Skill, SkillType, TechStackItem } from '@/js/types/index';
 import { ComponentPublicInstance, onMounted, ref } from 'vue';
 const { scrollToSection } = useScrollToSection();
 
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCss3, faHtml5, faJs, faLaravel, faPhp, faReact, faVuejs } from '@fortawesome/free-brands-svg-icons';
 import { faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCode, faDatabase, faProjectDiagram, faSitemap, faVial } from '@fortawesome/free-solid-svg-icons';
@@ -28,45 +29,11 @@ const faIcons = [
     { group: 'fab', name: faCss3 },
 ];
 
-faIcons.forEach((icon) => {
-    library.add(icon.name);
-});
-
 const reverseKebabCase = (kebabCaseString: string): string => kebabCaseString.split('-').reverse().join('-');
 const getFaIcon = (iconName: string): [string, string] => {
     const icon = faIcons.find((icon) => reverseKebabCase(icon.name.iconName) === iconName);
     return icon ? [icon.group, iconName] : ['', ''];
 };
-
-interface Skill {
-    id: number;
-    name: string;
-}
-
-interface SkillType {
-    id: number;
-    name: string;
-    slug: string;
-    skills: Skill[];
-}
-
-interface SkillsResponse {
-    success: boolean;
-    data: SkillType[];
-}
-
-interface TechStackItem {
-    tech: string;
-    percent: string;
-    iconType: string;
-    iconName: string;
-    active?: boolean;
-}
-
-interface TechStackResponse {
-    success: boolean;
-    data: TechStackItem[];
-}
 
 const techStack = ref<TechStackItem[]>([]);
 const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
@@ -87,25 +54,8 @@ const fetchSkills = async () => {
     skillsError.value = null;
 
     try {
-        const response = await fetch('/api/skills', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch skills');
-        }
-
-        const data: SkillsResponse = await response.json();
-
-        if (data.success && data.data) {
-            skillTypes.value = data.data;
-        } else {
-            throw new Error('Invalid response format');
-        }
+        const { data } = await get<ApiResponse<SkillType[]>>('/api/skills');
+        skillTypes.value = data;
     } catch (error) {
         console.error('Error fetching skills:', error);
         skillsError.value = error instanceof Error ? error.message : 'Failed to load skills';
@@ -123,29 +73,11 @@ const fetchTechStack = async () => {
     techStackError.value = null;
 
     try {
-        const response = await fetch('/api/tech-stack', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch tech stack');
-        }
-
-        const data: TechStackResponse = await response.json();
-
-        if (data.success && data.data) {
-            techStack.value = data.data;
-        } else {
-            throw new Error('Invalid response format');
-        }
+        const { data } = await get<ApiResponse<TechStackItem[]>>('/api/tech-stack');
+        techStack.value = data;
     } catch (error) {
         console.error('Error fetching tech stack:', error);
         techStackError.value = error instanceof Error ? error.message : 'Failed to load tech stack';
-        // Fallback to empty array on error
         techStack.value = [];
     } finally {
         isLoadingTechStack.value = false;
@@ -213,7 +145,9 @@ onMounted(() => {
                             class="-ms-6 inline-block h-5 w-5 fill-current"
                         />
                         {{ item.tech }}
-                        <div v-if="item.active" class="position-absolute mt-[-4px] mb-[-4px] text-end text-xs text-terminal-black-500">(current focus)</div>
+                        <div v-if="item.active" class="position-absolute mt-[-4px] mb-[-4px] text-end text-xs text-terminal-black-500">
+                            (current focus)
+                        </div>
                     </li>
                 </ul>
 

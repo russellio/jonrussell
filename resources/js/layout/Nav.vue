@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHouse } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-library.add(faHouse);
 
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 const { scrollToSection } = useScrollToSection();
