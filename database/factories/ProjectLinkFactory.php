@@ -14,8 +14,8 @@ class ProjectLinkFactory extends Factory
     {
         return [
             'project_id' => Project::factory(),
-            'label' => $this->faker->word(),
-            'href' => $this->faker->url(),
+            'title' => $this->faker->word(),
+            'url' => $this->faker->url(),
             'order' => $this->faker->numberBetween(0, 10),
         ];
     }

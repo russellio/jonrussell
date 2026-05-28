@@ -14,8 +14,7 @@ class ProjectKeyTakeawayFactory extends Factory
     {
         return [
             'project_id' => Project::factory(),
-            'title' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph(),
+            'text' => $this->faker->sentence(),
             'order' => $this->faker->numberBetween(0, 10),
         ];
     }
