@@ -3,39 +3,27 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SkillTypeResource;
 use App\Models\SkillType;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 
 class SkillController extends Controller
 {
-    /**
-     * Get all skills grouped by skill type.
-     */
     public function index(): JsonResponse
     {
-        $skillTypes = SkillType::with(['skills.icon'])
-            ->orderBy('order')
-            ->orderBy('name')
-            ->get()
-            ->map(function ($skillType) {
-                return [
-                    'id' => $skillType->id,
-                    'name' => $skillType->name,
-                    'slug' => $skillType->slug,
-                    'skills' => $skillType->skills->map(function ($skill) {
-                        return [
-                            'id' => $skill->id,
-                            'name' => $skill->name,
-                            'iconType' => $skill->icon?->icon_type,
-                            'iconName' => $skill->icon?->icon_name,
-                        ];
-                    }),
-                ];
-            });
+        $data = Cache::remember('skills.index', 3600, function () {
+            $skillTypes = SkillType::with(['skills.icon'])
+                ->orderBy('order')
+                ->orderBy('name')
+                ->get();
+
+            return SkillTypeResource::collection($skillTypes)->toArray(request());
+        });
 
         return response()->json([
             'success' => true,
-            'data' => $skillTypes,
+            'data' => $data,
         ]);
     }
 }

@@ -6,10 +6,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class Project extends Model
 {
     use HasFactory;
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::saved(function (Project $model) {
+            Cache::forget('projects:list');
+            Cache::forget("projects:slug:{$model->slug}");
+            if ($model->wasChanged('slug')) {
+                Cache::forget("projects:slug:{$model->getOriginal('slug')}");
+            }
+        });
+
+        static::deleted(function (Project $model) {
+            Cache::forget('projects:list');
+            Cache::forget("projects:slug:{$model->slug}");
+        });
+    }
 
     /**
      * The attributes that are mass assignable.

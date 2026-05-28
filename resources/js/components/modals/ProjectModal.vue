@@ -1,31 +1,17 @@
 <script setup lang="ts">
 import ImageModal from '@/js/components/modals/ImageModal.vue';
 import Modal from '@/js/components/modals/Modal.vue';
+import type { Project } from '@/js/types/index';
+import DOMPurify from 'dompurify';
 import type { Component } from 'vue';
 import { computed, ref } from 'vue';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCss3, faHtml5, faJs, faLaravel, faPhp, faReact, faVuejs } from '@fortawesome/free-brands-svg-icons';
-import { faArrowUpRightFromSquare, faAward, faCode, faDatabase, faProjectDiagram, faSitemap, faVial } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare, faCode, faDatabase, faProjectDiagram, faSitemap, faVial } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { MySqlIcon, PythonIcon, ReactIcon, TypeScriptIcon } from 'vue3-simple-icons';
 
-library.add(
-    faAward,
-    faArrowUpRightFromSquare,
-    faLaravel,
-    faPhp,
-    faVuejs,
-    faReact,
-    faJs,
-    faHtml5,
-    faCss3,
-    faDatabase,
-    faCode,
-    faVial,
-    faProjectDiagram,
-    faSitemap,
-);
+const sanitizeHtml = (html: string) => DOMPurify.sanitize(html);
 
 const simpleIcons = [{ component: TypeScriptIcon }, { component: ReactIcon }, { component: MySqlIcon }, { component: PythonIcon }];
 
@@ -51,38 +37,6 @@ const getFaIcon = (iconName: string): [string, string] => {
 
 const getSimpleIcon = (iconName: string): Component | null => {
     return simpleIcons.find((icon) => icon.component.__name === iconName)?.component ?? null;
-};
-
-type ProjectImage = {
-    src: string;
-    title: string;
-    alt?: string | null;
-};
-
-type ProjectLink = {
-    url: string;
-    title: string;
-};
-
-type ProjectCompany = {
-    name: string;
-    logo?: {
-        src?: string;
-        alt?: string;
-        displayName?: string;
-    };
-};
-
-type Project = {
-    title: string;
-    primaryImage?: ProjectImage;
-    images?: ProjectImage[];
-    company?: ProjectCompany;
-    keyTakeaways?: string[];
-    description?: string;
-    links?: ProjectLink[];
-    technologies?: Array<{ name: string; iconType?: string; iconName?: string }>;
-    tools?: Array<{ name: string; iconType?: string; iconName?: string }>;
 };
 
 const props = defineProps<{ project: Project }>();
@@ -115,10 +69,6 @@ const hasModalRight = computed(() => {
     return (props.project.technologies && props.project.technologies.length > 0) || (props.project.tools && props.project.tools.length > 0);
 });
 
-const title = computed(() => {
-    return `project: <span class='inline-block md:block text-primary! normal-case'>${props.project.title}</span>`;
-});
-
 const companyLogoSrc = computed(() => {
     return props.project.company?.logo?.src ? `/images/logos/${props.project.company.logo.src}` : null;
 });
@@ -128,24 +78,27 @@ const companyLogoText = computed(() => {
 </script>
 
 <template>
-    <Modal modalId="project-modal" :title="title" cancelText="Close">
+    <Modal modalId="project-modal" cancelText="Close">
+        <template #title
+            >project: <span class="inline-block text-primary! normal-case md:block">{{ project.title }}</span></template
+        >
         <div class="grid w-full grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%]">
             <div v-if="hasModalLeft" class="modal-left mb-10" :class="{ '': !projectHasProp(project, 'images') }">
                 <div
                     v-if="projectHasProp(project, 'primaryImage')"
                     class="mb-6 cursor-pointer"
-                    @click="imageModalRef?.openImageModal(project.primaryImage)"
+                    @click="imageModalRef?.openImageModal(project.primaryImage!)"
                 >
                     <img
-                        :src="`/images/projects/${project.primaryImage.src}`"
-                        :title="project.primaryImage.title"
-                        :alt="project.primaryImage.alt ?? project.primaryImage.title"
+                        :src="`/images/projects/${project.primaryImage?.src}`"
+                        :title="project.primaryImage?.title"
+                        :alt="project.primaryImage?.alt ?? project.primaryImage?.title"
                         class="mx-auto w-4/5 rounded-md object-fill lg:w-full"
                     />
                 </div>
 
                 <div v-if="projectHasProp(project, 'images')" class="thumbnails">
-                    <div v-for="(image, index) in project.images" :key="index" class="thumbnail" @click="imageModalRef?.openImageModal(image)">
+                    <div v-for="image in project.images" :key="image.src" class="thumbnail" @click="imageModalRef?.openImageModal(image)">
                         <img v-if="image?.src" :src="`/images/projects/${image.src}`" :title="image.title" :alt="image.alt" />
                     </div>
                 </div>
@@ -160,13 +113,13 @@ const companyLogoText = computed(() => {
                                 <img
                                     v-if="companyLogoSrc"
                                     :src="companyLogoSrc"
-                                    :alt="project.company.logo.alt || project.company.name"
+                                    :alt="project.company?.logo.alt || project.company?.name"
                                     class="mx-auto h-10"
                                 />
                             </div>
-                            <div v-if="companyLogoText" class="self-center text-xl" v-html="companyLogoText" />
+                            <div v-if="companyLogoText" class="self-center text-xl">{{ companyLogoText }}</div>
                         </div>
-                        <span v-else v-html="project.company.name" />
+                        <span v-else>{{ project.company?.name }}</span>
                     </div>
                 </div>
 
@@ -174,7 +127,7 @@ const companyLogoText = computed(() => {
                     <h4 class="mt-0 mb-2 font-space-mono text-white!">key takeaways:</h4>
                     <div class="rounded-md border-y border-terminal-black-700 bg-black/65 p-2 py-6 ps-8">
                         <ul class="list-disc space-y-2 border-s border-terminal-black-700 ps-10">
-                            <li v-for="(takeaway, index) in project.keyTakeaways" :key="index">
+                            <li v-for="takeaway in project.keyTakeaways" :key="takeaway">
                                 {{ takeaway }}
                             </li>
                         </ul>
@@ -183,13 +136,13 @@ const companyLogoText = computed(() => {
 
                 <div v-if="projectHasProp(project, 'description')">
                     <h3>description:</h3>
-                    <div v-html="project.description" class="description" />
+                    <div v-html="sanitizeHtml(project.description ?? '')" class="description" />
                 </div>
 
                 <div v-if="projectHasProp(project, 'links')" class="links">
                     <h4 class="mt-0 mb-2 ps-4 font-space-mono text-white!">links:</h4>
                     <ul class="list-disc space-y-2 rounded-md border-t border-b-4 border-terminal-black-700 bg-black/65 p-2 py-3 ps-10">
-                        <li v-for="(link, index) in project.links" :key="index">
+                        <li v-for="link in project.links" :key="link.url">
                             <a :href="link.url" target="_blank">{{ link.title }}</a>
                             <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-gold" size="sm" />
                         </li>
@@ -201,7 +154,7 @@ const companyLogoText = computed(() => {
                 <div v-if="project.technologies && project.technologies.length > 0" class="technologies">
                     <h3>skills:</h3>
                     <ul>
-                        <li v-for="(tech, index) in project.technologies" :key="index" class="flex items-center gap-2">
+                        <li v-for="tech in project.technologies" :key="tech.name" class="flex items-center gap-2">
                             <FontAwesomeIcon
                                 v-if="tech.iconType === 'fa' && tech.iconName && getFaIcon(tech.iconName)[0]"
                                 :icon="getFaIcon(tech.iconName)"
@@ -221,7 +174,7 @@ const companyLogoText = computed(() => {
                 <div v-if="project.tools && project.tools.length > 0" class="tools">
                     <h3>tools:</h3>
                     <ul>
-                        <li v-for="(tool, index) in project.tools" :key="index" class="flex items-center gap-2">
+                        <li v-for="tool in project.tools" :key="tool.name" class="flex items-center gap-2">
                             <FontAwesomeIcon
                                 v-if="tool.iconType === 'fa' && tool.iconName && getFaIcon(tool.iconName)[0]"
                                 :icon="getFaIcon(tool.iconName)"

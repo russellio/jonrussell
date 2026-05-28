@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @import '@fontsource/space-mono';
 @import '@fontsource/sixtyfour';
 
@@ -35,7 +35,7 @@
     --color-gold: #efbf04;
     --color-bright-green: #45f415;
     --color-red: #f50538;
-    --color-bulldog-red: #BA0C2F;
+    --color-bulldog-red: #ba0c2f;
 
     --color-terminal-black: #2e2f30;
     --color-terminal-black-50: #f3f4f4;
@@ -60,7 +60,7 @@ h1 {
 }
 
 h2 {
-    @apply font-sixtyfour text-secondary uppercase text-3xl md:text-5xl mb-2;
+    @apply mb-2 font-sixtyfour text-3xl text-secondary uppercase md:text-5xl;
 }
 
 h2:not(.text-start) {
@@ -72,16 +72,16 @@ h3 {
 }
 
 h4 {
-    @apply text-lg font-semibold text-terminal-black mt-4 mb-3;
+    @apply mt-4 mb-3 text-lg font-semibold text-terminal-black;
 }
 
 html {
-    @apply min-h-full relative;
+    @apply relative min-h-full;
     scroll-behavior: smooth;
 }
 
 body {
-    @apply bg-dark-blue h-full;
+    @apply h-full bg-dark-blue;
 }
 
 p {
@@ -129,13 +129,13 @@ p {
 
 .btn-content {
     @apply inline-flex items-center justify-center whitespace-nowrap;
-    @apply border border-white mx-2 py-1 px-5 bg-secondary;
-    @apply font-space-mono text-sm cursor-pointer font-bold uppercase text-white;
-    @apply transition-all duration-200 rounded-lg shadow-terminal-black-500 shadow-sm;
+    @apply mx-2 border border-white bg-secondary px-5 py-1;
+    @apply cursor-pointer font-space-mono text-sm font-bold text-white uppercase;
+    @apply rounded-lg shadow-sm shadow-terminal-black-500 transition-all duration-200;
 }
 
 .btn-content:hover {
-    @apply bg-terminal-black-200 border-secondary text-black shadow-none;
+    @apply border-secondary bg-terminal-black-200 text-black shadow-none;
 }
 
 .btn-wrapper {
@@ -143,8 +143,8 @@ p {
 }
 
 .btn {
-    @apply mx-auto rounded-lg border-2 border-terminal-black-200 bg-terminal-black/90 text-white px-7 py-1;
-    @apply font-space-mono uppercase font-bold transition-all duration-100 cursor-pointer;
+    @apply mx-auto rounded-lg border-2 border-terminal-black-200 bg-terminal-black/90 px-7 py-1 text-white;
+    @apply cursor-pointer font-space-mono font-bold uppercase transition-all duration-100;
 }
 
 .btn:hover {
@@ -153,38 +153,39 @@ p {
 
 .btn-submit {
     @apply inline-flex items-center justify-center whitespace-nowrap;
-    @apply border border-white mx-2 py-1 px-8 lg:px-15 bg-secondary;
-    @apply font-space-mono text-lg cursor-pointer font-bold uppercase text-white;
-    @apply transition-all duration-200 rounded-lg shadow-terminal-black-500 shadow-md;
+    @apply mx-2 border border-white bg-secondary px-8 py-1 lg:px-15;
+    @apply cursor-pointer font-space-mono text-lg font-bold text-white uppercase;
+    @apply rounded-lg shadow-md shadow-terminal-black-500 transition-all duration-200;
 }
 
 .btn-submit:hover {
-    @apply bg-terminal-black-200 border-secondary text-black shadow-none;
+    @apply border-secondary bg-terminal-black-200 text-black shadow-none;
 }
 
 .btn-cancel {
     @apply inline-flex items-center justify-center whitespace-nowrap;
-    @apply bg-terminal-black-200 border border-secondary text-black mx-2 py-1 px-5 lg:px-15;
-    @apply font-space-mono text-lg cursor-pointer uppercase font-semibold;
-    @apply transition-all duration-200 rounded-lg shadow-terminal-black-500 shadow-md;
+    @apply mx-2 border border-secondary bg-terminal-black-200 px-5 py-1 text-black lg:px-15;
+    @apply cursor-pointer font-space-mono text-lg font-semibold uppercase;
+    @apply rounded-lg shadow-md shadow-terminal-black-500 transition-all duration-200;
 }
 
 .btn-cancel:hover {
-    @apply bg-terminal-black-200 border-secondary text-black font-bold shadow-none;
+    @apply border-secondary bg-terminal-black-200 font-bold text-black shadow-none;
 }
 
-#about, #projects {
+#about,
+#projects {
     scroll-margin-top: 56px;
 }
 
 /* needs to stay global */
 .modal-wrapper {
-    @apply fixed top-0 left-0 right-0 bottom-0 z-999 flex items-start justify-center overflow-y-auto;
+    @apply fixed top-0 right-0 bottom-0 left-0 z-999 flex items-start justify-center overflow-y-auto;
     @apply bg-terminal-black/5 pt-30 backdrop-blur-sm;
 }
 
 .modal {
-    @apply relative mx-auto w-5/6 max-w-7xl rounded-xl bg-white border-2 border-terminal-black-300;
+    @apply relative mx-auto w-5/6 max-w-7xl rounded-xl border-2 border-terminal-black-300 bg-white;
     @apply shadow-lg shadow-terminal-black-600;
 }
 
