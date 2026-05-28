@@ -9,22 +9,21 @@ use App\Models\ProjectTechnology;
 use App\Models\ProjectTool;
 
 test('project show returns a single project by slug', function () {
-    $company = Company::create(['name' => 'Acme Corp']);
-    $project = Project::create([
+    $company = Company::factory()->create(['name' => 'Acme Corp']);
+    $project = Project::factory()->for($company)->create([
         'slug' => 'my-project',
         'title' => 'My Project',
         'byline' => 'A great project',
         'description' => '<p>Details here</p>',
-        'company_id' => $company->id,
         'order' => 0,
     ]);
 
-    ProjectKeyTakeaway::create(['project_id' => $project->id, 'text' => 'Built with Laravel', 'order' => 0]);
+    ProjectKeyTakeaway::factory()->for($project)->create(['text' => 'Built with Laravel', 'order' => 0]);
 
-    $icon = Icon::create(['icon_type' => 'fa', 'icon_name' => 'laravel']);
-    ProjectTechnology::create(['project_id' => $project->id, 'name' => 'Laravel', 'icon_id' => $icon->id, 'order' => 0]);
-    ProjectTool::create(['project_id' => $project->id, 'name' => 'Git', 'order' => 0]);
-    ProjectLink::create(['project_id' => $project->id, 'title' => 'GitHub', 'url' => 'https://github.com', 'order' => 0]);
+    $icon = Icon::factory()->create(['icon_type' => 'fa', 'icon_name' => 'laravel']);
+    ProjectTechnology::factory()->for($project)->create(['name' => 'Laravel', 'icon_id' => $icon->id, 'order' => 0]);
+    ProjectTool::factory()->for($project)->create(['name' => 'Git', 'order' => 0]);
+    ProjectLink::factory()->for($project)->create(['title' => 'GitHub', 'url' => 'https://github.com', 'order' => 0]);
 
     $response = $this->getJson('/api/projects/my-project');
 
@@ -50,7 +49,7 @@ test('project show returns 404 for unknown slug', function () {
 });
 
 test('project show returns null company when project has no company', function () {
-    Project::create(['slug' => 'solo-project', 'title' => 'Solo Project', 'order' => 0]);
+    Project::factory()->create(['slug' => 'solo-project', 'title' => 'Solo Project', 'order' => 0]);
 
     $response = $this->getJson('/api/projects/solo-project');
 
