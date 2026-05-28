@@ -6,26 +6,40 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 
 class ProjectController extends Controller
 {
     public function index(): JsonResponse
     {
-        $projects = $this->getProjectsQuery()->get();
+        $data = Cache::remember('projects:list', now()->addHour(), function () {
+            return ProjectResource::collection($this->getProjectsQuery()->get())->resolve();
+        });
 
         return response()->json([
             'success' => true,
-            'data' => ProjectResource::collection($projects),
+            'data' => $data,
         ]);
     }
 
     public function show(string $slug): JsonResponse
     {
-        $project = $this->getProjectsQuery()
-            ->where('slug', $slug)
-            ->first();
+        $cacheKey = "projects:slug:{$slug}";
+        $cached = Cache::get($cacheKey);
 
-        if (! $project) {
+        if ($cached === null) {
+            $project = $this->getProjectsQuery()->where('slug', $slug)->first();
+
+            if ($project) {
+                Cache::put($cacheKey, $project, now()->addHour());
+                $cached = $project;
+            } else {
+                Cache::put($cacheKey, false, now()->addMinutes(5));
+                $cached = false;
+            }
+        }
+
+        if ($cached === false) {
             return response()->json([
                 'success' => false,
                 'message' => 'Project not found',
@@ -34,7 +48,7 @@ class ProjectController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => new ProjectResource($project),
+            'data' => new ProjectResource($cached),
         ]);
     }
 

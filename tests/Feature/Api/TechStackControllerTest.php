@@ -3,24 +3,10 @@
 use App\Models\Icon;
 use App\Models\TechStackItem;
 
-// icon_type and icon_name are legacy NOT NULL columns not in $fillable; use forceFill to satisfy the schema.
-function makeStackItem(array $attrs): TechStackItem
-{
-    $item = (new TechStackItem)->forceFill(array_merge([
-        'icon_type' => 'fa',
-        'icon_name' => 'code',
-        'active' => false,
-        'order' => 0,
-    ], $attrs));
-    $item->save();
-
-    return $item;
-}
-
 test('tech stack api returns all items ordered by order field', function () {
-    makeStackItem(['name' => 'PHP', 'percent' => 90, 'active' => true, 'order' => 2]);
-    makeStackItem(['name' => 'Vue', 'percent' => 80, 'active' => true, 'order' => 1]);
-    makeStackItem(['name' => 'MySQL', 'percent' => 70, 'order' => 3]);
+    TechStackItem::factory()->create(['name' => 'PHP', 'percent' => 90, 'active' => true, 'order' => 2]);
+    TechStackItem::factory()->create(['name' => 'Vue', 'percent' => 80, 'active' => true, 'order' => 1]);
+    TechStackItem::factory()->create(['name' => 'MySQL', 'percent' => 70, 'active' => false, 'order' => 3]);
 
     $response = $this->getJson('/api/tech-stack');
 
@@ -34,8 +20,8 @@ test('tech stack api returns all items ordered by order field', function () {
 });
 
 test('tech stack api returns icon type and name from associated icon', function () {
-    $icon = Icon::create(['icon_type' => 'si', 'icon_name' => 'laravel']);
-    makeStackItem(['name' => 'Laravel', 'percent' => 95, 'active' => true, 'order' => 0, 'icon_id' => $icon->id]);
+    $icon = Icon::factory()->create(['icon_type' => 'si', 'icon_name' => 'laravel']);
+    TechStackItem::factory()->create(['name' => 'Laravel', 'percent' => 95, 'active' => true, 'order' => 0, 'icon_id' => $icon->id]);
 
     $response = $this->getJson('/api/tech-stack');
 
@@ -45,7 +31,7 @@ test('tech stack api returns icon type and name from associated icon', function 
 });
 
 test('tech stack api returns null icon fields when no icon associated', function () {
-    makeStackItem(['name' => 'Misc', 'percent' => 50, 'order' => 0]);
+    TechStackItem::factory()->create(['name' => 'Misc', 'percent' => 50, 'order' => 0]);
 
     $response = $this->getJson('/api/tech-stack');
 
@@ -55,7 +41,7 @@ test('tech stack api returns null icon fields when no icon associated', function
 });
 
 test('tech stack api returns percent as string', function () {
-    makeStackItem(['name' => 'TypeScript', 'percent' => 75, 'active' => true, 'order' => 0]);
+    TechStackItem::factory()->create(['name' => 'TypeScript', 'percent' => 75, 'active' => true, 'order' => 0]);
 
     $response = $this->getJson('/api/tech-stack');
 
@@ -64,8 +50,8 @@ test('tech stack api returns percent as string', function () {
 });
 
 test('tech stack api returns active flag', function () {
-    makeStackItem(['name' => 'Active Tech', 'percent' => 60, 'active' => true, 'order' => 0]);
-    makeStackItem(['name' => 'Inactive Tech', 'percent' => 40, 'active' => false, 'order' => 1]);
+    TechStackItem::factory()->create(['name' => 'Active Tech', 'percent' => 60, 'active' => true, 'order' => 0]);
+    TechStackItem::factory()->create(['name' => 'Inactive Tech', 'percent' => 40, 'active' => false, 'order' => 1]);
 
     $response = $this->getJson('/api/tech-stack');
 

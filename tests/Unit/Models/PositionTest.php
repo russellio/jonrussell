@@ -7,20 +7,20 @@ use App\Models\SkillType;
 use Illuminate\Support\Carbon;
 
 test('position belongs to company', function () {
-    $company = Company::create(['name' => 'Acme']);
-    $position = Position::create(['company_id' => $company->id, 'title' => 'Engineer', 'start_date' => '2023-01-01']);
+    $company = Company::factory()->create(['name' => 'Acme']);
+    $position = Position::factory()->create(['company_id' => $company->id, 'title' => 'Engineer', 'start_date' => '2023-01-01']);
 
     expect($position->company)->toBeInstanceOf(Company::class);
     expect($position->company->id)->toBe($company->id);
 });
 
 test('position has many to many skills', function () {
-    $company = Company::create(['name' => 'Acme']);
-    $skillType = SkillType::create(['name' => 'Backend', 'slug' => 'backend', 'order' => 0]);
-    $skill1 = Skill::create(['skill_type_id' => $skillType->id, 'name' => 'Laravel', 'order' => 0]);
-    $skill2 = Skill::create(['skill_type_id' => $skillType->id, 'name' => 'PHP', 'order' => 1]);
+    $company = Company::factory()->create(['name' => 'Acme']);
+    $skillType = SkillType::factory()->create(['name' => 'Backend', 'slug' => 'backend', 'order' => 0]);
+    $skill1 = Skill::factory()->create(['skill_type_id' => $skillType->id, 'name' => 'Laravel', 'order' => 0]);
+    $skill2 = Skill::factory()->create(['skill_type_id' => $skillType->id, 'name' => 'PHP', 'order' => 1]);
 
-    $position = Position::create(['company_id' => $company->id, 'title' => 'Dev', 'start_date' => '2023-01-01']);
+    $position = Position::factory()->create(['company_id' => $company->id, 'title' => 'Dev', 'start_date' => '2023-01-01']);
     $position->skills()->attach([$skill1->id, $skill2->id]);
 
     expect($position->skills)->toHaveCount(2);
@@ -29,8 +29,8 @@ test('position has many to many skills', function () {
 });
 
 test('months attribute returns correct count for a past position', function () {
-    $company = Company::create(['name' => 'Acme']);
-    $position = Position::create([
+    $company = Company::factory()->create(['name' => 'Acme']);
+    $position = Position::factory()->create([
         'company_id' => $company->id,
         'title' => 'Dev',
         'start_date' => '2023-01-01',
@@ -41,23 +41,26 @@ test('months attribute returns correct count for a past position', function () {
 });
 
 test('months attribute uses current date when end date is null', function () {
-    $company = Company::create(['name' => 'Acme']);
+    $company = Company::factory()->create(['name' => 'Acme']);
 
-    Carbon::setTestNow('2025-05-01');
-    $position = Position::create([
-        'company_id' => $company->id,
-        'title' => 'Dev',
-        'start_date' => '2025-01-01',
-        'end_date' => null,
-    ]);
+    try {
+        Carbon::setTestNow('2025-05-01');
+        $position = Position::factory()->create([
+            'company_id' => $company->id,
+            'title' => 'Dev',
+            'start_date' => '2025-01-01',
+            'end_date' => null,
+        ]);
 
-    expect($position->months)->toBe(4);
-    Carbon::setTestNow();
+        expect($position->months)->toBe(4);
+    } finally {
+        Carbon::setTestNow();
+    }
 });
 
 test('start and end dates are cast to carbon instances', function () {
-    $company = Company::create(['name' => 'Acme']);
-    $position = Position::create([
+    $company = Company::factory()->create(['name' => 'Acme']);
+    $position = Position::factory()->create([
         'company_id' => $company->id,
         'title' => 'Dev',
         'start_date' => '2023-01-01',
@@ -69,11 +72,12 @@ test('start and end dates are cast to carbon instances', function () {
 });
 
 test('end date cast is null when not set', function () {
-    $company = Company::create(['name' => 'Acme']);
-    $position = Position::create([
+    $company = Company::factory()->create(['name' => 'Acme']);
+    $position = Position::factory()->create([
         'company_id' => $company->id,
         'title' => 'Dev',
         'start_date' => '2023-01-01',
+        'end_date' => null,
     ]);
 
     expect($position->end_date)->toBeNull();

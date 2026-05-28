@@ -31,7 +31,6 @@ WARP.md
 deploy.sh
 /.claude
 /.cursor
-/.github
 /.tmp
 /.junie
 /.vscode
@@ -68,7 +67,6 @@ Thumbs.db
 **/.junie
 /.tmp
 /.worktrees
-**/.github
 **/.gemini
 /.venv
 /.serena
@@ -80,7 +78,6 @@ boost.json
 **/.mcp.json
 **/boost.json
 .superpowers
-/.github/
 docs/superpowers/specs
 web/node_modules
 backend/public/app/assets
@@ -91,3 +88,4 @@ backend/storage/debugbar
 postman
 .postman
 *.original.md
+/.remember/
