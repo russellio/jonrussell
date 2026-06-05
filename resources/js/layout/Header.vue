@@ -1,29 +1,33 @@
 <script setup lang="ts">
-import ToggleSwitch from '@/js/components/ToggleSwitch.vue';
 import { useModal } from '@/js/composables/useModal';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
+import { useStarMode } from '@/js/composables/useStarMode';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCertificate, faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { defineAsyncComponent, ref } from 'vue';
+import { BackgroundStars, ToggleSwitch } from '@russellio/vue-background-stars';
+import { defineAsyncComponent } from 'vue';
 
 const { scrollToSection } = useScrollToSection();
 const { openModal } = useModal();
 
-const BackgroundStars = defineAsyncComponent(() => import('@/js/components/BackgroundStars.vue'));
-const showBackground = ref(false);
+const Mountains = defineAsyncComponent(() => import('@/js/components/Mountains.vue'));
+const { showStars } = useStarMode();
 </script>
 
 <template>
     <div class="fixed top-0 -right-2 z-999 hidden font-space-mono text-sm text-white md:block lg:top-4 lg:right-10">
-        <ToggleSwitch label="space mode:" v-model="showBackground" />
+        <ToggleSwitch label="space mode:" v-model="showStars" />
     </div>
 
-    <div class="fallback-background" :class="{ 'fade-out': showBackground }"></div>
+    <div class="fallback-background" :class="{ 'fade-out': showStars }"></div>
 
     <Transition name="background-fade" appear>
-        <BackgroundStars v-if="showBackground" />
+        <div v-if="showStars">
+            <BackgroundStars />
+            <Mountains />
+        </div>
     </Transition>
 
     <div class="intro-wrapper mx-auto flex min-h-[calc(100vh-80px)] items-center justify-center px-2 py-6 md:px-6">

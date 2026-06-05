@@ -90,11 +90,15 @@ Key frontend locations:
 - `resources/js/pages/SPA.vue` — Sole Inertia page; orchestrates layout and section visibility
 - `resources/js/sections/` — `AboutSection.vue`, `ProjectsSection.vue` — each fetches its own data from the API on mount
 - `resources/js/components/modals/` — `Modal.vue` (base), `ProjectModal.vue`, `ContactModal.vue`, `ImageModal.vue`
-- `resources/js/composables/` — `useModal.ts`, `useScrollToSection.ts`, `useEscapeKey.ts`
+- `resources/js/composables/` — `useModal.ts`, `useScrollToSection.ts`, `useEscapeKey.ts`, `useStarMode.ts` (localStorage-persisted star mode toggle)
 - `resources/js/stores/modalStore.ts` — Pinia store; tracks open modal IDs as a `Set<string>`
 - `resources/js/types/index.d.ts` — Canonical TypeScript types (`Project`, `Company`, `Technology`, `Tool`, etc.)
 - `resources/js/lib/utils.ts` — `cn()` helper (clsx + tailwind-merge)
 - `resources/css/app.css` — Tailwind entry with custom CSS vars, component classes, and global styles
+
+### Star Background System
+
+The "space mode" toggle is powered by `@russellio/vue-background-stars` (npm, v1.2.0+). `Header.vue` imports `BackgroundStars` and `ToggleSwitch` directly from the package. `Mountains.vue` is a local sibling overlay (no script, just fixed-position CSS shapes) rendered alongside `<BackgroundStars />` inside the `<Transition>`. Toggle state persists to `localStorage` via `useStarMode.ts`.
 
 ### Data Flow Pattern
 
@@ -123,11 +127,6 @@ These are things the codebase has but are not yet complete or are actively wrong
 
 **Resolved (no longer issues):**
 - **API caching** — read-only API endpoints now use response caching with invalidation on model mutations
-- **API client** — centralized at `resources/js/lib/api.ts` with `get<T>()` function
-- **FontAwesome registration** — centralized at `resources/js/lib/icons.ts`, imported in `app.ts`
-- **API Resources** — controllers standardized with model-aware formatting and type safety
-
-**Resolved (no longer issues):**
 - **API client** — centralized at `resources/js/lib/api.ts` with `get<T>()` function
 - **FontAwesome registration** — centralized at `resources/js/lib/icons.ts`, imported in `app.ts`
 - **API Resources** — controllers standardized with model-aware formatting and type safety
