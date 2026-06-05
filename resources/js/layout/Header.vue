@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BackgroundStars, ToggleSwitch } from '@russellio/vue-background-stars';
 import { useModal } from '@/js/composables/useModal';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 import { useStarMode } from '@/js/composables/useStarMode';
@@ -7,6 +6,7 @@ import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCertificate, faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { BackgroundStars, ToggleSwitch } from '@russellio/vue-background-stars';
 import { defineAsyncComponent } from 'vue';
 
 const { scrollToSection } = useScrollToSection();
