@@ -1,4 +1,5 @@
 import '@/css/app.css';
+import '@russellio/vue-background-stars/style.css';
 import '@/js/lib/icons';
 import { createInertiaApp } from '@inertiajs/vue3';
 import * as Sentry from '@sentry/vue';
