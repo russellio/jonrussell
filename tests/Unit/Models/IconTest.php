@@ -24,7 +24,7 @@ test('icon accepts si type', function () {
 
 test('icon throws for invalid type', function () {
     expect(fn () => Icon::factory()->create(['icon_type' => 'invalid', 'icon_name' => 'test']))
-        ->toThrow(\InvalidArgumentException::class, 'Invalid icon_type: invalid');
+        ->toThrow(InvalidArgumentException::class, 'Invalid icon_type: invalid');
 });
 
 test('icon has many tech stack items', function () {
