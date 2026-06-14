@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - develop
-      - main
   pull_request:
     branches:
       - develop
       - main
+  workflow_call: # allows deploy.yml to reuse this as a gate
 
 jobs:
   ci:
