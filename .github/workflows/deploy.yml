@@ -1,0 +1,60 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Ref to deploy: a branch like origin/main, or a commit SHA (for rollback)"
+        required: false
+        default: origin/main
+
+# Never run two production deploys at once, and never cancel one mid-flight.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+  test:
+    uses: ./.github/workflows/tests.yml
+
+  deploy:
+    needs: [lint, test] # only deploy if checks + tests both pass
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
+        env:
+          # User-supplied input is forwarded via env (never interpolated into the shell)
+          # and defaults to origin/main on push events.
+          DEPLOY_REF: ${{ github.event.inputs.ref || 'origin/main' }}
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          envs: DEPLOY_REF
+          script_stop: true # abort on the first command that fails
+          script: |
+            set -euo pipefail
+            cd "${{ secrets.DEPLOY_PATH }}"
+            php artisan down --retry=15 || true
+            # Always bring the site back up on exit, but preserve the real exit
+            # code so a failed deploy still reports red instead of being masked.
+            trap 'rc=$?; php artisan up || true; exit $rc' EXIT
+            git fetch --all --prune
+            git reset --hard "${DEPLOY_REF}"
+            composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+            npm ci
+            npm run build
+            php artisan migrate --force
+            php artisan optimize:clear
+            php artisan optimize
+            php artisan filament:optimize
+            php artisan queue:restart
