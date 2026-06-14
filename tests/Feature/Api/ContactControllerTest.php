@@ -57,8 +57,7 @@ test('contact form sends email successfully with valid data', function () {
     $response->assertOk()
         ->assertJson(['success' => true, 'message' => 'Your message has been sent successfully!']);
 
-    Mail::assertSent(ContactFormMail::class, fn ($mail) =>
-        $mail->email === 'sender@example.com' &&
+    Mail::assertSent(ContactFormMail::class, fn ($mail) => $mail->email === 'sender@example.com' &&
         $mail->subject === 'Test Subject' &&
         $mail->message === 'This is a test message that is long enough.'
     );
