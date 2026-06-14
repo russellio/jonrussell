@@ -51,6 +51,18 @@ class Project extends Model
     ];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'order' => 'integer',
+        ];
+    }
+
+    /**
      * Get the company that owns the project.
      */
     public function company(): BelongsTo

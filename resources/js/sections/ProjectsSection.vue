@@ -65,7 +65,7 @@ onMounted(() => {
                     :aria-label="`View project details for ${project.title}`"
                     class="group project cursor-pointer"
                     @click="openProjectModal(project)"
-                    >
+                >
                     <img
                         v-if="project.bgImage"
                         :src="`/images/projects/${project.bgImage}`"

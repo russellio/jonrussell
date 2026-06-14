@@ -1,6 +1,7 @@
 import '@/css/app.css';
 import '@/js/lib/icons';
 import { createInertiaApp } from '@inertiajs/vue3';
+import '@russellio/vue-background-stars/style.css';
 import * as Sentry from '@sentry/vue';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createPinia } from 'pinia';
