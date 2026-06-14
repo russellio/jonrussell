@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Cache;
 
 class TechStackItem extends Model
 {
@@ -14,6 +15,15 @@ class TechStackItem extends Model
      * Maximum expected months for proficiency calculation (15 years = 180 months).
      */
     const MAX_EXPECTED_MONTHS = 180;
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        $bust = fn () => Cache::forget('techstack.index');
+        static::saved($bust);
+        static::deleted($bust);
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -91,7 +101,7 @@ class TechStackItem extends Model
             $skill = $this->skill;
             if ($skill) {
                 // Get all positions that used this skill
-                $positions = \App\Models\Position::whereHas('skills', function ($query) use ($skill) {
+                $positions = Position::whereHas('skills', function ($query) use ($skill) {
                     $query->where('skills.id', $skill->id);
                 })->get();
 

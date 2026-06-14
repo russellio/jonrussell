@@ -100,5 +100,3 @@ watch(
         <Footer ref="footer" />
     </div>
 </template>
-
-<style scoped></style>

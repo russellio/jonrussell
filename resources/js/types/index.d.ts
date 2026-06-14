@@ -1,5 +1,5 @@
 export interface Auth {
-    user: User;
+    user: Pick<User, 'id' | 'name'> | null;
 }
 
 export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
