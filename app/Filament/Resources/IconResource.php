@@ -27,7 +27,7 @@ class IconResource extends Resource
                     ])
                     ->required()
                     ->default('fa')
-                    ->rules(['in:'.implode(',', \App\Models\Icon::VALID_ICON_TYPES)]),
+                    ->rules(['in:'.implode(',', Icon::VALID_ICON_TYPES)]),
                 Forms\Components\TextInput::make('icon_name')
                     ->required()
                     ->maxLength(255),

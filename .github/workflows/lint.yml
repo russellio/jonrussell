@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - develop
-      - main
   pull_request:
     branches:
       - develop
       - main
+  workflow_call: # allows deploy.yml to reuse this as a gate
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   quality:
@@ -24,22 +24,27 @@ jobs:
         with:
           php-version: '8.4'
 
-      - name: Install Dependencies
-        run: |
-          composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-          npm install
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
 
-      - name: Run Pint
-        run: vendor/bin/pint
+      - name: Install PHP Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Format Frontend
-        run: npm run format
+      - name: Install Node Dependencies
+        run: npm ci
+
+      # Check-mode only: these must FAIL on violations so the deploy gate is real.
+      - name: Run Pint (check)
+        run: vendor/bin/pint --test
+
+      - name: Check formatting
+        run: npm run format:check
 
       - name: Lint Frontend
-        run: npm run lint
+        run: npx eslint .
 
-      # - name: Commit Changes
-      #   uses: stefanzweifel/git-auto-commit-action@v5
-      #   with:
-      #     commit_message: fix code style
-      #     commit_options: '--no-verify'
+      - name: Type-check
+        run: npx vue-tsc --noEmit

@@ -1,0 +1,10 @@
+version: 2
+updates:
+  # Keeps SHA-pinned GitHub Actions (e.g. appleboy/ssh-action in deploy.yml)
+  # up to date via reviewed PRs, so pinning doesn't mean missing patches.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
