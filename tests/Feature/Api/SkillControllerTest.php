@@ -3,49 +3,26 @@
 use App\Http\Controllers\Api\SkillController;
 use App\Models\Skill;
 use App\Models\SkillType;
+use Illuminate\Http\JsonResponse;
 
 test('skill controller returns all skills grouped by skill type', function () {
     // Create test data using database
-    $skillType1 = SkillType::create([
-        'name' => 'Frontend',
-        'slug' => 'frontend',
-        'order' => 1,
-    ]);
+    SkillType::factory()
+        ->state(['name' => 'Frontend', 'slug' => 'frontend', 'order' => 1])
+        ->has(Skill::factory()->state(['name' => 'Vue.js', 'order' => 0]))
+        ->has(Skill::factory()->state(['name' => 'React', 'order' => 1]))
+        ->create();
 
-    $skillType2 = SkillType::create([
-        'name' => 'Backend',
-        'slug' => 'backend',
-        'order' => 2,
-    ]);
-
-    $skill1 = Skill::create([
-        'skill_type_id' => $skillType1->id,
-        'name' => 'Vue.js',
-        'order' => 0,
-    ]);
-
-    $skill2 = Skill::create([
-        'skill_type_id' => $skillType1->id,
-        'name' => 'React',
-        'order' => 1,
-    ]);
-
-    $skill3 = Skill::create([
-        'skill_type_id' => $skillType2->id,
-        'name' => 'Laravel',
-        'order' => 0,
-    ]);
-
-    $skill4 = Skill::create([
-        'skill_type_id' => $skillType2->id,
-        'name' => 'PHP',
-        'order' => 1,
-    ]);
+    SkillType::factory()
+        ->state(['name' => 'Backend', 'slug' => 'backend', 'order' => 2])
+        ->has(Skill::factory()->state(['name' => 'Laravel', 'order' => 0]))
+        ->has(Skill::factory()->state(['name' => 'PHP', 'order' => 1]))
+        ->create();
 
     $controller = new SkillController;
     $response = $controller->index();
 
-    expect($response)->toBeInstanceOf(\Illuminate\Http\JsonResponse::class);
+    expect($response)->toBeInstanceOf(JsonResponse::class);
     expect($response->status())->toBe(200);
 
     $json = json_decode($response->getContent(), true);
@@ -81,7 +58,7 @@ test('skill controller returns empty array when no skill types exist', function 
     $controller = new SkillController;
     $response = $controller->index();
 
-    expect($response)->toBeInstanceOf(\Illuminate\Http\JsonResponse::class);
+    expect($response)->toBeInstanceOf(JsonResponse::class);
     expect($response->status())->toBe(200);
 
     $json = json_decode($response->getContent(), true);
@@ -92,7 +69,7 @@ test('skill controller returns empty array when no skill types exist', function 
 });
 
 test('skill controller returns skill type without skills correctly', function () {
-    $skillType = SkillType::create([
+    $skillType = SkillType::factory()->create([
         'name' => 'Frontend',
         'slug' => 'frontend',
         'order' => 1,
@@ -113,9 +90,9 @@ test('skill controller returns skill type without skills correctly', function ()
 });
 
 test('skill controller orders skill types by order then name', function () {
-    SkillType::create(['name' => 'Z-Type', 'slug' => 'z-type', 'order' => 2]);
-    SkillType::create(['name' => 'A-Type', 'slug' => 'a-type', 'order' => 1]);
-    SkillType::create(['name' => 'B-Type', 'slug' => 'b-type', 'order' => 1]);
+    SkillType::factory()->create(['name' => 'Z-Type', 'slug' => 'z-type', 'order' => 2]);
+    SkillType::factory()->create(['name' => 'A-Type', 'slug' => 'a-type', 'order' => 1]);
+    SkillType::factory()->create(['name' => 'B-Type', 'slug' => 'b-type', 'order' => 1]);
 
     $controller = new SkillController;
     $response = $controller->index();
