@@ -9,38 +9,25 @@ const { closeModal } = useModal();
 
 const emit = defineEmits(['submit']);
 
-const props = defineProps({
-    modalId: {
-        type: String,
-        required: true,
+const props = withDefaults(
+    defineProps<{
+        modalId: string;
+        title?: string;
+        showSubmit?: boolean;
+        submitDisabled?: boolean;
+        submitText?: string;
+        cancelText?: string;
+        isLoading?: boolean;
+    }>(),
+    {
+        title: '',
+        showSubmit: false,
+        submitDisabled: false,
+        submitText: 'Submit',
+        cancelText: 'Close',
+        isLoading: false,
     },
-    title: {
-        type: String,
-        required: false,
-        default: '',
-    },
-    showSubmit: {
-        type: Boolean,
-        required: false,
-        default: false,
-    },
-    submitDisabled: {
-        type: Boolean,
-        default: false,
-    },
-    submitText: {
-        type: String,
-        default: 'Submit',
-    },
-    cancelText: {
-        type: String,
-        default: 'Close',
-    },
-    isLoading: {
-        type: Boolean,
-        default: false,
-    },
-});
+);
 
 const modalId = props.modalId;
 const title = props.title ?? props.modalId.toUpperCase();

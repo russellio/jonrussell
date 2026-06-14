@@ -19,6 +19,7 @@ class Position extends Model
         $bust = function () {
             Cache::forget('timeline.index');
             Cache::forget('projects:list');
+            Cache::forget('techstack.index');
         };
         static::saved($bust);
         static::deleted($bust);
@@ -75,8 +76,17 @@ class Position extends Model
      */
     public function getMonthsAttribute(): int
     {
-        $endDate = $this->end_date ?? now();
+        if ($this->start_date === null) {
+            return 0;
+        }
 
-        return $this->start_date->diffInMonths($endDate);
+        return (int) $this->start_date->diffInMonths($this->end_date ?? now());
     }
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = ['months'];
 }

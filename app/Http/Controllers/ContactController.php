@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactFormMail;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\JsonResponse;
 
 class ContactController extends Controller
 {

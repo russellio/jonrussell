@@ -20,8 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1');
 
-Route::get('/projects', [ProjectController::class, 'index']);
-Route::get('/projects/{slug}', [ProjectController::class, 'show']);
-Route::get('/skills', [SkillController::class, 'index']);
-Route::get('/tech-stack', [TechStackController::class, 'index']);
-Route::get('/timeline', [TimelineController::class, 'index']);
+Route::middleware('cache.control')->group(function () {
+    Route::get('/projects', [ProjectController::class, 'index']);
+    Route::get('/projects/{slug}', [ProjectController::class, 'show']);
+    Route::get('/skills', [SkillController::class, 'index']);
+    Route::get('/tech-stack', [TechStackController::class, 'index']);
+    Route::get('/timeline', [TimelineController::class, 'index']);
+});
