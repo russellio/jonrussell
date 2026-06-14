@@ -75,12 +75,11 @@ The entire site is a single Inertia page (`SPA.vue`). Navigation between `/, /ab
 
 - `app/Models/` — Eloquent models. Key: `Project` (with 6 child has-many relationships), `Position`, `Company`, `Skill`/`SkillType`, `TechStackItem`, `Icon`
 - `app/Http/Controllers/Api/` — Public read-only JSON API (`ProjectController`, `SkillController`, `TimelineController`, `TechStackController`)
-- `app/Http/Controllers/Admin/` — Admin CRUD API (`CompanyController`, `PositionController`, `TechStackItemController`) — **currently unauthenticated, Sanctum installed but not applied**
 - `app/Http/Controllers/ContactController` — Contact form POST, sends Mailgun email
-- `app/Filament/Resources/` — Filament CMS resources for all content models (primary content management interface)
+- `app/Filament/Resources/` — Filament CMS resources for all content models (sole CMS / content management interface)
 - `app/Services/` — `CompanyStatsService` and `TechStackMetricsService` interfaces exist with registered empty stub impls (TODO)
 - `app/Http/Middleware/HandleInertiaRequests` — Shares `name`, `quote` (random), and `auth.user` globally on every request
-- `routes/api.php` — All routes unauthenticated except Filament's own panel auth. Admin group under `Route::prefix('admin')` has no middleware guard.
+- `routes/api.php` — Public read-only API routes, unauthenticated except Filament's own panel auth (no admin API routes exist)
 
 ### Frontend
 
@@ -118,18 +117,18 @@ Icons are stored in the `icons` table and linked to `skills`, `tech_stack_items`
 
 These are things the codebase has but are not yet complete or are actively wrong:
 
-1. **Admin routes have no auth guard** — `Route::prefix('admin')` in `api.php` is fully public
-2. **Admin controllers duplicate Filament** — both manage the same models; the API-based admin controllers appear unused
-3. **Email address hardcoded** in `ContactController` — should use `env('CONTACT_EMAIL')` (key exists in `.env.example`)
-4. **`CompanyStatsServiceImpl` and `TechStackMetricsServiceImpl` are empty stubs** — return `[]` with TODO comments; both are registered in the DI container
-5. **Duplicate type definitions** — `ProjectModal.vue` redefines types locally instead of importing from `types/index.d.ts`
-6. **`v-html` on database content** — `ProjectModal.vue` renders `description` and `company.name` via `v-html`
+1. **Email address hardcoded** in `ContactController` — should use `env('CONTACT_EMAIL')` (key exists in `.env.example`)
+2. **`CompanyStatsServiceImpl` and `TechStackMetricsServiceImpl` are empty stubs** — return `[]` with TODO comments; both are registered in the DI container
+3. **Duplicate type definitions** — `ProjectModal.vue` redefines types locally instead of importing from `types/index.d.ts`
+4. **`v-html` on database content** — `ProjectModal.vue` renders `description` and `company.name` via `v-html`
 
 **Resolved (no longer issues):**
 - **API caching** — read-only API endpoints now use response caching with invalidation on model mutations
 - **API client** — centralized at `resources/js/lib/api.ts` with `get<T>()` function
 - **FontAwesome registration** — centralized at `resources/js/lib/icons.ts`, imported in `app.ts`
 - **API Resources** — controllers standardized with model-aware formatting and type safety
+- **Admin API routes/controllers removed** — there are no `admin` API routes or `app/Http/Controllers/Admin/` controllers; Filament is the sole CMS for managing content
+- **Admin/Filament duplication removed** — the unused, unauthenticated Admin CRUD controllers (`CompanyController`, `PositionController`, `TechStackItemController`) were deleted; no duplication remains
 
 ## Testing
 

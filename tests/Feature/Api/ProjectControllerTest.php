@@ -8,36 +8,21 @@ use App\Models\ProjectTechnology;
 use App\Models\ProjectTool;
 
 test('projects api returns all projects with relationships', function () {
-    $company = Company::create(['name' => 'Test Company']);
-    $icon = Icon::create(['icon_type' => 'fa', 'icon_name' => 'laravel']);
+    $company = Company::factory()->create(['name' => 'Test Company']);
+    $icon = Icon::factory()->create(['icon_type' => 'fa', 'icon_name' => 'laravel']);
 
-    $project = Project::create([
-        'slug' => 'test-project',
-        'title' => 'Test Project',
-        'byline' => 'Test byline',
-        'description' => '<p>Test description</p>',
-        'company_id' => $company->id,
-        'order' => 0,
-    ]);
-
-    ProjectKeyTakeaway::create([
-        'project_id' => $project->id,
-        'text' => 'Key takeaway 1',
-        'order' => 0,
-    ]);
-
-    ProjectTechnology::create([
-        'project_id' => $project->id,
-        'name' => 'Laravel',
-        'icon_id' => $icon->id,
-        'order' => 0,
-    ]);
-
-    ProjectTool::create([
-        'project_id' => $project->id,
-        'name' => 'Git',
-        'order' => 0,
-    ]);
+    $project = Project::factory()
+        ->for($company)
+        ->has(ProjectKeyTakeaway::factory()->state(['text' => 'Key takeaway 1', 'order' => 0]), 'keyTakeaways')
+        ->has(ProjectTechnology::factory()->state(['name' => 'Laravel', 'icon_id' => $icon->id, 'order' => 0]), 'technologies')
+        ->has(ProjectTool::factory()->state(['name' => 'Git', 'order' => 0]), 'tools')
+        ->create([
+            'slug' => 'test-project',
+            'title' => 'Test Project',
+            'byline' => 'Test byline',
+            'description' => '<p>Test description</p>',
+            'order' => 0,
+        ]);
 
     $response = $this->getJson('/api/projects');
 
@@ -81,13 +66,13 @@ test('projects api returns all projects with relationships', function () {
 });
 
 test('projects api returns projects ordered by order field', function () {
-    $project1 = Project::create([
+    Project::factory()->create([
         'slug' => 'project-1',
         'title' => 'Project 1',
         'order' => 1,
     ]);
 
-    $project2 = Project::create([
+    Project::factory()->create([
         'slug' => 'project-2',
         'title' => 'Project 2',
         'order' => 0,
@@ -102,7 +87,7 @@ test('projects api returns projects ordered by order field', function () {
 });
 
 test('projects api handles projects with no relationships', function () {
-    $project = Project::create([
+    Project::factory()->create([
         'slug' => 'minimal-project',
         'title' => 'Minimal Project',
         'order' => 0,
