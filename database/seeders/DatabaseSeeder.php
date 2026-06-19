@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             PositionSeeder::class,        // Creates positions (depends on Company)
             PositionSkillSeeder::class,   // Links skills to positions (depends on Position and Skill)
             TechStackItemSeeder::class,   // Creates tech stack items (depends on Skill)
+            ProjectSeeder::class,         // Creates projects and all child data (depends on Company, Icon)
         ]);
     }
 }
