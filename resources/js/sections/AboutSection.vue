@@ -127,9 +127,7 @@ onMounted(() => {
                     <li
                         v-for="(item, index) in techStack"
                         :key="item.tech"
-                        :style="{ '--percent': parseInt(item.percent) / 100 }"
                         class="ms-6"
-                        :class="{ active: item.active }"
                         :ref="
                             (el) => {
                                 techStackRefs[index] = el;
@@ -268,47 +266,5 @@ ul li {
 
 .tech-stack ul li {
     @apply font-semibold text-terminal-black;
-}
-
-.tech-stack ul li::before {
-    content: '';
-    position: absolute;
-    left: 140px;
-    top: 50%;
-    width: calc(100% - 140px);
-    min-width: 140px;
-    height: 4px;
-    background: linear-gradient(90deg, #999, #999);
-    transform: translateY(-50%);
-    z-index: 1;
-}
-
-.tech-stack ul li::after {
-    content: '';
-    position: absolute;
-    left: 140px;
-    top: 50%;
-    width: calc((100% - 140px) * var(--percent));
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-bright-green), var(--color-bright-green));
-    transform: translateY(-50%);
-    z-index: 2;
-}
-
-.tech-stack ul li.active::after {
-    background: linear-gradient(to right, white, var(--color-bright-green));
-    background-size: 200% 100%;
-    animation-delay: 1s;
-    animation: gradientAnimation 2s linear infinite reverse;
-}
-
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0;
-    }
-
-    100% {
-        background-position: 200% 0;
-    }
 }
 </style>
