@@ -26,7 +26,7 @@ const { showStars } = useStarMode();
     <Transition name="background-fade" appear>
         <div v-if="showStars">
             <BackgroundStars />
-            <Mountains />
+<!--            <Mountains />-->
         </div>
     </Transition>
 
