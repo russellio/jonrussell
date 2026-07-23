@@ -100,6 +100,17 @@ onMounted(() => {
                     </ul>
                 </div>
             </div>
+
+            <div>
+                <h3 class="mb-3 text-sm font-semibold text-slate-200">Tools & Environment</h3>
+                <ul class="flex flex-wrap gap-2" aria-label="Tools and environment">
+                    <li v-for="skill in getSkillsBySlug('tools')" :key="skill.id">
+                        <span class="inline-flex items-center rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium text-teal-300">
+                            {{ skill.name }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </section>
 </template>

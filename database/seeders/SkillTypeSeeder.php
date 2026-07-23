@@ -95,6 +95,20 @@ class SkillTypeSeeder extends Seeder
                     'Certified ScrumMaster (CSM)',
                 ],
             ],
+            [
+                'name' => 'Tools & Environment',
+                'slug' => 'tools',
+                'order' => 5,
+                'skills' => [
+                    'PhpStorm',
+                    'VS Code',
+                    'Cursor',
+                    'Warp',
+                    'Gitkraken',
+                    'Sentry',
+                    'Brave',
+                ],
+            ],
         ];
 
         foreach ($skillTypes as $skillTypeData) {
