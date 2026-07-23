@@ -63,30 +63,6 @@
 }
 /* End Redsign */
 
-section {
-    @apply pb-20;
-}
-
-h1 {
-    @apply font-space-mono text-6xl text-primary;
-}
-
-h2 {
-    @apply mb-2 font-sixtyfour text-3xl text-secondary uppercase md:text-5xl;
-}
-
-h2:not(.text-start) {
-    @apply text-center;
-}
-
-h3 {
-    @apply font-space-mono text-2xl font-bold text-secondary;
-}
-
-h4 {
-    @apply mt-4 mb-3 text-lg font-semibold text-terminal-black;
-}
-
 html {
     @apply relative min-h-full;
     scroll-behavior: smooth;
@@ -132,11 +108,11 @@ p {
 }
 
 .success {
-    @apply bg-green-100 px-4 py-2 text-success;
+    @apply border border-teal-400/20 bg-teal-400/10 px-4 py-2 text-teal-300;
 }
 
 .error {
-    @apply bg-red-100 px-4 py-2 text-error;
+    @apply border border-red-500/20 bg-red-500/10 px-4 py-2 text-red-400;
 }
 
 .btn-content {
@@ -185,24 +161,45 @@ p {
     @apply border-secondary bg-terminal-black-200 font-bold text-black shadow-none;
 }
 
-#about,
-#projects {
-    scroll-margin-top: 56px;
-}
-
 /* needs to stay global */
 .modal-wrapper {
     @apply fixed top-0 right-0 bottom-0 left-0 z-999 flex items-start justify-center overflow-y-auto;
-    @apply bg-terminal-black/5 pt-30 backdrop-blur-sm;
+    @apply bg-slate-950/70 pt-30 backdrop-blur-sm;
 }
 
 .modal {
-    @apply relative mx-auto w-5/6 max-w-7xl rounded-xl border-2 border-terminal-black-300 bg-white;
-    @apply shadow-lg shadow-terminal-black-600;
+    @apply relative mx-auto w-5/6 max-w-7xl rounded-xl border border-slate-700 bg-slate-800;
+    @apply shadow-lg shadow-slate-950/50;
 }
 
 #contact-modal .modal {
     @apply mx-auto w-2/3;
+}
+
+.btn-submit {
+    @apply inline-flex items-center justify-center whitespace-nowrap;
+    @apply mx-2 border border-teal-300 bg-teal-400/10 px-8 py-1 lg:px-15;
+    @apply cursor-pointer font-space-mono text-lg font-bold text-teal-300 uppercase;
+    @apply rounded-lg shadow-md shadow-slate-950/40 transition-all duration-200 motion-reduce:transition-none;
+}
+
+.btn-submit:hover {
+    @apply border-teal-300 bg-teal-300 text-slate-900 shadow-none;
+}
+
+.btn-submit:disabled {
+    @apply cursor-not-allowed opacity-50;
+}
+
+.btn-cancel {
+    @apply inline-flex items-center justify-center whitespace-nowrap;
+    @apply mx-2 border border-slate-600 bg-slate-800 px-5 py-1 text-slate-300 lg:px-15;
+    @apply cursor-pointer font-space-mono text-lg font-semibold uppercase;
+    @apply rounded-lg shadow-md shadow-slate-950/40 transition-all duration-200 motion-reduce:transition-none;
+}
+
+.btn-cancel:hover {
+    @apply border-teal-300/50 bg-slate-700 font-bold text-teal-300 shadow-none;
 }
 
 /* Infinite scroll animation */

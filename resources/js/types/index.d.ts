@@ -97,36 +97,37 @@ export interface Project {
     awards?: string[];
 }
 
-export interface SiteMeta {
+export interface PositionSkill {
+    id: number;
     name: string;
-    role: string;
-    tagline: string;
-    about: string[]; // one entry per paragraph
 }
 
-export interface Job {
-    id: string;
-    dateRange: string;
+/** A single role as returned by GET /api/timeline (PositionResource). */
+export interface TimelinePosition {
+    id: number;
     title: string;
-    company: string;
-    location: string;
-    locationType?: string;
-    url: string;
-    bullets?: string[];
-    description?: string;
-    tech: string[];
+    description: string | null; // sanitized HTML (lead + bullet list) or null
+    startDate: string; // Y-m-d
+    endDate: string | null; // Y-m-d, null when current
+    months: number;
+    isCurrent: boolean;
+    company: Company | null;
+    skills: PositionSkill[];
 }
 
+export interface PostImage {
+    src: string;
+    alt: string;
+}
+
+/** A post as returned by GET /api/posts (PostResource). */
 export interface Post {
-    id: string;
-    year: string;
+    id: string; // slug
     title: string;
-    url: string;
-    image: string;
-}
-
-export interface Social {
-    name: string;
-    url: string;
-    icon: string; // icon key — see resources/js/data/socials.ts
+    excerpt: string | null;
+    year: string | null;
+    publishedAt: string | null;
+    image: PostImage | null;
+    externalUrl: string | null;
+    hasBody: boolean;
 }

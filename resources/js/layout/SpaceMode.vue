@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useStarMode } from '@/js/composables/useStarMode';
 import Mountains from '@/js/components/Mountains.vue';
+import { useStarMode } from '@/js/composables/useStarMode';
 import { BackgroundStars, ToggleSwitch } from '@russellio/vue-background-stars';
 
 const { showStars } = useStarMode();

@@ -32,7 +32,10 @@ defineExpose({
     <div ref="imageModalWrapper" class="image-modal-wrapper" :class="isImageModalOpen ? 'flex' : 'hidden'" @click="closeImageModal()">
         <div class="image-modal" @click.stop>
             <button @click="closeImageModal()" aria-label="Close">
-                <FontAwesomeIcon :icon="faXmark" class="bg-blur-sm m-1 h-4 w-4 rounded-md border border-white bg-white/50 p-2 text-black" />
+                <FontAwesomeIcon
+                    :icon="faXmark"
+                    class="bg-blur-sm m-1 h-4 w-4 rounded-md border border-slate-600 bg-slate-700/60 p-2 text-slate-200 transition-colors hover:border-teal-300/50 hover:text-teal-300 motion-reduce:transition-none"
+                />
             </button>
             <img v-if="currentImage?.src" :src="`/images/projects/${currentImage.src}`" :title="currentImage.title" :alt="currentImage.alt" />
         </div>
@@ -66,7 +69,8 @@ defineExpose({
     max-height: 100%;
     max-width: 48rem;
     border-radius: 0.5rem;
-    background-color: white;
+    border: 1px solid rgba(51, 65, 85, 1);
+    background-color: rgba(30, 41, 59, 1);
     padding: 0.5rem;
 }
 

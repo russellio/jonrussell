@@ -80,7 +80,7 @@ const companyLogoText = computed(() => {
 <template>
     <Modal modalId="project-modal" cancelText="Close">
         <template #title
-            >project: <span class="inline-block text-primary! normal-case md:block">{{ project.title }}</span></template
+            >project: <span class="inline-block text-slate-100! normal-case md:block">{{ project.title }}</span></template
         >
         <div class="grid w-full grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%]">
             <div v-if="hasModalLeft" class="modal-left mb-10" :class="{ '': !projectHasProp(project, 'images') }">
@@ -106,7 +106,7 @@ const companyLogoText = computed(() => {
 
             <div class="modal-center w-full">
                 <div v-if="projectHasProp(project, 'company')" class="company">
-                    <div class="flex w-full flex-col font-sans tracking-widest text-white! md:flex-row">
+                    <div class="flex w-full flex-col font-sans tracking-widest text-slate-100! md:flex-row">
                         <h3>company:</h3>
                         <div v-if="companyLogoSrc" class="flex grow flex-col justify-center py-2 md:flex-row">
                             <div class="align-end pe-4">
@@ -124,9 +124,9 @@ const companyLogoText = computed(() => {
                 </div>
 
                 <div v-if="projectHasProp(project, 'keyTakeaways')" class="key-takeaways mx-auto mt-5 mb-4 w-11/12">
-                    <h4 class="mt-0 mb-2 font-space-mono text-white!">key takeaways:</h4>
-                    <div class="rounded-md border-y border-terminal-black-700 bg-black/65 p-2 py-6 ps-8">
-                        <ul class="list-disc space-y-2 border-s border-terminal-black-700 ps-10">
+                    <h4 class="mt-0 mb-2 font-space-mono text-slate-100!">key takeaways:</h4>
+                    <div class="rounded-md border-y border-slate-700 bg-slate-900/60 p-2 py-6 ps-8">
+                        <ul class="list-disc space-y-2 border-s border-slate-700 ps-10">
                             <li v-for="takeaway in project.keyTakeaways" :key="takeaway">
                                 {{ takeaway }}
                             </li>
@@ -140,11 +140,11 @@ const companyLogoText = computed(() => {
                 </div>
 
                 <div v-if="projectHasProp(project, 'links')" class="links">
-                    <h4 class="mt-0 mb-2 ps-4 font-space-mono text-white!">links:</h4>
-                    <ul class="list-disc space-y-2 rounded-md border-t border-b-4 border-terminal-black-700 bg-black/65 p-2 py-3 ps-10">
+                    <h4 class="mt-0 mb-2 ps-4 font-space-mono text-slate-100!">links:</h4>
+                    <ul class="list-disc space-y-2 rounded-md border-t border-b-4 border-slate-700 bg-slate-900/60 p-2 py-3 ps-10">
                         <li v-for="link in project.links" :key="link.url">
-                            <a :href="link.url" target="_blank">{{ link.title }}</a>
-                            <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-gold" size="sm" />
+                            <a :href="link.url" target="_blank" class="text-slate-300 hover:text-teal-300">{{ link.title }}</a>
+                            <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-teal-300" size="sm" />
                         </li>
                     </ul>
                 </div>
@@ -201,7 +201,7 @@ const companyLogoText = computed(() => {
 @reference "@/css/app.css";
 
 h3 {
-    @apply mt-3 font-space-mono text-bright-green!;
+    @apply mt-3 font-space-mono text-teal-300!;
 }
 
 .thumbnails {
@@ -211,8 +211,8 @@ h3 {
 }
 
 .thumbnail {
-    @apply mx-auto my-1 h-32 w-32 cursor-pointer overflow-hidden border-y border-terminal-black-700;
-    @apply rounded-md bg-black/65 md:h-20 md:w-20;
+    @apply mx-auto my-1 h-32 w-32 cursor-pointer overflow-hidden border-y border-slate-700;
+    @apply rounded-md bg-slate-900/60 md:h-20 md:w-20;
 }
 
 .thumbnail img {
@@ -220,25 +220,25 @@ h3 {
 }
 
 .company {
-    @apply flex flex-row rounded-md border border-y-4 border-b-0 border-terminal-black-700 bg-black/65 px-4;
+    @apply flex flex-row rounded-md border border-y-4 border-b-0 border-slate-700 bg-slate-900/60 px-4;
 }
 
 .description {
-    @apply rounded-md border-t border-b-4 border-terminal-black-700 bg-black/65 px-4 py-5;
+    @apply rounded-md border-t border-b-4 border-slate-700 bg-slate-900/60 px-4 py-5 text-slate-300;
 }
 
 .modal-left {
     @apply mx-auto grid grid-cols-1 self-start p-4 py-6 lg:mt-20;
-    @apply rounded-md border-2 border-y-4 border-e-0 border-terminal-black-700 bg-black/65;
+    @apply rounded-md border-2 border-y-4 border-e-0 border-slate-700 bg-slate-900/60;
 }
 
 .modal-right {
-    @apply grid w-full grid-cols-2 justify-evenly gap-2 pt-2;
+    @apply grid w-full grid-cols-2 justify-evenly gap-2 pt-2 text-slate-300;
     @apply lg:ms-0 lg:mt-15 lg:grid-cols-1 lg:self-start lg:text-sm;
 }
 
 .modal-right ul {
-    @apply mt-2 mb-4 space-y-2 rounded-md border-4 border-s-0 border-e-2 border-terminal-black-700 bg-black/65 p-2 py-3 ps-4;
+    @apply mt-2 mb-4 space-y-2 rounded-md border-4 border-s-0 border-e-2 border-slate-700 bg-slate-900/60 p-2 py-3 ps-4;
 }
 
 .modal-right ul li .list-marker {

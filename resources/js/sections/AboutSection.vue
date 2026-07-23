@@ -1,270 +1,46 @@
 <script setup lang="ts">
-import { useScrollToSection } from '@/js/composables/useScrollToSection';
-import { get } from '@/js/lib/api';
-import type { ApiResponse, Skill, SkillType, TechStackItem } from '@/js/types/index';
-import { ComponentPublicInstance, onMounted, ref } from 'vue';
-const { scrollToSection } = useScrollToSection();
-
-import { faCss3, faHtml5, faJs, faLaravel, faPhp, faReact, faVuejs } from '@fortawesome/free-brands-svg-icons';
-import { faObjectGroup } from '@fortawesome/free-regular-svg-icons';
-import { faCode, faDatabase, faProjectDiagram, faSitemap, faVial } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { MySqlIcon, PythonIcon, ReactIcon, TypeScriptIcon } from 'vue3-simple-icons';
-
-const simpleIcons = [{ component: TypeScriptIcon }, { component: ReactIcon }, { component: MySqlIcon }, { component: PythonIcon }];
-
-const faIcons = [
-    { group: 'far', name: faObjectGroup },
-    { group: 'fas', name: faDatabase },
-    { group: 'fas', name: faCode },
-    { group: 'fas', name: faVial },
-    { group: 'fas', name: faProjectDiagram },
-    { group: 'fas', name: faSitemap },
-    { group: 'fab', name: faLaravel },
-    { group: 'fab', name: faPhp },
-    { group: 'fab', name: faVuejs },
-    { group: 'fab', name: faReact },
-    { group: 'fab', name: faJs },
-    { group: 'fab', name: faHtml5 },
-    { group: 'fab', name: faCss3 },
+const highlights = [
+    { value: 'M.B.T.', label: 'University of Georgia' },
+    { value: '13+ yrs', label: 'software engineering' },
+    { value: '2.5+ yrs', label: 'management' },
+    { value: '3+ yrs', label: 'project management' },
 ];
-
-const reverseKebabCase = (kebabCaseString: string): string => kebabCaseString.split('-').reverse().join('-');
-const getFaIcon = (iconName: string): [string, string] => {
-    const icon = faIcons.find((icon) => reverseKebabCase(icon.name.iconName) === iconName);
-    return icon ? [icon.group, iconName] : ['', ''];
-};
-
-const techStack = ref<TechStackItem[]>([]);
-const techStackRefs = ref<(Element | ComponentPublicInstance | null)[]>([]);
-const isLoadingTechStack = ref(false);
-const techStackError = ref<string | null>(null);
-
-const skillTypes = ref<SkillType[]>([]);
-const isLoadingSkills = ref(false);
-const skillsError = ref<string | null>(null);
-
-const getSkillsBySlug = (slug: string): Skill[] => {
-    const skillType = skillTypes.value.find((st) => st.slug === slug);
-    return skillType?.skills || [];
-};
-
-const fetchSkills = async () => {
-    isLoadingSkills.value = true;
-    skillsError.value = null;
-
-    try {
-        const { data } = await get<ApiResponse<SkillType[]>>('/api/skills');
-        skillTypes.value = data;
-    } catch (error) {
-        console.error('Error fetching skills:', error);
-        skillsError.value = error instanceof Error ? error.message : 'Failed to load skills';
-    } finally {
-        isLoadingSkills.value = false;
-    }
-};
-
-const getSimpleIcon = (iconName: string) => {
-    return simpleIcons.find((icon) => icon.component.__name === iconName)?.component || '';
-};
-
-const fetchTechStack = async () => {
-    isLoadingTechStack.value = true;
-    techStackError.value = null;
-
-    try {
-        const { data } = await get<ApiResponse<TechStackItem[]>>('/api/tech-stack');
-        techStack.value = data;
-    } catch (error) {
-        console.error('Error fetching tech stack:', error);
-        techStackError.value = error instanceof Error ? error.message : 'Failed to load tech stack';
-        techStack.value = [];
-    } finally {
-        isLoadingTechStack.value = false;
-    }
-};
-
-onMounted(() => {
-    fetchSkills();
-    fetchTechStack();
-});
 </script>
 
 <template>
-    <section class="about-section">
-        <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div class="description">
-                <h2 class="text-start md:mb-6 md:text-4xl">About Me</h2>
-                <p>
-                    As a Senior Software Engineer with over a decade of experience, I specialize in designing, developing, and scaling enterprise
-                    applications. My work centers on Laravel, PHP, REST APIs, JavaScript/TypeScript, and Vue.js, backed by Agile leadership and a
-                    steady drive to learn and adapt to new technologies.
-                </p>
+    <section id="about" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="About me">
+        <div
+            class="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0"
+        >
+            <h2 class="text-sm font-bold tracking-widest text-slate-200 uppercase lg:sr-only">About Me</h2>
+        </div>
 
-                <p>
-                    Over the years, my projects have spanned defense, finance, and manufacturing, where I've led cross-functional teams and built
-                    high-impact solutions. From complex migrations and API integrations to workflow automation and production debugging, I focus on
-                    translating business goals into clear, maintainable technical outcomes that last.
-                </p>
+        <div class="space-y-4">
+            <p>
+                As a Senior Software Engineer with over a decade of experience, I specialize in designing, developing, and scaling enterprise
+                applications. My work centers on <span class="font-medium text-slate-200">Laravel</span>, PHP, REST APIs, JavaScript/TypeScript, and
+                <span class="font-medium text-slate-200">Vue.js</span>, backed by Agile leadership and a steady drive to learn and adapt to new
+                technologies.
+            </p>
 
-                <p>
-                    Staying hands-on keeps me grounded. I'm always refining my craft, exploring modern frameworks, and finding better ways to solve
-                    problems. The best part of the job is delivering solutions that simplify processes, boost efficiency, and make life easier for the
-                    people who depend on them.
-                </p>
-            </div>
+            <p>
+                Over the years, my projects have spanned defense, finance, and manufacturing, where I've led cross-functional teams and built
+                high-impact solutions. From complex migrations and API integrations to workflow automation and production debugging, I focus on
+                translating business goals into clear, maintainable technical outcomes that last.
+            </p>
 
-            <div class="tech-stack content-top pt-0 xl:content-end">
-                <h3>Tech Stack</h3>
-                <div v-if="isLoadingTechStack" class="py-4 text-center">
-                    <p class="text-terminal-black-500">Loading tech stack...</p>
-                </div>
-                <div v-else-if="techStackError" class="py-4 text-center">
-                    <p class="text-red-500">{{ techStackError }}</p>
-                    <button @click="fetchTechStack" class="hover:bg-primary-dark mt-2 rounded bg-primary px-4 py-2 text-white">Retry</button>
-                </div>
-                <ul v-else class="ms-6">
-                    <li
-                        v-for="(item, index) in techStack"
-                        :key="item.tech"
-                        class="ms-6"
-                        :ref="
-                            (el) => {
-                                techStackRefs[index] = el;
-                            }
-                        "
-                    >
-                        <span v-if="item.iconType === 'fa' && item.iconName" class="fa-li">
-                            <FontAwesomeIcon :icon="getFaIcon(item.iconName)" />
-                        </span>
-                        <component
-                            v-else-if="item.iconType === 'si' && getSimpleIcon(item.iconName)"
-                            :is="getSimpleIcon(item.iconName)"
-                            class="-ms-6 inline-block h-5 w-5 fill-current"
-                        />
-                        {{ item.tech }}
-                        <div v-if="item.active" class="position-absolute mt-[-4px] mb-[-4px] text-end text-xs text-terminal-black-500">
-                            (current focus)
-                        </div>
-                    </li>
-                </ul>
+            <p>
+                Staying hands-on keeps me grounded. I'm always refining my craft, exploring modern frameworks, and finding better ways to solve
+                problems. The best part of the job is delivering solutions that simplify processes, boost efficiency, and make life easier for the
+                people who depend on them.
+            </p>
 
-                <div class="btn-wrapper">
-                    <button @click="scrollToSection('projects')" class="btn-content">
-                        <FontAwesomeIcon :icon="faObjectGroup" size="lg" class="me-3" />
-                        View Projects
-                    </button>
-                </div>
-            </div>
-
-            <div class="md:col-span-2">
-                <h3>Skills & Tools</h3>
-
-                <div v-if="isLoadingSkills" class="py-8 text-center">
-                    <p class="text-terminal-black-500">Loading skills...</p>
-                </div>
-
-                <div v-else-if="skillsError" class="py-8 text-center">
-                    <p class="text-red-500">{{ skillsError }}</p>
-                    <button @click="fetchSkills" class="hover:bg-primary-dark mt-4 rounded bg-primary px-4 py-2 text-white">Retry</button>
-                </div>
-
-                <template v-else>
-                    <div class="flex flex-col">
-                        <h4>Software Engineering</h4>
-                        <div class="skills justify-center">
-                            <span v-for="skill in getSkillsBySlug('software')" :key="skill.id" class="pill">{{ skill.name }}</span>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-6 md:flex-row">
-                        <div>
-                            <h4 class="text-center lg:text-start">Architecture & DevOps</h4>
-                            <div class="skills justify-center lg:justify-start">
-                                <span v-for="skill in getSkillsBySlug('devops')" :key="skill.id" class="pill">{{ skill.name }}</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="text-center">Quality & Collaboration</h4>
-                            <div class="skills justify-center">
-                                <span v-for="skill in getSkillsBySlug('quality')" :key="skill.id" class="pill">{{ skill.name }}</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="text-center lg:text-end">Leadership & Team Building</h4>
-                            <div class="skills justify-center lg:justify-end">
-                                <span v-for="skill in getSkillsBySlug('leadership')" :key="skill.id" class="pill">{{ skill.name }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </div>
-
-            <div class="experience md:col-span-2">
-                <h3 class="mb-4">Experience</h3>
-
-                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    <div class="card p-4 text-center">
-                        <div class="mb-2 text-2xl font-bold text-primary">
-                            Master of Business<br />
-                            & Technology
-                        </div>
-                        <img src="/images/uga-logo.png" class="mx-auto" alt="UGA Logo" />
-                    </div>
-
-                    <div class="card flex flex-col items-center justify-center gap-2 p-4 sm:flex-row lg:flex-row">
-                        <div class="text-end text-4xl font-bold text-primary">10+</div>
-                        <div class="text-lg">Years of Professional SWE Experience</div>
-                    </div>
-
-                    <div class="card flex flex-col items-center justify-center gap-2 p-4 sm:flex-row lg:flex-row">
-                        <div class="text-end text-4xl font-bold text-primary lg:text-2xl xl:text-4xl">2.5+</div>
-                        <div class="text-xl">Years of Management</div>
-                    </div>
-
-                    <div class="card flex flex-col items-center justify-center gap-2 p-4 sm:flex-row lg:flex-row">
-                        <div class="text-end text-4xl font-bold text-primary">3+</div>
-                        <div class="text-xl">Years of Project Management</div>
-                    </div>
-                </div>
-            </div>
+            <ul class="flex flex-wrap gap-x-6 gap-y-2 pt-2" aria-label="Highlights">
+                <li v-for="highlight in highlights" :key="highlight.label" class="text-sm">
+                    <span class="font-semibold text-teal-300">{{ highlight.value }}</span>
+                    <span class="text-slate-500"> · {{ highlight.label }}</span>
+                </li>
+            </ul>
         </div>
     </section>
 </template>
-
-<style scoped>
-@reference "@/css/app.css";
-
-.about-section {
-    @apply md:pb-10;
-}
-
-.description p {
-    @apply mb-4 text-lg text-terminal-black-600 md:mx-auto md:leading-relaxed;
-}
-
-.skills {
-    @apply mb-8 flex flex-wrap gap-2;
-}
-
-.pill {
-    @apply inline-block items-center px-4 py-1 select-none;
-    @apply rounded-md border border-terminal-black/60 bg-white/50 font-semibold shadow-md;
-}
-
-ul {
-    @apply mt-2 mb-10 space-y-2 ps-4;
-}
-
-ul li {
-    @apply relative;
-}
-
-.tech-stack ul {
-    @apply mt-2 mb-6 ps-0;
-}
-
-.tech-stack ul li {
-    @apply font-semibold text-terminal-black;
-}
-</style>
