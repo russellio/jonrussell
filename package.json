@@ -37,6 +37,7 @@
     "dependencies": {
         "@fontsource-variable/sixtyfour": "^5.2.8",
         "@fontsource-variable/sixtyfour-convergence": "^5.2.10",
+        "@fontsource/inter": "^5.3.0",
         "@fontsource/sixtyfour": "^5.2.8",
         "@fontsource/space-mono": "^5.2.9",
         "@fortawesome/fontawesome-svg-core": "^7.1.0",
