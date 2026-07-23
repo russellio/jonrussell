@@ -7,12 +7,12 @@ import { faEnvelope, faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 import { faCertificate, faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { BackgroundStars, ToggleSwitch } from '@russellio/vue-background-stars';
-import { defineAsyncComponent } from 'vue';
+// import { defineAsyncComponent } from 'vue';
 
 const { scrollToSection } = useScrollToSection();
 const { openModal } = useModal();
 
-const Mountains = defineAsyncComponent(() => import('@/js/components/Mountains.vue'));
+// const Mountains = defineAsyncComponent(() => import('@/js/components/Mountains.vue'));
 const { showStars } = useStarMode();
 </script>
 
