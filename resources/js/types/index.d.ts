@@ -96,3 +96,37 @@ export interface Project {
     links: ProjectLink[];
     awards?: string[];
 }
+
+export interface SiteMeta {
+    name: string;
+    role: string;
+    tagline: string;
+    about: string[]; // one entry per paragraph
+}
+
+export interface Job {
+    id: string;
+    dateRange: string;
+    title: string;
+    company: string;
+    location: string;
+    locationType?: string;
+    url: string;
+    bullets?: string[];
+    description?: string;
+    tech: string[];
+}
+
+export interface Post {
+    id: string;
+    year: string;
+    title: string;
+    url: string;
+    image: string;
+}
+
+export interface Social {
+    name: string;
+    url: string;
+    icon: string; // icon key — see resources/js/data/socials.ts
+}

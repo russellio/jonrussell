@@ -9,6 +9,7 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
+   /* --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; */
     --font-space-mono: 'Space Mono', monospace;
     --font-sixtyfour: 'Sixtyfour', monospace;
 
@@ -51,6 +52,16 @@
     --color-terminal-black-950: #2e2f30;
 }
 
+/* Redesign */
+.active .nav-indicator {
+    @apply w-16 bg-slate-200;
+}
+
+.active .nav-text {
+    @apply text-slate-200;
+}
+/* End Redsign */
+
 section {
     @apply pb-20;
 }
@@ -81,6 +92,7 @@ html {
 }
 
 body {
+        /* @apply bg-slate-900 leading-relaxed text-slate-400 selection:bg-teal-300 selection:text-teal-900; */
     @apply h-full bg-dark-blue;
 }
 
