@@ -55,9 +55,3 @@ declare module 'vue' {
         $headManager: ReturnType<typeof createHeadManager>;
     }
 }
-
-declare module '@/js/data/projects.json' {
-    import { Project } from '@/js/types/index';
-    const projects: Project[];
-    export default projects;
-}

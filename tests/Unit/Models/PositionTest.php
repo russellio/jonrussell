@@ -4,6 +4,7 @@ use App\Models\Company;
 use App\Models\Position;
 use App\Models\Skill;
 use App\Models\SkillType;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Carbon;
 
 test('position belongs to company', function () {
@@ -67,8 +68,8 @@ test('start and end dates are cast to carbon instances', function () {
         'end_date' => '2024-01-01',
     ]);
 
-    expect($position->start_date)->toBeInstanceOf(Carbon::class);
-    expect($position->end_date)->toBeInstanceOf(Carbon::class);
+    expect($position->start_date)->toBeInstanceOf(CarbonImmutable::class);
+    expect($position->end_date)->toBeInstanceOf(CarbonImmutable::class);
 });
 
 test('end date cast is null when not set', function () {
