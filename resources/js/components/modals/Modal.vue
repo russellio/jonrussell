@@ -49,7 +49,10 @@ useEscapeKey(() => closeModal(modalId));
                     <slot name="title">{{ title }}</slot>
                 </h1>
                 <button @click="closeModal(modalId)" aria-label="Close" class="absolute top-0 right-0 m-2 cursor-pointer">
-                    <FontAwesomeIcon :icon="faXmark" class="bg-blur-sm m-1 h-6 w-6 rounded-md border border-white bg-white/50 p-2 text-black" />
+                    <FontAwesomeIcon
+                        :icon="faXmark"
+                        class="bg-blur-sm m-1 h-6 w-6 rounded-md border border-slate-600 bg-slate-700/50 p-2 text-slate-200 transition-colors hover:border-teal-300/50 hover:text-teal-300 motion-reduce:transition-none"
+                    />
                 </button>
             </div>
 
@@ -79,15 +82,15 @@ useEscapeKey(() => closeModal(modalId));
 }
 
 .modal-header h1 {
-    @apply font-sixtyfour text-xl font-normal text-secondary uppercase md:text-2xl;
+    @apply font-sixtyfour text-xl font-normal text-teal-300 uppercase md:text-2xl;
 }
 
 .modal-header h1 span {
-    @apply align-top text-4xl font-extrabold text-primary normal-case;
+    @apply align-top text-4xl font-extrabold text-slate-100 normal-case;
 }
 
 .modal-content {
-    @apply flex w-full flex-col bg-[#222] p-4 pt-2 text-white md:flex-row;
+    @apply flex w-full flex-col bg-slate-900 p-4 pt-2 text-slate-300 md:flex-row;
 }
 
 .modal-footer {

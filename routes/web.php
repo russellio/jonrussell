@@ -4,26 +4,48 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::inertia('/homie', 'Home')->name('homie');
-
 Route::get('/', function () {
-    return Inertia::render('SPA');
+    return Inertia::render('Home');
 })->name('home');
 
 Route::get('/about', function () {
-    return Inertia::render('SPA', [
+    return Inertia::render('Home', [
         'scrollTo' => 'about',
     ]);
 })->name('about');
 
+Route::get('/tech-stack', function () {
+    return Inertia::render('Home', [
+        'scrollTo' => 'tech-stack',
+    ]);
+})->name('tech-stack');
+
+Route::get('/skills', function () {
+    return Inertia::render('Home', [
+        'scrollTo' => 'skills',
+    ]);
+})->name('skills');
+
+Route::get('/experience', function () {
+    return Inertia::render('Home', [
+        'scrollTo' => 'experience',
+    ]);
+})->name('experience');
+
 Route::get('/projects', function () {
-    return Inertia::render('SPA', [
+    return Inertia::render('Home', [
         'scrollTo' => 'projects',
     ]);
 })->name('projects');
 
+Route::get('/writing', function () {
+    return Inertia::render('Home', [
+        'scrollTo' => 'writing',
+    ]);
+})->name('writing');
+
 Route::get('/contact', function () {
-    return Inertia::render('SPA', [
+    return Inertia::render('Home', [
         'scrollTo' => 'contact',
     ]);
 })->name('contact');

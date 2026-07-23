@@ -1,5 +1,5 @@
-import { AppPageProps } from '@/js/types/index';
 import type { Auth } from '@/js/types/auth';
+import { AppPageProps } from '@/js/types/index';
 
 declare global {
     interface TurnstileRenderOptions {

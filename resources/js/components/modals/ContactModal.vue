@@ -306,15 +306,15 @@ const submitForm = async () => {
 @reference "@/css/app.css";
 
 label {
-    @apply mt-3 mb-2 font-space-mono text-xl font-semibold tracking-widest text-white;
+    @apply mt-3 mb-2 font-space-mono text-xl font-semibold tracking-widest text-slate-200;
     @apply md:mt-1 md:text-end md:text-lg lg:text-2xl;
 }
 
 input,
 textarea {
     @apply font-sans;
-    @apply w-full rounded-md border bg-white px-3 py-2 text-lg text-terminal-black;
-    @apply placeholder:text-terminal-black/40 placeholder:italic;
-    @apply focus:border-blue focus:shadow focus:outline-none;
+    @apply w-full rounded-md border border-slate-600 bg-slate-900/60 px-3 py-2 text-lg text-slate-200;
+    @apply placeholder:text-slate-500 placeholder:italic;
+    @apply focus:border-teal-300 focus:shadow focus:outline-none;
 }
 </style>

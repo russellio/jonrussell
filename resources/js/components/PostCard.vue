@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { Post } from '@/js/types';
+import type { Post } from '@/js/types/index';
+import { Link } from '@inertiajs/vue3';
 
 defineProps<{
     post: Post;
@@ -15,17 +16,28 @@ defineProps<{
                 class="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"
             ></div>
             <img
-                :src="post.image"
-                :alt="post.title"
+                v-if="post.image?.src"
+                :src="post.image.src"
+                :alt="post.image.alt || post.title"
                 loading="lazy"
                 class="z-10 col-span-2 aspect-video rounded border-2 border-slate-200/10 object-cover transition group-hover:border-slate-200/30 sm:col-span-2"
             />
-            <div class="z-10 col-span-6">
-                <p class="-mt-1 text-sm leading-6 font-semibold">{{ post.year }}</p>
+            <div class="z-10" :class="post.image?.src ? 'col-span-6' : 'col-span-8'">
+                <p v-if="post.year" class="-mt-1 text-sm leading-6 font-semibold">{{ post.year }}</p>
                 <h3 class="-mt-1">
+                    <Link
+                        v-if="post.hasBody"
+                        :href="`/posts/${post.id}`"
+                        class="group/link relative inline-flex items-baseline text-base leading-tight font-medium text-slate-200"
+                        :aria-label="post.title"
+                    >
+                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                        <span>{{ post.title }}</span>
+                    </Link>
                     <a
-                        class="group/link inline-flex items-baseline text-base leading-tight font-medium text-slate-200"
-                        :href="post.url"
+                        v-else-if="post.externalUrl"
+                        class="group/link relative inline-flex items-baseline text-base leading-tight font-medium text-slate-200"
+                        :href="post.externalUrl"
                         target="_blank"
                         rel="noreferrer noopener"
                         :aria-label="`${post.title} (opens in a new tab)`"
@@ -48,6 +60,7 @@ defineProps<{
                             </svg>
                         </span>
                     </a>
+                    <span v-else class="inline-flex items-baseline text-base leading-tight font-medium text-slate-200">{{ post.title }}</span>
                 </h3>
             </div>
         </div>

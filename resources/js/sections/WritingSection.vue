@@ -1,6 +1,32 @@
 <script setup lang="ts">
 import PostCard from '@/js/components/PostCard.vue';
-import { posts } from '@/js/data/posts';
+import { get } from '@/js/lib/api';
+import type { ApiResponse, Post } from '@/js/types/index';
+import { onMounted, ref } from 'vue';
+
+const posts = ref<Post[]>([]);
+const isLoading = ref(false);
+const error = ref<string | null>(null);
+
+const fetchPosts = async () => {
+    isLoading.value = true;
+    error.value = null;
+
+    try {
+        const { data } = await get<ApiResponse<Post[]>>('/api/posts');
+        posts.value = data;
+    } catch (err) {
+        console.error('Error fetching posts:', err);
+        error.value = err instanceof Error ? err.message : 'Failed to load writing';
+        posts.value = [];
+    } finally {
+        isLoading.value = false;
+    }
+};
+
+onMounted(() => {
+    fetchPosts();
+});
 </script>
 
 <template>
@@ -10,7 +36,21 @@ import { posts } from '@/js/data/posts';
         >
             <h2 class="text-sm font-bold tracking-widest text-slate-200 uppercase lg:sr-only">Writing</h2>
         </div>
-        <div>
+
+        <div v-if="isLoading" class="py-8 text-sm text-slate-500">Loading writing…</div>
+
+        <div v-else-if="error" class="py-8 text-sm text-slate-500">
+            <p>{{ error }}</p>
+            <button
+                type="button"
+                class="mt-3 rounded border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-teal-300/50 hover:text-teal-300 motion-reduce:transition-none"
+                @click="fetchPosts"
+            >
+                Retry
+            </button>
+        </div>
+
+        <div v-else-if="posts.length">
             <ul class="group/list">
                 <PostCard v-for="post in posts" :key="post.id" :post="post" />
             </ul>
