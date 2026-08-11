@@ -15,7 +15,7 @@ const credentials = [
     <header class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[44%] lg:flex-col lg:justify-between lg:py-16">
         <div>
             <div class="flex items-center gap-4">
-                <div class="absolute z-30 mt-1 h-22 w-20 rounded-lg border-2 border-secondary bg-white/30"></div>
+                <div class="absolute z-30 mt-1 h-22 w-20 rounded-lg border-2 border-brand-red bg-white/30"></div>
                 <img src="/images/profile-avatar.svg" alt="Jon Russell" class="z-40 w-20 shrink-0 object-cover" />
                 <div>
                     <h1 class="pt-2 text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">

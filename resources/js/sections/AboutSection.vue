@@ -12,7 +12,7 @@ const highlights = [
 <template>
     <section id="about" class="mb-16 flex scroll-mt-16 flex-col text-base md:mb-24 lg:mt-0 lg:mb-20 lg:scroll-mt-20 lg:pt-0" aria-label="About me">
         <SectionHeading title="About Me" />
-        <div class="gap-6 rounded-br-2xl rounded-bl-2xl border-b border-secondary bg-black/30 px-6 pt-3 pb-10 text-sm">
+        <div class="gap-6 rounded-br-2xl rounded-bl-2xl border-b border-brand-red bg-black/30 px-6 pt-3 pb-10 text-sm">
             <p class="my-4 text-base">
                 <span class="me-4 text-3xl font-bold text-white">Hello!</span>
                 I'm Jon, a full stack engineer with 13+ years of experience designing, developing, and scaling enterprise applications. My primary
