@@ -40,20 +40,16 @@ const thumbSrc = computed(() => {
                 </h3>
                 <p class="mt-2 text-sm leading-normal">{{ project.byline }}</p>
                 <ul v-if="project.awards && project.awards.length > 0" class="mt-2 flex flex-wrap gap-1.5" aria-label="Awards">
-                    <li
-                        v-for="award in project.awards"
-                        :key="award"
-                        class="inline-flex items-center gap-1 rounded-full border border-teal-300/30 px-2.5 py-0.5 text-[11px] font-medium text-teal-300"
-                    >
-                        <FontAwesomeIcon :icon="faAward" class="h-3 w-3" />
-                        {{ award }}
+                    <li v-for="award in project.awards" :key="award">
+                        <UBadge color="primary" variant="outline" size="sm">
+                            <FontAwesomeIcon :icon="faAward" class="h-3 w-3" />
+                            {{ award }}
+                        </UBadge>
                     </li>
                 </ul>
                 <ul v-if="project.highlightedSkills.length" class="mt-2 flex flex-wrap" aria-label="Technologies used">
                     <li v-for="skill in project.highlightedSkills" :key="skill" class="mt-2 mr-1.5">
-                        <div class="flex items-center rounded-full bg-teal-400/10 px-3 py-1 text-xs leading-5 font-medium text-teal-300">
-                            {{ skill }}
-                        </div>
+                        <UBadge color="primary" variant="soft" size="sm">{{ skill }}</UBadge>
                     </li>
                 </ul>
             </div>

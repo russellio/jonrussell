@@ -72,9 +72,7 @@ const dateRange = computed(() => {
                 ></div>
                 <ul v-if="position.skills.length" class="mt-2 flex flex-wrap" aria-label="Skills used">
                     <li v-for="skill in position.skills" :key="skill.id" class="mt-2 mr-1.5">
-                        <div class="flex items-center rounded-full bg-teal-400/10 px-3 py-1 text-xs leading-5 font-medium text-teal-300">
-                            {{ skill.name }}
-                        </div>
+                        <UBadge color="primary" variant="soft" size="sm">{{ skill.name }}</UBadge>
                     </li>
                 </ul>
             </div>

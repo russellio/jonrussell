@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import JobCard from '@/js/components/JobCard.vue';
+import SectionState from '@/js/components/SectionState.vue';
 import { get } from '@/js/lib/api';
 import type { ApiResponse, TimelinePosition } from '@/js/types/index';
 import { computed, onMounted, ref } from 'vue';
@@ -39,24 +40,25 @@ onMounted(() => {
             <h2 class="text-sm font-bold tracking-widest text-slate-200 uppercase lg:sr-only">Experience</h2>
         </div>
 
-        <div v-if="isLoading" class="py-8 text-sm text-slate-500">Loading experience…</div>
+        <SectionState :loading="isLoading" :error="error" @retry="fetchTimeline">
+            <template #loading>
+                <div class="space-y-6 py-8">
+                    <div v-for="n in 3" :key="n" class="grid gap-4 sm:grid-cols-8 sm:gap-8">
+                        <USkeleton class="h-4 w-20 sm:col-span-2" />
+                        <div class="sm:col-span-6">
+                            <USkeleton class="h-5 w-1/2" />
+                            <USkeleton class="mt-2 h-4 w-full" />
+                        </div>
+                    </div>
+                </div>
+            </template>
 
-        <div v-else-if="error" class="py-8 text-sm text-slate-500">
-            <p>{{ error }}</p>
-            <button
-                type="button"
-                class="mt-3 rounded border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-teal-300/50 hover:text-teal-300 motion-reduce:transition-none"
-                @click="fetchTimeline"
-            >
-                Retry
-            </button>
-        </div>
-
-        <div v-else>
-            <ol class="group/list">
-                <JobCard v-for="position in curatedPositions" :key="position.id" :position="position" />
-            </ol>
-            <!-- TODO: re-enable when public/resume.pdf is supplied -->
-        </div>
+            <div>
+                <ol class="group/list">
+                    <JobCard v-for="position in curatedPositions" :key="position.id" :position="position" />
+                </ol>
+                <!-- TODO: re-enable when public/resume.pdf is supplied -->
+            </div>
+        </SectionState>
     </section>
 </template>

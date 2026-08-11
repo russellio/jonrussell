@@ -38,7 +38,13 @@ const { openModal } = useModal();
                 </a>
             </li>
             <li>
-                <button type="button" class="group flex w-full items-center py-3 text-left" @click="openModal('contact-modal')">
+                <UButton
+                    type="button"
+                    variant="link"
+                    class="group flex w-full items-center py-3 text-left"
+                    :ui="{ base: 'px-0' }"
+                    @click="openModal('contact-modal')"
+                >
                     <span
                         class="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 motion-reduce:transition-none"
                     ></span>
@@ -47,7 +53,7 @@ const { openModal } = useModal();
                     >
                         Contact
                     </span>
-                </button>
+                </UButton>
             </li>
         </ul>
     </nav>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PostCard from '@/js/components/PostCard.vue';
+import SectionState from '@/js/components/SectionState.vue';
 import { get } from '@/js/lib/api';
 import type { ApiResponse, Post } from '@/js/types/index';
 import { onMounted, ref } from 'vue';
@@ -37,23 +38,21 @@ onMounted(() => {
             <h2 class="text-sm font-bold tracking-widest text-slate-200 uppercase lg:sr-only">Posts</h2>
         </div>
 
-        <div v-if="isLoading" class="py-8 text-sm text-slate-500">Loading posts…</div>
+        <SectionState :loading="isLoading" :error="error" @retry="fetchPosts">
+            <template #loading>
+                <div class="space-y-6 py-8">
+                    <div v-for="n in 3" :key="n" class="sm:col-span-6">
+                        <USkeleton class="h-5 w-2/3" />
+                        <USkeleton class="mt-2 h-4 w-full" />
+                    </div>
+                </div>
+            </template>
 
-        <div v-else-if="error" class="py-8 text-sm text-slate-500">
-            <p>{{ error }}</p>
-            <button
-                type="button"
-                class="mt-3 rounded border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-teal-300/50 hover:text-teal-300 motion-reduce:transition-none"
-                @click="fetchPosts"
-            >
-                Retry
-            </button>
-        </div>
-
-        <div v-else-if="posts.length">
-            <ul class="group/list">
-                <PostCard v-for="post in posts" :key="post.id" :post="post" />
-            </ul>
-        </div>
+            <div v-if="posts.length">
+                <ul class="group/list">
+                    <PostCard v-for="post in posts" :key="post.id" :post="post" />
+                </ul>
+            </div>
+        </SectionState>
     </section>
 </template>
