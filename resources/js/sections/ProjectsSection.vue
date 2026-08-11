@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ProjectCard from '@/js/components/ProjectCard.vue';
+import SectionState from '@/js/components/SectionState.vue';
 import ProjectModal from '@/js/components/modals/ProjectModal.vue';
 import { useModal } from '@/js/composables/useModal';
 import { get } from '@/js/lib/api';
@@ -49,24 +50,25 @@ onMounted(() => {
             <h2 class="text-sm font-bold tracking-widest text-slate-200 uppercase lg:sr-only">Projects</h2>
         </div>
 
-        <div v-if="isLoading" class="py-8 text-sm text-slate-500">Loading projects…</div>
+        <SectionState :loading="isLoading" :error="error" @retry="fetchProjects">
+            <template #loading>
+                <div class="space-y-6 py-8">
+                    <div v-for="n in 3" :key="n" class="grid gap-4 sm:grid-cols-8 sm:gap-8">
+                        <div class="sm:col-span-6">
+                            <USkeleton class="h-5 w-2/3" />
+                            <USkeleton class="mt-2 h-4 w-full" />
+                        </div>
+                        <USkeleton class="aspect-video sm:col-span-2" />
+                    </div>
+                </div>
+            </template>
 
-        <div v-else-if="error" class="py-8 text-sm text-slate-500">
-            <p>{{ error }}</p>
-            <button
-                type="button"
-                class="mt-3 rounded border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-teal-300/50 hover:text-teal-300 motion-reduce:transition-none"
-                @click="fetchProjects"
-            >
-                Retry
-            </button>
-        </div>
-
-        <div v-else>
-            <ul class="group/list">
-                <ProjectCard v-for="project in projects" :key="project.id" :project="project" @select="onSelect" />
-            </ul>
-        </div>
+            <div>
+                <ul class="group/list">
+                    <ProjectCard v-for="project in projects" :key="project.id" :project="project" @select="onSelect" />
+                </ul>
+            </div>
+        </SectionState>
 
         <ProjectModal v-if="isModalOpen && selectedProject" :project="selectedProject" />
     </section>

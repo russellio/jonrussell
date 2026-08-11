@@ -10,30 +10,34 @@ const socials = [
     { name: 'GitHub', url: 'https://github.com/russellio', icon: faGithub },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/russell-jonathan/', icon: faLinkedin },
 ];
-
-const iconClass = 'block h-10 w-10 text-slate-400 transition-colors hover:text-teal-300 focus-visible:text-teal-300';
 </script>
 
 <template>
     <ul class="mt-8 flex justify-center" aria-label="Social media">
         <li v-for="social in socials" :key="social.name" class="mx-5 shrink-0 text-center">
-            <a
-                :class="iconClass"
-                :href="social.url"
+            <UButton
+                variant="ghost"
+                color="neutral"
+                :to="social.url"
                 target="_blank"
                 rel="noreferrer noopener"
                 :aria-label="`${social.name} (opens in a new tab)`"
                 :title="social.name"
             >
-                <span class="sr-only">{{ social.name }}</span>
-                <FontAwesomeIcon :icon="social.icon" class="h-6 w-6" aria-hidden="true" />
-            </a>
+                <FontAwesomeIcon :icon="social.icon" class="h-8 w-8" aria-hidden="true" />
+            </UButton>
         </li>
         <li class="mx-5 shrink-0 text-center">
-            <button type="button" :class="iconClass" aria-label="Email Jon Russell" title="Email" @click="openModal('contact-modal')">
-                <span class="sr-only">Email</span>
-                <FontAwesomeIcon :icon="faEnvelope" class="h-6 w-6" aria-hidden="true" />
-            </button>
+            <UButton
+                type="button"
+                variant="ghost"
+                color="neutral"
+                aria-label="Email Jon Russell"
+                title="Email"
+                @click="openModal('contact-modal')"
+            >
+                <FontAwesomeIcon :icon="faEnvelope" class="h-8 w-8" aria-hidden="true" />
+            </UButton>
         </li>
     </ul>
 </template>

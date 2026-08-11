@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SectionHeading from '@/js/components/SectionHeading.vue';
+import SectionState from '@/js/components/SectionState.vue';
 import { get } from '@/js/lib/api';
 import type { ApiResponse, TechStackItem } from '@/js/types/index';
 import { onMounted, ref } from 'vue';
@@ -65,36 +66,31 @@ onMounted(() => {
     <section id="tech-stack" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-16 lg:scroll-mt-24" aria-label="Tech stack">
         <SectionHeading title="Tech Stack" />
 
-        <div v-if="isLoading" class="py-8 text-sm text-slate-500">Loading tech stack…</div>
+        <SectionState :loading="isLoading" :error="error" @retry="fetchTechStack">
+            <template #loading>
+                <div class="flex flex-wrap justify-center gap-6 py-4">
+                    <USkeleton v-for="n in 10" :key="n" class="h-4 w-20" />
+                </div>
+            </template>
 
-        <div v-else-if="error" class="py-8 text-sm text-slate-500">
-            <p>{{ error }}</p>
-            <button
-                type="button"
-                class="mt-3 rounded border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-teal-300/50 hover:text-teal-300 motion-reduce:transition-none"
-                @click="fetchTechStack"
-            >
-                Retry
-            </button>
-        </div>
-
-        <div v-else class="flex flex-wrap gap-6">
-            <div v-for="item in techStack" :key="item.tech" class="flex gap-2">
-                <FontAwesomeIcon
-                    v-if="item.iconType === 'fa' && item.iconName && getFaIcon(item.iconName)[0]"
-                    :icon="getFaIcon(item.iconName)"
-                    class="h-4 w-4 shrink-0 text-slate-500"
-                />
-                <component
-                    v-else-if="item.iconType === 'si' && item.iconName && getSimpleIcon(item.iconName)"
-                    :is="getSimpleIcon(item.iconName)"
-                    class="h-4 w-4 shrink-0 fill-current text-slate-500"
-                />
-                <span class="align-middle text-sm" :class="item.active ? 'text-teal-300' : 'text-slate-500'">
-                    {{ item.tech }}
-                </span>
+            <div class="flex flex-wrap justify-center gap-6 py-4">
+                <div v-for="item in techStack" :key="item.tech" class="flex gap-2">
+                    <FontAwesomeIcon
+                        v-if="item.iconType === 'fa' && item.iconName && getFaIcon(item.iconName)[0]"
+                        :icon="getFaIcon(item.iconName)"
+                        class="h-4 w-4 shrink-0 text-slate-500"
+                    />
+                    <component
+                        v-else-if="item.iconType === 'si' && item.iconName && getSimpleIcon(item.iconName)"
+                        :is="getSimpleIcon(item.iconName)"
+                        class="h-4 w-4 shrink-0 fill-current text-slate-500"
+                    />
+                    <span class="align-middle text-sm" :class="item.active ? 'text-teal-300' : 'text-slate-500'">
+                        {{ item.tech }}
+                    </span>
+                </div>
             </div>
-        </div>
+        </SectionState>
 
         <!-- <ul class="mt-10 space-y-3">
             <li v-for="item in techStack" :key="item.tech" class="flex items-center gap-3">
