@@ -40,7 +40,7 @@ class PostSeeder extends Seeder
                 'title' => 'Introducing vue-background-stars',
                 'excerpt' => 'A lightweight, dependency-free animated starfield for Vue 3 — the same component powering the space-mode toggle on this site.',
                 'body' => $body,
-                'image_src' => '/images/writing/vue-background-stars.png',
+                'image_src' => '/images/posts/vue-background-stars.png',
                 'image_alt' => 'vue-background-stars animated starfield',
                 'external_url' => null,
                 'published_at' => now(),

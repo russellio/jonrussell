@@ -11,12 +11,12 @@ const socials = [
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/russell-jonathan/', icon: faLinkedin },
 ];
 
-const iconClass = 'block h-6 w-6 text-slate-400 transition-colors hover:text-teal-300 focus-visible:text-teal-300';
+const iconClass = 'block h-10 w-10 text-slate-400 transition-colors hover:text-teal-300 focus-visible:text-teal-300';
 </script>
 
 <template>
-    <ul class="mt-8 ml-1 flex items-center" aria-label="Social media">
-        <li v-for="social in socials" :key="social.name" class="mr-5 shrink-0 text-xs">
+    <ul class="mt-8 flex justify-center" aria-label="Social media">
+        <li v-for="social in socials" :key="social.name" class="mx-5 shrink-0 text-center">
             <a
                 :class="iconClass"
                 :href="social.url"
@@ -29,7 +29,7 @@ const iconClass = 'block h-6 w-6 text-slate-400 transition-colors hover:text-tea
                 <FontAwesomeIcon :icon="social.icon" class="h-6 w-6" aria-hidden="true" />
             </a>
         </li>
-        <li class="mr-5 shrink-0 text-xs">
+        <li class="mx-5 shrink-0 text-center">
             <button type="button" :class="iconClass" aria-label="Email Jon Russell" title="Email" @click="openModal('contact-modal')">
                 <span class="sr-only">Email</span>
                 <FontAwesomeIcon :icon="faEnvelope" class="h-6 w-6" aria-hidden="true" />

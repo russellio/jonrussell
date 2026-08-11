@@ -25,7 +25,7 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
     <Head :title="post.title" />
 
     <article class="mx-auto min-h-screen max-w-screen-md px-6 py-16 font-sans md:px-12 md:py-24">
-        <Link href="/writing" class="group inline-flex items-center text-sm font-semibold text-teal-300 transition-colors hover:text-teal-200">
+        <Link href="/" class="group inline-flex items-center text-sm font-semibold text-teal-300 transition-colors hover:text-teal-200">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -39,7 +39,7 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
                     clip-rule="evenodd"
                 />
             </svg>
-            Back to writing
+            Back Home
         </Link>
 
         <header class="mt-8 mb-8">

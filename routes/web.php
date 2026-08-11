@@ -38,11 +38,11 @@ Route::get('/projects', function () {
     ]);
 })->name('projects');
 
-Route::get('/writing', function () {
-    return Inertia::render('Home', [
-        'scrollTo' => 'writing',
-    ]);
-})->name('writing');
+// Route::get('/posts', function () {
+//     return Inertia::render('Home', [
+//         'scrollTo' => 'posts',
+//     ]);
+// })->name('posts');
 
 Route::get('/contact', function () {
     return Inertia::render('Home', [

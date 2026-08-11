@@ -1,5 +1,12 @@
 packages:
   - '.'
 
+allowBuilds:
+  esbuild: false
+  vue-demi: false
+
+minimumReleaseAgeExclude:
+  - esbuild@0.28.1
+
 publicHoistPattern:
   - '@inertiajs/core'
