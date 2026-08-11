@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import Modal from '@/js/components/modals/Modal.vue';
+import { useModal } from '@/js/composables/useModal';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+
+const { isOpen, closeModal } = useModal();
+const open = computed({
+    get: () => isOpen('contact-modal'),
+    set: (value: boolean) => {
+        if (!value) closeModal('contact-modal');
+    },
+});
 
 const turnstileSitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
 
@@ -221,85 +229,82 @@ const submitForm = async () => {
 </script>
 
 <template>
-    <Modal
-        modalId="contact-modal"
-        title="Contact Me"
-        :showSubmit="!isFormSubmitted"
-        :submitDisabled="!isFormValid || isFormSubmitted"
-        :isLoading="isLoading"
-        :cancelText="!isFormSubmitted ? `Cancel` : `Close`"
-        @submit="submitForm"
-    >
-        <template #submitText>Send <span class="hidden sm:inline-block"> Message</span></template>
-        <div class="flex w-full flex-col">
-            <div v-if="successMessage" class="success">
-                {{ successMessage }}
-            </div>
-
-            <div v-for="(error, key) in errors" :key="key" class="error">
-                <span v-if="error">{{ key }} {{ error }}</span>
-            </div>
-
-            <div v-if="!isFormSubmitted" class="grid w-full grid-cols-1 gap-1 p-4 md:grid-cols-[20%_auto] md:gap-4 md:p-6">
-                <label for="email">Email:</label>
-                <div class="flex flex-col">
-                    <input
-                        id="email"
-                        :value="form.email"
-                        @input="handleEmailChange"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        :class="{
-                            'border-red-500': errors.email || validationErrors.email,
-                            'border-success': form.email && !validationErrors.email && !errors.email,
-                        }"
-                        autocomplete="email"
-                    />
-                    <div v-if="emailError" class="error">{{ emailError }}</div>
-                    <div v-if="validationErrors.email" class="error">{{ validationErrors.email }}</div>
+    <UModal v-model:open="open" title="Contact Me">
+        <template #body>
+            <div class="flex w-full flex-col">
+                <div v-if="successMessage" class="success">
+                    {{ successMessage }}
                 </div>
 
-                <label for="subject">Subject:</label>
-                <div class="flex flex-col">
-                    <input
-                        id="subject"
-                        :value="form.subject"
-                        @input="handleSubjectChange"
-                        type="text"
-                        placeholder="Tacos are delicious!"
-                        :class="{
-                            'border-red-500': errors.subject || validationErrors.subject,
-                            'border-success': form.subject && !validationErrors.subject && !errors.subject,
-                        }"
-                        autocomplete="off"
-                    />
-                    <div v-if="subjectError" class="error">{{ subjectError }}</div>
-                    <div v-if="validationErrors.subject" class="error">{{ validationErrors.subject }}</div>
+                <div v-for="(error, key) in errors" :key="key" class="error">
+                    <span v-if="error">{{ key }} {{ error }}</span>
                 </div>
 
-                <label for="message">Message:</label>
-                <div class="flex flex-col">
-                    <textarea
-                        id="message"
-                        :value="form.message"
-                        @input="handleMessageChange"
-                        placeholder="Your message here..."
-                        rows="4"
-                        :class="{
-                            'border-error': errors.message || validationErrors.message,
-                            'border-success': form.message && !validationErrors.message && !errors.message,
-                        }"
-                    ></textarea>
-                    <div v-if="messageError" class="error">{{ messageError }}</div>
-                    <div v-if="validationErrors.message" class="error">{{ validationErrors.message }}</div>
+                <div v-if="!isFormSubmitted" class="grid w-full grid-cols-1 gap-1 p-4 md:grid-cols-[20%_auto] md:gap-4 md:p-6">
+                    <label for="email">Email:</label>
+                    <div class="flex flex-col">
+                        <input
+                            id="email"
+                            :value="form.email"
+                            @input="handleEmailChange"
+                            type="email"
+                            placeholder="your.email@example.com"
+                            :class="{
+                                'border-red-500': errors.email || validationErrors.email,
+                                'border-success': form.email && !validationErrors.email && !errors.email,
+                            }"
+                            autocomplete="email"
+                        />
+                        <div v-if="emailError" class="error">{{ emailError }}</div>
+                        <div v-if="validationErrors.email" class="error">{{ validationErrors.email }}</div>
+                    </div>
+
+                    <label for="subject">Subject:</label>
+                    <div class="flex flex-col">
+                        <input
+                            id="subject"
+                            :value="form.subject"
+                            @input="handleSubjectChange"
+                            type="text"
+                            placeholder="Tacos are delicious!"
+                            :class="{
+                                'border-red-500': errors.subject || validationErrors.subject,
+                                'border-success': form.subject && !validationErrors.subject && !errors.subject,
+                            }"
+                            autocomplete="off"
+                        />
+                        <div v-if="subjectError" class="error">{{ subjectError }}</div>
+                        <div v-if="validationErrors.subject" class="error">{{ validationErrors.subject }}</div>
+                    </div>
+
+                    <label for="message">Message:</label>
+                    <div class="flex flex-col">
+                        <textarea
+                            id="message"
+                            :value="form.message"
+                            @input="handleMessageChange"
+                            placeholder="Your message here..."
+                            rows="4"
+                            :class="{
+                                'border-error': errors.message || validationErrors.message,
+                                'border-success': form.message && !validationErrors.message && !errors.message,
+                            }"
+                        ></textarea>
+                        <div v-if="messageError" class="error">{{ messageError }}</div>
+                        <div v-if="validationErrors.message" class="error">{{ validationErrors.message }}</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <div class="scale-80 md:scale-100" id="turnstile-container"></div>
                 </div>
             </div>
-
-            <div class="flex justify-center">
-                <div class="scale-80 md:scale-100" id="turnstile-container"></div>
-            </div>
-        </div>
-    </Modal>
+        </template>
+        <template #footer="{ close }">
+            <UButton color="neutral" variant="outline" :label="!isFormSubmitted ? 'Cancel' : 'Close'" @click="close" />
+            <UButton v-if="!isFormSubmitted" label="Send Message" :loading="isLoading" :disabled="!isFormValid" @click="submitForm" />
+        </template>
+    </UModal>
 </template>
 
 <style scoped>
