@@ -1,49 +1,50 @@
 <script setup lang="ts">
 import Nav from '@/js/layout/Nav.vue';
 import Socials from '@/js/layout/Socials.vue';
-import { faCertificate, faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const credentials = [
     { icon: faLocationDot, label: 'Remote · North Carolina' },
-    { icon: faCertificate, label: 'Certified ScrumMaster' },
+    // { icon: faCertificate, label: 'Certified ScrumMaster' },
     { icon: faUserShield, label: 'Confidential Clearance' },
 ];
 </script>
 
 <template>
-    <header class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[48%] lg:flex-col lg:justify-between lg:py-24">
+    <header class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[44%] lg:flex-col lg:justify-between lg:py-16">
         <div>
             <div class="flex items-center gap-4">
-                <img
-                    src="/images/profile-avatar.svg"
-                    alt="Jon Russell"
-                    class="h-16 w-16 shrink-0 rounded-full bg-slate-800 object-cover ring-1 ring-slate-700/60"
-                />
+                <div class="absolute z-30 mt-1 h-22 w-20 rounded-lg border-2 border-secondary bg-white/30"></div>
+                <img src="/images/profile-avatar.svg" alt="Jon Russell" class="z-40 w-20 shrink-0 object-cover" />
                 <div>
-                    <h1 class="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">
+                    <h1 class="pt-2 text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">
                         <a href="/">Jon Russell</a>
                     </h1>
-                    <h2 class="mt-1 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">Senior Full Stack Engineer</h2>
+                    <h2 class="mt-1 text-lg font-medium tracking-tight text-slate-100 sm:text-xl lg:ps-1">Senior Full Stack Engineer</h2>
                 </div>
             </div>
 
-            <p class="mt-4 max-w-xs leading-normal">I create robust, scalable solutions that power modern web and mobile applications.</p>
+            <p class="mt-4 max-w-xs leading-normal text-slate-200">
+                Building robust, scalable solutions for modern web and mobile applications today.
+                <br />
+                Saving the world tomorrow.
+            </p>
 
-            <ul class="mt-4 flex flex-wrap gap-2" aria-label="Credentials">
+            <ul class="mt-4 flex gap-2" aria-label="Credentials">
                 <li
                     v-for="credential in credentials"
                     :key="credential.label"
-                    class="flex items-center gap-1.5 rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium text-teal-300"
+                    class="flex items-center gap-1.5 rounded-full border border-slate-300 bg-primary px-3 py-1 text-xs text-white"
                 >
-                    <FontAwesomeIcon :icon="credential.icon" class="h-3 w-3" aria-hidden="true" />
+                    <FontAwesomeIcon :icon="credential.icon" class="-ms-1 h-3 w-3 border-e border-e-white/30 pe-1" aria-hidden="true" />
                     {{ credential.label }}
                 </li>
             </ul>
 
+            <Socials />
+
             <Nav />
         </div>
-
-        <Socials />
     </header>
 </template>

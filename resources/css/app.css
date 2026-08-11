@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import '@fontsource/inter';
 @import '@fontsource/space-mono';
 @import '@fontsource/sixtyfour';
 
@@ -10,11 +9,12 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: sans-serif, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-space-mono: 'Space Mono', monospace;
     --font-sixtyfour: 'Sixtyfour', monospace;
 
     --color-primary: var(--color-blue);
+    /* --color-primary: var(--color-teal-300); */
     --color-secondary: var(--color-bulldog-red);
     --color-success: var(--color-green-700);
     --color-error: var(--color-red);
@@ -55,11 +55,11 @@
 
 /* Redesign */
 .active .nav-indicator {
-    @apply w-16 bg-slate-200;
+    @apply w-24 bg-slate-200;
 }
 
 .active .nav-text {
-    @apply text-slate-200;
+    @apply text-sm text-slate-100;
 }
 /* End Redsign */
 
@@ -69,7 +69,7 @@ html {
 }
 
 body {
-    @apply h-full bg-slate-900 leading-relaxed text-slate-400 selection:bg-teal-300 selection:text-teal-900;
+    @apply h-full text-slate-200 selection:bg-teal-300 selection:text-teal-900;
 }
 
 p {
@@ -87,6 +87,19 @@ p {
 
 .text-outline {
     text-shadow:
+        -1px 0 1px var(--color-terminal-black-400),
+        1px 0 1px var(--color-terminal-black-400),
+        0 0 1px var(--color-terminal-black-400),
+        -1px -1px 1px var(--color-terminal-black-400),
+        1px -1px 1px var(--color-terminal-black-400),
+        0 -1px 1px var(--color-terminal-black-400),
+        -1px 1px 1px var(--color-terminal-black-400),
+        1px 1px 1px var(--color-terminal-black-400),
+        0 1px 1px var(--color-terminal-black-400);
+}
+
+.text-outline-white {
+    text-shadow:
         -1px 0 1px var(--color-white),
         1px 0 1px var(--color-white),
         0 0 1px var(--color-white),
@@ -98,7 +111,15 @@ p {
         0 1px 1px var(--color-white);
 }
 
-.section-wrapper {
+.text-highlight {
+    @apply font-semibold text-white;
+}
+
+.text-inline-heading {
+    @apply me-2 font-mono font-bold text-slate-400;
+}
+
+.inline- .section-wrapper {
     @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
 }
 

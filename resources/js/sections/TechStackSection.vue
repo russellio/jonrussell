@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SectionHeading from '@/js/components/SectionHeading.vue';
 import { get } from '@/js/lib/api';
 import type { ApiResponse, TechStackItem } from '@/js/types/index';
 import { onMounted, ref } from 'vue';
@@ -61,12 +62,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <section id="tech-stack" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="Tech stack">
-        <div
-            class="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0"
-        >
-            <h2 class="text-sm font-bold tracking-widest text-slate-200 uppercase lg:sr-only">Tech Stack</h2>
-        </div>
+    <section id="tech-stack" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-16 lg:scroll-mt-24" aria-label="Tech stack">
+        <SectionHeading title="Tech Stack" />
 
         <div v-if="isLoading" class="py-8 text-sm text-slate-500">Loading tech stack…</div>
 
@@ -81,7 +78,25 @@ onMounted(() => {
             </button>
         </div>
 
-        <ul v-else class="space-y-3">
+        <div v-else class="flex flex-wrap gap-6">
+            <div v-for="item in techStack" :key="item.tech" class="flex gap-2">
+                <FontAwesomeIcon
+                    v-if="item.iconType === 'fa' && item.iconName && getFaIcon(item.iconName)[0]"
+                    :icon="getFaIcon(item.iconName)"
+                    class="h-4 w-4 shrink-0 text-slate-500"
+                />
+                <component
+                    v-else-if="item.iconType === 'si' && item.iconName && getSimpleIcon(item.iconName)"
+                    :is="getSimpleIcon(item.iconName)"
+                    class="h-4 w-4 shrink-0 fill-current text-slate-500"
+                />
+                <span class="align-middle text-sm" :class="item.active ? 'text-teal-300' : 'text-slate-500'">
+                    {{ item.tech }}
+                </span>
+            </div>
+        </div>
+
+        <!-- <ul class="mt-10 space-y-3">
             <li v-for="item in techStack" :key="item.tech" class="flex items-center gap-3">
                 <FontAwesomeIcon
                     v-if="item.iconType === 'fa' && item.iconName && getFaIcon(item.iconName)[0]"
@@ -93,12 +108,12 @@ onMounted(() => {
                     :is="getSimpleIcon(item.iconName)"
                     class="h-4 w-4 shrink-0 fill-current text-slate-500"
                 />
-                <span class="text-sm text-slate-300">
+                <span class="text-sm" :class="item.active ? 'text-teal-300' : 'text-slate-500'">
                     {{ item.tech }}
                     <span v-if="item.active" class="ml-1 text-xs text-teal-300">(current focus)</span>
                 </span>
                 <span class="ml-auto text-xs tabular-nums" :class="item.active ? 'text-teal-300' : 'text-slate-500'">{{ item.percent }}%</span>
             </li>
-        </ul>
+        </ul> -->
     </section>
 </template>

@@ -7,10 +7,10 @@ import Header from '@/js/layout/Header.vue';
 import SpaceMode from '@/js/layout/SpaceMode.vue';
 import AboutSection from '@/js/sections/AboutSection.vue';
 import ExperienceSection from '@/js/sections/ExperienceSection.vue';
+import PostsSection from '@/js/sections/PostsSection.vue';
 import ProjectsSection from '@/js/sections/ProjectsSection.vue';
 import SkillsSection from '@/js/sections/SkillsSection.vue';
 import TechStackSection from '@/js/sections/TechStackSection.vue';
-import WritingSection from '@/js/sections/WritingSection.vue';
 import type { AppPageProps } from '@/js/types/index';
 import { usePage } from '@inertiajs/vue3';
 import { computed, nextTick, onMounted, watch } from 'vue';
@@ -77,7 +77,7 @@ watch(
     <div>
         <SpaceMode />
 
-        <div class="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-16 lg:py-0">
+        <div class="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-8 md:py-8 md:pt-0 lg:py-0">
             <a
                 href="#content"
                 class="absolute top-0 left-0 block -translate-x-full rounded bg-yellow-500 px-4 py-3 text-sm font-bold tracking-widest text-slate-900 uppercase focus-visible:translate-x-0 focus-visible:text-slate-900"
@@ -85,13 +85,15 @@ watch(
             >
             <div class="lg:flex lg:justify-between lg:gap-4">
                 <Header />
-                <main id="content" class="pt-24 lg:w-[52%] lg:py-24">
-                    <AboutSection />
-                    <TechStackSection />
-                    <SkillsSection />
-                    <ExperienceSection />
-                    <ProjectsSection />
-                    <WritingSection />
+                <main id="content" class="pt-24 lg:w-[68%] lg:py-14">
+                    <div>
+                        <AboutSection />
+                        <TechStackSection />
+                        <SkillsSection />
+                        <ExperienceSection />
+                        <ProjectsSection />
+                        <PostsSection />
+                    </div>
                     <Footer />
                 </main>
             </div>
