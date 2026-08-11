@@ -1,6 +1,25 @@
 <script setup lang="ts">
 import { useModal } from '@/js/composables/useModal';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import type { Form, FormSubmitEvent } from '@nuxt/ui';
+import { computed, onMounted, onUnmounted, reactive, ref, useTemplateRef } from 'vue';
+import { z } from 'zod';
+
+const turnstileSitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
+
+const schema = z.object({
+    email: z.email('Please enter a valid email address.'),
+    subject: z.string().trim().min(1, 'Subject is required.').max(255, 'Subject must be less than 255 characters.'),
+    message: z.string().trim().min(10, 'Message must be at least 10 characters long.'),
+});
+type Schema = z.output<typeof schema>;
+
+const state = reactive<Partial<Schema>>({ email: '', subject: '', message: '' });
+const formRef = useTemplateRef<Form<typeof schema>>('formRef');
+
+const isLoading = ref(false);
+const submitError = ref('');
+const turnstileToken = ref('');
+const turnstileWidgetId = ref<string | null>(null);
 
 const { isOpen, closeModal } = useModal();
 const open = computed({
@@ -10,127 +29,7 @@ const open = computed({
     },
 });
 
-const turnstileSitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
-
-type ErrorValue = string | string[];
-type Errors = Record<string, ErrorValue>;
-
-const form = ref({
-    email: '',
-    subject: '',
-    message: '',
-});
-
-const isLoading = ref(false);
-const errors = ref<Errors>({});
-const successMessage = ref('');
-const turnstileToken = ref('');
-const turnstileWidgetId = ref<string | null>(null);
-const isFormSubmitted = ref(false);
-
-// Validation state
-const validationErrors = ref<Record<string, string>>({});
-const isFormValid = ref(false);
-
-const emailError = computed(() => {
-    const value = errors.value.email;
-    return Array.isArray(value) ? value[0] : value;
-});
-
-const subjectError = computed(() => {
-    const value = errors.value.subject;
-    return Array.isArray(value) ? value[0] : value;
-});
-
-const messageError = computed(() => {
-    const value = errors.value.message;
-    return Array.isArray(value) ? value[0] : value;
-});
-
-// Validation functions
-const validateEmail = (email: string): string => {
-    if (!email.trim()) {
-        return 'Email is required.';
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        return 'Please enter a valid email address.';
-    }
-    return '';
-};
-
-const validateSubject = (subject: string): string => {
-    if (!subject.trim()) {
-        return 'Subject is required.';
-    }
-    if (subject.trim().length < 2) {
-        return 'Subject must be at least 2 characters long.';
-    }
-    if (subject.trim().length > 100) {
-        return 'Subject must be less than 100 characters.';
-    }
-    return '';
-};
-
-const validateMessage = (message: string): string => {
-    if (!message.trim()) {
-        return 'Message is required.';
-    }
-    if (message.trim().length < 10) {
-        return 'Message must be at least 10 characters long.';
-    }
-    if (message.trim().length > 1000) {
-        return 'Message must be less than 1000 characters.';
-    }
-    return '';
-};
-
-const validateField = (field: string, value: string) => {
-    let error = '';
-    switch (field) {
-        case 'email':
-            error = validateEmail(value);
-            break;
-        case 'subject':
-            error = validateSubject(value);
-            break;
-        case 'message':
-            error = validateMessage(value);
-            break;
-    }
-
-    if (error) {
-        validationErrors.value[field] = error;
-    } else {
-        delete validationErrors.value[field];
-    }
-
-    updateFormValidity();
-};
-
-const updateFormValidity = () => {
-    const hasErrors = Object.keys(validationErrors.value).length > 0;
-    const hasEmptyFields = !form.value.email.trim() || !form.value.subject.trim() || !form.value.message.trim();
-    isFormValid.value = !hasErrors && !hasEmptyFields;
-};
-
-const handleEmailChange = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    form.value.email = target.value;
-    validateField('email', target.value);
-};
-
-const handleSubjectChange = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    form.value.subject = target.value;
-    validateField('subject', target.value);
-};
-
-const handleMessageChange = (event: Event) => {
-    const target = event.target as HTMLTextAreaElement;
-    form.value.message = target.value;
-    validateField('message', target.value);
-};
+const toast = useToast();
 
 function onLoadTurnstile() {
     turnstileWidgetId.value = turnstile.render('#turnstile-container', {
@@ -142,7 +41,11 @@ function onLoadTurnstile() {
 }
 
 onMounted(() => {
-    resetForm();
+    try {
+        onLoadTurnstile();
+    } catch {
+        submitError.value = 'Failed to load security verification. Please refresh the page.';
+    }
 });
 
 onUnmounted(() => {
@@ -150,47 +53,20 @@ onUnmounted(() => {
         try {
             window.turnstile.remove(turnstileWidgetId.value);
         } catch {
-            errors.value.turnstile = 'Failed to clean up security verification. Please refresh the page.';
+            submitError.value = 'Failed to clean up security verification. Please refresh the page.';
         }
     }
 });
 
-const resetForm = async () => {
-    form.value = { email: '', subject: '', message: '' };
-    errors.value = {};
-    validationErrors.value = {};
-    successMessage.value = '';
-    turnstileToken.value = '';
-    isFormValid.value = false;
-    isFormSubmitted.value = false;
-
-    try {
-        onLoadTurnstile();
-    } catch {
-        errors.value.turnstile = 'Failed to load security verification. Please refresh the page.';
-    }
-};
-
-const submitForm = async () => {
-    isLoading.value = true;
-    errors.value = {};
-    successMessage.value = '';
-
-    validateField('email', form.value.email);
-    validateField('subject', form.value.subject);
-    validateField('message', form.value.message);
-
-    if (!isFormValid.value) {
-        errors.value.validation = 'Please fix the errors above before submitting.';
-        isLoading.value = false;
-        return;
-    }
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+    submitError.value = '';
 
     if (!turnstileToken.value) {
-        errors.value.turnstile = 'Please complete the security verification.';
-        isLoading.value = false;
+        submitError.value = 'Please complete the security verification.';
         return;
     }
+
+    isLoading.value = true;
 
     try {
         const response = await fetch('/api/contact', {
@@ -201,7 +77,7 @@ const submitForm = async () => {
                 Accept: 'application/json',
             },
             body: JSON.stringify({
-                ...form.value,
+                ...event.data,
                 turnstile_token: turnstileToken.value,
             }),
         });
@@ -209,117 +85,53 @@ const submitForm = async () => {
         const data = (await response.json()) as { message?: string; errors?: Record<string, string[]> };
 
         if (!response.ok) {
-            if (response.status === 422) {
-                errors.value = data.errors || {};
+            if (response.status === 422 && data.errors) {
+                formRef.value?.setErrors(
+                    Object.entries(data.errors).flatMap(([name, messages]) => messages.map((message) => ({ name, message }))),
+                );
+            } else {
+                submitError.value = data.message || 'Failed to send message. Please try again.';
             }
-            throw new Error(data.message || 'Failed to send message');
+            return;
         }
 
-        form.value = { email: '', subject: '', message: '' };
-        successMessage.value = data.message || 'Message sent successfully!';
-        isFormSubmitted.value = true;
+        toast.add({ title: data.message || 'Message sent successfully!', color: 'success' });
+        open.value = false;
     } catch (error: unknown) {
-        if (Object.keys(errors.value).length === 0) {
-            errors.value.general = error instanceof Error ? error.message : 'Failed to send message. Please try again.';
-        }
+        submitError.value = error instanceof Error ? error.message : 'Failed to send message. Please try again.';
     } finally {
         isLoading.value = false;
     }
-};
+}
 </script>
 
 <template>
     <UModal v-model:open="open" title="Contact Me">
         <template #body>
-            <div class="flex w-full flex-col">
-                <div v-if="successMessage" class="success">
-                    {{ successMessage }}
-                </div>
+            <UAlert v-if="submitError" color="error" variant="subtle" :title="submitError" class="mb-4" />
 
-                <div v-for="(error, key) in errors" :key="key" class="error">
-                    <span v-if="error">{{ key }} {{ error }}</span>
-                </div>
+            <UForm id="contact-form" ref="formRef" :schema="schema" :state="state" class="flex flex-col gap-4" @submit="onSubmit">
+                <UFormField label="Email" name="email">
+                    <UInput v-model="state.email" type="email" placeholder="your.email@example.com" autocomplete="email" class="w-full" />
+                </UFormField>
 
-                <div v-if="!isFormSubmitted" class="grid w-full grid-cols-1 gap-1 p-4 md:grid-cols-[20%_auto] md:gap-4 md:p-6">
-                    <label for="email">Email:</label>
-                    <div class="flex flex-col">
-                        <input
-                            id="email"
-                            :value="form.email"
-                            @input="handleEmailChange"
-                            type="email"
-                            placeholder="your.email@example.com"
-                            :class="{
-                                'border-red-500': errors.email || validationErrors.email,
-                                'border-success': form.email && !validationErrors.email && !errors.email,
-                            }"
-                            autocomplete="email"
-                        />
-                        <div v-if="emailError" class="error">{{ emailError }}</div>
-                        <div v-if="validationErrors.email" class="error">{{ validationErrors.email }}</div>
-                    </div>
+                <UFormField label="Subject" name="subject">
+                    <UInput v-model="state.subject" placeholder="Tacos are delicious!" autocomplete="off" class="w-full" />
+                </UFormField>
 
-                    <label for="subject">Subject:</label>
-                    <div class="flex flex-col">
-                        <input
-                            id="subject"
-                            :value="form.subject"
-                            @input="handleSubjectChange"
-                            type="text"
-                            placeholder="Tacos are delicious!"
-                            :class="{
-                                'border-red-500': errors.subject || validationErrors.subject,
-                                'border-success': form.subject && !validationErrors.subject && !errors.subject,
-                            }"
-                            autocomplete="off"
-                        />
-                        <div v-if="subjectError" class="error">{{ subjectError }}</div>
-                        <div v-if="validationErrors.subject" class="error">{{ validationErrors.subject }}</div>
-                    </div>
+                <UFormField label="Message" name="message">
+                    <UTextarea v-model="state.message" placeholder="Your message here..." :rows="4" class="w-full" />
+                </UFormField>
+            </UForm>
 
-                    <label for="message">Message:</label>
-                    <div class="flex flex-col">
-                        <textarea
-                            id="message"
-                            :value="form.message"
-                            @input="handleMessageChange"
-                            placeholder="Your message here..."
-                            rows="4"
-                            :class="{
-                                'border-error': errors.message || validationErrors.message,
-                                'border-success': form.message && !validationErrors.message && !errors.message,
-                            }"
-                        ></textarea>
-                        <div v-if="messageError" class="error">{{ messageError }}</div>
-                        <div v-if="validationErrors.message" class="error">{{ validationErrors.message }}</div>
-                    </div>
-                </div>
-
-                <div class="flex justify-center">
-                    <div class="scale-80 md:scale-100" id="turnstile-container"></div>
-                </div>
+            <div class="flex justify-center pt-4">
+                <div class="scale-80 md:scale-100" id="turnstile-container"></div>
             </div>
         </template>
+
         <template #footer="{ close }">
-            <UButton color="neutral" variant="outline" :label="!isFormSubmitted ? 'Cancel' : 'Close'" @click="close" />
-            <UButton v-if="!isFormSubmitted" label="Send Message" :loading="isLoading" :disabled="!isFormValid" @click="submitForm" />
+            <UButton color="neutral" variant="outline" label="Cancel" @click="close" />
+            <UButton type="submit" form="contact-form" label="Send Message" :loading="isLoading" />
         </template>
     </UModal>
 </template>
-
-<style scoped>
-@reference "@/css/app.css";
-
-label {
-    @apply mt-3 mb-2 font-space-mono text-xl font-semibold tracking-widest text-slate-200;
-    @apply md:mt-1 md:text-end md:text-lg lg:text-2xl;
-}
-
-input,
-textarea {
-    @apply font-sans;
-    @apply w-full rounded-md border border-slate-600 bg-slate-900/60 px-3 py-2 text-lg text-slate-200;
-    @apply placeholder:text-slate-500 placeholder:italic;
-    @apply focus:border-teal-300 focus:shadow focus:outline-none;
-}
-</style>

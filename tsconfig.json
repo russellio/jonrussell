@@ -122,7 +122,7 @@
         "resources/js/**/*.d.ts",
         "resources/js/**/*.tsx",
         "resources/js/**/*.vue",
-        "auto-imports",
+        "auto-imports.d.ts",
         "components.d.ts"
     ]
 }
