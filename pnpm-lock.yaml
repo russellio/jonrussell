@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource-variable/inter':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@fontsource-variable/sixtyfour':
         specifier: ^5.3.0
         version: 5.3.0
@@ -35,12 +38,15 @@ importers:
       '@fortawesome/vue-fontawesome':
         specifier: ^3.3.3
         version: 3.3.3(@fortawesome/fontawesome-svg-core@7.3.1)(vue@3.5.41(typescript@5.9.3))
+      '@iconify-json/lucide':
+        specifier: ^1.2.123
+        version: 1.2.123
       '@inertiajs/vue3':
         specifier: ^2.3.27
         version: 2.3.27(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)(vue@3.5.41(typescript@5.9.3))
       '@nuxt/ui':
         specifier: ^4.10.0
-        version: 4.10.0(45829328c198a4bc3a18e0a88c6b0a9a)
+        version: 4.10.0(19f0ad9a9217829feeced70342a8408d)
       '@russellio/vue-background-stars':
         specifier: ^1.2.2
         version: 1.2.2(vue@3.5.41(typescript@5.9.3))
@@ -86,6 +92,9 @@ importers:
       vue3-simple-icons:
         specifier: ^15.6.0
         version: 15.6.0(typescript@5.9.3)
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.5
@@ -609,6 +618,9 @@ packages:
   '@floating-ui/vue@1.1.11':
     resolution: {integrity: sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw==}
 
+  '@fontsource-variable/inter@5.3.0':
+    resolution: {integrity: sha512-OupL48va4JNofb97w6NYeF9S7W/kHNKM0Er8Dem5nqi4jeOLrVJDoE8tZEpnMJmtkvNbB1EIPPwHcdkF6b1oUA==}
+
   '@fontsource-variable/sixtyfour-convergence@5.3.0':
     resolution: {integrity: sha512-BMpLRcG9htb4BUrTBCGBF3U+izxN5U63OVsUbglwFyNHrJcciO83ofSPA6B6/qvhQ6N86Cku9o1ZfY2ZvGQgZA==}
 
@@ -666,6 +678,9 @@ packages:
   '@humanwhocodes/retry@0.4.3':
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
+
+  '@iconify-json/lucide@1.2.123':
+    resolution: {integrity: sha512-0CozmpKXEOEEhltrfT2zt+/t1hez67Y+hM2VJWoIcBKdBrb83VYuKf+b5A0QU9HfQm+RNn2GjFWlTOwi+Ss6IA==}
 
   '@iconify/collections@1.0.722':
     resolution: {integrity: sha512-y7G2/u+kzDC/aGsn2sz9X1apxw47D1csij4JVpDkRso52bj7Fz0I2dCxyjBDkGMogbKvVcIJ/j72PEbnrf3elQ==}
@@ -3530,6 +3545,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -3839,6 +3857,8 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
+  '@fontsource-variable/inter@5.3.0': {}
+
   '@fontsource-variable/sixtyfour-convergence@5.3.0': {}
 
   '@fontsource-variable/sixtyfour@5.3.0': {}
@@ -3885,6 +3905,10 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/retry@0.4.3': {}
+
+  '@iconify-json/lucide@1.2.123':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify/collections@1.0.722':
     dependencies:
@@ -4103,7 +4127,7 @@ snapshots:
       pkg-types: 2.3.1
       std-env: 4.2.0
 
-  '@nuxt/ui@4.10.0(45829328c198a4bc3a18e0a88c6b0a9a)':
+  '@nuxt/ui@4.10.0(19f0ad9a9217829feeced70342a8408d)':
     dependencies:
       '@floating-ui/dom': 1.8.0
       '@iconify/vue': 5.0.1(vue@3.5.41(typescript@5.9.3))
@@ -4174,6 +4198,7 @@ snapshots:
       '@internationalized/date': 3.12.3
       '@internationalized/number': 3.6.7
       vue-router: 5.2.0(@vue/compiler-sfc@3.5.41)(esbuild@0.28.2)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.41(typescript@5.9.3)))(rollup@4.62.4)(vite@7.3.6(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.0))(vue@3.5.41(typescript@5.9.3))
+      zod: 4.4.3
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6875,3 +6900,5 @@ snapshots:
       lib0: 0.2.117
 
   yocto-queue@0.1.0: {}
+
+  zod@4.4.3: {}

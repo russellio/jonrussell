@@ -22,9 +22,8 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
 </script>
 
 <template>
-    <Head :title="post.title" />
-
     <article class="mx-auto min-h-screen max-w-screen-md px-6 py-16 font-sans md:px-12 md:py-24">
+        <Head :title="post.title" />
         <Link href="/" class="group inline-flex items-center text-sm font-semibold text-teal-300 transition-colors hover:text-teal-200">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
