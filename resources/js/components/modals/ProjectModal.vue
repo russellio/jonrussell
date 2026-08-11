@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ImageModal from '@/js/components/modals/ImageModal.vue';
-import Modal from '@/js/components/modals/Modal.vue';
-import type { Project } from '@/js/types/index';
+import { useModal } from '@/js/composables/useModal';
+import type { Image, Project } from '@/js/types/index';
 import DOMPurify from 'dompurify';
 import type { Component } from 'vue';
 import { computed, ref } from 'vue';
@@ -41,7 +41,20 @@ const getSimpleIcon = (iconName: string): Component | null => {
 
 const props = defineProps<{ project: Project }>();
 
-const imageModalRef = ref<InstanceType<typeof ImageModal> | null>(null);
+const { isOpen, closeModal } = useModal();
+const open = computed({
+    get: () => isOpen('project-modal'),
+    set: (value: boolean) => {
+        if (!value) closeModal('project-modal');
+    },
+});
+
+const imageModalOpen = ref(false);
+const selectedImage = ref<Image | null>(null);
+const showImage = (image: Image) => {
+    selectedImage.value = image;
+    imageModalOpen.value = true;
+};
 
 const projectHasProp = <K extends keyof Project>(project: Project, property: K): boolean => {
     const value = project[property];
@@ -78,123 +91,124 @@ const companyLogoText = computed(() => {
 </script>
 
 <template>
-    <Modal modalId="project-modal" cancelText="Close">
-        <template #title
-            >project: <span class="inline-block text-slate-100! normal-case md:block">{{ project.title }}</span></template
-        >
-        <div class="grid w-full grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%]">
-            <div v-if="hasModalLeft" class="modal-left mb-10" :class="{ '': !projectHasProp(project, 'images') }">
-                <div
-                    v-if="projectHasProp(project, 'primaryImage')"
-                    class="mb-6 cursor-pointer"
-                    @click="imageModalRef?.openImageModal(project.primaryImage!)"
-                >
-                    <img
-                        :src="`/images/projects/${project.primaryImage?.src}`"
-                        :title="project.primaryImage?.title"
-                        :alt="project.primaryImage?.alt ?? project.primaryImage?.title"
-                        class="mx-auto w-4/5 rounded-md object-fill lg:w-full"
-                    />
-                </div>
-
-                <div v-if="projectHasProp(project, 'images')" class="thumbnails">
-                    <div v-for="image in project.images" :key="image.src" class="thumbnail" @click="imageModalRef?.openImageModal(image)">
-                        <img v-if="image?.src" :src="`/images/projects/${image.src}`" :title="image.title" :alt="image.alt" />
+    <UModal v-model:open="open" :ui="{ content: 'max-w-7xl' }">
+        <template #header>
+            project: <span class="inline-block text-slate-100! normal-case md:block">{{ project.title }}</span>
+        </template>
+        <template #body>
+            <div class="grid w-full grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%]">
+                <div v-if="hasModalLeft" class="modal-left mb-10" :class="{ '': !projectHasProp(project, 'images') }">
+                    <div v-if="projectHasProp(project, 'primaryImage')" class="mb-6 cursor-pointer" @click="showImage(project.primaryImage!)">
+                        <img
+                            :src="`/images/projects/${project.primaryImage?.src}`"
+                            :title="project.primaryImage?.title"
+                            :alt="project.primaryImage?.alt ?? project.primaryImage?.title"
+                            class="mx-auto w-4/5 rounded-md object-fill lg:w-full"
+                        />
                     </div>
-                </div>
-            </div>
 
-            <div class="modal-center w-full">
-                <div v-if="projectHasProp(project, 'company')" class="company">
-                    <div class="flex w-full flex-col font-sans tracking-widest text-slate-100! md:flex-row">
-                        <h3>company:</h3>
-                        <div v-if="companyLogoSrc" class="flex grow flex-col justify-center py-2 md:flex-row">
-                            <div class="align-end pe-4">
-                                <img
-                                    v-if="companyLogoSrc"
-                                    :src="companyLogoSrc"
-                                    :alt="project.company?.logo.alt || project.company?.name"
-                                    class="mx-auto h-10"
-                                />
-                            </div>
-                            <div v-if="companyLogoText" class="self-center text-xl">{{ companyLogoText }}</div>
+                    <div v-if="projectHasProp(project, 'images')" class="thumbnails">
+                        <div v-for="image in project.images" :key="image.src" class="thumbnail" @click="showImage(image)">
+                            <img v-if="image?.src" :src="`/images/projects/${image.src}`" :title="image.title" :alt="image.alt" />
                         </div>
-                        <span v-else>{{ project.company?.name }}</span>
                     </div>
                 </div>
 
-                <div v-if="projectHasProp(project, 'keyTakeaways')" class="key-takeaways mx-auto mt-5 mb-4 w-11/12">
-                    <h4 class="mt-0 mb-2 font-space-mono text-slate-100!">key takeaways:</h4>
-                    <div class="rounded-md border-y border-slate-700 bg-slate-900/60 p-2 py-6 ps-8">
-                        <ul class="list-disc space-y-2 border-s border-slate-700 ps-10">
-                            <li v-for="takeaway in project.keyTakeaways" :key="takeaway">
-                                {{ takeaway }}
+                <div class="modal-center w-full">
+                    <div v-if="projectHasProp(project, 'company')" class="company">
+                        <div class="flex w-full flex-col font-sans tracking-widest text-slate-100! md:flex-row">
+                            <h3>company:</h3>
+                            <div v-if="companyLogoSrc" class="flex grow flex-col justify-center py-2 md:flex-row">
+                                <div class="align-end pe-4">
+                                    <img
+                                        v-if="companyLogoSrc"
+                                        :src="companyLogoSrc"
+                                        :alt="project.company?.logo.alt || project.company?.name"
+                                        class="mx-auto h-10"
+                                    />
+                                </div>
+                                <div v-if="companyLogoText" class="self-center text-xl">{{ companyLogoText }}</div>
+                            </div>
+                            <span v-else>{{ project.company?.name }}</span>
+                        </div>
+                    </div>
+
+                    <div v-if="projectHasProp(project, 'keyTakeaways')" class="key-takeaways mx-auto mt-5 mb-4 w-11/12">
+                        <h4 class="mt-0 mb-2 font-space-mono text-slate-100!">key takeaways:</h4>
+                        <div class="rounded-md border-y border-slate-700 bg-slate-900/60 p-2 py-6 ps-8">
+                            <ul class="list-disc space-y-2 border-s border-slate-700 ps-10">
+                                <li v-for="takeaway in project.keyTakeaways" :key="takeaway">
+                                    {{ takeaway }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div v-if="projectHasProp(project, 'description')">
+                        <h3>description:</h3>
+                        <div v-html="sanitizeHtml(project.description ?? '')" class="description" />
+                    </div>
+
+                    <div v-if="projectHasProp(project, 'links')" class="links">
+                        <h4 class="mt-0 mb-2 ps-4 font-space-mono text-slate-100!">links:</h4>
+                        <ul class="list-disc space-y-2 rounded-md border-t border-b-4 border-slate-700 bg-slate-900/60 p-2 py-3 ps-10">
+                            <li v-for="link in project.links" :key="link.url">
+                                <a :href="link.url" target="_blank" class="text-slate-300 hover:text-teal-300">{{ link.title }}</a>
+                                <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-teal-300" size="sm" />
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div v-if="projectHasProp(project, 'description')">
-                    <h3>description:</h3>
-                    <div v-html="sanitizeHtml(project.description ?? '')" class="description" />
-                </div>
+                <div v-if="hasModalRight" class="modal-right">
+                    <div v-if="project.technologies && project.technologies.length > 0" class="technologies">
+                        <h3>skills:</h3>
+                        <ul>
+                            <li v-for="tech in project.technologies" :key="tech.name" class="flex items-center gap-2">
+                                <FontAwesomeIcon
+                                    v-if="tech.iconType === 'fa' && tech.iconName && getFaIcon(tech.iconName)[0]"
+                                    :icon="getFaIcon(tech.iconName)"
+                                    class="inline-block h-5 w-5"
+                                />
+                                <component
+                                    v-else-if="tech.iconType === 'si' && tech.iconName && getSimpleIcon(tech.iconName)"
+                                    :is="getSimpleIcon(tech.iconName)"
+                                    class="inline-block h-5 w-5 fill-current"
+                                />
+                                <span v-else class="list-marker">•</span>
+                                {{ tech.name }}
+                            </li>
+                        </ul>
+                    </div>
 
-                <div v-if="projectHasProp(project, 'links')" class="links">
-                    <h4 class="mt-0 mb-2 ps-4 font-space-mono text-slate-100!">links:</h4>
-                    <ul class="list-disc space-y-2 rounded-md border-t border-b-4 border-slate-700 bg-slate-900/60 p-2 py-3 ps-10">
-                        <li v-for="link in project.links" :key="link.url">
-                            <a :href="link.url" target="_blank" class="text-slate-300 hover:text-teal-300">{{ link.title }}</a>
-                            <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-teal-300" size="sm" />
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div v-if="hasModalRight" class="modal-right">
-                <div v-if="project.technologies && project.technologies.length > 0" class="technologies">
-                    <h3>skills:</h3>
-                    <ul>
-                        <li v-for="tech in project.technologies" :key="tech.name" class="flex items-center gap-2">
-                            <FontAwesomeIcon
-                                v-if="tech.iconType === 'fa' && tech.iconName && getFaIcon(tech.iconName)[0]"
-                                :icon="getFaIcon(tech.iconName)"
-                                class="inline-block h-5 w-5"
-                            />
-                            <component
-                                v-else-if="tech.iconType === 'si' && tech.iconName && getSimpleIcon(tech.iconName)"
-                                :is="getSimpleIcon(tech.iconName)"
-                                class="inline-block h-5 w-5 fill-current"
-                            />
-                            <span v-else class="list-marker">•</span>
-                            {{ tech.name }}
-                        </li>
-                    </ul>
-                </div>
-
-                <div v-if="project.tools && project.tools.length > 0" class="tools">
-                    <h3>tools:</h3>
-                    <ul>
-                        <li v-for="tool in project.tools" :key="tool.name" class="flex items-center gap-2">
-                            <FontAwesomeIcon
-                                v-if="tool.iconType === 'fa' && tool.iconName && getFaIcon(tool.iconName)[0]"
-                                :icon="getFaIcon(tool.iconName)"
-                                class="inline-block h-5 w-5"
-                            />
-                            <component
-                                v-else-if="tool.iconType === 'si' && tool.iconName && getSimpleIcon(tool.iconName)"
-                                :is="getSimpleIcon(tool.iconName)"
-                                class="inline-block h-5 w-5 fill-current"
-                            />
-                            <span v-else class="list-marker">•</span>
-                            {{ tool.name }}
-                        </li>
-                    </ul>
+                    <div v-if="project.tools && project.tools.length > 0" class="tools">
+                        <h3>tools:</h3>
+                        <ul>
+                            <li v-for="tool in project.tools" :key="tool.name" class="flex items-center gap-2">
+                                <FontAwesomeIcon
+                                    v-if="tool.iconType === 'fa' && tool.iconName && getFaIcon(tool.iconName)[0]"
+                                    :icon="getFaIcon(tool.iconName)"
+                                    class="inline-block h-5 w-5"
+                                />
+                                <component
+                                    v-else-if="tool.iconType === 'si' && tool.iconName && getSimpleIcon(tool.iconName)"
+                                    :is="getSimpleIcon(tool.iconName)"
+                                    class="inline-block h-5 w-5 fill-current"
+                                />
+                                <span v-else class="list-marker">•</span>
+                                {{ tool.name }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <ImageModal ref="imageModalRef" />
-    </Modal>
+            <ImageModal v-model:open="imageModalOpen" :image="selectedImage" />
+        </template>
+        <template #footer="{ close }">
+            <UButton color="neutral" variant="outline" label="Close" @click="close" />
+        </template>
+    </UModal>
 </template>
 
 <style scoped>
