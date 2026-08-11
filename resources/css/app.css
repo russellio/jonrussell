@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
+@import '@fontsource-variable/inter';
 @import '@fontsource/space-mono';
 @import '@fontsource/sixtyfour';
 
@@ -10,15 +11,11 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Public Sans', sans-serif, ui-sans-serif, system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Inter Variable', sans-serif, ui-sans-serif, system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-space-mono: 'Space Mono', monospace;
     --font-sixtyfour: 'Sixtyfour', monospace;
 
-    --color-primary: var(--color-blue);
-    /* --color-primary: var(--color-teal-300); */
-    --color-secondary: var(--color-bulldog-red);
-    --color-success: var(--color-green-700);
-    --color-error: var(--color-red);
+    --color-brand-red: var(--color-bulldog-red);
     --color-blue: #1564f4;
     --color-dark-blue: var(--color-blue-950);
     --color-content: var(--color-terminal-black-50);
@@ -83,7 +80,7 @@ p {
 }
 
 .card h1 {
-    @apply text-3xl font-extrabold text-secondary;
+    @apply text-3xl font-extrabold text-brand-red;
 }
 
 .text-outline {
@@ -139,13 +136,13 @@ p {
 
 .btn-content {
     @apply inline-flex items-center justify-center whitespace-nowrap;
-    @apply mx-2 border border-white bg-secondary px-5 py-1;
+    @apply mx-2 border border-white bg-brand-red px-5 py-1;
     @apply cursor-pointer font-space-mono text-sm font-bold text-white uppercase;
     @apply rounded-lg shadow-sm shadow-terminal-black-500 transition-all duration-200;
 }
 
 .btn-content:hover {
-    @apply border-secondary bg-terminal-black-200 text-black shadow-none;
+    @apply border-brand-red bg-terminal-black-200 text-black shadow-none;
 }
 
 .btn-wrapper {
@@ -158,29 +155,29 @@ p {
 }
 
 .btn:hover {
-    @apply border-x-4 border-secondary;
+    @apply border-x-4 border-brand-red;
 }
 
 .btn-submit {
     @apply inline-flex items-center justify-center whitespace-nowrap;
-    @apply mx-2 border border-white bg-secondary px-8 py-1 lg:px-15;
+    @apply mx-2 border border-white bg-brand-red px-8 py-1 lg:px-15;
     @apply cursor-pointer font-space-mono text-lg font-bold text-white uppercase;
     @apply rounded-lg shadow-md shadow-terminal-black-500 transition-all duration-200;
 }
 
 .btn-submit:hover {
-    @apply border-secondary bg-terminal-black-200 text-black shadow-none;
+    @apply border-brand-red bg-terminal-black-200 text-black shadow-none;
 }
 
 .btn-cancel {
     @apply inline-flex items-center justify-center whitespace-nowrap;
-    @apply mx-2 border border-secondary bg-terminal-black-200 px-5 py-1 text-black lg:px-15;
+    @apply mx-2 border border-brand-red bg-terminal-black-200 px-5 py-1 text-black lg:px-15;
     @apply cursor-pointer font-space-mono text-lg font-semibold uppercase;
     @apply rounded-lg shadow-md shadow-terminal-black-500 transition-all duration-200;
 }
 
 .btn-cancel:hover {
-    @apply border-secondary bg-terminal-black-200 font-bold text-black shadow-none;
+    @apply border-brand-red bg-terminal-black-200 font-bold text-black shadow-none;
 }
 
 /* needs to stay global */
