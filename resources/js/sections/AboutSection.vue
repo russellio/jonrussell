@@ -13,8 +13,8 @@ const highlights = [
     <section id="about" class="mb-16 flex scroll-mt-16 flex-col text-base md:mb-24 lg:mt-0 lg:mb-20 lg:scroll-mt-20 lg:pt-0" aria-label="About me">
         <SectionHeading title="About Me" />
         <div class="gap-6 rounded-br-2xl rounded-bl-2xl border-b border-brand-red bg-black/30 px-6 pt-3 pb-10 text-sm">
-            <p class="my-4 text-base">
-                <span class="me-4 text-3xl font-bold text-white">Hello!</span>
+            <p class="my-2 mb-4 text-base">
+                <span class="me-3 font-space-mono text-2xl font-bold text-white">Hello!</span>
                 I'm Jon, a full stack engineer with 13+ years of experience designing, developing, and scaling enterprise applications. My primary
                 stack includes
                 <span class="text-highlight">Laravel</span>, <span class="text-highlight">PHP</span>, <span class="text-highlight">MySQL</span>,
@@ -30,27 +30,28 @@ const highlights = [
                 out the best solution.
             </p>
 
-            <div class="my-4 border-s border-slate-400 ps-2">
-                <p class="my-4 ms-4">
+            <div class="my-6 border-s border-slate-400 ps-2">
+                <h3 class="ms-2 mb-2 font-space-mono text-lg font-bold">TL;DR</h3>
+                <p class="ms-4 mb-4">
                     <span class="text-inline-heading">experience:</span> My career has spanned defense, finance, and manufacturing, where I've built
                     high-impact solutions and led cross-functional teams through complex technical challenges.
                 </p>
 
-                <p class="my-4 ms-4">
+                <p class="ms-4 mb-4">
                     <span class="text-inline-heading">work ethic:</span> From complex migrations and API integrations to workflow automation and
                     production debugging, I take ownership from start to finish. I value accountability, transparency, clear communication, and mutual
                     respect.
                 </p>
 
-                <p class="my-4 ms-4">
-                    <span class="text-inline-heading">tinkering:</span> I love the problem-solving side of engineering. There's something satisfying
-                    about taking something messy, manual, or frustrating and turning it into something that just works. In my spare time, I build
-                    projects around my homelab, DigitalOcean droplets, AWS EC2, and locally running LLMs.
+                <p class="ms-4 mb-4">
+                    <span class="text-inline-heading">off the clock:</span> I love the problem-solving side of engineering. There's something
+                    satisfying about taking something messy, manual, or frustrating and turning it into something that just works. In my spare time, I
+                    build projects around my homelab, DigitalOcean droplets, AWS EC2, and locally running LLMs.
                 </p>
             </div>
 
             <p class="my-4 text-base">
-                I've always preferred staying hands-on, exploring new frameworks and technologies, and seeing what’s coming next. To me, the most
+                I've always preferred staying hands-on, exploring new frameworks and technologies, and seeing what's coming next. To me, the most
                 satisfying part of engineering is delivering solutions that simplify processes, improve efficiency, and make life easier for the
                 people who depend on them, while building something I can genuinely be proud of.
             </p>
