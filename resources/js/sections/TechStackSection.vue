@@ -91,25 +91,5 @@ onMounted(() => {
                 </div>
             </div>
         </SectionState>
-
-        <!-- <ul class="mt-10 space-y-3">
-            <li v-for="item in techStack" :key="item.tech" class="flex items-center gap-3">
-                <FontAwesomeIcon
-                    v-if="item.iconType === 'fa' && item.iconName && getFaIcon(item.iconName)[0]"
-                    :icon="getFaIcon(item.iconName)"
-                    class="h-4 w-4 shrink-0 text-slate-500"
-                />
-                <component
-                    v-else-if="item.iconType === 'si' && item.iconName && getSimpleIcon(item.iconName)"
-                    :is="getSimpleIcon(item.iconName)"
-                    class="h-4 w-4 shrink-0 fill-current text-slate-500"
-                />
-                <span class="text-sm" :class="item.active ? 'text-teal-300' : 'text-slate-500'">
-                    {{ item.tech }}
-                    <span v-if="item.active" class="ml-1 text-xs text-teal-300">(current focus)</span>
-                </span>
-                <span class="ml-auto text-xs tabular-nums" :class="item.active ? 'text-teal-300' : 'text-slate-500'">{{ item.percent }}%</span>
-            </li>
-        </ul> -->
     </section>
 </template>
