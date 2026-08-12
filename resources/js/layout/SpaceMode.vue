@@ -8,7 +8,7 @@ const { showStars } = useStarMode();
 
 <template>
     <div>
-        <div class="fixed top-0 -right-2 z-999 hidden font-space-mono text-sm text-white md:block lg:top-auto lg:bottom-4 lg:left-10">
+        <div class="fixed top-0 -right-2 z-40 hidden font-space-mono text-sm text-white md:block lg:top-auto lg:bottom-4 lg:left-10">
             <ToggleSwitch label="space mode:" v-model="showStars" />
         </div>
 

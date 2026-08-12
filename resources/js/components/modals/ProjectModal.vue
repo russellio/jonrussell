@@ -52,6 +52,7 @@ const open = computed({
 const imageModalOpen = ref(false);
 const selectedImage = ref<Image | null>(null);
 const showImage = (image: Image) => {
+    if (!image?.src) return;
     selectedImage.value = image;
     imageModalOpen.value = true;
 };
@@ -91,8 +92,8 @@ const companyLogoText = computed(() => {
 </script>
 
 <template>
-    <UModal v-model:open="open" :ui="{ content: 'max-w-7xl' }">
-        <template #header>
+    <UModal v-model:open="open" :ui="{ content: 'max-w-7xl', title: 'font-sixtyfour text-xl text-teal-300 uppercase', footer: 'justify-end' }">
+        <template #title>
             project: <span class="inline-block text-slate-100! normal-case md:block">{{ project.title }}</span>
         </template>
         <template #body>
