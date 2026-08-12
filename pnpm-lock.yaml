@@ -23,24 +23,12 @@ importers:
       '@fontsource/space-mono':
         specifier: ^5.3.0
         version: 5.3.0
-      '@fortawesome/fontawesome-svg-core':
-        specifier: ^7.3.1
-        version: 7.3.1
-      '@fortawesome/free-brands-svg-icons':
-        specifier: ^7.3.1
-        version: 7.3.1
-      '@fortawesome/free-regular-svg-icons':
-        specifier: ^7.3.1
-        version: 7.3.1
-      '@fortawesome/free-solid-svg-icons':
-        specifier: ^7.3.1
-        version: 7.3.1
-      '@fortawesome/vue-fontawesome':
-        specifier: ^3.3.3
-        version: 3.3.3(@fortawesome/fontawesome-svg-core@7.3.1)(vue@3.5.41(typescript@5.9.3))
       '@iconify-json/lucide':
         specifier: ^1.2.123
         version: 1.2.123
+      '@iconify-json/simple-icons':
+        specifier: ^1.2.93
+        version: 1.2.93
       '@inertiajs/vue3':
         specifier: ^2.3.27
         version: 2.3.27(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)(vue@3.5.41(typescript@5.9.3))
@@ -89,9 +77,6 @@ importers:
       vue-router:
         specifier: ^5.2.0
         version: 5.2.0(@vue/compiler-sfc@3.5.41)(esbuild@0.28.2)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.41(typescript@5.9.3)))(rollup@4.62.4)(vite@7.3.6(@types/node@22.20.1)(jiti@2.7.0)(lightningcss@1.33.0)(yaml@2.9.0))(vue@3.5.41(typescript@5.9.3))
-      vue3-simple-icons:
-        specifier: ^15.6.0
-        version: 15.6.0(typescript@5.9.3)
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -633,32 +618,6 @@ packages:
   '@fontsource/space-mono@5.3.0':
     resolution: {integrity: sha512-FrpBMOVWn3PRdRHlrZWC55X3kZG/2BTH7SM5ZyS/bky3iKya2BturI5lk+t0RoDQL2JyHzURsVq/EisCsxpI5A==}
 
-  '@fortawesome/fontawesome-common-types@7.3.1':
-    resolution: {integrity: sha512-k0C0sdHmZtAo6dRDtd1Z/qcpyHbL0CKsjV8seMY/21xGhY5Wsv0XRmiI/xEEH4y2c9b1+jvgNs/3EqhV27yUEA==}
-    engines: {node: '>=6'}
-
-  '@fortawesome/fontawesome-svg-core@7.3.1':
-    resolution: {integrity: sha512-BoxVN3PKnMbgStHhjoaky/oWdxHomDqmBVA24IA3KEmssFGeI7u9YT/BJceOjIum/t6TpPa/vcMKaVYQeIQ/3Q==}
-    engines: {node: '>=6'}
-
-  '@fortawesome/free-brands-svg-icons@7.3.1':
-    resolution: {integrity: sha512-8eiNzycuFhy3mZsi5EVO8JpO3H8l7/kSCl4Gk4iUew9hJuzYFqAAD6kqgeEup3+YZ9hL+5cjjorGzrRLkYuURg==}
-    engines: {node: '>=6'}
-
-  '@fortawesome/free-regular-svg-icons@7.3.1':
-    resolution: {integrity: sha512-q1EsmL7Q8DDnkRBUjSvrxbq7c9oVwwVjCn/xa5apKmdp65YSgzUg2y0Ltnd5aDbT6GdAQQdXql5Ha90ArqIReQ==}
-    engines: {node: '>=6'}
-
-  '@fortawesome/free-solid-svg-icons@7.3.1':
-    resolution: {integrity: sha512-v0BLa0eqg7ubvVWeNSHVBs8fWH/GJicERZoJaxJ3FE/lj67VSqzoMg9pzfZVOfLMX10y0pGwQAuxoRVVH2patg==}
-    engines: {node: '>=6'}
-
-  '@fortawesome/vue-fontawesome@3.3.3':
-    resolution: {integrity: sha512-Jbjze98gGcVBSdkscLbnDlHECumMAFVWDarMtycctn9qL3p92ApnV36VW4PwVrcm9IWrHnnE6ZL9x7MXStSCfA==}
-    peerDependencies:
-      '@fortawesome/fontawesome-svg-core': ~1 || ~6 || ~7
-      vue: '>= 3.0.0 < 4'
-
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
     engines: {node: '>=18.18.0'}
@@ -681,6 +640,9 @@ packages:
 
   '@iconify-json/lucide@1.2.123':
     resolution: {integrity: sha512-0CozmpKXEOEEhltrfT2zt+/t1hez67Y+hM2VJWoIcBKdBrb83VYuKf+b5A0QU9HfQm+RNn2GjFWlTOwi+Ss6IA==}
+
+  '@iconify-json/simple-icons@1.2.93':
+    resolution: {integrity: sha512-/XhANjfGYOuqvSR3TmUnkQkINvQ4GVjVuukvymRbxtVFBvIq/yiXJqCDycKcQPT401OYT9H2vIY6ihAlz1QIAw==}
 
   '@iconify/collections@1.0.722':
     resolution: {integrity: sha512-y7G2/u+kzDC/aGsn2sz9X1apxw47D1csij4JVpDkRso52bj7Fz0I2dCxyjBDkGMogbKvVcIJ/j72PEbnrf3elQ==}
@@ -3562,9 +3524,6 @@ packages:
     peerDependencies:
       typescript: '>=5.0.0'
 
-  vue3-simple-icons@15.6.0:
-    resolution: {integrity: sha512-e7FkRt5yY6wDmeBzOL7PQw/n5PIiYh5Xbk9f0aAVJpl1E1ddMRLLRjiD9tG8P2UTtCc0Yh48XN3tn0TdZAuL0w==}
-
   vue@3.5.41:
     resolution: {integrity: sha512-2laE0p+aK+/AOPG/XL/WepOs/GlK755LJ1XECi9kDUrz1FKNw8rb2Xzlw9JS1rqEV55nb0ttsKxVlTCcd+R5cg==}
     peerDependencies:
@@ -3945,29 +3904,6 @@ snapshots:
 
   '@fontsource/space-mono@5.3.0': {}
 
-  '@fortawesome/fontawesome-common-types@7.3.1': {}
-
-  '@fortawesome/fontawesome-svg-core@7.3.1':
-    dependencies:
-      '@fortawesome/fontawesome-common-types': 7.3.1
-
-  '@fortawesome/free-brands-svg-icons@7.3.1':
-    dependencies:
-      '@fortawesome/fontawesome-common-types': 7.3.1
-
-  '@fortawesome/free-regular-svg-icons@7.3.1':
-    dependencies:
-      '@fortawesome/fontawesome-common-types': 7.3.1
-
-  '@fortawesome/free-solid-svg-icons@7.3.1':
-    dependencies:
-      '@fortawesome/fontawesome-common-types': 7.3.1
-
-  '@fortawesome/vue-fontawesome@3.3.3(@fortawesome/fontawesome-svg-core@7.3.1)(vue@3.5.41(typescript@5.9.3))':
-    dependencies:
-      '@fortawesome/fontawesome-svg-core': 7.3.1
-      vue: 3.5.41(typescript@5.9.3)
-
   '@humanfs/core@0.19.2':
     dependencies:
       '@humanfs/types': 0.15.0
@@ -3985,6 +3921,10 @@ snapshots:
   '@humanwhocodes/retry@0.4.3': {}
 
   '@iconify-json/lucide@1.2.123':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/simple-icons@1.2.93':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -6987,12 +6927,6 @@ snapshots:
       '@volar/typescript': 2.4.15(typescript@5.9.3)
       '@vue/language-core': 2.2.12(typescript@5.9.3)
       typescript: 5.9.3
-
-  vue3-simple-icons@15.6.0(typescript@5.9.3):
-    dependencies:
-      vue: 3.5.41(typescript@5.9.3)
-    transitivePeerDependencies:
-      - typescript
 
   vue@3.5.41(typescript@5.9.3):
     dependencies:
