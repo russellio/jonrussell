@@ -3,41 +3,9 @@ import ImageModal from '@/js/components/modals/ImageModal.vue';
 import { useModal } from '@/js/composables/useModal';
 import type { Image, Project } from '@/js/types/index';
 import DOMPurify from 'dompurify';
-import type { Component } from 'vue';
 import { computed, ref } from 'vue';
 
-import { faCss3, faHtml5, faJs, faLaravel, faPhp, faReact, faVuejs } from '@fortawesome/free-brands-svg-icons';
-import { faArrowUpRightFromSquare, faCode, faDatabase, faProjectDiagram, faSitemap, faVial } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { MySqlIcon, PythonIcon, ReactIcon, TypeScriptIcon } from 'vue3-simple-icons';
-
 const sanitizeHtml = (html: string) => DOMPurify.sanitize(html);
-
-const simpleIcons = [{ component: TypeScriptIcon }, { component: ReactIcon }, { component: MySqlIcon }, { component: PythonIcon }];
-
-const faIcons = [
-    { group: 'fas', name: faDatabase },
-    { group: 'fas', name: faCode },
-    { group: 'fas', name: faVial },
-    { group: 'fas', name: faProjectDiagram },
-    { group: 'fas', name: faSitemap },
-    { group: 'fab', name: faLaravel },
-    { group: 'fab', name: faPhp },
-    { group: 'fab', name: faVuejs },
-    { group: 'fab', name: faReact },
-    { group: 'fab', name: faJs },
-    { group: 'fab', name: faHtml5 },
-    { group: 'fab', name: faCss3 },
-];
-
-const getFaIcon = (iconName: string): [string, string] => {
-    const icon = faIcons.find((icon) => icon.name.iconName === iconName);
-    return icon ? [icon.group, iconName] : ['', ''];
-};
-
-const getSimpleIcon = (iconName: string): Component | null => {
-    return simpleIcons.find((icon) => icon.component.__name === iconName)?.component ?? null;
-};
 
 const props = defineProps<{ project: Project }>();
 
@@ -155,7 +123,7 @@ const companyLogoText = computed(() => {
                         <ul class="list-disc space-y-2 rounded-md border-t border-b-4 border-slate-700 bg-slate-900/60 p-2 py-3 ps-10">
                             <li v-for="link in project.links" :key="link.url">
                                 <a :href="link.url" target="_blank" class="text-slate-300 hover:text-teal-300">{{ link.title }}</a>
-                                <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="ps-2 text-teal-300" size="sm" />
+                                <UIcon name="i-lucide-external-link" class="inline-block h-3.5 w-3.5 ps-2 text-teal-300" />
                             </li>
                         </ul>
                     </div>
@@ -166,15 +134,10 @@ const companyLogoText = computed(() => {
                         <h3>skills:</h3>
                         <ul>
                             <li v-for="tech in project.technologies" :key="tech.name" class="flex items-center gap-2">
-                                <FontAwesomeIcon
-                                    v-if="tech.iconType === 'fa' && tech.iconName && getFaIcon(tech.iconName)[0]"
-                                    :icon="getFaIcon(tech.iconName)"
+                                <UIcon
+                                    v-if="tech.iconType && tech.iconName"
+                                    :name="`i-${tech.iconType}-${tech.iconName}`"
                                     class="inline-block h-5 w-5"
-                                />
-                                <component
-                                    v-else-if="tech.iconType === 'si' && tech.iconName && getSimpleIcon(tech.iconName)"
-                                    :is="getSimpleIcon(tech.iconName)"
-                                    class="inline-block h-5 w-5 fill-current"
                                 />
                                 <span v-else class="list-marker">•</span>
                                 {{ tech.name }}
@@ -186,15 +149,10 @@ const companyLogoText = computed(() => {
                         <h3>tools:</h3>
                         <ul>
                             <li v-for="tool in project.tools" :key="tool.name" class="flex items-center gap-2">
-                                <FontAwesomeIcon
-                                    v-if="tool.iconType === 'fa' && tool.iconName && getFaIcon(tool.iconName)[0]"
-                                    :icon="getFaIcon(tool.iconName)"
+                                <UIcon
+                                    v-if="tool.iconType && tool.iconName"
+                                    :name="`i-${tool.iconType}-${tool.iconName}`"
                                     class="inline-block h-5 w-5"
-                                />
-                                <component
-                                    v-else-if="tool.iconType === 'si' && tool.iconName && getSimpleIcon(tool.iconName)"
-                                    :is="getSimpleIcon(tool.iconName)"
-                                    class="inline-block h-5 w-5 fill-current"
                                 />
                                 <span v-else class="list-marker">•</span>
                                 {{ tool.name }}
