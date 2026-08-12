@@ -12,4 +12,3 @@ defineProps<{
         {{ title }}
     </h2>
 </template>
-<!-- md:-mx-7 md:px-7 -->

@@ -77,7 +77,7 @@ watch(
     <div>
         <SpaceMode />
 
-        <div class="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-8 md:py-8 md:pt-0 lg:py-0">
+        <div class="mx-auto min-h-screen max-w-7xl px-6 py-12 font-sans md:px-8 md:py-8 md:pt-0 lg:py-0">
             <!-- <a
                 href="#content"
                 class="absolute top-0 left-0 block -translate-x-full rounded bg-yellow-500 px-4 py-3 text-sm font-bold tracking-widest text-slate-900 uppercase focus-visible:translate-x-0 focus-visible:text-slate-900"

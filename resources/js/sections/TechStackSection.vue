@@ -63,10 +63,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <section id="tech-stack" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Tech stack">
-        <SectionHeading title="Tech Stack" />
+    <section id="tech-stack" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Primary tech stack">
+        <SectionHeading title="Primary Tech Stack" />
 
-        <div class="rounded-br-2xl rounded-bl-2xl border-b border-brand-red bg-black/30 px-2 pt-3 pb-4">
+        <div
+            class="rounded-br-2xl rounded-bl-2xl border-s border-e border-b border-s-white/10 border-e-white/25 border-b-brand-red bg-black/30 px-2 pt-3 pb-4"
+        >
             <SectionState :loading="isLoading" :error="error" @retry="fetchTechStack">
                 <template #loading>
                     <div class="flex flex-wrap justify-center gap-6 py-4">
