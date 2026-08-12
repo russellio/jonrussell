@@ -36,7 +36,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <section id="skills" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="Engineering skills & tools">
+    <section id="skills" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Engineering skills & tools">
         <SectionHeading title="Engineering Skills & Tools" />
         <div class="rounded-br-2xl rounded-bl-2xl border-b border-brand-red bg-black/30 px-2 pt-3 pb-5">
             <SectionState :loading="isLoading" :error="error" @retry="fetchSkills">
