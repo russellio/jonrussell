@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useModal } from '@/js/composables/useModal';
 import type { Form, FormSubmitEvent } from '@nuxt/ui';
+import { useToast } from '@nuxt/ui/composables';
 import { computed, onMounted, onUnmounted, reactive, ref, useTemplateRef } from 'vue';
 import { z } from 'zod';
 
@@ -14,7 +15,7 @@ const schema = z.object({
 type Schema = z.output<typeof schema>;
 
 const state = reactive<Partial<Schema>>({ email: '', subject: '', message: '' });
-const formRef = useTemplateRef<Form<typeof schema>>('formRef');
+const formRef = useTemplateRef<Form<Schema>>('formRef');
 
 const isLoading = ref(false);
 const submitError = ref('');
@@ -104,11 +105,19 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-    <UModal v-model:open="open" title="Contact Me">
+    <UModal v-model:open="open" title="Contact Me" :ui="{ footer: 'justify-end' }">
         <template #body>
             <UAlert v-if="submitError" color="error" variant="subtle" :title="submitError" class="mb-4" />
 
-            <UForm id="contact-form" ref="formRef" :schema="schema" :state="state" class="flex flex-col gap-4" @submit="onSubmit">
+            <UForm
+                id="contact-form"
+                ref="formRef"
+                :schema="schema"
+                :state="state"
+                class="flex flex-col gap-4"
+                @submit="onSubmit"
+                @error="submitError = ''"
+            >
                 <UFormField label="Email" name="email">
                     <UInput v-model="state.email" type="email" placeholder="your.email@example.com" autocomplete="email" class="w-full" />
                 </UFormField>
