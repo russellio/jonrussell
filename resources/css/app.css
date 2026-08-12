@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
-@import '@fontsource-variable/inter';
+@import '@fontsource/noto-sans';
 @import '@fontsource/space-mono';
 @import '@fontsource/sixtyfour';
 
@@ -11,7 +11,7 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Inter Variable', sans-serif, ui-sans-serif, system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Noto Sans', sans-serif, ui-sans-serif, system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-space-mono: 'Space Mono', monospace;
     --font-sixtyfour: 'Sixtyfour', monospace;
 
@@ -90,13 +90,12 @@ p {
 }
 
 .text-inline-heading {
-    @apply me-2 font-mono font-bold text-slate-400;
+    @apply me-2 font-space-mono font-bold text-slate-400;
 }
 
-.inline- .section-wrapper {
+.section-wrapper {
     @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
 }
-
 
 .btn-wrapper {
     @apply flex flex-col items-end;

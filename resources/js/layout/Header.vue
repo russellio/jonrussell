@@ -12,8 +12,8 @@ const credentials = [
 </script>
 
 <template>
-    <header class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[44%] lg:flex-col lg:justify-between lg:py-16">
-        <div>
+    <header class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-100 lg:max-w-100 lg:flex-col lg:justify-between lg:py-16">
+        <div class="flex flex-col items-center lg:items-start">
             <div class="flex items-center gap-4">
                 <div class="absolute z-30 mt-1 h-22 w-20 rounded-lg border-2 border-brand-red bg-white/30"></div>
                 <img src="/images/profile-avatar.svg" alt="Jon Russell" class="z-40 w-20 shrink-0 object-cover" />
@@ -35,7 +35,7 @@ const credentials = [
                 <li
                     v-for="credential in credentials"
                     :key="credential.label"
-                    class="flex items-center gap-1.5 rounded-full border border-slate-300 bg-primary px-3 py-1 text-xs text-white"
+                    class="flex items-center gap-1.5 rounded-full border border-slate-300 bg-blue px-3 py-1 text-xs font-semibold text-white"
                 >
                     <FontAwesomeIcon :icon="credential.icon" class="-ms-1 h-3 w-3 border-e border-e-white/30 pe-1" aria-hidden="true" />
                     {{ credential.label }}

@@ -66,30 +66,32 @@ onMounted(() => {
     <section id="tech-stack" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-16 lg:scroll-mt-24" aria-label="Tech stack">
         <SectionHeading title="Tech Stack" />
 
-        <SectionState :loading="isLoading" :error="error" @retry="fetchTechStack">
-            <template #loading>
-                <div class="flex flex-wrap justify-center gap-6 py-4">
-                    <USkeleton v-for="n in 10" :key="n" class="h-4 w-20" />
-                </div>
-            </template>
+        <div class="rounded-br-2xl rounded-bl-2xl border-b border-brand-red bg-black/30 px-2 pt-3 pb-4">
+            <SectionState :loading="isLoading" :error="error" @retry="fetchTechStack">
+                <template #loading>
+                    <div class="flex flex-wrap justify-center gap-6 py-4">
+                        <USkeleton v-for="n in 10" :key="n" class="h-4 w-20" />
+                    </div>
+                </template>
 
-            <div class="flex flex-wrap justify-center gap-6 py-4">
-                <div v-for="item in techStack" :key="item.tech" class="flex gap-2">
-                    <FontAwesomeIcon
-                        v-if="item.iconType === 'fa' && item.iconName && getFaIcon(item.iconName)[0]"
-                        :icon="getFaIcon(item.iconName)"
-                        class="h-4 w-4 shrink-0 text-slate-500"
-                    />
-                    <component
-                        v-else-if="item.iconType === 'si' && item.iconName && getSimpleIcon(item.iconName)"
-                        :is="getSimpleIcon(item.iconName)"
-                        class="h-4 w-4 shrink-0 fill-current text-slate-500"
-                    />
-                    <span class="align-middle text-sm" :class="item.active ? 'text-teal-300' : 'text-slate-500'">
-                        {{ item.tech }}
-                    </span>
+                <div class="flex flex-wrap justify-center gap-6 py-4">
+                    <div v-for="item in techStack" :key="item.tech" class="flex gap-2">
+                        <FontAwesomeIcon
+                            v-if="item.iconType === 'fa' && item.iconName && getFaIcon(item.iconName)[0]"
+                            :icon="getFaIcon(item.iconName)"
+                            class="h-4 w-4 shrink-0 text-slate-500"
+                        />
+                        <component
+                            v-else-if="item.iconType === 'si' && item.iconName && getSimpleIcon(item.iconName)"
+                            :is="getSimpleIcon(item.iconName)"
+                            class="h-4 w-4 shrink-0 fill-current text-slate-500"
+                        />
+                        <span class="align-middle text-sm" :class="item.active ? 'text-teal-300' : 'text-slate-500'">
+                            {{ item.tech }}
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </SectionState>
+            </SectionState>
+        </div>
     </section>
 </template>
