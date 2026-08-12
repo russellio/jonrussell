@@ -38,7 +38,7 @@ The site presents a work history, skills, and project portfolio through a single
 
 **Filament CMS.** All content — projects, companies, positions, skills, tech stack items, and icons — is managed through a Filament 3 admin panel. The schema uses a normalized icon system: icons live in their own table and are referenced by foreign key across skills, tech stack items, and project technologies/tools.
 
-**Dual icon system.** FontAwesome (tree-shaken SVG core, registered centrally in `lib/icons.ts`) and `vue3-simple-icons` coexist. Each icon record carries an `icon_type` discriminator (`fa` or `si`) and is resolved at render time.
+**Single Iconify-backed icon system.** Icons render through Nuxt UI's `<UIcon>`, backed by the `@iconify-json/lucide` and `@iconify-json/simple-icons` collections. Each icon record's `icon_type` is the literal Iconify collection prefix (`lucide` or `simple-icons`), combined with `icon_name` at render time (`i-${icon_type}-${icon_name}`). Collections are bundled offline via Nuxt UI's `icon.clientBundle` config so no live Iconify CDN fetch is needed at runtime.
 
 **Type-safe route references.** Laravel Wayfinder generates typed route helpers from backend route definitions, eliminating hardcoded URL strings on the frontend.
 
@@ -75,4 +75,6 @@ Tailwind classes are composed with `@apply` inside `<style scoped>` blocks rathe
 
 ## Key Technologies
 
-`PHP 8.3` · `Laravel 12` · `Inertia.js 2` · `Vue 3` · `TypeScript` · `Tailwind CSS 4` · `Vite 7` · `Pinia` · `Filament 3` · `PEST 4` · `Mailgun` · `Cloudflare Turnstile` · `Sentry` · `FontAwesome` · `vue3-simple-icons` · `DOMPurify` · `Laravel Wayfinder`
+`PHP 8.3` · `Laravel 12` · `Inertia.js 2` · `Vue 3` · `TypeScript` · `Tailwind CSS 4` · `Vite 7` · `Pinia` · `Filament 3` · `PEST 4` · `Mailgun` · `Cloudflare Turnstile` · `Sentry` · `Nuxt UI` · `DOMPurify` · `Laravel Wayfinder`
+
+`FontAwesome` and `vue3-simple-icons` were used previously and have been fully removed, replaced by Nuxt UI's `<UIcon>`.

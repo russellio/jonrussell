@@ -63,8 +63,8 @@ class TechStackItemResource extends Resource
                 Tables\Columns\TextColumn::make('icon.icon_type')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'fa' => 'success',
-                        'si' => 'info',
+                        'lucide' => 'success',
+                        'simple-icons' => 'info',
                         default => 'gray',
                     })
                     ->searchable(),
