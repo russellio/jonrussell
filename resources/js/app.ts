@@ -1,6 +1,5 @@
 import '@/css/app.css';
 import AppLayout from '@/js/layout/AppLayout.vue';
-import '@/js/lib/icons';
 import { createInertiaApp } from '@inertiajs/vue3';
 import ui from '@nuxt/ui/vue-plugin';
 import '@russellio/vue-background-stars/style.css';
