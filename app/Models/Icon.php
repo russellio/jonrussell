@@ -13,7 +13,7 @@ class Icon extends Model
     /**
      * Valid icon types.
      */
-    public const VALID_ICON_TYPES = ['fa', 'si'];
+    public const VALID_ICON_TYPES = ['lucide', 'simple-icons'];
 
     /**
      * The attributes that are mass assignable.
