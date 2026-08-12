@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import Nav from '@/js/layout/Nav.vue';
 import Socials from '@/js/layout/Socials.vue';
-import { faLocationDot, faUserShield } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const credentials = [
-    { icon: faLocationDot, label: 'Remote · North Carolina' },
-    // { icon: faCertificate, label: 'Certified ScrumMaster' },
-    { icon: faUserShield, label: 'Confidential Clearance' },
+    { icon: 'map-pin', label: 'Remote · North Carolina' },
+    // { icon: 'id-badge', label: 'Certified ScrumMaster' },
+    { icon: 'user-shield', label: 'Confidential Clearance' },
 ];
 </script>
 
@@ -37,7 +35,7 @@ const credentials = [
                     :key="credential.label"
                     class="flex items-center gap-1.5 rounded-full border border-slate-300 bg-blue px-3 py-1 text-xs font-semibold text-white"
                 >
-                    <FontAwesomeIcon :icon="credential.icon" class="-ms-1 h-3 w-3 border-e border-e-white/30 pe-1" aria-hidden="true" />
+                    <UIcon :name="`i-lucide-${credential.icon}`" class="-ms-1 h-3 w-3 border-e border-e-white/30 pe-1" aria-hidden="true" />
                     {{ credential.label }}
                 </li>
             </ul>
