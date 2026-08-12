@@ -34,7 +34,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <section id="experience" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="Work experience">
+    <section id="experience" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Work experience">
         <SectionHeading title="Experience" />
         <div class="rounded-br-2xl rounded-bl-2xl border-b border-brand-red bg-black/30 px-2 ps-4 pt-3">
             <SectionState :loading="isLoading" :error="error" @retry="fetchTimeline">
