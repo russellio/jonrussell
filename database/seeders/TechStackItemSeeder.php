@@ -18,7 +18,7 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'Laravel',
                 'percent' => 90,
-                'icon_type' => 'fa',
+                'icon_type' => 'simple-icons',
                 'icon_name' => 'laravel',
                 'active' => false,
                 'order' => 0,
@@ -27,7 +27,7 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'PHP',
                 'percent' => 95,
-                'icon_type' => 'fa',
+                'icon_type' => 'simple-icons',
                 'icon_name' => 'php',
                 'active' => false,
                 'order' => 1,
@@ -36,8 +36,8 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'Vue',
                 'percent' => 75,
-                'icon_type' => 'fa',
-                'icon_name' => 'vuejs',
+                'icon_type' => 'simple-icons',
+                'icon_name' => 'vuedotjs',
                 'active' => false,
                 'order' => 2,
                 'skill_name' => 'Vue 3',
@@ -45,8 +45,8 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'React',
                 'percent' => 45,
-                'icon_type' => 'si',
-                'icon_name' => 'ReactIcon',
+                'icon_type' => 'simple-icons',
+                'icon_name' => 'react',
                 'active' => true,
                 'order' => 3,
                 'skill_name' => null, // React not in skills list
@@ -54,8 +54,8 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'JavaScript',
                 'percent' => 95,
-                'icon_type' => 'fa',
-                'icon_name' => 'js',
+                'icon_type' => 'simple-icons',
+                'icon_name' => 'javascript',
                 'active' => false,
                 'order' => 4,
                 'skill_name' => 'JavaScript',
@@ -63,8 +63,8 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'TypeScript',
                 'percent' => 90,
-                'icon_type' => 'si',
-                'icon_name' => 'TypeScriptIcon',
+                'icon_type' => 'simple-icons',
+                'icon_name' => 'typescript',
                 'active' => false,
                 'order' => 5,
                 'skill_name' => 'TypeScript',
@@ -72,8 +72,8 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'Python',
                 'percent' => 20,
-                'icon_type' => 'si',
-                'icon_name' => 'PythonIcon',
+                'icon_type' => 'simple-icons',
+                'icon_name' => 'python',
                 'active' => true,
                 'order' => 6,
                 'skill_name' => null, // Python not in skills list
@@ -81,7 +81,7 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'REST APIs',
                 'percent' => 90,
-                'icon_type' => 'fa',
+                'icon_type' => 'lucide',
                 'icon_name' => 'code',
                 'active' => false,
                 'order' => 7,
@@ -90,8 +90,8 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'MySQL / RDMS',
                 'percent' => 90,
-                'icon_type' => 'si',
-                'icon_name' => 'MySqlIcon',
+                'icon_type' => 'simple-icons',
+                'icon_name' => 'mysql',
                 'active' => false,
                 'order' => 8,
                 'skill_name' => 'MySQL 8',
@@ -99,7 +99,7 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'HTML5',
                 'percent' => 95,
-                'icon_type' => 'fa',
+                'icon_type' => 'simple-icons',
                 'icon_name' => 'html5',
                 'active' => false,
                 'order' => 9,
@@ -108,7 +108,7 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'CSS3',
                 'percent' => 95,
-                'icon_type' => 'fa',
+                'icon_type' => 'simple-icons',
                 'icon_name' => 'css3',
                 'active' => false,
                 'order' => 10,
@@ -117,8 +117,8 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'PEST / PHPUnit',
                 'percent' => 80,
-                'icon_type' => 'fa',
-                'icon_name' => 'vial',
+                'icon_type' => 'lucide',
+                'icon_name' => 'flask-conical',
                 'active' => false,
                 'order' => 11,
                 'skill_name' => 'PHPUnit', // Using PHPUnit as closest match
@@ -126,8 +126,8 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'Agile',
                 'percent' => 90,
-                'icon_type' => 'fa',
-                'icon_name' => 'project-diagram',
+                'icon_type' => 'lucide',
+                'icon_name' => 'workflow',
                 'active' => false,
                 'order' => 12,
                 'skill_name' => null, // Agile not in skills list
@@ -135,8 +135,8 @@ class TechStackItemSeeder extends Seeder
             [
                 'name' => 'OOP / MVC',
                 'percent' => 90,
-                'icon_type' => 'fa',
-                'icon_name' => 'sitemap',
+                'icon_type' => 'lucide',
+                'icon_name' => 'layers',
                 'active' => false,
                 'order' => 13,
                 'skill_name' => 'MVC', // Using MVC as match
