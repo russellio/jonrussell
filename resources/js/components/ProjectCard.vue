@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { Project } from '@/js/types/index';
-import { faAward } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -42,7 +40,7 @@ const thumbSrc = computed(() => {
                 <ul v-if="project.awards && project.awards.length > 0" class="mt-2 flex flex-wrap gap-1.5" aria-label="Awards">
                     <li v-for="award in project.awards" :key="award">
                         <UBadge color="primary" variant="outline" size="sm" class="rounded-full">
-                            <FontAwesomeIcon :icon="faAward" class="h-4 w-4" />
+                            <UIcon name="i-lucide-award" class="h-4 w-4" />
                             {{ award }}
                         </UBadge>
                     </li>
