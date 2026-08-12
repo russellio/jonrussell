@@ -28,14 +28,7 @@ const socials = [
             </UButton>
         </li>
         <li class="mx-5 shrink-0 text-center">
-            <UButton
-                type="button"
-                variant="ghost"
-                color="neutral"
-                aria-label="Email Jon Russell"
-                title="Email"
-                @click="openModal('contact-modal')"
-            >
+            <UButton type="button" variant="ghost" color="neutral" aria-label="Email Jon Russell" title="Email" @click="openModal('contact-modal')">
                 <FontAwesomeIcon :icon="faEnvelope" class="h-8 w-8" aria-hidden="true" />
             </UButton>
         </li>
