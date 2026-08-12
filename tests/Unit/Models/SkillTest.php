@@ -13,7 +13,7 @@ test('skill belongs to skill type', function () {
 });
 
 test('skill belongs to icon', function () {
-    $icon = Icon::factory()->create(['icon_type' => 'si', 'icon_name' => 'vuedotjs']);
+    $icon = Icon::factory()->create(['icon_type' => 'simple-icons', 'icon_name' => 'vuedotjs']);
     $skillType = SkillType::factory()->create(['name' => 'Frontend', 'slug' => 'frontend', 'order' => 0]);
     $skill = Skill::factory()->create(['skill_type_id' => $skillType->id, 'name' => 'Vue.js', 'order' => 0, 'icon_id' => $icon->id]);
 

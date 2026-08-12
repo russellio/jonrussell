@@ -53,7 +53,7 @@ test('project has many technologies', function () {
         'order' => 0,
     ]);
 
-    $icon = Icon::create(['icon_type' => 'fa', 'icon_name' => 'laravel']);
+    $icon = Icon::create(['icon_type' => 'simple-icons', 'icon_name' => 'laravel']);
 
     $tech1 = ProjectTechnology::create([
         'project_id' => $project->id,
