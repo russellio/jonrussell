@@ -17,7 +17,7 @@ test('tech stack item belongs to skill', function () {
 });
 
 test('tech stack item belongs to icon', function () {
-    $icon = Icon::factory()->create(['icon_type' => 'fa', 'icon_name' => 'laravel']);
+    $icon = Icon::factory()->create(['icon_type' => 'simple-icons', 'icon_name' => 'laravel']);
     $item = TechStackItem::factory()->create(['name' => 'Laravel', 'percent' => 90, 'icon_id' => $icon->id]);
 
     expect($item->icon)->toBeInstanceOf(Icon::class);
@@ -25,14 +25,14 @@ test('tech stack item belongs to icon', function () {
 });
 
 test('icon type accessor returns type from associated icon', function () {
-    $icon = Icon::factory()->create(['icon_type' => 'si', 'icon_name' => 'vuedotjs']);
+    $icon = Icon::factory()->create(['icon_type' => 'simple-icons', 'icon_name' => 'vuedotjs']);
     $item = TechStackItem::factory()->create(['name' => 'Vue', 'percent' => 80, 'icon_id' => $icon->id]);
 
-    expect($item->icon_type)->toBe('si');
+    expect($item->icon_type)->toBe('simple-icons');
 });
 
 test('icon name accessor returns name from associated icon', function () {
-    $icon = Icon::factory()->create(['icon_type' => 'si', 'icon_name' => 'vuedotjs']);
+    $icon = Icon::factory()->create(['icon_type' => 'simple-icons', 'icon_name' => 'vuedotjs']);
     $item = TechStackItem::factory()->create(['name' => 'Vue', 'percent' => 80, 'icon_id' => $icon->id]);
 
     expect($item->icon_name)->toBe('vuedotjs');
