@@ -105,13 +105,9 @@ Vue components fetch data directly from the API on `onMounted` using raw `fetch(
 
 ### Icon System
 
-Two icon sets co-exist:
-- **FontAwesome** — `icon_type: 'fa'`, referenced by `icon_name` (e.g. `laravel`)
-- **Simple Icons** (via `vue3-simple-icons`) — `icon_type: 'si'`, referenced by component `__name`
+Icons render through a single Nuxt UI `<UIcon>` component, registered globally via the `@nuxt/ui/vue-plugin` Vue plugin in `app.ts` (`app.use(ui)`) — no per-component registration or lookup arrays. `icon_type` is the literal Iconify collection prefix (`lucide` or `simple-icons`) and `icon_name` is the icon's name within that collection; the two are combined at the binding site: `:name="`i-${iconType}-${iconName}`"` (see `TechStackSection.vue`). Static icon references elsewhere use a literal name directly (e.g. `name="i-lucide-award"`).
 
-Icons are stored in the `icons` table and linked to `skills`, `tech_stack_items`, `project_technologies`, and `project_tools` via `icon_id`.
-
-**Current issue**: `library.add()` is called inside individual component `<script setup>` blocks rather than once in `app.ts`.
+Icons are stored in the `icons` table and linked to `skills`, `tech_stack_items`, `project_technologies`, and `project_tools` via `icon_id`. The two Iconify JSON collections (`@iconify-json/lucide`, `@iconify-json/simple-icons`) are bundled offline via Nuxt UI's `icon.clientBundle` config in `vite.config.ts`; dynamic/template-literal icon names that its `scan: true` static scanner can't see must be listed explicitly in `clientBundle.icons`, or they fall back to a live Iconify CDN fetch at runtime.
 
 ## Known Issues / Open Debt
 
@@ -125,7 +121,7 @@ These are things the codebase has but are not yet complete or are actively wrong
 **Resolved (no longer issues):**
 - **API caching** — read-only API endpoints now use response caching with invalidation on model mutations
 - **API client** — centralized at `resources/js/lib/api.ts` with `get<T>()` function
-- **FontAwesome registration** — centralized at `resources/js/lib/icons.ts`, imported in `app.ts`
+- **Dual icon system removed** — FontAwesome and `vue3-simple-icons` were replaced with Nuxt UI's `<UIcon>` backed by `@iconify-json/lucide` and `@iconify-json/simple-icons`; `resources/js/lib/icons.ts` no longer exists
 - **API Resources** — controllers standardized with model-aware formatting and type safety
 - **Admin API routes/controllers removed** — there are no `admin` API routes or `app/Http/Controllers/Admin/` controllers; Filament is the sole CMS for managing content
 - **Admin/Filament duplication removed** — the unused, unauthenticated Admin CRUD controllers (`CompanyController`, `PositionController`, `TechStackItemController`) were deleted; no duplication remains

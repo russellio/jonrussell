@@ -47,6 +47,10 @@ export default defineConfig({
                         'lucide:flask-conical',
                         'lucide:workflow',
                         'lucide:layers',
+                        'lucide:map-pin',
+                        'lucide:user-shield',
+                        'lucide:github',
+                        'lucide:linkedin',
                     ],
                 },
             }, // the one real intent of nuxt.config.ts
