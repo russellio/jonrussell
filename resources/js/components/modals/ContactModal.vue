@@ -86,9 +86,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
         if (!response.ok) {
             if (response.status === 422 && data.errors) {
-                formRef.value?.setErrors(
-                    Object.entries(data.errors).flatMap(([name, messages]) => messages.map((message) => ({ name, message }))),
-                );
+                formRef.value?.setErrors(Object.entries(data.errors).flatMap(([name, messages]) => messages.map((message) => ({ name, message }))));
             } else {
                 submitError.value = data.message || 'Failed to send message. Please try again.';
             }
