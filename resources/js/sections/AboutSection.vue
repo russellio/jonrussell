@@ -31,7 +31,7 @@ const highlights = [
                 out the best solution.
             </p>
 
-            <div class="my-6 border-s border-slate-400 ps-2">
+            <div class="my-6 border-s border-slate-400 ps-2 text-sm">
                 <h3 class="ms-2 mb-2 font-space-mono text-lg font-bold">TL;DR</h3>
                 <p class="ms-4 mb-4">
                     <span class="text-inline-heading">experience:</span> My career has spanned defense, finance, and manufacturing, where I've built
@@ -64,10 +64,11 @@ const highlights = [
                     </span>
                     <span class="text-sm text-slate-100"> · {{ highlight.label }}</span>
                 </li>
-                <li class="flex w-full flex-row items-center justify-center">
+                <li>
                     <span class="font-space-mono text-base font-semibold text-slate-400">Master of Internet Techology</span>
-                    <span class="mx-2 text-sm text-slate-100">·</span>
-                    <img src="/images/uga-logo.png" class="mt-[2px] h-[17px]" />
+                    <span class="text-sm text-slate-100"> · University of Georgia</span>
+                    <!-- <span class="mx-2 text-sm text-slate-100">·</span> -->
+                    <!-- <img src="/images/uga-logo.png" class="mt-[2px] h-[17px]" /> -->
                 </li>
             </ul>
         </SectionPanel>

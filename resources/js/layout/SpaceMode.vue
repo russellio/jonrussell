@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStarMode } from '@/js/composables/useStarMode';
-import { BackgroundStars, ToggleSwitch } from '@russellio/vue-background-stars';
+import { BackgroundStars } from '@russellio/vue-background-stars';
 
 const { showStars } = useStarMode();
 </script>
@@ -8,9 +8,9 @@ const { showStars } = useStarMode();
 <template>
     <div>
         <div
-            class="fixed right-0 bottom-0 left-0 z-40 flex flex-row justify-items-start border-t border-t-brand-red/50 bg-black/50 px-10 py-1 font-space-mono text-sm font-bold text-white md:block"
+            class="fixed right-0 bottom-0 left-0 z-40 flex flex-row justify-items-start border-t border-t-brand-red/50 bg-black/50 ps-10 pt-3 pb-3 font-space-mono text-sm font-bold text-white md:block"
         >
-            <ToggleSwitch label="space mode:" v-model="showStars" />
+            <USwitch label="space mode:" v-model="showStars" color="secondary" />
         </div>
 
         <div class="fallback-background" :class="{ 'fade-out': showStars }"></div>

@@ -22,6 +22,13 @@ class CompanyResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required(),
+                Forms\Components\TextInput::make('logo_src')
+                    ->helperText('Filename in public/images/logos/'),
+                Forms\Components\TextInput::make('logo_alt'),
+                Forms\Components\Toggle::make('logo_display_name'),
+                Forms\Components\TextInput::make('link')
+                    ->url(),
+                Forms\Components\Textarea::make('description'),
             ]);
     }
 
@@ -29,8 +36,23 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('logo_src')
+                    ->label('Logo')
+                    ->getStateUsing(fn ($record) => $record->logo_src ? asset("images/logos/{$record->logo_src}") : null),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('logo_alt')
+                    ->toggleable(),
+                Tables\Columns\IconColumn::make('logo_display_name')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('link')
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->limit(50)
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('positions_count')
+                    ->counts('positions')
+                    ->label('Positions'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

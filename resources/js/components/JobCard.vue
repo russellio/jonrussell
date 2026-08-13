@@ -84,7 +84,7 @@ const showCompanyName = computed(() => {
                 ></div>
                 <ul v-if="position.skills.length" class="mt-2 flex flex-wrap" aria-label="Skills used">
                     <li v-for="skill in position.skills" :key="skill.id" class="me-1.5 mt-2">
-                        <UBadge color="secondary" variant="soft" size="md" class="rounded-sm bg-white/10">{{ skill.name }}</UBadge>
+                        <UBadge color="secondary" variant="soft" size="sm" class="rounded-sm bg-white/10 font-semibold">{{ skill.name }}</UBadge>
                     </li>
                 </ul>
             </div>

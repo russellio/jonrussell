@@ -36,8 +36,8 @@ onMounted(() => {
 
 <template>
     <section id="experience" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Work experience">
-        <SectionHeading title="Experience" />
-        <SectionPanel class="px-4 pt-3">
+        <SectionHeading title="Professional Experience" />
+        <SectionPanel class="ps-2 pt-8">
             <SectionState :loading="isLoading" :error="error" @retry="fetchTimeline">
                 <template #loading>
                     <div class="space-y-6 py-8">
