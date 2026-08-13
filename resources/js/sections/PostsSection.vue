@@ -35,10 +35,10 @@ onMounted(() => {
 <template>
     <section id="posts" class="scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Posts">
         <SectionHeading title="Posts" />
-        <SectionPanel class="ps-4 pe-2 pt-6">
+        <SectionPanel class="ps-8 pe-2 pt-6 pb-0">
             <SectionState :loading="isLoading" :error="error" @retry="fetchPosts">
                 <template #loading>
-                    <div class="space-y-6 py-8">
+                    <div class="space-y-6">
                         <div v-for="n in 3" :key="n" class="sm:col-span-6">
                             <USkeleton class="h-5 w-2/3" />
                             <USkeleton class="mt-2 h-4 w-full" />
