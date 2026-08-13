@@ -33,6 +33,7 @@ export interface Company {
     name: string;
     logo: CompanyLogo;
     link?: string;
+    description?: string | null;
 }
 
 export interface ProjectLink {

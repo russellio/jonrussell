@@ -10,7 +10,7 @@ const socials = [
 </script>
 
 <template>
-    <ul class="mt-8 flex justify-center" aria-label="Social media">
+    <ul class="mt-8 flex w-full max-w-xs flex-row items-center justify-center border-t border-t-white/10 pt-2" aria-label="Social media">
         <li v-for="social in socials" :key="social.name" class="mx-5 shrink-0 text-center">
             <UButton
                 variant="ghost"
@@ -20,13 +20,22 @@ const socials = [
                 rel="noreferrer noopener"
                 :aria-label="`${social.name} (opens in a new tab)`"
                 :title="social.name"
+                class="opacity-50 hover:opacity-100"
             >
-                <UIcon :name="`i-lucide-${social.icon}`" class="h-8 w-8" aria-hidden="true" />
+                <UIcon :name="`i-lucide-${social.icon}`" class="h-5 w-5" aria-hidden="true" />
             </UButton>
         </li>
         <li class="mx-5 shrink-0 text-center">
-            <UButton type="button" variant="ghost" color="neutral" aria-label="Email Jon Russell" title="Email" @click="openModal('contact-modal')">
-                <UIcon name="i-lucide-mail" class="h-8 w-8" aria-hidden="true" />
+            <UButton
+                type="button"
+                variant="ghost"
+                color="neutral"
+                aria-label="Email Jon Russell"
+                class="opacity-50 hover:opacity-100"
+                title="Email"
+                @click="openModal('contact-modal')"
+            >
+                <UIcon name="i-lucide-mail" class="h-5 w-5" aria-hidden="true" />
             </UButton>
         </li>
     </ul>

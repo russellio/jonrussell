@@ -22,48 +22,60 @@ const dateRange = computed(() => {
     const end = props.position.isCurrent || !props.position.endDate ? 'Present' : formatMonthYear(props.position.endDate);
     return `${start} — ${end}`;
 });
+
+const companyLogoSrc = computed(() => {
+    return props.position.company?.logo?.src ? `/images/logos/${props.position.company.logo.src}` : null;
+});
+
+const showCompanyName = computed(() => {
+    return !companyLogoSrc.value || Boolean(props.position.company?.logo?.displayName);
+});
 </script>
 
 <template>
     <li class="mb-12">
         <div class="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:group-hover/list:opacity-50 lg:hover:opacity-100!">
             <div
-                class="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"
+                class="absolute -inset-y-4 -inset-s-4 -inset-e-2 z-0 hidden rounded-md border-white/0 transition motion-reduce:transition-none lg:block lg:group-hover:border lg:group-hover:border-white/25 lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"
             ></div>
-            <header class="z-10 mt-1 mb-2 text-xs font-semibold tracking-wide text-slate-500 uppercase sm:col-span-2">
-                {{ dateRange }}
+            <header class="z-10 mt-1 mb-2 text-center text-xs tracking-wide text-slate-500 sm:col-span-2">
+                <div class="text-center font-semibold text-slate-400 uppercase">{{ dateRange }}</div>
+                <div class="mt-6">
+                    <img
+                        v-if="companyLogoSrc"
+                        :src="companyLogoSrc"
+                        :alt="position.company.logo.alt || position.company.name"
+                        class="mx-auto h-8 rounded-sm object-contain"
+                    />
+                    <div v-if="showCompanyName" class="mt-2 text-center font-sans">{{ position.company.name }}</div>
+                    <div v-if="position.company.description" class="mt-4 font-sans text-xs">{{ position.company.description }}</div>
+                </div>
             </header>
             <div class="z-10 sm:col-span-6">
-                <h3 class="leading-snug font-medium text-slate-200">
-                    <a
-                        v-if="position.company?.link"
-                        class="group/link relative inline-flex items-baseline text-base leading-tight font-medium text-slate-200"
-                        :href="position.company.link"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        :aria-label="`${position.title} at ${position.company.name} (opens in a new tab)`"
-                    >
-                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-                        <span>
-                            {{ position.title }}<template v-if="position.company"> · {{ position.company.name }}</template>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                class="ml-1 inline-block h-4 w-4 shrink-0 translate-y-px transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1 group-focus-visible/link:translate-x-1 group-focus-visible/link:-translate-y-1 motion-reduce:transition-none"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z"
-                                    clip-rule="evenodd"
-                                ></path>
-                            </svg>
-                        </span>
-                    </a>
-                    <span v-else class="inline-flex items-baseline text-base leading-tight font-medium text-slate-200">
-                        {{ position.title }}<template v-if="position.company"> · {{ position.company.name }}</template>
+                <h3 class="flex flex-row gap-0.5 leading-snug font-medium text-slate-200">
+                    <span class="items-baseline text-base leading-tight font-bold">
+                        {{ position.title }}
                     </span>
+                    <component
+                        :is="position.company.link ? 'a' : 'span'"
+                        v-if="position.company"
+                        class="group/link ms-auto"
+                        v-bind="
+                            position.company.link
+                                ? {
+                                      href: position.company.link,
+                                      target: '_blank',
+                                      rel: 'noreferrer noopener',
+                                      'aria-label': `${position.title} at ${position.company.name} (opens in a new tab)`,
+                                  }
+                                : {}
+                        "
+                    >
+                        <div class="flex flex-row text-sm">
+                            <div class="me-1.5 grow text-nowrap">{{ position.company.name }}</div>
+                            <UIcon v-if="position.company.link" name="i-lucide-external-link" color="secondary" />
+                        </div>
+                    </component>
                 </h3>
                 <div
                     v-if="position.description"
@@ -71,8 +83,8 @@ const dateRange = computed(() => {
                     v-html="sanitizeHtml(position.description)"
                 ></div>
                 <ul v-if="position.skills.length" class="mt-2 flex flex-wrap" aria-label="Skills used">
-                    <li v-for="skill in position.skills" :key="skill.id" class="mt-2 mr-1.5">
-                        <UBadge color="primary" variant="soft" size="sm" class="rounded-sm">{{ skill.name }}</UBadge>
+                    <li v-for="skill in position.skills" :key="skill.id" class="me-1.5 mt-2">
+                        <UBadge color="secondary" variant="soft" size="md" class="rounded-sm bg-white/10">{{ skill.name }}</UBadge>
                     </li>
                 </ul>
             </div>

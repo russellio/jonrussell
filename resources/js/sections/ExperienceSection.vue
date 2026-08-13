@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import JobCard from '@/js/components/JobCard.vue';
 import SectionHeading from '@/js/components/SectionHeading.vue';
+import SectionPanel from '@/js/components/SectionPanel.vue';
 import SectionState from '@/js/components/SectionState.vue';
 import { get } from '@/js/lib/api';
 import type { ApiResponse, TimelinePosition } from '@/js/types/index';
@@ -36,7 +37,7 @@ onMounted(() => {
 <template>
     <section id="experience" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Work experience">
         <SectionHeading title="Experience" />
-        <div class="rounded-br-2xl rounded-bl-2xl border-b border-brand-red bg-black/30 px-2 ps-4 pt-3">
+        <SectionPanel class="px-4 pt-3">
             <SectionState :loading="isLoading" :error="error" @retry="fetchTimeline">
                 <template #loading>
                     <div class="space-y-6 py-8">
@@ -57,6 +58,6 @@ onMounted(() => {
                     <!-- TODO: re-enable when public/resume.pdf is supplied -->
                 </div>
             </SectionState>
-        </div>
+        </SectionPanel>
     </section>
 </template>

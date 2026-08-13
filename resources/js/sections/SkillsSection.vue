@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SectionHeading from '@/js/components/SectionHeading.vue';
+import SectionPanel from '@/js/components/SectionPanel.vue';
 import SectionState from '@/js/components/SectionState.vue';
 import { get } from '@/js/lib/api';
 import type { ApiResponse, Skill, SkillType } from '@/js/types/index';
@@ -38,7 +39,7 @@ onMounted(() => {
 <template>
     <section id="skills" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Engineering skills & tools">
         <SectionHeading title="Engineering Skills & Tools" />
-        <div class="rounded-br-2xl rounded-bl-2xl border-b border-brand-red bg-black/30 px-2 pt-3 pb-5">
+        <SectionPanel class="px-2 pt-3 pb-5">
             <SectionState :loading="isLoading" :error="error" @retry="fetchSkills">
                 <template #loading>
                     <div class="flex flex-wrap gap-2 py-8">
@@ -47,54 +48,56 @@ onMounted(() => {
                 </template>
 
                 <div class="space-y-8 px-4 py-8">
-                    <h3 class="mb-2 font-semibold text-slate-200">Software Engineering</h3>
+                    <h3 class="mb-2 font-space-mono text-lg font-semibold text-slate-200">Software Engineering</h3>
                     <div class="px-0 pb-2">
-                        <ul class="flex flex-wrap gap-2" aria-label="Software engineering skills">
+                        <ul class="flex flex-wrap justify-between gap-2" aria-label="Software engineering skills">
                             <li v-for="skill in getSkillsBySlug('software')" :key="skill.id">
-                                <UBadge color="primary" variant="soft" size="md" class="rounded-sm">{{ skill.name }}</UBadge>
+                                <UBadge color="secondary" variant="soft" size="md" class="rounded-sm">{{ skill.name }}</UBadge>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <h3 class="mb-2 font-semibold text-slate-200">Architecture & DevOps</h3>
-                            <ul class="flex flex-wrap gap-2" aria-label="Architecture and DevOps skills">
+                            <h3 class="mb-2 font-space-mono font-semibold text-slate-200">Architecture & DevOps</h3>
+                            <ul class="flex flex-wrap justify-start gap-2" aria-label="Architecture and DevOps skills">
                                 <li v-for="skill in getSkillsBySlug('devops')" :key="skill.id">
-                                    <UBadge color="primary" variant="soft" size="md" class="rounded-sm">{{ skill.name }}</UBadge>
+                                    <UBadge color="secondary" variant="soft" size="md" class="rounded-sm">{{ skill.name }}</UBadge>
                                 </li>
                             </ul>
                         </div>
 
                         <div>
-                            <h3 class="mb-2 font-semibold">Quality & Collaboration</h3>
-                            <ul class="flex flex-wrap gap-2" aria-label="Quality and collaboration skills">
-                                <li v-for="skill in getSkillsBySlug('quality')" :key="skill.id">
-                                    <UBadge color="primary" variant="soft" size="md" class="rounded-sm">{{ skill.name }}</UBadge>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h3 class="mb-2 font-semibold">Leadership & Team Building</h3>
-                            <ul class="flex flex-wrap gap-2" aria-label="Leadership and team building skills">
+                            <h3 class="mb-2 font-space-mono font-semibold">Leadership & Team Building</h3>
+                            <ul class="flex flex-wrap justify-start gap-2" aria-label="Leadership and team building skills">
                                 <li v-for="skill in getSkillsBySlug('leadership')" :key="skill.id">
-                                    <UBadge color="primary" variant="soft" size="md" class="rounded-sm">{{ skill.name }}</UBadge>
+                                    <UBadge color="secondary" variant="soft" size="md" class="rounded-sm">{{ skill.name }}</UBadge>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 class="mb-2 font-semibold">Tools & Environment</h3>
-                        <ul class="flex flex-wrap gap-2" aria-label="Tools and environment">
-                            <li v-for="skill in getSkillsBySlug('tools')" :key="skill.id">
-                                <UBadge color="primary" variant="soft" size="md" class="rounded-sm">{{ skill.name }}</UBadge>
-                            </li>
-                        </ul>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="mb-2 font-space-mono font-semibold">Quality & Collaboration</h3>
+                            <ul class="flex flex-wrap justify-start gap-2" aria-label="Quality and collaboration skills">
+                                <li v-for="skill in getSkillsBySlug('quality')" :key="skill.id">
+                                    <UBadge color="secondary" variant="soft" size="md" class="rounded-sm">{{ skill.name }}</UBadge>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="mb-2 font-space-mono text-lg font-semibold">Tools & Environment</h3>
+                            <ul class="flex flex-wrap justify-start gap-2" aria-label="Tools and environment">
+                                <li v-for="skill in getSkillsBySlug('tools')" :key="skill.id">
+                                    <UBadge color="secondary" variant="soft" size="md" class="rounded-lg">{{ skill.name }}</UBadge>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </SectionState>
-        </div>
+        </SectionPanel>
     </section>
 </template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SectionHeading from '@/js/components/SectionHeading.vue';
+import SectionPanel from '@/js/components/SectionPanel.vue';
 
 const highlights = [
     { value: '13+ yrs', label: 'Software engineering' },
@@ -12,9 +13,7 @@ const highlights = [
 <template>
     <section id="about" class="mb-16 flex scroll-mt-16 flex-col text-base md:mb-24 lg:mt-0 lg:mb-20 lg:scroll-mt-20 lg:pt-0" aria-label="About me">
         <SectionHeading title="About Me" />
-        <div
-            class="gap-6 rounded-br-2xl rounded-bl-2xl border-s border-e border-b border-brand-red border-e-white/25 bg-black/30 px-6 pt-3 pb-10 text-sm"
-        >
+        <SectionPanel class="ps-8 pe-8 pb-10">
             <p class="my-2 mb-4 text-base">
                 <span class="me-3 font-space-mono text-2xl font-bold text-white">Hello!</span>
                 I'm Jon, a full stack engineer with 13+ years of experience designing, developing, and scaling enterprise applications. My primary
@@ -60,12 +59,12 @@ const highlights = [
 
             <ul class="flex flex-wrap justify-center gap-x-3 gap-y-2 pt-2" aria-label="Highlights">
                 <li v-for="highlight in highlights" :key="highlight.label" class="text-sm">
-                    <span class="border-s-white/25 text-base font-semibold text-blue">
+                    <span class="text-base font-semibold text-bright-green-600">
                         {{ highlight.value }}
                     </span>
                     <span class="text-sm text-slate-100"> · {{ highlight.label }}</span>
                 </li>
             </ul>
-        </div>
+        </SectionPanel>
     </section>
 </template>

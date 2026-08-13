@@ -24,6 +24,31 @@ export function useScrollSpy(sectionIds: string[]) {
         }
     };
 
+    // When the last section is short, there may not be enough scrollable
+    // distance left to ever push its heading into the rootMargin band below —
+    // trailing content (e.g. the footer) can keep the page's true bottom out
+    // of reach of scrollIntoView. Comparing against document scroll height
+    // is unreliable for this reason, so instead check the section's own
+    // geometry: once it's fully visible in the viewport, it must be current.
+    // Re-derive from the observer's last-known state on every scroll tick —
+    // IntersectionObserver only fires when a section crosses the band, so a
+    // large section that already spans the band won't produce a fresh event
+    // just because the user scrolled within it. Without this, the forced
+    // override below could stick after the user scrolls back away from the
+    // last section.
+    const lastSectionId = sectionIds[sectionIds.length - 1];
+    const handleScroll = () => {
+        updateActiveId();
+
+        const element = document.getElementById(lastSectionId);
+        if (!element) return;
+        const rect = element.getBoundingClientRect();
+        const fullyVisible = rect.top >= 0 && rect.bottom <= window.innerHeight + 1;
+        if (fullyVisible) {
+            activeId.value = lastSectionId;
+        }
+    };
+
     onMounted(() => {
         observer = new IntersectionObserver(
             (entries) => {
@@ -45,10 +70,14 @@ export function useScrollSpy(sectionIds: string[]) {
             const element = document.getElementById(id);
             if (element) observer.observe(element);
         }
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
     });
 
     onUnmounted(() => {
         observer?.disconnect();
+        window.removeEventListener('scroll', handleScroll);
     });
 
     return { activeId };

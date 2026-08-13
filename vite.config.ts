@@ -26,7 +26,7 @@ export default defineConfig({
         ui({
             router: 'inertia', // Inertia compat layer for `to` props on UButton/ULink
             colorMode: false, // dark-only; avoids @vueuse/core localStorage SSR hydration mismatch
-            ui: { colors: { primary: 'teal', neutral: 'slate' } },
+            ui: { colors: { primary: 'blue', neutral: 'slate' } },
             icon: {
                 clientBundle: {
                     scan: true,

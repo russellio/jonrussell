@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ProjectCard from '@/js/components/ProjectCard.vue';
 import SectionHeading from '@/js/components/SectionHeading.vue';
+import SectionPanel from '@/js/components/SectionPanel.vue';
 import SectionState from '@/js/components/SectionState.vue';
 import ProjectModal from '@/js/components/modals/ProjectModal.vue';
 import { useModal } from '@/js/composables/useModal';
@@ -46,7 +47,7 @@ onMounted(() => {
 <template>
     <section id="projects" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Selected projects">
         <SectionHeading title="Projects" />
-        <div class="rounded-br-2xl rounded-bl-2xl border-b border-brand-red bg-black/30 px-2 ps-4 pt-3">
+        <SectionPanel>
             <SectionState :loading="isLoading" :error="error" @retry="fetchProjects">
                 <template #loading>
                     <div class="space-y-6 py-8">
@@ -60,13 +61,13 @@ onMounted(() => {
                     </div>
                 </template>
 
-                <div>
+                <div class="mx-4 mt-4">
                     <ul class="group/list">
                         <ProjectCard v-for="project in projects" :key="project.id" :project="project" @select="onSelect" />
                     </ul>
                 </div>
             </SectionState>
-        </div>
+        </SectionPanel>
 
         <ProjectModal v-if="isModalOpen && selectedProject" :project="selectedProject" />
     </section>

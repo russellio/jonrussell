@@ -34,6 +34,7 @@ class Company extends Model
         'logo_alt',
         'logo_display_name',
         'link',
+        'description',
     ];
 
     /**
