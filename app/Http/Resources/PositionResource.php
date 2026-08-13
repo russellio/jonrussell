@@ -26,6 +26,7 @@ class PositionResource extends JsonResource
                     'displayName' => $this->company->logo_display_name,
                 ],
                 'link' => $this->company->link,
+                'description' => $this->company->description,
             ] : null,
             'skills' => $this->skills->map(fn ($skill) => [
                 'id' => $skill->id,

@@ -15,16 +15,49 @@
     --font-space-mono: 'Space Mono', monospace;
     --font-sixtyfour: 'Sixtyfour', monospace;
 
+    --color-primary: var(--color-primary-blue-500);
+    --color-secondary: var(--color-slate-300);
+
     --color-brand-red: var(--color-bulldog-red);
-    --color-blue: #1564f4;
 
     --color-gold: #efbf04;
     --color-bright-green: #45f415;
     --color-red: #f50538;
     --color-bulldog-red: #ba0c2f;
 
+    --color-bright-green-100: #dafdd0;
+    --color-bright-green-200: #b5fba1;
+    --color-bright-green-300: #8ff873;
+    --color-bright-green-400: #6af644;
+    --color-bright-green-500: #45f415;
+    --color-bright-green-600: #37c311;
+    --color-bright-green-700: #29920d;
+    --color-bright-green-800: #1c6208;
+    --color-bright-green-900: #0e3104;
+
+
+    --color-terminal-black: #2e2f30;
+    --color-terminal-black-50: #f3f4f4;
+    --color-terminal-black-100: #e7e8e9;
     --color-terminal-black-200: #cdcfd1;
+    --color-terminal-black-300: #b6b9bc;
     --color-terminal-black-400: #9ea1a4;
+    --color-terminal-black-500: #898c8e;
+    --color-terminal-black-600: #737577;
+    --color-terminal-black-700: #5f6163;
+    --color-terminal-black-800: #4a4b4d;
+    --color-terminal-black-900: #38393a;
+    --color-terminal-black-950: #2e2f30;
+
+    --color-primary-blue-100: #d0e0fd;
+    --color-primary-blue-200: #a1c1fb;
+    --color-primary-blue-300: #73a2f8;
+    --color-primary-blue-400: #4483f6;
+    --color-primary-blue-500: #1564f4;
+    --color-primary-blue-600: #1150c3;
+    --color-primary-blue-700: #0d3c92;
+    --color-primary-blue-800: #082862;
+    --color-primary-blue-900: #041431;
 }
 
 /* Redesign */
@@ -32,8 +65,12 @@
     @apply w-24 bg-slate-200;
 }
 
+.nav-text {
+    @apply font-space-mono text-base font-bold;
+}
+
 .active .nav-text {
-    @apply text-sm text-slate-100;
+    @apply text-xl text-slate-100;
 }
 /* End Redsign */
 
@@ -43,7 +80,7 @@ html {
 }
 
 body {
-    @apply h-full text-slate-200 selection:bg-teal-300 selection:text-teal-900;
+    @apply h-full bg-slate-900 text-slate-200 selection:bg-blue-200 selection:text-blue-900;
 }
 
 p {

@@ -24,6 +24,7 @@ class CompanySeeder extends Seeder
                 'logo_alt' => 'Digital Insight Logo',
                 'logo_display_name' => false,
                 'link' => 'https://www.digitalinsight.com/',
+                'description' => 'Digital Banking SaaS, acquired by NCR — $330M/yr',
             ],
             [
                 'name' => 'ARCA',
@@ -31,6 +32,7 @@ class CompanySeeder extends Seeder
                 'logo_alt' => 'ARCA Logo',
                 'logo_display_name' => false,
                 'link' => 'https://www.arca.com/',
+                'description' => 'Finance / Cash Automation ($98M/yr)',
             ],
             [
                 'name' => 'Glen Raven, Inc.',
@@ -38,6 +40,7 @@ class CompanySeeder extends Seeder
                 'logo_alt' => 'Glen Raven Logo',
                 'logo_display_name' => false,
                 'link' => 'https://www.glenraven.com/',
+                'description' => 'Textiles, Sunbrella brand — $900M/yr',
             ],
             [
                 'name' => 'Pioneering Evolution',
@@ -45,11 +48,13 @@ class CompanySeeder extends Seeder
                 'logo_alt' => 'Pioneering Evolution Logo',
                 'logo_display_name' => true,
                 'link' => 'https://www.pioneeringevolution.com/',
+                'description' => 'DoD Software & Consulting — $8.1M/yr',
             ],
             [
                 'name' => 'Russell I/O, LLC',
                 'logo_display_name' => true,
                 'link' => 'https://russellio.com',
+                'description' => 'Contract / Freelance',
             ],
         ];
 

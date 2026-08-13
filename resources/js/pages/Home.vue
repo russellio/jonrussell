@@ -22,6 +22,8 @@ const { isOpen, openModal } = useModal();
 const { scrollToSection } = useScrollToSection();
 
 const isContactOpen = computed(() => isOpen('contact-modal'));
+const el = useTemplateRef('el');
+const { style } = useScrollShadow(el);
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

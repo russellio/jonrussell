@@ -48,6 +48,7 @@ test('timeline api includes company data', function () {
         'logo_alt' => 'Acme Logo',
         'logo_display_name' => true,
         'link' => 'https://acme.com',
+        'description' => 'Explosives, Anvils — $1M/yr',
     ]);
 
     Position::factory()->create(['company_id' => $company->id, 'title' => 'Engineer', 'start_date' => '2023-01-01']);
@@ -60,6 +61,7 @@ test('timeline api includes company data', function () {
     expect($data[0]['company']['logo']['alt'])->toBe('Acme Logo');
     expect($data[0]['company']['logo']['displayName'])->toBeTrue();
     expect($data[0]['company']['link'])->toBe('https://acme.com');
+    expect($data[0]['company']['description'])->toBe('Explosives, Anvils — $1M/yr');
 });
 
 test('timeline api includes skills for each position', function () {

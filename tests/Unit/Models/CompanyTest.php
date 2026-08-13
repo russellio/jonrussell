@@ -10,6 +10,7 @@ test('company has correct fillable attributes', function () {
     expect($fillable)->toContain('logo_alt');
     expect($fillable)->toContain('logo_display_name');
     expect($fillable)->toContain('link');
+    expect($fillable)->toContain('description');
 });
 
 test('logo_display_name is cast to boolean', function () {
@@ -55,4 +56,13 @@ test('company can store logo and link information', function () {
     expect($company->logo_alt)->toBe('Test Company Logo');
     expect($company->logo_display_name)->toBeTrue();
     expect($company->link)->toBe('https://test.com');
+});
+
+test('company can store a short description', function () {
+    $company = Company::create([
+        'name' => 'Test Company',
+        'description' => 'Textiles, Sunbrella brand — $900M/yr',
+    ]);
+
+    expect($company->description)->toBe('Textiles, Sunbrella brand — $900M/yr');
 });

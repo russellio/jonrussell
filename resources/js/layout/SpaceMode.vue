@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Mountains from '@/js/components/Mountains.vue';
 import { useStarMode } from '@/js/composables/useStarMode';
 import { BackgroundStars, ToggleSwitch } from '@russellio/vue-background-stars';
 
@@ -8,7 +7,9 @@ const { showStars } = useStarMode();
 
 <template>
     <div>
-        <div class="fixed top-0 -right-2 z-40 hidden font-space-mono text-sm text-white md:block lg:top-auto lg:bottom-4 lg:left-10">
+        <div
+            class="fixed right-0 bottom-0 left-0 z-40 flex flex-row justify-items-start border-t border-t-brand-red/50 bg-black/50 px-10 py-1 font-space-mono text-sm font-bold text-white md:block"
+        >
             <ToggleSwitch label="space mode:" v-model="showStars" />
         </div>
 
@@ -17,7 +18,7 @@ const { showStars } = useStarMode();
         <Transition name="background-fade" appear>
             <div v-if="showStars">
                 <BackgroundStars />
-                <Mountains />
+                <!-- <Mountains /> -->
             </div>
         </Transition>
     </div>
