@@ -51,8 +51,13 @@ jobs:
             git fetch --all --prune
             git reset --hard "${DEPLOY_REF}"
             composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-            npm ci
-            npm run build
+            # pnpm version comes from package.json "packageManager"; corepack resolves
+            # and activates it. Never prompt — this shell has no TTY.
+            export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+            corepack enable
+            corepack prepare --activate
+            pnpm install --frozen-lockfile
+            pnpm run build
             php artisan migrate --force
             php artisan optimize:clear
             php artisan optimize

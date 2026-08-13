@@ -28,7 +28,7 @@ const credentials = [
             </p>
             <p class="my-2 max-w-xs leading-normal text-slate-200">Saving the world tomorrow.</p>
 
-            <ul class="mt-6 flex flex-col gap-3" aria-label="Credentials">
+            <ul class="mt-6 flex flex-col sm:flex-row lg:flex-col gap-3" aria-label="Credentials">
                 <li v-for="credential in credentials" :key="credential.label">
                     <UBadge
                         :leadingIcon="`i-lucide-${credential.icon}`"

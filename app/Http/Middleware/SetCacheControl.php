@@ -15,7 +15,9 @@ class SetCacheControl
     {
         $response = $next($request);
 
-        $response->headers->set('Cache-Control', 'public, max-age=300');
+        if ($response->isSuccessful()) {
+            $response->headers->set('Cache-Control', 'public, max-age=300');
+        }
 
         return $response;
     }

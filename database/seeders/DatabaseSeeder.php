@@ -15,13 +15,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::updateOrCreate(
-            ['email' => 'test@example.com'],
-            [
-                'name' => 'Test User',
-                'password' => bcrypt('password'),
-            ]
-        );
+        if (! app()->isProduction()) {
+            User::updateOrCreate(
+                ['email' => 'test@example.com'],
+                [
+                    'name' => 'Test User',
+                    'password' => bcrypt('password'),
+                ]
+            );
+        }
 
         $this->call([
             SkillTypeSeeder::class,      // Creates skill types and skills (no dependencies)

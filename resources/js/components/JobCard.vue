@@ -40,7 +40,7 @@ const showCompanyName = computed(() => {
             ></div>
             <header class="z-10 mt-1 mb-2 text-center text-xs tracking-wide text-slate-500 sm:col-span-2">
                 <div class="text-center font-semibold text-slate-400 uppercase">{{ dateRange }}</div>
-                <div class="mt-6">
+                <div v-if="position.company" class="mt-6">
                     <img
                         v-if="companyLogoSrc"
                         :src="companyLogoSrc"

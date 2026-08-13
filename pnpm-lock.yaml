@@ -135,16 +135,6 @@ importers:
       vue-tsc:
         specifier: ^2.2.12
         version: 2.2.12(typescript@5.9.3)
-    optionalDependencies:
-      '@rollup/rollup-linux-x64-gnu':
-        specifier: 4.9.5
-        version: 4.9.5
-      '@tailwindcss/oxide-linux-x64-gnu':
-        specifier: ^4.3.3
-        version: 4.3.3
-      lightningcss-linux-x64-gnu:
-        specifier: ^1.33.0
-        version: 1.33.0
 
 packages:
 
@@ -904,12 +894,6 @@ packages:
 
   '@rollup/rollup-linux-x64-gnu@4.62.4':
     resolution: {integrity: sha512-W69hukhZ3KKNRCaMIEzKvcFye42hh0FE1+YoYaf5+Ikacuftoco6yO/xouz0hc5d5W/s3yBro5jRiuEE/Q5vUw==}
-    cpu: [x64]
-    os: [linux]
-    libc: [glibc]
-
-  '@rollup/rollup-linux-x64-gnu@4.9.5':
-    resolution: {integrity: sha512-Dq1bqBdLaZ1Gb/l2e5/+o3B18+8TI9ANlA1SkejZqDgdU/jK/ThYaMPMJpVMMXy2uRHvGKbkz9vheVGdq3cJfA==}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
@@ -4335,9 +4319,6 @@ snapshots:
     optional: true
 
   '@rollup/rollup-linux-x64-gnu@4.62.4':
-    optional: true
-
-  '@rollup/rollup-linux-x64-gnu@4.9.5':
     optional: true
 
   '@rollup/rollup-linux-x64-musl@4.62.4':

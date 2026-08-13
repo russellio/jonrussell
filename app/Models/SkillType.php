@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Queries\ProjectsQuery;
+use App\Queries\SkillsQuery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Cache;
 
 class SkillType extends Model
 {
@@ -16,8 +17,8 @@ class SkillType extends Model
         parent::boot();
 
         $bust = function () {
-            Cache::forget('skills.index');
-            Cache::forget('projects:list');
+            (new SkillsQuery)->forget();
+            (new ProjectsQuery)->forget();
         };
         static::saved($bust);
         static::deleted($bust);
