@@ -1,11 +1,10 @@
-
-import { defineConfig } from 'vite';
 import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import ui from '@nuxt/ui/vite';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import path from 'path';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
     plugins: [
@@ -43,6 +42,10 @@ export default defineConfig({
                         'simple-icons:typescript',
                         'simple-icons:react',
                         'simple-icons:python',
+                        // Nuxt UI component defaults resolved from `appConfig.ui.icons` (inside node_modules,
+                        // so the scanner never sees them) — e.g. UCarousel's prev/next arrows.
+                        'lucide:arrow-left',
+                        'lucide:arrow-right',
                         'lucide:code',
                         'lucide:flask-conical',
                         'lucide:workflow',
@@ -53,7 +56,7 @@ export default defineConfig({
                         'lucide:linkedin',
                     ],
                 },
-            }, // the one real intent of nuxt.config.ts
+            },
         }),
         wayfinder({
             formVariants: true,

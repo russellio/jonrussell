@@ -48,6 +48,13 @@ test('project show returns 404 for unknown slug', function () {
         ->assertJson(['success' => false, 'message' => 'Project not found']);
 });
 
+test('a 404 response is not marked publicly cacheable', function () {
+    $response = $this->getJson('/api/projects/does-not-exist');
+
+    $response->assertNotFound();
+    expect($response->headers->get('Cache-Control'))->not->toContain('public');
+});
+
 test('project show returns null company when project has no company', function () {
     Project::factory()->create(['slug' => 'solo-project', 'title' => 'Solo Project', 'order' => 0]);
 

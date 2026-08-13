@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Queries\ProjectQuery;
+use App\Queries\ProjectsQuery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Cache;
 
 class Project extends Model
 {
@@ -17,16 +18,16 @@ class Project extends Model
         parent::boot();
 
         static::saved(function (Project $model) {
-            Cache::forget('projects:list');
-            Cache::forget("projects:slug:{$model->slug}");
+            (new ProjectsQuery)->forget();
+            (new ProjectQuery($model->slug))->forget();
             if ($model->wasChanged('slug')) {
-                Cache::forget("projects:slug:{$model->getOriginal('slug')}");
+                (new ProjectQuery($model->getOriginal('slug')))->forget();
             }
         });
 
         static::deleted(function (Project $model) {
-            Cache::forget('projects:list');
-            Cache::forget("projects:slug:{$model->slug}");
+            (new ProjectsQuery)->forget();
+            (new ProjectQuery($model->slug))->forget();
         });
     }
 

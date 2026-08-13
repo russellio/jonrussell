@@ -13,7 +13,7 @@ import SkillsSection from '@/js/sections/SkillsSection.vue';
 import TechStackSection from '@/js/sections/TechStackSection.vue';
 import type { AppPageProps } from '@/js/types/index';
 import { usePage } from '@inertiajs/vue3';
-import { computed, nextTick, onMounted, useTemplateRef, watch } from 'vue';
+import { computed, nextTick, onMounted, watch } from 'vue';
 
 type PageProps = AppPageProps<{ scrollTo?: string }>;
 
@@ -22,8 +22,6 @@ const { isOpen, openModal } = useModal();
 const { scrollToSection } = useScrollToSection();
 
 const isContactOpen = computed(() => isOpen('contact-modal'));
-const scrollShadowContent = useTemplateRef('main-content');
-const { scrollShadowStyle } = useScrollShadow(scrollShadowContent);
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -87,7 +85,7 @@ watch(
             > -->
             <div class="lg:flex lg:justify-between lg:gap-4">
                 <Header />
-                <main id="content" ref="main-content" :style="scrollShadowStyle" class="pt-12 lg:w-[68%] lg:py-14 lg:pt-24">
+                <main id="content" class="pt-12 lg:w-[68%] lg:py-14 lg:pt-24">
                     <div>
                         <AboutSection />
                         <TechStackSection />

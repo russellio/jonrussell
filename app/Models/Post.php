@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Queries\PostQuery;
+use App\Queries\PostsQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 
 class Post extends Model
 {
@@ -16,16 +17,16 @@ class Post extends Model
         parent::boot();
 
         static::saved(function (Post $model) {
-            Cache::forget('posts:list');
-            Cache::forget("posts:slug:{$model->slug}");
+            (new PostsQuery)->forget();
+            (new PostQuery($model->slug))->forget();
             if ($model->wasChanged('slug')) {
-                Cache::forget("posts:slug:{$model->getOriginal('slug')}");
+                (new PostQuery($model->getOriginal('slug')))->forget();
             }
         });
 
         static::deleted(function (Post $model) {
-            Cache::forget('posts:list');
-            Cache::forget("posts:slug:{$model->slug}");
+            (new PostsQuery)->forget();
+            (new PostQuery($model->slug))->forget();
         });
     }
 
