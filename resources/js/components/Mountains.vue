@@ -7,7 +7,7 @@
 </template>
 
 <style>
-@import "@/css/app.css";
+@import '@/css/app.css';
 
 .mountains {
     position: fixed;

@@ -102,7 +102,7 @@ export interface PositionSkill {
     id: number;
     name: string;
 }
-
+d
 /** A single role as returned by GET /api/timeline (PositionResource). */
 export interface TimelinePosition {
     id: number;
