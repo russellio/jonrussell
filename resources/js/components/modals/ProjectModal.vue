@@ -60,9 +60,11 @@ const companyLogoText = computed(() => {
 </script>
 
 <template>
-    <UModal v-model:open="open" :ui="{ content: 'max-w-7xl', title: 'font-sixtyfour text-xl text-blue-300 uppercase', footer: 'justify-end' }">
+    <UModal v-model:open="open" :ui="{ content: 'max-w-7xl', title: 'text-xl text-primary uppercase', footer: 'justify-end' }">
         <template #title>
-            project: <span class="inline-block text-slate-100! normal-case md:block">{{ project.title }}</span>
+            <div class="">
+                project: <span class="text-slate-100! normal-case">{{ project.title }}</span>
+            </div>
         </template>
         <template #body>
             <div class="grid w-full grid-cols-1 lg:grid-cols-[minmax(18%,120px)_auto_18%]">
@@ -122,8 +124,8 @@ const companyLogoText = computed(() => {
                         <h4 class="mt-0 mb-2 ps-4 font-space-mono text-slate-100!">links:</h4>
                         <ul class="list-disc space-y-2 rounded-md border-t border-b-4 border-slate-700 bg-slate-900/60 p-2 py-3 ps-10">
                             <li v-for="link in project.links" :key="link.url">
-                                <a :href="link.url" target="_blank" class="text-slate-300 hover:text-blue-300">{{ link.title }}</a>
-                                <UIcon name="i-lucide-external-link" class="inline-block h-3.5 w-3.5 ps-2 text-blue-300" />
+                                <a :href="link.url" target="_blank" class="text-slate-300 hover:text-primary">{{ link.title }}</a>
+                                <UIcon name="i-lucide-external-link" class="inline-block h-3.5 w-3.5 ps-2 text-primary" />
                             </li>
                         </ul>
                     </div>
@@ -174,7 +176,7 @@ const companyLogoText = computed(() => {
 @reference "@/css/app.css";
 
 h3 {
-    @apply mt-3 font-space-mono text-blue-300!;
+    @apply mt-3 font-space-mono text-primary!;
 }
 
 .thumbnails {

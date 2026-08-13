@@ -28,7 +28,7 @@ const thumbSrc = computed(() => {
                 <h3 class="leading-snug font-medium text-slate-200">
                     <button
                         type="button"
-                        class="group/link relative inline-flex items-baseline text-base leading-tight font-medium text-slate-200 transition-colors hover:text-blue-300 focus-visible:text-blue-300 motion-reduce:transition-none"
+                        class="group/link relative inline-flex items-baseline text-base leading-tight font-medium text-slate-200 transition-colors hover:text-primary focus-visible:text-primary motion-reduce:transition-none"
                         :aria-label="`View details for ${project.title}`"
                         @click="emit('select', project)"
                     >

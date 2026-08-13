@@ -6,7 +6,7 @@ const highlights = [
     { value: '13+ yrs', label: 'Software engineering' },
     { value: '3+ yrs', label: 'Project Management' },
     { value: '2.5+ yrs', label: 'Management' },
-    { value: 'Master of Internet Techology', label: 'University of Georgia' },
+    // { value: 'Master of Internet Techology', label: 'University of Georgia' },
 ];
 </script>
 
@@ -58,11 +58,16 @@ const highlights = [
             </p>
 
             <ul class="flex flex-wrap justify-center gap-x-3 gap-y-2 pt-2" aria-label="Highlights">
-                <li v-for="highlight in highlights" :key="highlight.label" class="text-sm">
-                    <span class="text-base font-semibold text-bright-green-600">
+                <li v-for="highlight in highlights" :key="highlight.label">
+                    <span class="font-space-mono text-base font-semibold text-slate-400">
                         {{ highlight.value }}
                     </span>
                     <span class="text-sm text-slate-100"> · {{ highlight.label }}</span>
+                </li>
+                <li class="flex w-full flex-row items-center justify-center">
+                    <span class="font-space-mono text-base font-semibold text-slate-400">Master of Internet Techology</span>
+                    <span class="mx-2 text-sm text-slate-100">·</span>
+                    <img src="/images/uga-logo.png" class="mt-[2px] h-[17px]" />
                 </li>
             </ul>
         </SectionPanel>

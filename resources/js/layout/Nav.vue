@@ -19,16 +19,16 @@ const { openModal } = useModal();
 
 <template>
     <nav class="nav hidden lg:block" aria-label="In-page jump links">
-        <ul class="mt-10 w-max">
+        <ul class="mt-2 w-max">
             <li v-for="item in navigation" :key="item.ref">
                 <a
-                    class="group flex items-center py-3"
+                    class="group flex items-center py-2.5"
                     :class="{ active: activeSection === item.ref }"
                     :href="`#${item.ref}`"
                     @click.prevent="scrollToSection(item.ref)"
                 >
                     <span
-                        class="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-20 group-hover:bg-slate-200 group-focus-visible:w-20 group-focus-visible:bg-slate-200 motion-reduce:transition-none"
+                        class="nav-indicator me-4 h-px w-8 bg-slate-600 transition-all group-hover:w-20 group-hover:bg-slate-200 group-focus-visible:w-20 group-focus-visible:bg-slate-200 motion-reduce:transition-none"
                     ></span>
                     <span class="nav-text tracking-widest text-slate-500 uppercase group-hover:text-white group-focus-visible:text-slate-200">
                         {{ item.name }}
@@ -39,12 +39,12 @@ const { openModal } = useModal();
                 <UButton
                     type="button"
                     variant="link"
-                    class="group flex w-full items-center py-3 text-left"
+                    class="group flex w-full items-center py-2 text-left"
                     :ui="{ base: 'px-0' }"
                     @click="openModal('contact-modal')"
                 >
                     <span
-                        class="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 motion-reduce:transition-none"
+                        class="nav-indicator me-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 motion-reduce:transition-none"
                     ></span>
                     <span class="nav-text tracking-widest text-slate-500 uppercase group-hover:text-slate-200 group-focus-visible:text-slate-200">
                         Contact

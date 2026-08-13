@@ -22,9 +22,9 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
 </script>
 
 <template>
-    <article class="mx-auto min-h-screen max-w-screen-md px-6 py-16 font-sans md:px-12 md:py-24">
+    <article class="mx-auto min-h-screen max-w-3xl px-6 py-16 font-sans md:px-12 md:py-24">
         <Head :title="post.title" />
-        <Link href="/" class="group inline-flex items-center text-sm font-semibold text-blue-300 transition-colors hover:text-blue-200">
+        <Link href="/" class="group inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-blue-200">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -70,7 +70,7 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
 }
 
 .post-body :deep(a) {
-    @apply font-medium text-blue-300 hover:underline;
+    @apply font-medium text-primary hover:underline;
 }
 
 .post-body :deep(ul) {
