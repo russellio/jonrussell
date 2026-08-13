@@ -33,7 +33,7 @@ const thumbSrc = computed(() => {
                         @click="emit('select', project)"
                     >
                         <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-                        <span>{{ project.title }}</span>
+                        <span class="font-bold">{{ project.title }}</span>
                     </button>
                 </h3>
                 <p class="mt-2 text-sm leading-normal">{{ project.byline }}</p>
@@ -47,7 +47,7 @@ const thumbSrc = computed(() => {
                 </ul>
                 <ul v-if="project.highlightedSkills.length" class="mt-2 flex flex-wrap" aria-label="Technologies used">
                     <li v-for="skill in project.highlightedSkills" :key="skill" class="mt-2 mr-1.5">
-                        <UBadge color="secondary" variant="soft" size="md" class="rounded-sm bg-white/10">{{ skill }}</UBadge>
+                        <UBadge color="secondary" variant="soft" size="md" class="rounded-sm bg-white/10 font-semibold">{{ skill }}</UBadge>
                     </li>
                 </ul>
             </div>

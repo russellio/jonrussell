@@ -10,7 +10,7 @@ const { showStars } = useStarMode();
         <div
             class="fixed right-0 bottom-0 left-0 z-40 flex flex-row justify-items-start border-t border-t-brand-red/50 bg-black/50 ps-10 pt-3 pb-3 font-space-mono text-sm font-bold text-white md:block"
         >
-            <USwitch label="space mode:" v-model="showStars" color="secondary" />
+            <USwitch label="space mode:" v-model="showStars" color="success" />
         </div>
 
         <div class="fallback-background" :class="{ 'fade-out': showStars }"></div>
