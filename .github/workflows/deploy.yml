@@ -57,9 +57,15 @@ jobs:
             corepack enable
             corepack prepare --activate
             pnpm install --frozen-lockfile
-            pnpm run build
+            # Gitignored, so git reset --hard never clears it. Removing first means a
+            # failed build:ssr degrades to client-side rendering instead of serving a
+            # stale bundle against new PHP props.
+            rm -rf bootstrap/ssr
+            pnpm run build:ssr
             php artisan migrate --force
             php artisan optimize:clear
             php artisan optimize
             php artisan filament:optimize
+            sudo systemctl restart inertia-ssr
+            php artisan inertia:check-ssr || true
             php artisan queue:restart

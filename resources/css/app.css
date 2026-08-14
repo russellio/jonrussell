@@ -2,7 +2,7 @@
 @import '@nuxt/ui';
 @import '@fontsource/noto-sans';
 @import '@fontsource/space-mono';
-@import '@fontsource/sixtyfour';
+@import '@fontsource/Sixtyfour';
 
 @custom-variant can-hover (@media (hover: hover) and (pointer: fine));
 @custom-variant no-hover (@media (hover: none) or (pointer: coarse));
@@ -13,7 +13,7 @@
 @theme {
     --font-sans: 'Noto Sans', sans-serif, ui-sans-serif, system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-space-mono: 'Space Mono', monospace;
-    --font-sixtyfour: 'Sixtyfour', monospace;
+    --font-sixtyfour: 'Sixtyfour', var(--font-space-mono);
 
     --color-primary: var(--color-primary-blue-500);
     --color-secondary: var(--color-slate-300);
@@ -87,7 +87,8 @@ p {
 }
 
 .card {
-    @apply overflow-hidden rounded-lg bg-white shadow-2xl lg:shadow-lg lg:transition-shadow lg:duration-300;
+    @apply overflow-hidden rounded-lg bg-white shadow-2xl lg:shadow-lg;
+    /* @apply overflow-hidden rounded-lg bg-white shadow-2xl lg:shadow-lg lg:transition-shadow lg:duration-300; */
     @apply border border-terminal-black-200;
 }
 

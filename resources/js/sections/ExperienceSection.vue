@@ -11,7 +11,7 @@ defineProps<{
 
 <template>
     <section id="experience" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Work experience">
-        <SectionHeading title="Professional Experience" />
+        <SectionHeading title="Professional Experience" shortTitle="Experience" />
         <SectionPanel class="ps-2 pt-8">
             <div>
                 <ol class="group/list">

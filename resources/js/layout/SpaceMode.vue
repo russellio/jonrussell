@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { useStarMode } from '@/js/composables/useStarMode';
+import { useStarModeStore } from '@/js/stores/starModeStore';
 import { BackgroundStars } from '@russellio/vue-background-stars';
+import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
 
-const { showStars } = useStarMode();
+const starModeStore = useStarModeStore();
+const { showStars } = storeToRefs(starModeStore);
+
+onMounted(() => starModeStore.hydrate());
 </script>
 
 <template>
@@ -10,7 +15,7 @@ const { showStars } = useStarMode();
         <div
             class="fixed right-0 bottom-0 left-0 z-40 flex flex-row justify-items-start border-t border-t-brand-red/50 bg-black/50 ps-10 pt-3 pb-3 font-space-mono text-sm font-bold text-white md:block"
         >
-            <USwitch label="space mode:" v-model="showStars" color="success" />
+            <USwitch label="space mode" v-model="showStars" color="primary" />
         </div>
 
         <div class="fallback-background" :class="{ 'fade-out': showStars }"></div>

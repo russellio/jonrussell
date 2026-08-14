@@ -11,7 +11,7 @@ const currentYear = () => {
 <template>
     <footer class="w-full pb-16 text-xs text-slate-500 sm:pb-0">
         <p class="mb-2 text-justify">
-            Designed and built by Jon Russell with
+            Site designed and built by Jon Russell with
             <a href="https://vuejs.org/" :class="linkClass" target="_blank" rel="noreferrer noopener" aria-label="Vue (opens in a new tab)">Vue 3</a>,
             <a href="https://ui.nuxt.com/" :class="linkClass" target="_blank" rel="noreferrer noopener" aria-label="Vue (opens in a new tab)">Nuxt</a
             >,
@@ -33,7 +33,7 @@ const currentYear = () => {
                 href="https://github.com/notofonts/latin-greek-cyrillic"
                 :class="linkClass"
                 target="_blank"
-                rel="noopener"
+                rel="noreferrer noopener"
                 aria-label="Noto Sans (opens in a new tab)"
                 >Noto Sans</a
             >,
@@ -44,6 +44,14 @@ const currentYear = () => {
                 rel="noreferrer noopener"
                 aria-label="Space Mono (opens in a new tab)"
                 >Space Mono</a
+            >,
+            <a
+                href="https://github.com/DylanYoungKoto/Stack-Sans"
+                :class="linkClass"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Stack Sans Notch (opens in a new tab)"
+                >Stack Sans Notch</a
             >, and
             <a
                 href="https://jenskutilek.github.io/homecomputer-fonts/documentation/demo-sixtyfour.html"

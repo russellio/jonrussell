@@ -37,12 +37,12 @@ const showCompanyName = computed(() => {
             ></div>
             <header class="z-10 mt-1 mb-2 text-center text-xs tracking-wide text-slate-500 sm:col-span-2">
                 <div class="text-center font-semibold text-slate-400 uppercase">{{ dateRange }}</div>
-                <div v-if="position.company" class="mt-6">
+                <div v-if="position.company" class="my-6">
                     <img
                         v-if="companyLogoSrc"
                         :src="companyLogoSrc"
                         :alt="position.company.logo.alt || position.company.name"
-                        class="mx-auto h-8 rounded-sm object-contain"
+                        class="mx-auto h-14 rounded-sm object-contain md:h-8"
                     />
                     <div v-if="showCompanyName" class="mt-2 text-center font-sans">{{ position.company.name }}</div>
                     <div v-if="position.company.description" class="mt-4 font-sans text-xs">{{ position.company.description }}</div>
@@ -56,7 +56,7 @@ const showCompanyName = computed(() => {
                     <component
                         :is="position.company.link ? 'a' : 'span'"
                         v-if="position.company"
-                        class="group/link ms-auto"
+                        class="group/link shrink"
                         v-bind="
                             position.company.link
                                 ? {
