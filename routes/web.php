@@ -1,68 +1,16 @@
 <?php
 
-use App\Models\Post;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostPageController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-})->name('home');
+Route::get('/', HomeController::class)->name('home')->defaults('section', null);
+Route::get('/about', HomeController::class)->name('about')->defaults('section', 'about');
+Route::get('/tech-stack', HomeController::class)->name('tech-stack')->defaults('section', 'tech-stack');
+Route::get('/skills', HomeController::class)->name('skills')->defaults('section', 'skills');
+Route::get('/experience', HomeController::class)->name('experience')->defaults('section', 'experience');
+Route::get('/projects', HomeController::class)->name('projects')->defaults('section', 'projects');
+Route::get('/posts', HomeController::class)->name('posts')->defaults('section', 'posts');
+Route::get('/contact', HomeController::class)->name('contact')->defaults('section', 'contact');
 
-Route::get('/about', function () {
-    return Inertia::render('Home', [
-        'scrollTo' => 'about',
-    ]);
-})->name('about');
-
-Route::get('/tech-stack', function () {
-    return Inertia::render('Home', [
-        'scrollTo' => 'tech-stack',
-    ]);
-})->name('tech-stack');
-
-Route::get('/skills', function () {
-    return Inertia::render('Home', [
-        'scrollTo' => 'skills',
-    ]);
-})->name('skills');
-
-Route::get('/experience', function () {
-    return Inertia::render('Home', [
-        'scrollTo' => 'experience',
-    ]);
-})->name('experience');
-
-Route::get('/projects', function () {
-    return Inertia::render('Home', [
-        'scrollTo' => 'projects',
-    ]);
-})->name('projects');
-
-// Route::get('/posts', function () {
-//     return Inertia::render('Home', [
-//         'scrollTo' => 'posts',
-//     ]);
-// })->name('posts');
-
-Route::get('/contact', function () {
-    return Inertia::render('Home', [
-        'scrollTo' => 'contact',
-    ]);
-})->name('contact');
-
-Route::get('/posts/{slug}', function (string $slug) {
-    $post = Post::published()->where('slug', $slug)->firstOrFail();
-
-    return Inertia::render('Post', [
-        'post' => [
-            'title' => $post->title,
-            'excerpt' => $post->excerpt,
-            'body' => $post->body,
-            'publishedAt' => $post->published_at?->format('M j, Y'),
-            'image' => $post->image_src ? [
-                'src' => $post->image_src,
-                'alt' => $post->image_alt ?? $post->title,
-            ] : null,
-        ],
-    ]);
-})->name('posts.show');
+Route::get('/posts/{slug}', PostPageController::class)->name('posts.show');

@@ -13,6 +13,7 @@ class PostResource extends JsonResource
             'id' => $this->slug,
             'title' => $this->title,
             'excerpt' => $this->excerpt,
+            'body' => $this->body,
             'year' => $this->published_at?->format('Y'),
             'publishedAt' => $this->published_at?->format('M j, Y'),
             'image' => $this->image_src ? [
