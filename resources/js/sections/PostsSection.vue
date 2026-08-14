@@ -12,7 +12,7 @@ defineProps<{
 <template>
     <section id="posts" class="scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Posts">
         <SectionHeading title="Posts" />
-        <SectionPanel class="pb-0 pe-2 ps-8 pt-6">
+        <SectionPanel class="ps-8 pe-2 pt-6 pb-0">
             <div v-if="posts.length" class="space-y-6">
                 <ul class="group/list">
                     <PostCard v-for="post in posts" :key="post.id" :post="post" />
