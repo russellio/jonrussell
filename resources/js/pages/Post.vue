@@ -8,7 +8,7 @@ defineProps<{ post: Post }>();
 <template>
     <article class="mx-auto min-h-screen max-w-3xl px-6 py-16 font-sans md:px-12 md:py-24">
         <Head :title="post.title" />
-        <Link href="/" class="text-primary group inline-flex items-center text-sm font-semibold transition-colors hover:text-blue-200">
+        <Link href="/" class="group inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-blue-200">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -25,9 +25,9 @@ defineProps<{ post: Post }>();
             Back Home
         </Link>
 
-        <header class="mb-8 mt-8">
+        <header class="mt-8 mb-8">
             <h1 class="text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl">{{ post.title }}</h1>
-            <p v-if="post.publishedAt" class="mt-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{{ post.publishedAt }}</p>
+            <p v-if="post.publishedAt" class="mt-3 text-sm font-semibold tracking-wide text-slate-500 uppercase">{{ post.publishedAt }}</p>
             <p v-if="post.excerpt" class="mt-4 text-lg leading-relaxed text-slate-400">{{ post.excerpt }}</p>
         </header>
 
@@ -46,7 +46,7 @@ defineProps<{ post: Post }>();
 @reference "@/css/app.css";
 
 .post-body :deep(h2) {
-    @apply mb-3 mt-8 text-xl font-semibold text-slate-200;
+    @apply mt-8 mb-3 text-xl font-semibold text-slate-200;
 }
 
 .post-body :deep(p) {
@@ -54,7 +54,7 @@ defineProps<{ post: Post }>();
 }
 
 .post-body :deep(a) {
-    @apply text-primary font-medium hover:underline;
+    @apply font-medium text-primary hover:underline;
 }
 
 .post-body :deep(ul) {
