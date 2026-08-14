@@ -11,19 +11,25 @@ import PostsSection from '@/js/sections/PostsSection.vue';
 import ProjectsSection from '@/js/sections/ProjectsSection.vue';
 import SkillsSection from '@/js/sections/SkillsSection.vue';
 import TechStackSection from '@/js/sections/TechStackSection.vue';
-import type { AppPageProps } from '@/js/types/index';
+import type { AppPageProps, Post, Project, SkillType, TechStackItem, TimelinePosition } from '@/js/types/index';
 import { usePage } from '@inertiajs/vue3';
 import { computed, nextTick, onMounted, watch } from 'vue';
 
 type PageProps = AppPageProps<{ scrollTo?: string }>;
+
+defineProps<{
+    techStack: TechStackItem[];
+    skillTypes: SkillType[];
+    positions: TimelinePosition[];
+    projects: Project[];
+    posts: Post[];
+}>();
 
 const page = usePage<PageProps>();
 const { isOpen, openModal } = useModal();
 const { scrollToSection } = useScrollToSection();
 
 const isContactOpen = computed(() => isOpen('contact-modal'));
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const performScrollAction = async (scrollTo: string | undefined) => {
     if (!scrollTo) return;
@@ -33,31 +39,7 @@ const performScrollAction = async (scrollTo: string | undefined) => {
         return;
     }
 
-    // Wait for the target section element to exist.
     await nextTick();
-    const existsDeadline = Date.now() + 1500;
-    let target = document.getElementById(scrollTo);
-    while (!target && Date.now() < existsDeadline) {
-        await delay(50);
-        target = document.getElementById(scrollTo);
-    }
-    if (!target) return;
-
-    // Sections fetch their own data on mount and grow afterwards, which shifts
-    // the layout. Scroll once for responsiveness, wait for the target's position
-    // to settle (all sections loaded), then correct to the final position.
-    scrollToSection(scrollTo);
-
-    const settleDeadline = Date.now() + 1500;
-    let lastTop = Number.NaN;
-    let stableTicks = 0;
-    while (Date.now() < settleDeadline && stableTicks < 3) {
-        await delay(100);
-        const top = Math.round(target.getBoundingClientRect().top);
-        stableTicks = Math.abs(top - lastTop) <= 1 ? stableTicks + 1 : 0;
-        lastTop = top;
-    }
-
     scrollToSection(scrollTo);
 };
 
@@ -88,11 +70,11 @@ watch(
                 <main id="content" class="pt-12 lg:w-[68%] lg:py-14 lg:pt-24">
                     <div>
                         <AboutSection />
-                        <TechStackSection />
-                        <SkillsSection />
-                        <ExperienceSection />
-                        <ProjectsSection />
-                        <PostsSection />
+                        <TechStackSection :items="techStack" />
+                        <SkillsSection :skill-types="skillTypes" />
+                        <ExperienceSection :positions="positions" />
+                        <ProjectsSection :projects="projects" />
+                        <PostsSection :posts="posts" />
                     </div>
                     <Footer />
                 </main>

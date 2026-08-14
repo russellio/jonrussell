@@ -1,22 +1,10 @@
 <script setup lang="ts">
+import type { Post } from '@/js/types/index';
 import { Head, Link } from '@inertiajs/vue3';
 import DOMPurify from 'dompurify';
 import { computed } from 'vue';
 
-interface PostImage {
-    src: string;
-    alt: string;
-}
-
-interface PostProps {
-    title: string;
-    excerpt: string | null;
-    body: string | null;
-    publishedAt: string | null;
-    image: PostImage | null;
-}
-
-const props = defineProps<{ post: PostProps }>();
+const props = defineProps<{ post: Post }>();
 
 const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props.post.body) : ''));
 </script>
@@ -24,7 +12,7 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
 <template>
     <article class="mx-auto min-h-screen max-w-3xl px-6 py-16 font-sans md:px-12 md:py-24">
         <Head :title="post.title" />
-        <Link href="/" class="group inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-blue-200">
+        <Link href="/" class="text-primary group inline-flex items-center text-sm font-semibold transition-colors hover:text-blue-200">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -41,9 +29,9 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
             Back Home
         </Link>
 
-        <header class="mt-8 mb-8">
+        <header class="mb-8 mt-8">
             <h1 class="text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl">{{ post.title }}</h1>
-            <p v-if="post.publishedAt" class="mt-3 text-sm font-semibold tracking-wide text-slate-500 uppercase">{{ post.publishedAt }}</p>
+            <p v-if="post.publishedAt" class="mt-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{{ post.publishedAt }}</p>
             <p v-if="post.excerpt" class="mt-4 text-lg leading-relaxed text-slate-400">{{ post.excerpt }}</p>
         </header>
 
@@ -62,7 +50,7 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
 @reference "@/css/app.css";
 
 .post-body :deep(h2) {
-    @apply mt-8 mb-3 text-xl font-semibold text-slate-200;
+    @apply mb-3 mt-8 text-xl font-semibold text-slate-200;
 }
 
 .post-body :deep(p) {
@@ -70,7 +58,7 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
 }
 
 .post-body :deep(a) {
-    @apply font-medium text-primary hover:underline;
+    @apply text-primary font-medium hover:underline;
 }
 
 .post-body :deep(ul) {
