@@ -31,7 +31,7 @@ return [
             // Post.body all use it, unconfigured): h2/h3 (headings), blockquote, pre/code
             // (codeBlock), and s (strike) were missing and would otherwise be silently
             // stripped from legitimately-authored admin content.
-            'HTML.Allowed' => 'div,b,strong,i,em,u,s,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],h2,h3,blockquote,pre,code',
+            'HTML.Allowed' => 'div,b,strong,i,em,u,s,a[href|title|target|rel],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],h2,h3,blockquote,pre,code',
             'CSS.AllowedProperties' => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
             'AutoFormat.AutoParagraph' => true,
             'AutoFormat.RemoveEmpty' => true,
@@ -93,6 +93,10 @@ return [
             ],
             'attributes' => [
                 ['iframe', 'allowfullscreen', 'Bool'],
+                // Inert: HTML.Allowed above doesn't list table/tr/td/th, so HTMLPurifier
+                // strips those elements regardless of what's defined here. Nothing in
+                // this app produces table markup today; if that changes, add
+                // table/tr/td/th to HTML.Allowed to make these attribute defs take effect.
                 ['table', 'height', 'Text'],
                 ['td', 'border', 'Text'],
                 ['th', 'border', 'Text'],

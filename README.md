@@ -52,7 +52,7 @@ The site presents a work history, skills, and project portfolio through a single
 
 **Infinite scroll marquee.** `ScrollingThingsILike.vue` renders the icon list twice and drives the scroll with a single CSS keyframe animation, edge-faded using a `mask` gradient. Hover reveals a label with a fade-slide transition.
 
-**XSS-safe HTML rendering.** Project descriptions from the CMS are rendered via `v-html` but pass through DOMPurify before output.
+**XSS-safe HTML rendering.** Project, position, and post content from the CMS is rendered via `v-html`, but it's sanitized server-side with `mews/purifier` (HTMLPurifier) before it's ever sent to the client.
 
 **Async section loading.** The `ScrollingThingsILike` component is loaded via `defineAsyncComponent`, keeping the initial bundle lighter.
 
@@ -75,6 +75,6 @@ Tailwind classes are composed with `@apply` inside `<style scoped>` blocks rathe
 
 ## Key Technologies
 
-`PHP 8.3` · `Laravel 12` · `Inertia.js 2` · `Vue 3` · `TypeScript` · `Tailwind CSS 4` · `Vite 7` · `Pinia` · `Filament 3` · `PEST 4` · `Mailgun` · `Cloudflare Turnstile` · `Sentry` · `Nuxt UI` · `DOMPurify` · `Laravel Wayfinder`
+`PHP 8.3` · `Laravel 12` · `Inertia.js 2` · `Vue 3` · `TypeScript` · `Tailwind CSS 4` · `Vite 7` · `Pinia` · `Filament 3` · `PEST 4` · `Mailgun` · `Cloudflare Turnstile` · `Sentry` · `Nuxt UI` · `mews/purifier` · `Laravel Wayfinder`
 
 `FontAwesome` and `vue3-simple-icons` were used previously and have been fully removed, replaced by Nuxt UI's `<UIcon>`.

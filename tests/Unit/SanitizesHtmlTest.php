@@ -45,3 +45,14 @@ test('posts query sanitizes a post body', function () {
         ->and($payload[0]['body'])->not->toContain('alert(1)')
         ->and($payload[0]['body'])->toContain('<p>ok</p>');
 });
+
+test('posts query preserves target and rel attributes on links', function () {
+    $body = '<p><a href="https://example.com" target="_blank" rel="noreferrer noopener">link</a></p>';
+    Post::factory()->create(['body' => $body, 'published_at' => now()->subDay()]);
+
+    $payload = (new PostsQuery)->get();
+
+    expect($payload)->toHaveCount(1);
+    expect($payload[0]['body'])->toContain('target="_blank"')
+        ->and($payload[0]['body'])->toContain('rel="noreferrer noopener"');
+});
