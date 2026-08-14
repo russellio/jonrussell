@@ -22,11 +22,11 @@ class IconResource extends Resource
             ->schema([
                 Forms\Components\Select::make('icon_type')
                     ->options([
-                        'fa' => 'FontAwesome',
-                        'si' => 'Simple Icons',
+                        'lucide' => 'Lucide',
+                        'simple-icons' => 'Simple Icons',
                     ])
                     ->required()
-                    ->default('fa')
+                    ->default('lucide')
                     ->rules(['in:'.implode(',', Icon::VALID_ICON_TYPES)]),
                 Forms\Components\TextInput::make('icon_name')
                     ->required()
@@ -41,8 +41,8 @@ class IconResource extends Resource
                 Tables\Columns\TextColumn::make('icon_type')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'fa' => 'success',
-                        'si' => 'info',
+                        'lucide' => 'success',
+                        'simple-icons' => 'info',
                         default => 'gray',
                     })
                     ->searchable()
@@ -70,8 +70,8 @@ class IconResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('icon_type')
                     ->options([
-                        'fa' => 'FontAwesome',
-                        'si' => 'Simple Icons',
+                        'lucide' => 'Lucide',
+                        'simple-icons' => 'Simple Icons',
                     ]),
             ])
             ->actions([

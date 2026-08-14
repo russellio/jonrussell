@@ -12,24 +12,27 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
+        // Early-career roles retained in the DB but hidden from the visible
+        // Experience timeline (they carry no curated description). See
+        // ExperienceSection.vue, which renders only positions with a description.
         $companies = [
             ['name' => 'AYCON'],
             ['name' => 'DI - WSD'],
-            ['name' => 'DI - PM'],
-            ['name' => 'DI - Manager'],
+            [
+                'name' => 'Digital Insight',
+                'logo_src' => 'ncr-digital-insight.png',
+                'logo_alt' => 'Digital Insight Logo',
+                'logo_display_name' => false,
+                'link' => 'https://www.digitalinsight.com/',
+                'description' => 'Digital Banking SaaS, acquired by NCR — $330M/yr',
+            ],
             [
                 'name' => 'ARCA',
                 'logo_src' => 'arca-sesami-dark.png',
                 'logo_alt' => 'ARCA Logo',
                 'logo_display_name' => false,
                 'link' => 'https://www.arca.com/',
-            ],
-            [
-                'name' => 'Glen Raven',
-                'logo_src' => 'glen-raven.svg',
-                'logo_alt' => 'Glen Raven Logo',
-                'logo_display_name' => false,
-                'link' => 'https://www.glenraven.com/',
+                'description' => 'Finance / Cash Automation ($98M/yr)',
             ],
             [
                 'name' => 'Glen Raven, Inc.',
@@ -37,6 +40,7 @@ class CompanySeeder extends Seeder
                 'logo_alt' => 'Glen Raven Logo',
                 'logo_display_name' => false,
                 'link' => 'https://www.glenraven.com/',
+                'description' => 'Textiles, Sunbrella brand — $900M/yr',
             ],
             [
                 'name' => 'Pioneering Evolution',
@@ -44,15 +48,14 @@ class CompanySeeder extends Seeder
                 'logo_alt' => 'Pioneering Evolution Logo',
                 'logo_display_name' => true,
                 'link' => 'https://www.pioneeringevolution.com/',
+                'description' => 'DoD Software & Consulting — $8.1M/yr',
             ],
             [
-                'name' => 'Digital Insight (susidiary of Intuit, acquired by NCR)',
-                'logo_src' => 'ncr-digital-insight.png',
-                'logo_alt' => 'Digital Insight Logo',
-                'logo_display_name' => false,
-                'link' => 'https://www.digitalinsight.com/',
+                'name' => 'Russell I/O, LLC',
+                'logo_display_name' => true,
+                'link' => 'https://russellio.com',
+                'description' => 'Contract / Freelance',
             ],
-            ['name' => 'Current'],
         ];
 
         foreach ($companies as $company) {

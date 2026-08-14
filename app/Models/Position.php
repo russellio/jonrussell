@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Queries\ProjectsQuery;
+use App\Queries\TechStackQuery;
+use App\Queries\TimelineQuery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Cache;
 
 class Position extends Model
 {
@@ -17,9 +19,9 @@ class Position extends Model
         parent::boot();
 
         $bust = function () {
-            Cache::forget('timeline.index');
-            Cache::forget('projects:list');
-            Cache::forget('techstack.index');
+            (new TimelineQuery)->forget();
+            (new ProjectsQuery)->forget();
+            (new TechStackQuery)->forget();
         };
         static::saved($bust);
         static::deleted($bust);

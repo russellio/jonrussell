@@ -1,3 +1,4 @@
+import type { Auth } from '@/js/types/auth';
 import { AppPageProps } from '@/js/types/index';
 
 declare global {
@@ -36,6 +37,15 @@ declare module 'vite/client' {
 
 declare module '@inertiajs/core' {
     interface PageProps extends InertiaPageProps, AppPageProps {}
+
+    export interface InertiaConfig {
+        sharedPageProps: {
+            name: string;
+            auth: Auth;
+            sidebarOpen: boolean;
+            [key: string]: unknown;
+        };
+    }
 }
 
 declare module 'vue' {
@@ -44,10 +54,4 @@ declare module 'vue' {
         $page: Page;
         $headManager: ReturnType<typeof createHeadManager>;
     }
-}
-
-declare module '@/js/data/projects.json' {
-    import { Project } from '@/js/types/index';
-    const projects: Project[];
-    export default projects;
 }

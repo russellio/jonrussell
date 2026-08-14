@@ -24,27 +24,46 @@ jobs:
         with:
           php-version: '8.4'
 
+      # Must precede setup-node so `cache: 'pnpm'` can find the pnpm binary.
+      # Version comes from package.json "packageManager" — single source of truth.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
           node-version: '22'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install PHP Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
 
       - name: Install Node Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
+
+      # The build is a prerequisite for the type-check, not a duplicate of tests.yml:
+      # `auto-imports.d.ts` and `components.d.ts` are gitignored and emitted by the
+      # Nuxt UI Vite plugin, and Wayfinder emits resources/js/{actions,routes}. Without
+      # a build first, vue-tsc fails on every auto-imported symbol. Wayfinder shells out
+      # to artisan, so the app must be bootable.
+      - name: Copy Environment File
+        run: cp .env.example .env
+
+      - name: Generate Application Key
+        run: php artisan key:generate
+
+      - name: Build Assets
+        run: pnpm run build
 
       # Check-mode only: these must FAIL on violations so the deploy gate is real.
       - name: Run Pint (check)
         run: vendor/bin/pint --test
 
       - name: Check formatting
-        run: npm run format:check
+        run: pnpm run format:check
 
       - name: Lint Frontend
-        run: npx eslint .
+        run: pnpm exec eslint .
 
       - name: Type-check
-        run: npx vue-tsc --noEmit
+        run: pnpm exec vue-tsc --noEmit
