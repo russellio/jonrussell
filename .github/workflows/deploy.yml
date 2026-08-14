@@ -24,15 +24,68 @@ jobs:
   test:
     uses: ./.github/workflows/tests.yml
 
-  deploy:
-    needs: [lint, test] # only deploy if checks + tests both pass
+  # The deploy droplet has ~1GB RAM, most of it already spoken for by Apache/MySQL/queue
+  # workers at idle -- `pnpm run build:ssr` reliably OOMs there. Build here instead, where
+  # RAM is never the constraint, and ship the runner's finished output to the server.
+  build:
+    needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy over SSH
+      - name: Resolve checkout ref
+        id: ref
+        run: |
+          REF="${{ github.event.inputs.ref || 'origin/main' }}"
+          # actions/checkout wants a bare branch/tag/SHA, not a remote-tracking ref.
+          echo "ref=${REF#origin/}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.ref.outputs.ref }}
+
+      # Must precede setup-node so `cache: 'pnpm'` can find the pnpm binary.
+      # Version comes from package.json "packageManager" — single source of truth.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install Node Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build client + SSR bundles
+        env:
+          # Public, non-secret values baked into the client bundle at build time --
+          # must match prod's .env exactly, or Turnstile/branding break silently.
+          VITE_APP_NAME: ${{ vars.VITE_APP_NAME }}
+          VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
+        run: pnpm run build:ssr
+
+      - name: Package built assets
+        run: tar -czf release-assets.tar.gz public/build bootstrap/ssr
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-assets
+          path: release-assets.tar.gz
+          retention-days: 1
+
+  deploy:
+    needs: [lint, test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: release-assets
+
+      - name: Prepare release on server
         uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
         env:
-          # User-supplied input is forwarded via env (never interpolated into the shell)
-          # and defaults to origin/main on push events.
           DEPLOY_REF: ${{ github.event.inputs.ref || 'origin/main' }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -44,25 +97,44 @@ jobs:
           script: |
             set -euo pipefail
             cd "${{ secrets.DEPLOY_PATH }}"
+            # No trap here on purpose: if composer/migrate fails, the site should stay
+            # visibly in maintenance (503) rather than silently reopen on broken state --
+            # that silent-reopen is exactly what masked the SSR build OOM as a live 500.
             php artisan down --retry=15 || true
-            # Always bring the site back up on exit, but preserve the real exit
-            # code so a failed deploy still reports red instead of being masked.
-            trap 'rc=$?; php artisan up || true; exit $rc' EXIT
             git fetch --all --prune
             git reset --hard "${DEPLOY_REF}"
             composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-            # pnpm version comes from package.json "packageManager"; corepack resolves
-            # and activates it. Never prompt — this shell has no TTY.
-            export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
-            corepack enable
-            corepack prepare --activate
-            pnpm install --frozen-lockfile
-            # Gitignored, so git reset --hard never clears it. Removing first means a
-            # failed build:ssr degrades to client-side rendering instead of serving a
-            # stale bundle against new PHP props.
-            rm -rf bootstrap/ssr
-            pnpm run build:ssr
             php artisan migrate --force
+
+      - name: Upload built assets to server
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          source: "release-assets.tar.gz"
+          target: ${{ secrets.DEPLOY_PATH }}
+
+      - name: Finalize deploy
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+            cd "${{ secrets.DEPLOY_PATH }}"
+            # Always bring the site back up on exit, but preserve the real exit
+            # code so a failed deploy still reports red instead of being masked.
+            trap 'rc=$?; php artisan up || true; exit $rc' EXIT
+            # Gitignored, so git reset --hard never clears these. Wiped so the
+            # extracted tarball lands clean instead of merging with stale hashed assets.
+            rm -rf public/build bootstrap/ssr
+            tar -xzf release-assets.tar.gz
+            rm -f release-assets.tar.gz
             php artisan optimize:clear
             php artisan optimize
             php artisan filament:optimize
