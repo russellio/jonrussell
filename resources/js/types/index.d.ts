@@ -53,11 +53,6 @@ export interface Tool {
     iconName?: string;
 }
 
-export interface ApiResponse<T> {
-    success: boolean;
-    data: T;
-}
-
 export interface Skill {
     id: number;
     name: string;
