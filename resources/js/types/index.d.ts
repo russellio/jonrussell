@@ -126,6 +126,7 @@ export interface Post {
     id: string; // slug
     title: string;
     excerpt: string | null;
+    body: string | null;
     year: string | null;
     publishedAt: string | null;
     image: PostImage | null;
