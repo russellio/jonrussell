@@ -42,6 +42,11 @@ jobs:
         with:
           ref: ${{ steps.ref.outputs.ref }}
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+
       # Must precede setup-node so `cache: 'pnpm'` can find the pnpm binary.
       # Version comes from package.json "packageManager" — single source of truth.
       - name: Setup pnpm
@@ -53,8 +58,20 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
 
+      - name: Install PHP Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
+
       - name: Install Node Dependencies
         run: pnpm install --frozen-lockfile
+
+      # @laravel/vite-plugin-wayfinder shells out to `artisan wayfinder:generate`
+      # during `vite build`, so the app needs to be bootable (same reason lint.yml
+      # does this before its own build) even though this vendor/.env never ships.
+      - name: Copy Environment File
+        run: cp .env.example .env
+
+      - name: Generate Application Key
+        run: php artisan key:generate
 
       - name: Build client + SSR bundles
         env:
