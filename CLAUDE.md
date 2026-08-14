@@ -116,7 +116,6 @@ These are things the codebase has but are not yet complete or are actively wrong
 1. **Email address hardcoded** in `ContactController` — should use `env('CONTACT_EMAIL')` (key exists in `.env.example`)
 2. **`CompanyStatsServiceImpl` and `TechStackMetricsServiceImpl` are empty stubs** — return `[]` with TODO comments; both are registered in the DI container
 3. **Duplicate type definitions** — `ProjectModal.vue` redefines types locally instead of importing from `types/index.d.ts`
-4. **`v-html` on database content** — `ProjectModal.vue` renders `description` and `company.name` via `v-html`
 
 **Resolved (no longer issues):**
 - **API caching** — read-only API endpoints now use response caching with invalidation on model mutations
@@ -125,6 +124,7 @@ These are things the codebase has but are not yet complete or are actively wrong
 - **API Resources** — controllers standardized with model-aware formatting and type safety
 - **Admin API routes/controllers removed** — there are no `admin` API routes or `app/Http/Controllers/Admin/` controllers; Filament is the sole CMS for managing content
 - **Admin/Filament duplication removed** — the unused, unauthenticated Admin CRUD controllers (`CompanyController`, `PositionController`, `TechStackItemController`) were deleted; no duplication remains
+- **`v-html` on database content** — `ProjectModal.vue` has exactly one `v-html`, on `project.description` (`company.name` is plain text interpolation, never `v-html`); the underlying HTML is now sanitized server-side (`mews/purifier` via `App\Http\Resources\Concerns\SanitizesHtml`) before it ever reaches `v-html`
 
 ## Testing
 

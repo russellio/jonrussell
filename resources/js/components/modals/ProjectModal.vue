@@ -2,7 +2,6 @@
 import ImageModal from '@/js/components/modals/ImageModal.vue';
 import { useModal } from '@/js/composables/useModal';
 import type { Image, Project } from '@/js/types/index';
-import DOMPurify from 'dompurify';
 import { computed, ref, useTemplateRef } from 'vue';
 
 const props = defineProps<{ project: Project }>();
@@ -14,8 +13,6 @@ const open = computed({
         if (!value) closeModal('project-modal');
     },
 });
-
-const sanitizeHtml = (html: string) => DOMPurify.sanitize(html);
 
 /** `primaryImage` leads, then the rest of the gallery, de-duplicated by `src`. */
 const gallery = computed<Image[]>(() => {
@@ -209,7 +206,7 @@ const hasSidebar = computed(
                         </USeparator>
                         <div
                             class="space-y-3 text-sm leading-relaxed text-slate-300 [&_a]:text-primary [&_a]:underline [&_li]:ms-5 [&_li]:list-disc [&_ul]:space-y-1"
-                            v-html="sanitizeHtml(project.description)"
+                            v-html="project.description"
                         ></div>
                     </section>
                 </div>

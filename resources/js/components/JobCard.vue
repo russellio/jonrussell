@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import type { TimelinePosition } from '@/js/types/index';
-import DOMPurify from 'dompurify';
 import { computed } from 'vue';
 
 const props = defineProps<{
     position: TimelinePosition;
 }>();
-
-const sanitizeHtml = (html: string) => DOMPurify.sanitize(html);
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -80,7 +77,7 @@ const showCompanyName = computed(() => {
                 <div
                     v-if="position.description"
                     class="mt-2 space-y-2 text-sm leading-normal [&_li]:ml-4 [&_li]:list-disc [&_p]:leading-normal [&_ul]:space-y-1"
-                    v-html="sanitizeHtml(position.description)"
+                    v-html="position.description"
                 ></div>
                 <ul v-if="position.skills.length" class="mt-2 flex flex-wrap" aria-label="Skills used">
                     <li v-for="skill in position.skills" :key="skill.id" class="me-1.5 mt-2">
