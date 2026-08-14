@@ -67,5 +67,20 @@ jobs:
             php artisan optimize
             php artisan filament:optimize
             sudo systemctl restart inertia-ssr
-            php artisan inertia:check-ssr || true
+            # The unit is Type=simple, so systemctl returns as soon as systemd forks
+            # -- artisan still has to boot Laravel and spawn node before anything
+            # binds :13714. Poll rather than racing that startup.
+            ssr_ok=0
+            for _ in $(seq 1 15); do
+              if php artisan inertia:check-ssr; then
+                ssr_ok=1
+                break
+              fi
+              sleep 2
+            done
+            if [ "$ssr_ok" -ne 1 ]; then
+              echo "Inertia SSR did not become healthy within 30s -- failing the deploy."
+              journalctl -u inertia-ssr -n 50 --no-pager || true
+              exit 1
+            fi
             php artisan queue:restart
