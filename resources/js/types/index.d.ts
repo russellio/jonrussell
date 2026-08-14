@@ -33,6 +33,7 @@ export interface Company {
     name: string;
     logo: CompanyLogo;
     link?: string;
+    description?: string | null;
 }
 
 export interface ProjectLink {
@@ -50,11 +51,6 @@ export interface Tool {
     name: string;
     iconType?: string;
     iconName?: string;
-}
-
-export interface ApiResponse<T> {
-    success: boolean;
-    data: T;
 }
 
 export interface Skill {
@@ -95,4 +91,40 @@ export interface Project {
     images?: Image[];
     links: ProjectLink[];
     awards?: string[];
+}
+
+export interface PositionSkill {
+    id: number;
+    name: string;
+}
+
+/** A single role as returned by GET /api/timeline (PositionResource). */
+export interface TimelinePosition {
+    id: number;
+    title: string;
+    description: string | null; // sanitized HTML (lead + bullet list) or null
+    startDate: string; // Y-m-d
+    endDate: string | null; // Y-m-d, null when current
+    months: number;
+    isCurrent: boolean;
+    company: Company | null;
+    skills: PositionSkill[];
+}
+
+export interface PostImage {
+    src: string;
+    alt: string;
+}
+
+/** A post as returned by GET /api/posts (PostResource). */
+export interface Post {
+    id: string; // slug
+    title: string;
+    excerpt: string | null;
+    body: string | null;
+    year: string | null;
+    publishedAt: string | null;
+    image: PostImage | null;
+    externalUrl: string | null;
+    hasBody: boolean;
 }

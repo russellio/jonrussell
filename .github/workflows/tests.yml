@@ -25,14 +25,19 @@ jobs:
           tools: composer:v2
           coverage: xdebug
 
+      # Must precede setup-node so `cache: 'pnpm'` can find the pnpm binary.
+      # Version comes from package.json "packageManager" — single source of truth.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
           node-version: '22'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install Node Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
@@ -44,7 +49,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Build Assets
-        run: npm run build
+        run: pnpm run build
 
       - name: Tests
         run: ./vendor/bin/pest

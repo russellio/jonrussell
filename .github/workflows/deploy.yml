@@ -51,10 +51,21 @@ jobs:
             git fetch --all --prune
             git reset --hard "${DEPLOY_REF}"
             composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-            npm ci
-            npm run build
+            # pnpm version comes from package.json "packageManager"; corepack resolves
+            # and activates it. Never prompt — this shell has no TTY.
+            export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+            corepack enable
+            corepack prepare --activate
+            pnpm install --frozen-lockfile
+            # Gitignored, so git reset --hard never clears it. Removing first means a
+            # failed build:ssr degrades to client-side rendering instead of serving a
+            # stale bundle against new PHP props.
+            rm -rf bootstrap/ssr
+            pnpm run build:ssr
             php artisan migrate --force
             php artisan optimize:clear
             php artisan optimize
             php artisan filament:optimize
+            sudo systemctl restart inertia-ssr
+            php artisan inertia:check-ssr || true
             php artisan queue:restart

@@ -20,13 +20,13 @@ test('tech stack api returns all items ordered by order field', function () {
 });
 
 test('tech stack api returns icon type and name from associated icon', function () {
-    $icon = Icon::factory()->create(['icon_type' => 'si', 'icon_name' => 'laravel']);
+    $icon = Icon::factory()->create(['icon_type' => 'simple-icons', 'icon_name' => 'laravel']);
     TechStackItem::factory()->create(['name' => 'Laravel', 'percent' => 95, 'active' => true, 'order' => 0, 'icon_id' => $icon->id]);
 
     $response = $this->getJson('/api/tech-stack');
 
     $response->assertOk()
-        ->assertJsonPath('data.0.iconType', 'si')
+        ->assertJsonPath('data.0.iconType', 'simple-icons')
         ->assertJsonPath('data.0.iconName', 'laravel');
 });
 
