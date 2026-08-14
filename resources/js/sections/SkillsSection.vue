@@ -14,8 +14,8 @@ const getSkillsBySlug = (slug: string): Skill[] => {
 </script>
 
 <template>
-    <section id="skills" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Engineering skills & tools">
-        <SectionHeading title="Engineering Skills & Tools" />
+    <section id="skills" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-24" aria-label="Skills & tools">
+        <SectionHeading title="Skills & Tools" />
         <SectionPanel class="px-2 pb-5 pt-3">
             <div class="space-y-8 px-4 py-8">
                 <h3 class="font-space-mono mb-2 text-lg font-semibold text-slate-200">Software Engineering</h3>

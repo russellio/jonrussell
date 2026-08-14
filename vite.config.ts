@@ -42,6 +42,15 @@ export default defineConfig({
                         'simple-icons:typescript',
                         'simple-icons:react',
                         'simple-icons:python',
+                        'simple-icons:expo',
+                        'simple-icons:googlemaps',
+                        'simple-icons:firebase',
+                        'simple-icons:sentry',
+                        'simple-icons:appstore',
+                        'simple-icons:revenuecat',
+                        'simple-icons:jest',
+                        'simple-icons:github',
+                        'simple-icons:composer',
                         // Nuxt UI component defaults resolved from `appConfig.ui.icons` (inside node_modules,
                         // so the scanner never sees them) — e.g. UCarousel's prev/next arrows.
                         'lucide:arrow-left',
@@ -66,5 +75,12 @@ export default defineConfig({
         alias: {
             '@': path.resolve(__dirname, './resources'),
         },
+    },
+    ssr: {
+        // Vite externalizes node_modules packages for SSR by default, which skips
+        // @nuxt/ui's unplugin-auto-import transform. That transform is what resolves
+        // the '#imports' virtual specifier its composables (e.g. useComponentIcons)
+        // rely on — externalized, Node tries to resolve '#imports' natively and fails.
+        noExternal: ['@nuxt/ui'],
     },
 });

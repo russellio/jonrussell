@@ -39,7 +39,7 @@ const thumbSrc = computed(() => {
                 <p class="mt-2 text-sm leading-normal">{{ project.byline }}</p>
                 <ul v-if="project.awards && project.awards.length > 0" class="mt-2 flex flex-wrap gap-1.5" aria-label="Awards">
                     <li v-for="award in project.awards" :key="award">
-                        <UBadge color="secondary" variant="outline" size="sm" class="rounded-full bg-primary/30 px-2">
+                        <UBadge color="secondary" variant="outline" size="sm" class="font semibold rounded-full bg-primary/30 px-2">
                             <UIcon name="i-lucide-award" class="h-4 w-4 text-gold" />
                             {{ award }}
                         </UBadge>

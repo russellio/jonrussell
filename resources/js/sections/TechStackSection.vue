@@ -10,7 +10,7 @@ defineProps<{
 
 <template>
     <section id="tech-stack" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-36" aria-label="Primary tech stack">
-        <SectionHeading title="Primary Tech Stack" />
+        <SectionHeading title="Tech Stack" />
 
         <SectionPanel>
             <div class="flex flex-wrap justify-center gap-6 py-4">
