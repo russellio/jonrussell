@@ -2,7 +2,7 @@
 @import '@nuxt/ui';
 @import '@fontsource/noto-sans';
 @import '@fontsource/space-mono';
-@import '@fontsource/Sixtyfour';
+@import '@fontsource/sixtyfour';
 
 @custom-variant can-hover (@media (hover: hover) and (pointer: fine));
 @custom-variant no-hover (@media (hover: none) or (pointer: coarse));
