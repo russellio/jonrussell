@@ -15,7 +15,7 @@ import type { AppPageProps, Post, Project, SkillType, TechStackItem, TimelinePos
 import { usePage } from '@inertiajs/vue3';
 import { computed, nextTick, onMounted, watch } from 'vue';
 
-type PageProps = AppPageProps<{ scrollTo?: string }>;
+type PageProps = AppPageProps<{ scrollTo?: string | null }>;
 
 defineProps<{
     techStack: TechStackItem[];
@@ -31,7 +31,7 @@ const { scrollToSection } = useScrollToSection();
 
 const isContactOpen = computed(() => isOpen('contact-modal'));
 
-const performScrollAction = async (scrollTo: string | undefined) => {
+const performScrollAction = async (scrollTo: string | undefined | null) => {
     if (!scrollTo) return;
 
     if (scrollTo === 'contact') {
@@ -70,7 +70,7 @@ watch(
                 <main id="content" class="pt-12 lg:w-[68%] lg:py-14 lg:pt-24">
                     <div>
                         <AboutSection />
-                        <TechStackSection :items="techStack" />
+                        <TechStackSection :tech-stack="techStack" />
                         <SkillsSection :skill-types="skillTypes" />
                         <ExperienceSection :positions="positions" />
                         <ProjectsSection :projects="projects" />

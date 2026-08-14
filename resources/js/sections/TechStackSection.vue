@@ -4,7 +4,7 @@ import SectionPanel from '@/js/components/SectionPanel.vue';
 import type { TechStackItem } from '@/js/types/index';
 
 defineProps<{
-    items: TechStackItem[];
+    techStack: TechStackItem[];
 }>();
 </script>
 
@@ -14,7 +14,7 @@ defineProps<{
 
         <SectionPanel>
             <div class="flex flex-wrap justify-center gap-6 py-4">
-                <div v-for="item in items" :key="item.tech" class="flex items-center gap-2">
+                <div v-for="item in techStack" :key="item.tech" class="flex items-center gap-2">
                     <UIcon
                         v-if="item.iconType && item.iconName"
                         :name="`i-${item.iconType}-${item.iconName}`"

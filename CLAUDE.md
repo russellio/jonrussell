@@ -101,7 +101,7 @@ The "space mode" toggle is powered by `@russellio/vue-background-stars` (npm, v1
 
 ### Data Flow Pattern
 
-Vue components fetch data directly from the API on `onMounted` using raw `fetch()`. There is no centralized API client — each component manages its own loading/error state. This is a known gap.
+Sections receive their data as Inertia props, not via client-side fetch. `HomeController` resolves all five section payloads (`techStack`, `skillTypes`, `positions`, `projects`, `posts`) through `app/Queries/*` query classes (`TechStackQuery`, `SkillsQuery`, `TimelineQuery`, `ProjectsQuery`, `PostsQuery`) and passes them to the `Home` Inertia page in a single request; `PostPageController` does the equivalent for a single post via `PostQuery`. Each query wraps its payload in `CachedQuery`'s response cache, invalidated on model mutation.
 
 ### Icon System
 
@@ -119,7 +119,7 @@ These are things the codebase has but are not yet complete or are actively wrong
 
 **Resolved (no longer issues):**
 - **API caching** — read-only API endpoints now use response caching with invalidation on model mutations
-- **API client** — centralized at `resources/js/lib/api.ts` with `get<T>()` function
+- **Client-side fetch layer removed** — sections now receive data as Inertia props from `HomeController`/`PostPageController` (backed by `app/Queries/*`); `resources/js/lib/api.ts` no longer exists
 - **Dual icon system removed** — FontAwesome and `vue3-simple-icons` were replaced with Nuxt UI's `<UIcon>` backed by `@iconify-json/lucide` and `@iconify-json/simple-icons`; `resources/js/lib/icons.ts` no longer exists
 - **API Resources** — controllers standardized with model-aware formatting and type safety
 - **Admin API routes/controllers removed** — there are no `admin` API routes or `app/Http/Controllers/Admin/` controllers; Filament is the sole CMS for managing content
