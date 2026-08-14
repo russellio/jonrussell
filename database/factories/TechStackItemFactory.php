@@ -18,8 +18,6 @@ class TechStackItemFactory extends Factory
             'name' => $this->faker->word(),
             'percent' => $this->faker->numberBetween(50, 100),
             'icon_id' => null,
-            'icon_type' => 'fa',
-            'icon_name' => 'code',
             'active' => true,
             'order' => $this->faker->numberBetween(0, 20),
         ];

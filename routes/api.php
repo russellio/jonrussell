@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\SkillController;
 use App\Http\Controllers\Api\TechStackController;
@@ -23,6 +24,8 @@ Route::post('/contact', [ContactController::class, 'store'])->middleware('thrott
 Route::middleware('cache.control')->group(function () {
     Route::get('/projects', [ProjectController::class, 'index']);
     Route::get('/projects/{slug}', [ProjectController::class, 'show']);
+    Route::get('/posts', [PostController::class, 'index']);
+    Route::get('/posts/{slug}', [PostController::class, 'show']);
     Route::get('/skills', [SkillController::class, 'index']);
     Route::get('/tech-stack', [TechStackController::class, 'index']);
     Route::get('/timeline', [TimelineController::class, 'index']);

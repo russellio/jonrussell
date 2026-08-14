@@ -13,12 +13,14 @@ class SkillTypeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            // ->toArray() is load-bearing: without it this value stays an Eloquent
+            // Collection, which gets PHP-serialized whole into the cache store.
             'skills' => $this->skills->map(fn ($skill) => [
                 'id' => $skill->id,
                 'name' => $skill->name,
                 'iconType' => $skill->icon?->icon_type,
                 'iconName' => $skill->icon?->icon_name,
-            ]),
+            ])->toArray(),
         ];
     }
 }

@@ -29,6 +29,9 @@ class SkillTypeSeeder extends Seeder
                     'Vue 3',
                     'Vuex',
                     'Pinia',
+                    'React',
+                    'React Native',
+                    'Expo',
                     'jQuery',
                     'webpack',
                     'Vite',
@@ -89,6 +92,18 @@ class SkillTypeSeeder extends Seeder
                     'Innovative process improvement',
                     'Experienced Manager, Project Manager',
                     'Certified ScrumMaster (CSM)',
+                ],
+            ],
+            [
+                'name' => 'Tools & Environment',
+                'slug' => 'tools',
+                'order' => 5,
+                'skills' => [
+                    'PhpStorm',
+                    'VS Code',
+                    'Cursor',
+                    'Claude Code',
+                    'Sentry',
                 ],
             ],
         ];

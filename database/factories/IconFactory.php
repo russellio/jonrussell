@@ -12,15 +12,15 @@ class IconFactory extends Factory
     public function definition(): array
     {
         return [
-            'icon_type' => $this->faker->randomElement(['fa', 'si']),
+            'icon_type' => $this->faker->randomElement(['lucide', 'simple-icons']),
             'icon_name' => $this->faker->word(),
         ];
     }
 
-    public function fontAwesome(): static
+    public function lucide(): static
     {
         return $this->state([
-            'icon_type' => 'fa',
+            'icon_type' => 'lucide',
             'icon_name' => 'code',
         ]);
     }
@@ -28,7 +28,7 @@ class IconFactory extends Factory
     public function simpleIcon(): static
     {
         return $this->state([
-            'icon_type' => 'si',
+            'icon_type' => 'simple-icons',
             'icon_name' => 'github',
         ]);
     }

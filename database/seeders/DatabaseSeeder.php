@@ -15,13 +15,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::updateOrCreate(
-            ['email' => 'test@example.com'],
-            [
-                'name' => 'Test User',
-                'password' => bcrypt('password'),
-            ]
-        );
+        if (! app()->isProduction()) {
+            User::updateOrCreate(
+                ['email' => 'test@example.com'],
+                [
+                    'name' => 'Test User',
+                    'password' => bcrypt('password'),
+                ]
+            );
+        }
 
         $this->call([
             SkillTypeSeeder::class,      // Creates skill types and skills (no dependencies)
@@ -30,6 +32,7 @@ class DatabaseSeeder extends Seeder
             PositionSkillSeeder::class,   // Links skills to positions (depends on Position and Skill)
             TechStackItemSeeder::class,   // Creates tech stack items (depends on Skill)
             ProjectSeeder::class,         // Creates projects and all child data (depends on Company, Icon)
+            PostSeeder::class,            // Creates posts (no dependencies)
         ]);
     }
 }

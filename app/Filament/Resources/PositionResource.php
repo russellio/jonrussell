@@ -28,6 +28,8 @@ class PositionResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\RichEditor::make('description')
+                    ->columnSpanFull(),
                 Forms\Components\DatePicker::make('start_date')
                     ->required()
                     ->displayFormat('Y-m-d'),
