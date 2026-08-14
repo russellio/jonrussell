@@ -1,59 +1,56 @@
 <script setup lang="ts">
-import { faHouse } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-import { useScrollToSection } from '@/js/composables/useScrollToSection';
-const { scrollToSection } = useScrollToSection();
-
 import { useModal } from '@/js/composables/useModal';
-const { openModal } = useModal();
+import { useScrollSpy } from '@/js/composables/useScrollSpy';
+import { useScrollToSection } from '@/js/composables/useScrollToSection';
 
 const navigation = [
-    {
-        name: 'About',
-        ref: 'about',
-    },
-    {
-        name: 'Projects',
-        ref: 'projects',
-    },
+    { name: 'About', ref: 'about' },
+    { name: 'Tech Stack', ref: 'tech-stack' },
+    { name: 'Skills', ref: 'skills' },
+    { name: 'Experience', ref: 'experience' },
+    { name: 'Projects', ref: 'projects' },
+    { name: 'Posts', ref: 'posts' },
 ];
+
+const { activeId: activeSection } = useScrollSpy(navigation.map((item) => item.ref));
+const { scrollToSection } = useScrollToSection();
+const { openModal } = useModal();
 </script>
 
 <template>
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-999 overflow-visible border-b border-b-terminal-black-700 bg-dark-blue">
-        <div class="section-wrapper">
-            <div class="flex justify-center">
-                <div class="md:block">
-                    <button @click="scrollToSection('home')" class="btn-home">
-                        <FontAwesomeIcon :icon="faHouse" size="lg" />
-                    </button>
-                    <button v-for="item in navigation" :key="item.name" @click="scrollToSection(item.ref)" class="primary-nav">
+    <nav class="nav hidden lg:block" aria-label="In-page jump links">
+        <ul class="mt-2 w-max">
+            <li v-for="item in navigation" :key="item.ref">
+                <a
+                    class="group flex items-center py-2.5"
+                    :class="{ active: activeSection === item.ref }"
+                    :href="`#${item.ref}`"
+                    @click.prevent="scrollToSection(item.ref)"
+                >
+                    <span
+                        class="nav-indicator me-4 h-px w-8 bg-slate-600 transition-all group-hover:w-20 group-hover:bg-slate-200 group-focus-visible:w-20 group-focus-visible:bg-slate-200 motion-reduce:transition-none"
+                    ></span>
+                    <span class="nav-text tracking-widest text-slate-500 uppercase group-hover:text-white group-focus-visible:text-slate-200">
                         {{ item.name }}
-                    </button>
-                    <button @click="openModal('contact-modal')" class="primary-nav">Contact</button>
-                </div>
-            </div>
-        </div>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <UButton
+                    type="button"
+                    variant="link"
+                    class="group flex w-full items-center py-2 text-left"
+                    :ui="{ base: 'px-0' }"
+                    @click="openModal('contact-modal')"
+                >
+                    <span
+                        class="nav-indicator me-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 motion-reduce:transition-none"
+                    ></span>
+                    <span class="nav-text tracking-widest text-slate-500 uppercase group-hover:text-slate-200 group-focus-visible:text-slate-200">
+                        Contact
+                    </span>
+                </UButton>
+            </li>
+        </ul>
     </nav>
 </template>
-
-<style scoped>
-@reference "@/css/app.css";
-
-.btn-home {
-    @apply me-4 w-auto flex-none cursor-pointer text-xl text-white opacity-80 hover:opacity-100 md:text-lg;
-}
-
-.primary-nav {
-    @apply mx-1 my-4 w-auto rounded-lg text-white md:mx-2 md:my-2 md:h-8 md:w-40;
-    @apply border-2 border-secondary bg-transparent outline-none;
-    @apply cursor-pointer px-2 py-2 font-space-mono text-xl uppercase md:px-2 md:py-0 md:text-lg;
-    @apply transition-all duration-400;
-}
-
-.primary-nav:hover {
-    @apply rounded-xl border-white bg-secondary font-bold;
-}
-</style>

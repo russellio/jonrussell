@@ -30,6 +30,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Filament Admin Access
+    |--------------------------------------------------------------------------
+    |
+    | Emails allowed into the /admin panel. There is no self-registration
+    | route, so this only ever matters for accounts created by hand or by a
+    | seeder — but it's the one gate stopping any of those from getting full
+    | CRUD access to site content.
+    |
+    */
+
+    'admin_emails' => array_filter(explode(',', env('ADMIN_EMAILS', ''))),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |

@@ -48,6 +48,7 @@ test('timeline api includes company data', function () {
         'logo_alt' => 'Acme Logo',
         'logo_display_name' => true,
         'link' => 'https://acme.com',
+        'description' => 'Explosives, Anvils — $1M/yr',
     ]);
 
     Position::factory()->create(['company_id' => $company->id, 'title' => 'Engineer', 'start_date' => '2023-01-01']);
@@ -60,6 +61,7 @@ test('timeline api includes company data', function () {
     expect($data[0]['company']['logo']['alt'])->toBe('Acme Logo');
     expect($data[0]['company']['logo']['displayName'])->toBeTrue();
     expect($data[0]['company']['link'])->toBe('https://acme.com');
+    expect($data[0]['company']['description'])->toBe('Explosives, Anvils — $1M/yr');
 });
 
 test('timeline api includes skills for each position', function () {
@@ -103,4 +105,31 @@ test('timeline api returns empty array when no positions exist', function () {
     $response = $this->getJson('/api/timeline');
 
     $response->assertOk()->assertJson(['success' => true, 'data' => []]);
+});
+
+test('timeline api excludes positions with no description', function () {
+    $company = Company::factory()->create(['name' => 'Corp']);
+
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Described', 'description' => '<p>Did things.</p>', 'start_date' => '2023-01-01']);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Null Desc', 'description' => null, 'start_date' => '2022-01-01']);
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Empty Desc', 'description' => '', 'start_date' => '2021-01-01']);
+
+    $data = $this->getJson('/api/timeline')->assertOk()->json('data');
+
+    expect($data)->toHaveCount(1);
+    expect($data[0]['title'])->toBe('Described');
+});
+
+// Curation is deliberately "has any description string", not "renders visibly" —
+// this mirrors the `Boolean(position.description)` filter it replaced. Changing it
+// is a separate decision, so pin the current semantics.
+test('timeline api keeps a position whose description is structurally empty html', function () {
+    $company = Company::factory()->create(['name' => 'Corp']);
+
+    Position::factory()->create(['company_id' => $company->id, 'title' => 'Blank Markup', 'description' => '<p></p>', 'start_date' => '2023-01-01']);
+
+    $data = $this->getJson('/api/timeline')->assertOk()->json('data');
+
+    expect($data)->toHaveCount(1);
+    expect($data[0]['title'])->toBe('Blank Markup');
 });

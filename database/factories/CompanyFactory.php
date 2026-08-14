@@ -17,6 +17,7 @@ class CompanyFactory extends Factory
             'logo_alt' => $this->faker->sentence(),
             'logo_display_name' => $this->faker->boolean(),
             'link' => $this->faker->url(),
+            'description' => $this->faker->sentence(),
         ];
     }
 }

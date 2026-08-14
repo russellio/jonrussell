@@ -51,10 +51,36 @@ jobs:
             git fetch --all --prune
             git reset --hard "${DEPLOY_REF}"
             composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-            npm ci
-            npm run build
+            # pnpm version comes from package.json "packageManager"; corepack resolves
+            # and activates it. Never prompt — this shell has no TTY.
+            export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+            corepack enable
+            corepack prepare --activate
+            pnpm install --frozen-lockfile
+            # Gitignored, so git reset --hard never clears it. Removing first means a
+            # failed build:ssr degrades to client-side rendering instead of serving a
+            # stale bundle against new PHP props.
+            rm -rf bootstrap/ssr
+            pnpm run build:ssr
             php artisan migrate --force
             php artisan optimize:clear
             php artisan optimize
             php artisan filament:optimize
+            sudo systemctl restart inertia-ssr
+            # The unit is Type=simple, so systemctl returns as soon as systemd forks
+            # -- artisan still has to boot Laravel and spawn node before anything
+            # binds :13714. Poll rather than racing that startup.
+            ssr_ok=0
+            for _ in $(seq 1 15); do
+              if php artisan inertia:check-ssr; then
+                ssr_ok=1
+                break
+              fi
+              sleep 2
+            done
+            if [ "$ssr_ok" -ne 1 ]; then
+              echo "Inertia SSR did not become healthy within 30s -- failing the deploy."
+              journalctl -u inertia-ssr -n 50 --no-pager || true
+              exit 1
+            fi
             php artisan queue:restart

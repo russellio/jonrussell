@@ -9,7 +9,7 @@ use App\Models\ProjectTool;
 
 test('projects api returns all projects with relationships', function () {
     $company = Company::factory()->create(['name' => 'Test Company']);
-    $icon = Icon::factory()->create(['icon_type' => 'fa', 'icon_name' => 'laravel']);
+    $icon = Icon::factory()->create(['icon_type' => 'simple-icons', 'icon_name' => 'laravel']);
 
     $project = Project::factory()
         ->for($company)
@@ -59,7 +59,7 @@ test('projects api returns all projects with relationships', function () {
     expect($json['data'][0]['keyTakeaways'][0])->toBe('Key takeaway 1');
     expect($json['data'][0]['technologies'])->toBeArray();
     expect($json['data'][0]['technologies'][0]['name'])->toBe('Laravel');
-    expect($json['data'][0]['technologies'][0]['iconType'])->toBe('fa');
+    expect($json['data'][0]['technologies'][0]['iconType'])->toBe('simple-icons');
     expect($json['data'][0]['technologies'][0]['iconName'])->toBe('laravel');
     expect($json['data'][0]['tools'])->toBeArray();
     expect($json['data'][0]['tools'][0]['name'])->toBe('Git');

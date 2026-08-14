@@ -15,62 +15,37 @@ class PositionSkillSeeder extends Seeder
      */
     public function run(): void
     {
-        // Map of company names to their position titles for lookup
+        // Map of company names to their position titles for lookup.
+        // Only the four engineering roles carry tech pills; the management /
+        // early-career roles are intentionally left without a curated stack.
         $companyPositionMap = [
-            'AYCON' => 'Software Engineer',
-            'DI - WSD' => 'Web Software Developer',
-            'DI - PM' => 'Project Manager',
-            'DI - Manager' => 'Manager',
-            'ARCA' => 'Senior Software Engineer',
-            'Glen Raven' => 'Senior Software Engineer',
-            'Pioneering Evolution' => 'Senior Software Engineer',
-            'Current' => 'Senior Software Engineer',
+            'ARCA' => 'Web Software Developer / Build Engineer',
+            'Glen Raven, Inc.' => 'Senior Web Application Developer / Certified ScrumMaster',
+            'Pioneering Evolution' => 'Software Engineer',
+            'Russell I/O, LLC' => 'Senior Full Stack Engineer / Software Developer',
         ];
 
-        // Map skills to positions based on CSV TRUE/FALSE values
+        // Focused, resume-accurate tech pills per role.
         // Format: 'skill_name' => ['company1', 'company2', ...]
         $skillPositionMap = [
-            // Software Engineering skills
-            'PHP 8' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'JavaScript' => ['AYCON', 'DI - WSD', 'ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'TypeScript' => ['Pioneering Evolution'],
-            'MySQL 8' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'Node.js' => ['Pioneering Evolution'],
-            'Laravel' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
+            'PHP 8' => ['ARCA', 'Glen Raven, Inc.', 'Pioneering Evolution'],
+            'Laravel' => ['ARCA', 'Glen Raven, Inc.', 'Pioneering Evolution'],
+            'MySQL 8' => ['ARCA', 'Glen Raven, Inc.', 'Pioneering Evolution'],
+            'JavaScript' => ['ARCA', 'Glen Raven, Inc.', 'Pioneering Evolution', 'Russell I/O, LLC'],
+            'jQuery' => ['ARCA'],
+            'Jenkins' => ['ARCA'],
+            'CI/CD automation' => ['ARCA'],
+            'Bootstrap' => ['ARCA', 'Glen Raven, Inc.'],
+            'REST APIs' => ['Glen Raven, Inc.', 'Pioneering Evolution'],
+            'Azure Pipelines' => ['Glen Raven, Inc.'],
+            'SCSS' => ['Glen Raven, Inc.'],
             'Vue 3' => ['Pioneering Evolution'],
-            'jQuery' => ['AYCON', 'DI - WSD', 'ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'HTML5' => ['AYCON', 'DI - WSD', 'ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'CSS3' => ['AYCON', 'DI - WSD', 'ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'SCSS' => ['Glen Raven'],
-            'Bootstrap' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'Tailwind CSS' => ['Pioneering Evolution', 'Current'],
-            'REST APIs' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'Microservices' => ['Pioneering Evolution'],
-            'OOP' => ['AYCON', 'DI - WSD', 'ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'MVC' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'SDLC' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'SaaS' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'Docker' => ['ARCA', 'Pioneering Evolution'],
-            'Linux' => ['Glen Raven', 'Pioneering Evolution'],
-
-            // Architecture & DevOps
-            'Git' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'Bitbucket' => ['ARCA', 'Pioneering Evolution'],
-            'AWS' => ['ARCA', 'Pioneering Evolution'],
-            'Azure Pipelines' => ['Glen Raven'],
-            'Jenkins' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'CI/CD automation' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-
-            // Quality & Collaboration
-            'Unit testing' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'Code reviews' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'Pair programming' => ['ARCA', 'Glen Raven', 'Pioneering Evolution'],
-            'API optimization' => ['Pioneering Evolution'],
-
-            // Leadership & Team Building
-            'Team mentoring' => ['DI - Manager'],
-            'Manager' => ['DI - Manager'],
-            'Project Manager' => ['DI - PM'],
+            'TypeScript' => ['Pioneering Evolution', 'Russell I/O, LLC'],
+            'Pinia' => ['Pioneering Evolution'],
+            'Tailwind CSS' => ['Pioneering Evolution'],
+            'Node.js' => ['Pioneering Evolution'],
+            'React' => ['Russell I/O, LLC'],
+            'Storybook' => ['Russell I/O, LLC'],
         ];
 
         foreach ($skillPositionMap as $skillName => $companyNames) {

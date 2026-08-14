@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Queries\TechStackQuery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Cache;
 
 class TechStackItem extends Model
 {
@@ -20,7 +20,7 @@ class TechStackItem extends Model
     {
         parent::boot();
 
-        $bust = fn () => Cache::forget('techstack.index');
+        $bust = fn () => (new TechStackQuery)->forget();
         static::saved($bust);
         static::deleted($bust);
     }
