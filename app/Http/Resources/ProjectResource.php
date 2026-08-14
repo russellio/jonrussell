@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Concerns\SanitizesHtml;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProjectResource extends JsonResource
 {
+    use SanitizesHtml;
+
     public function toArray(Request $request): array
     {
         return [
@@ -14,7 +17,7 @@ class ProjectResource extends JsonResource
             'title' => $this->title,
             'byline' => $this->byline,
             'keyTakeaways' => $this->keyTakeaways->pluck('text')->toArray(),
-            'description' => $this->description,
+            'description' => $this->sanitize($this->description),
             'highlightedSkills' => $this->technologies->where('is_highlighted', true)->pluck('name')->values()->toArray(),
             'technologies' => $this->technologies->map(fn ($tech) => [
                 'name' => $tech->name,

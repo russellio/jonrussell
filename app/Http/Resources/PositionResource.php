@@ -2,17 +2,20 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Concerns\SanitizesHtml;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PositionResource extends JsonResource
 {
+    use SanitizesHtml;
+
     public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'description' => $this->description,
+            'description' => $this->sanitize($this->description),
             'startDate' => $this->start_date->format('Y-m-d'),
             'endDate' => $this->end_date?->format('Y-m-d'),
             'months' => $this->months,

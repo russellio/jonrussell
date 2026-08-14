@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import type { Post } from '@/js/types/index';
 import { Head, Link } from '@inertiajs/vue3';
-import DOMPurify from 'dompurify';
-import { computed } from 'vue';
 
-const props = defineProps<{ post: Post }>();
-
-const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props.post.body) : ''));
+defineProps<{ post: Post }>();
 </script>
 
 <template>
@@ -42,7 +38,7 @@ const sanitizedBody = computed(() => (props.post.body ? DOMPurify.sanitize(props
             class="mb-10 aspect-video w-full rounded-lg border border-slate-800 object-cover"
         />
 
-        <div v-if="sanitizedBody" class="post-body" v-html="sanitizedBody" />
+        <div v-if="post.body" class="post-body" v-html="post.body" />
     </article>
 </template>
 
