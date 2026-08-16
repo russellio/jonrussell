@@ -2,7 +2,7 @@
 import { useModal } from '@/js/composables/useModal';
 import type { Form, FormSubmitEvent } from '@nuxt/ui';
 import { useToast } from '@nuxt/ui/composables';
-import { computed, onMounted, onUnmounted, reactive, ref, useTemplateRef } from 'vue';
+import { computed, onUnmounted, reactive, ref, useTemplateRef, watch } from 'vue';
 import { z } from 'zod';
 
 const turnstileSitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
@@ -21,6 +21,7 @@ const isLoading = ref(false);
 const submitError = ref('');
 const turnstileToken = ref('');
 const turnstileWidgetId = ref<string | null>(null);
+const turnstileContainerRef = useTemplateRef<HTMLDivElement>('turnstileContainerRef');
 
 const { isOpen, closeModal } = useModal();
 const open = computed({
@@ -32,8 +33,8 @@ const open = computed({
 
 const toast = useToast();
 
-function onLoadTurnstile() {
-    turnstileWidgetId.value = turnstile.render('#turnstile-container', {
+function onLoadTurnstile(container: HTMLDivElement) {
+    turnstileWidgetId.value = turnstile.render(container, {
         sitekey: turnstileSitekey,
         callback: function (token: string) {
             turnstileToken.value = token;
@@ -41,13 +42,22 @@ function onLoadTurnstile() {
     });
 }
 
-onMounted(() => {
-    try {
-        onLoadTurnstile();
-    } catch {
-        submitError.value = 'Failed to load security verification. Please refresh the page.';
-    }
-});
+// UModal teleports/animates its body content in, so the container div isn't
+// guaranteed to exist in the DOM yet when this component's onMounted fires.
+// Watching the template ref instead reacts to the moment Vue actually mounts it.
+watch(
+    turnstileContainerRef,
+    (container) => {
+        if (!container || turnstileWidgetId.value) return;
+
+        try {
+            onLoadTurnstile(container);
+        } catch {
+            submitError.value = 'Failed to load security verification. Please refresh the page.';
+        }
+    },
+    { immediate: true },
+);
 
 onUnmounted(() => {
     if (turnstileWidgetId.value && window.turnstile) {
@@ -132,7 +142,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             </UForm>
 
             <div class="flex justify-center pt-4">
-                <div class="scale-80 md:scale-100" id="turnstile-container"></div>
+                <div ref="turnstileContainerRef" class="scale-80 md:scale-100" id="turnstile-container"></div>
             </div>
         </template>
 
