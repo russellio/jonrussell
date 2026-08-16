@@ -27,7 +27,7 @@ jobs:
       # Must precede setup-node so `cache: 'pnpm'` can find the pnpm binary.
       # Version comes from package.json "packageManager" — single source of truth.
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
 
       - name: Setup Node
         uses: actions/setup-node@v7
