@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ImageModal from '@/js/components/modals/ImageModal.vue';
 import { useModal } from '@/js/composables/useModal';
-import type { Image, Project } from '@/js/types/index';
+import type { Image, Project } from '@/js/types';
 import { computed, ref, useTemplateRef } from 'vue';
 
 const props = defineProps<{ project: Project }>();
