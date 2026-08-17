@@ -56,7 +56,7 @@ const showCompanyName = computed(() => {
                     <component
                         :is="position.company.link ? 'a' : 'span'"
                         v-if="position.company"
-                        class="group/link shrink"
+                        class="group/link ml-auto shrink"
                         v-bind="
                             position.company.link
                                 ? {
@@ -68,9 +68,9 @@ const showCompanyName = computed(() => {
                                 : {}
                         "
                     >
-                        <div class="flex flex-row text-sm">
+                        <div class="flex flex-row items-center text-sm">
                             <div class="me-1.5 grow text-nowrap">{{ position.company.name }}</div>
-                            <UIcon v-if="position.company.link" name="i-lucide-external-link" color="secondary" />
+                            <UIcon v-if="position.company.link" name="i-lucide-external-link" color="primary" />
                         </div>
                     </component>
                 </h3>
