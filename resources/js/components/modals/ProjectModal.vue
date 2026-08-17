@@ -60,7 +60,7 @@ const hasSidebar = computed(
     <UModal
         v-model:open="open"
         :ui="{
-            content: 'max-w-5xl',
+            content: 'max-w-4xl',
             // `shrink-0` — the header/footer are flex items of a max-height column; without it the
             // two-line title gets squeezed and bleeds over the scrolling body.
             header: 'items-start shrink-0 bg-slate-900/60',
@@ -69,8 +69,8 @@ const hasSidebar = computed(
         }"
     >
         <template #title>
-            <span class="block font-space-mono text-[0.65rem] tracking-[0.2em] text-primary uppercase">Project</span>
-            <span class="mt-1 block text-lg leading-tight font-bold text-slate-100 sm:text-xl">{{ project.title }}</span>
+            <span class="block font-space-mono text-[0.65rem] tracking-[0.2em] text-slate-500 uppercase">Project</span>
+            <span class="block text-lg leading-tight font-bold text-slate-100 sm:text-xl">{{ project.title }}</span>
         </template>
 
         <template #description>
@@ -82,7 +82,7 @@ const hasSidebar = computed(
             <template v-if="project.company || project.awards?.length">
                 <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
                     <div v-if="project.company" class="min-w-0">
-                        <span class="block font-space-mono text-[0.6rem] tracking-[0.2em] text-slate-500 uppercase">Client</span>
+                        <span class="block font-space-mono text-[0.65rem] tracking-[0.2em] text-slate-500 uppercase">Company</span>
                         <ULink
                             v-if="project.company.link"
                             :href="project.company.link"
@@ -133,8 +133,8 @@ const hasSidebar = computed(
                         loop
                         :ui="{
                             item: 'basis-full',
-                            prev: 'start-3 sm:start-3 bg-slate-950/70 text-slate-200 ring-white/15 backdrop-blur hover:bg-slate-950',
-                            next: 'end-3 sm:end-3 bg-slate-950/70 text-slate-200 ring-white/15 backdrop-blur hover:bg-slate-950',
+                            prev: 'inset-s-3 sm:inset-s-3 bg-slate-950/70 text-slate-200 ring-white/15 backdrop-blur hover:bg-slate-950',
+                            next: 'inset-e-3 sm:inset-e-3 bg-slate-950/70 text-slate-200 ring-white/15 backdrop-blur hover:bg-slate-950',
                         }"
                         @select="activeIndex = $event"
                     >
@@ -149,10 +149,10 @@ const hasSidebar = computed(
                                 :alt="item.alt || item.title"
                                 :title="item.title"
                                 loading="lazy"
-                                class="aspect-video max-h-[46vh] w-full object-contain transition-transform duration-300 group-hover:scale-[1.015]"
+                                class="aspect-video max-h-[24vh] w-full object-contain transition-transform duration-300 group-hover:scale-[1.015]"
                             />
                             <span
-                                class="pointer-events-none absolute inset-0 flex items-end justify-center bg-gradient-to-t from-slate-950/80 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                                class="pointer-events-none absolute inset-0 flex items-end justify-center bg-linear-to-t from-slate-950/80 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
                             >
                                 <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-100">
                                     <UIcon name="i-lucide-maximize-2" class="h-3.5 w-3.5" />
@@ -164,7 +164,7 @@ const hasSidebar = computed(
 
                     <span
                         v-if="gallery.length > 1"
-                        class="pointer-events-none absolute end-3 top-3 rounded-full bg-slate-950/70 px-2.5 py-0.5 font-space-mono text-[0.65rem] text-slate-300 backdrop-blur"
+                        class="pointer-events-none absolute inset-e-3 top-3 rounded-full bg-slate-950/70 px-2.5 py-0.5 font-space-mono text-[0.65rem] text-slate-300 backdrop-blur"
                     >
                         {{ activeIndex + 1 }} / {{ gallery.length }}
                     </span>

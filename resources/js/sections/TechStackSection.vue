@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-    <section id="tech-stack" class="mb-16 scroll-mt-16 md:mb-24 lg:scroll-mt-36" aria-label="Primary tech stack">
+    <section id="tech-stack" aria-label="Primary tech stack" class="mb-16 scroll-mt-16 md:mb-24 lg:mt-0 lg:mb-20 lg:scroll-mt-20 lg:pt-0">
         <SectionHeading title="Tech Stack" />
 
         <SectionPanel>
