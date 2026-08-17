@@ -44,14 +44,6 @@ const currentYear = () => {
                 rel="noreferrer noopener"
                 aria-label="Space Mono (opens in a new tab)"
                 >Space Mono</a
-            >,
-            <a
-                href="https://github.com/DylanYoungKoto/Stack-Sans"
-                :class="linkClass"
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label="Stack Sans Notch (opens in a new tab)"
-                >Stack Sans Notch</a
             >, and
             <a
                 href="https://jenskutilek.github.io/homecomputer-fonts/documentation/demo-sixtyfour.html"
@@ -60,9 +52,9 @@ const currentYear = () => {
                 rel="noreferrer noopener"
                 aria-label="SixtyFour (opens in a new tab)"
                 >SixtyFour</a
-            >. Flip on space mode at the top for a starfield powered by
+            >. Flip on space mode with the toggle in the corner for a starfield powered by
             <Link href="https://www.npmjs.com/package/@russellio/vue-background-stars" :class="linkClass">@russellio/vue-background-stars</Link>, an
-            open source package for Vue 3 created by yours truly.
+            open source package for Vue 3 I created.
         </p>
         <p class="text-center">&copy; Copyright {{ currentYear() }}</p>
     </footer>
