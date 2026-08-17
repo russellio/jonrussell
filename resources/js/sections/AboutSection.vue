@@ -6,7 +6,8 @@ const highlights = [
     { value: '13+ yrs', label: 'Software engineering' },
     { value: '3+ yrs', label: 'Project Management' },
     { value: '2.5+ yrs', label: 'Management' },
-    // { value: 'Master of Internet Techology', label: 'University of Georgia' },
+    { value: '6 yrs', label: 'Certified ScrumMaster' },
+    { value: 'Master of Internet Techology', label: 'University of Georgia' },
 ];
 </script>
 
@@ -52,24 +53,25 @@ const highlights = [
             </div>
 
             <p class="my-4 text-base">
-                I've always preferred staying hands-on, exploring new frameworks and technologies, and seeing what's coming next. To me, the most
-                satisfying part of engineering is delivering solutions that simplify processes, improve efficiency, and make life easier for the
-                people who depend on them, while building something I can genuinely be proud of.
+                I've preferred staying hands-on, exploring new frameworks and technologies, and seeing what's coming next. To me, the most satisfying
+                part of engineering is delivering solutions that simplify processes, improve efficiency, and make life easier for the people who
+                depend on them, while building something I can genuinely be proud of.
             </p>
 
-            <ul class="flex flex-wrap justify-center gap-x-3 gap-y-2 pt-2" aria-label="Highlights">
+            <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-2" aria-label="Highlights">
                 <li v-for="highlight in highlights" :key="highlight.label">
-                    <span class="font-space-mono text-base font-semibold text-slate-400">
+                    <span class="text-base font-semibold text-slate-400">
                         {{ highlight.value }}
                     </span>
-                    <span class="text-sm text-slate-100"> · {{ highlight.label }}</span>
+                    <span class="mx-1.5 text-sm text-slate-100">·</span>
+                    <span class="text-sm text-slate-100">{{ highlight.label }}</span>
                 </li>
-                <li>
-                    <span class="font-space-mono text-base font-semibold text-slate-400">Master of Internet Techology</span>
-                    <span class="text-sm text-slate-100"> · University of Georgia</span>
-                    <!-- <span class="mx-2 text-sm text-slate-100">·</span> -->
-                    <!-- <img src="/images/uga-logo.png" class="mt-[2px] h-[17px]" /> -->
-                </li>
+                <!-- <li class="flex flex-row items-center justify-center">
+                    <span class="text-base font-semibold text-slate-400">Master of Internet Techology</span>
+                    <span class="mx-1.5 text-sm text-slate-100">·</span>
+                    <span class="text-sm text-slate-100">University of Georgia</span>
+                    <img src="/images/icons/georgia-bulldogs-logo-icon.webp" class="ms-2 h-3.5" />
+                </li> -->
             </ul>
         </SectionPanel>
     </section>
