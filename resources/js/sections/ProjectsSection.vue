@@ -4,7 +4,7 @@ import SectionHeading from '@/js/components/SectionHeading.vue';
 import SectionPanel from '@/js/components/SectionPanel.vue';
 import ProjectModal from '@/js/components/modals/ProjectModal.vue';
 import { useModal } from '@/js/composables/useModal';
-import type { Project } from '@/js/types/index';
+import type { Project } from '@/js/types';
 import { computed, ref } from 'vue';
 
 defineProps<{
