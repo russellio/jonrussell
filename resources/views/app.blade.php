@@ -6,7 +6,7 @@
         <meta name="theme-color" content="#0f172a">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <title inertia>{{ config('app.name', 'Jon Russell - Senior Full Stack Engineer') }}</title>
 
         <meta name="description" content="Jon Russell is a full stack software engineer who creates robust, scalable solutions that power modern web and mobile applications.">
 
@@ -26,16 +26,6 @@
 
         @vite(['resources/js/app.ts'])
         @inertiaHead
-
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1V3TF6W15"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-Z1V3TF6W15');
-        </script>
     </head>
     <body class="font-sans scroll-smooth antialiased">
         <div class="isolate">
