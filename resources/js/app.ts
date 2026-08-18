@@ -38,7 +38,7 @@ createInertiaApp({
             sendDefaultPii: false,
             integrations: [Sentry.browserTracingIntegration()],
             tracesSampleRate: parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE ?? '0.8'),
-            tracePropagationTargets: ['localhost', /^https:\/\/jonrussell\.*/],
+            tracePropagationTargets: ['localhost', /^https:\/\/(?:[\w-]+\.)?jonrussell\.dev(?:[/:]|$)/],
         });
 
         app.mount(el);
