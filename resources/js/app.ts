@@ -4,6 +4,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import ui from '@nuxt/ui/vue-plugin';
 import '@russellio/vue-background-stars/style.css';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import * as Sentry from '@sentry/vue';
 import { createPinia } from 'pinia';
 import type { DefineComponent } from 'vue';
 import { createSSRApp, h } from 'vue';
@@ -30,6 +31,16 @@ createInertiaApp({
                     tagId: 'G-Z1V3TF6W15',
                 }),
             );
+
+        Sentry.init({
+            app,
+            dsn: import.meta.env.VITE_SENTRY_DSN,
+            sendDefaultPii: false,
+            integrations: [Sentry.browserTracingIntegration()],
+            tracesSampleRate: parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE ?? '0.8'),
+            tracePropagationTargets: ['localhost', /^https:\/\/jonrussell\.*/],
+        });
+
         app.mount(el);
     },
 });

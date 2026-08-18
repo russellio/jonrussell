@@ -5,6 +5,53 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-08-18
+
+### 🎨 Design System Migration
+
+This release replaces the site's original hand-rolled component styling with Nuxt UI, adds server-side rendering, and introduces a Writing/Posts section backed by a new caching layer.
+
+- **Nuxt UI adoption** - Wired up Nuxt UI (Vite plugin, app plugin, dark mode) and migrated modals, forms, badges, and loading/error states to Nuxt UI primitives (`UModal`, `UForm`, `UBadge`)
+- **Slate/teal + Inter redesign** - Cut over the frontend to a new two-column layout and slate/teal color system with Inter typography
+- **Icon system overhaul** - Replaced FontAwesome and `vue3-simple-icons` with Nuxt UI's `<UIcon>`, backed by offline-bundled `@iconify-json/lucide` and `@iconify-json/simple-icons` collections; icon vocabulary renamed to Iconify collection prefixes
+- **Contact form rewrite** - Rebuilt with `UForm` + Zod validation
+
+### ✨ Added
+
+- **Inertia SSR** - Server-side rendering rolled out for improved SEO and load performance, with SSR asset builds moved into CI and a health-check gate before deploy
+- **Server-side HTML sanitization** - Database-sourced HTML (project/post descriptions) now sanitized server-side via `mews/purifier` ahead of rendering
+- **Writing / Posts** - New Posts backend (model, migration, API, Filament resource), `PostModal`, and `PostsSection` on the frontend
+- **Cached query layer** - `CachedQuery` base class and per-model query classes (Projects, Skills, TechStack, Timeline, Posts) with cache invalidation on model mutation, replacing ad hoc controller queries
+- **Sitemap generation** - Dynamic sitemap covering static routes and posts
+- **Google Analytics** - Integrated via `vue-gtag`
+- **Filament `ProjectResource`** - Full CRUD pages and relation managers for projects in the admin panel
+- **SectionHeading component** - Shared, accessible section heading used across redesigned sections
+- **Tools & Environment skill category**
+- **CI hardening** - Dependabot for GitHub Actions version bumps, a dedicated production deploy workflow, and a tightened lint gate
+
+### 🔄 Changed
+
+- **Inertia props over client fetch** - Home/Post pages now receive their data as Inertia props from `HomeController`/`PostPageController` instead of fetching client-side
+- **Analytics simplified** - Replaced the prior `VueGtag` wrapper with the `vue-gtag` package for Google Analytics; Sentry error tracking (frontend and backend) remains in place
+- **Project card/modal styling** - Updated to the new blue/teal color scheme with improved layout and interactivity
+
+### 🐛 Fixed
+
+- **Turnstile race condition** - CAPTCHA widget now renders only once its container has actually mounted, fixing an intermittent render failure
+- **PDO MySQL constants** - Corrected constant usage affecting MySQL connections
+- **Redesign a11y/layout fixes** - Modal accessibility, z-index stacking, and footer alignment issues from the Nuxt UI migration
+- **`UBadge` pill shape** - Restored `rounded-full` styling lost during the primitives migration
+- **Offline icon bundling** - Header/socials icons and admin badge colors fixed to resolve from the bundled Iconify collections instead of a live CDN fetch
+- **Sentry PII** - Disabled PII collection and gated the trace sample rate behind an environment variable
+
+### 🔧 Refactored / Removed
+
+- Removed dead CSS classes and color tokens left over from the phase 5 (Nuxt UI) migration
+- Deleted legacy, commented-out tech-stack list markup
+- Removed unused controllers and outdated static project data files
+
+---
+
 ## [1.0.1] - 2025-11-10
 
 ### 🎨 Design Updates & Enhancements
@@ -212,7 +259,8 @@ Initial development version with core features.
 
 ---
 
-[1.0.1]: https://github.com/russellio/jonrussell.dev/releases/tag/v1.0.1
-[1.0.0]: https://github.com/russellio/jonrussell.dev/releases/tag/v1.0.0
-[0.9.0]: https://github.com/russellio/jonrussell.dev/releases/tag/v0.9.0
+[1.1.0]: https://github.com/russellio/jonrussell/releases/tag/1.1.0
+[1.0.1]: https://github.com/russellio/jonrussell/releases/tag/v1.0.1
+[1.0.0]: https://github.com/russellio/jonrussell/releases/tag/v1.0.0
+[0.9.0]: https://github.com/russellio/jonrussell/releases/tag/v0.9.0
 
