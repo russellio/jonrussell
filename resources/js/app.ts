@@ -8,8 +8,9 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createPinia } from 'pinia';
 import type { DefineComponent } from 'vue';
 import { createSSRApp, h } from 'vue';
+import VueGtag from 'vue-gtag';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Jon Russell - Senior Software Engineer';
+const appName = import.meta.env.VITE_APP_NAME || 'Jon Russell - Senior Full Stack Engineer';
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -24,7 +25,10 @@ createInertiaApp({
         const app = createSSRApp({ render: () => h(App, props) })
             .use(pinia)
             .use(plugin)
-            .use(ui);
+            .use(ui)
+            .use(VueGtag, {
+                config: { id: 'G-Z1V3TF6W15' },
+            });
 
         Sentry.init({
             app,
