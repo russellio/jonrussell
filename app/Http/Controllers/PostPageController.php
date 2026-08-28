@@ -15,6 +15,9 @@ class PostPageController extends Controller
 
         abort_if($post === false, HttpResponse::HTTP_NOT_FOUND);
 
-        return Inertia::render('Post', ['post' => $post]);
+        return Inertia::render('Post', [
+            'post' => $post,
+            'canonical' => rtrim(config('app.url'), '/').'/posts/'.$slug,
+        ]);
     }
 }
