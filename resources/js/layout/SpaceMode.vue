@@ -35,12 +35,13 @@ onMounted(() => starModeStore.hydrate());
     height: 100%;
     width: 100%;
     overflow: hidden;
-    z-index: -2;
+    z-index: 0;
     background:
         radial-gradient(at 51% 46%, #0f172a 0, transparent 50%), radial-gradient(at 85% 99%, #330509 0, transparent 50%),
         radial-gradient(at 18% 22%, #111b4f 0, transparent 50%), #0f172a;
     transition: opacity 0.5s ease-in-out;
     opacity: 1;
+    will-change: opacity;
 }
 
 .fallback-background.fade-out {
@@ -49,6 +50,7 @@ onMounted(() => starModeStore.hydrate());
 
 .background-fade-enter-active {
     transition: opacity 0.5s ease-in-out;
+    will-change: opacity;
 }
 
 .background-fade-enter-from {
@@ -57,5 +59,9 @@ onMounted(() => starModeStore.hydrate());
 
 .background-fade-enter-to {
     opacity: 1;
+}
+
+:deep(.sky) {
+    z-index: 0;
 }
 </style>

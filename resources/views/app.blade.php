@@ -8,8 +8,6 @@
 
         <title inertia>{{ config('app.name', 'Jon Russell - Senior Full Stack Engineer') }}</title>
 
-        <meta name="description" content="Jon Russell is a full stack software engineer who creates robust, scalable solutions that power modern web and mobile applications.">
-
         <meta property="og:locale" content="en_US">
         <meta property="og:site_name" content="Jon Russell">
         <meta property="og:type" content="website">

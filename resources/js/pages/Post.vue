@@ -2,12 +2,16 @@
 import type { Post } from '@/js/types/index';
 import { Head, Link } from '@inertiajs/vue3';
 
-defineProps<{ post: Post }>();
+defineProps<{ post: Post; canonical: string }>();
 </script>
 
 <template>
     <article class="mx-auto min-h-screen max-w-3xl px-6 py-16 font-sans md:px-12 md:py-24">
-        <Head :title="post.title" />
+        <Head>
+            <title>{{ post.title }} — Jon Russell</title>
+            <meta v-if="post.excerpt" name="description" :content="post.excerpt" head-key="description" />
+            <link rel="canonical" :href="canonical" head-key="canonical" />
+        </Head>
         <Link href="/" class="group inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-blue-200">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
