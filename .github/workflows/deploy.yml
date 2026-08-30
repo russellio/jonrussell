@@ -144,9 +144,13 @@ jobs:
           script: |
             set -euo pipefail
             cd "${{ secrets.DEPLOY_PATH }}"
-            # Always bring the site back up on exit, but preserve the real exit
-            # code so a failed deploy still reports red instead of being masked.
-            trap 'rc=$?; php artisan up || true; exit $rc' EXIT
+            # Only bring the site back up if SSR passes its health check below --
+            # otherwise leave it in maintenance and let the non-zero exit fail the
+            # deploy loudly. An unconditional `php artisan up` here would silently
+            # reopen the site on a dead SSR backend, which is exactly the failure
+            # mode the down step above already guards against on its side.
+            ssr_ok=0
+            trap 'rc=$?; if [ "$ssr_ok" -eq 1 ]; then php artisan up || true; fi; exit $rc' EXIT
             # Gitignored, so git reset --hard never clears these. Wiped so the
             # extracted tarball lands clean instead of merging with stale hashed assets.
             rm -rf public/build bootstrap/ssr
@@ -159,7 +163,6 @@ jobs:
             # The unit is Type=simple, so systemctl returns as soon as systemd forks
             # -- artisan still has to boot Laravel and spawn node before anything
             # binds :13714. Poll rather than racing that startup.
-            ssr_ok=0
             for _ in $(seq 1 15); do
               if php artisan inertia:check-ssr; then
                 ssr_ok=1
