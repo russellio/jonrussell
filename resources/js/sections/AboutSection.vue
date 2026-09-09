@@ -20,10 +20,12 @@ const highlights = [
                 I'm Jon, a full stack engineer with 13+ years of experience designing, developing, and scaling enterprise applications. My primary
                 stack includes
                 <span class="text-highlight">Laravel</span>, <span class="text-highlight">PHP</span>, <span class="text-highlight">MySQL</span>,
-                <span class="text-highlight">REST APIs</span>, <span class="text-highlight">JavaScript</span>,
-                <span class="text-highlight">TypeScript</span>
-                and <span class="text-highlight">Vue.js</span>, backed by Agile leadership and a steady drive to learn and adapt to new platforms and
-                technologies.
+                <span class="text-highlight">REST APIs</span>, <span class="text-highlight">TypeScript</span>,
+                <!-- <span class="text-highlight">JavaScript</span>, -->
+                <span class="text-highlight">Vue.js</span>, <span class="text-highlight">React</span>,
+                <span class="text-highlight">React Native</span>
+                and <span class="text-highlight">Tailwind CSS</span>, backed by Agile leadership and a steady drive to learn and adapt to new
+                platforms and technologies.
             </p>
 
             <p class="my-4 text-base">
