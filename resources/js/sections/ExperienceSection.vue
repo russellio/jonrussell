@@ -17,7 +17,6 @@ defineProps<{
                 <ol class="group/list">
                     <JobCard v-for="position in positions" :key="position.id" :position="position" />
                 </ol>
-                <!-- TODO: re-enable when public/resume.pdf is supplied -->
             </div>
         </SectionPanel>
     </section>
