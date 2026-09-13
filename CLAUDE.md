@@ -6,7 +6,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 Full-stack Laravel 12 + Vue 3 (Inertia.js) application. **Not** a traditional SPA with Vue Router — routing is server-driven via Inertia.
 
-- **Backend**: PHP 8.3+, Laravel 12, Eloquent ORM, SQLite (dev) / MySQL (prod)
+- **Backend**: PHP 8.3+, Laravel 12, Eloquent ORM, MySQL 8 (dev & prod; tests run against isolated SQLite `:memory:` per `phpunit.xml`)
 - **Admin CMS**: Filament 3 (`/admin`) — manages all content (projects, companies, positions, skills, icons, tech stack)
 - **Frontend**: Vue 3 Composition API (`<script setup>`), TypeScript, Pinia, Tailwind CSS 4, Inertia.js 2
 - **Build**: Vite 7, Laravel Vite Plugin, `vue-tsc` for type-checking
