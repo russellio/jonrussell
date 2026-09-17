@@ -2,23 +2,19 @@
 import ProjectCard from '@/js/components/ProjectCard.vue';
 import SectionHeading from '@/js/components/SectionHeading.vue';
 import SectionPanel from '@/js/components/SectionPanel.vue';
-import ProjectModal from '@/js/components/modals/ProjectModal.vue';
 import { useModal } from '@/js/composables/useModal';
+import { useProjectsStore } from '@/js/stores/projectsStore';
 import type { Project } from '@/js/types';
-import { computed, ref } from 'vue';
 
 defineProps<{
     projects: Project[];
 }>();
 
-const { isOpen, openModal } = useModal();
-
-const selectedProject = ref<Project | null>(null);
-
-const isModalOpen = computed(() => isOpen('project-modal'));
+const { openModal } = useModal();
+const projectsStore = useProjectsStore();
 
 const onSelect = (project: Project) => {
-    selectedProject.value = project;
+    projectsStore.selectProject(project.id);
     openModal('project-modal');
 };
 </script>
@@ -33,7 +29,5 @@ const onSelect = (project: Project) => {
                 </ul>
             </div>
         </SectionPanel>
-
-        <ProjectModal v-if="isModalOpen && selectedProject" :project="selectedProject" />
     </section>
 </template>
