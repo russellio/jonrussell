@@ -17,10 +17,10 @@ const highlights = [
         <SectionPanel class="ps-8 pe-8 pb-10">
             <p class="my-2 mb-4 text-base">
                 <span class="me-3 font-space-mono text-2xl font-bold text-white">Hello!</span>
-                I'm a full stack engineer with 13+ years of experience designing, developing, and scaling enterprise applications. My primary stack
-                includes
-                <span class="text-highlight">Laravel</span>, <span class="text-highlight">PHP</span>, <span class="text-highlight">MySQL</span>,
-                <span class="text-highlight">REST APIs</span>, <span class="text-highlight">TypeScript</span>,
+                I'm a <a href="">full stack engineer</a> with 13+ years of experience designing, developing, and scaling enterprise applications. My
+                primary stack includes <span class="text-highlight">Laravel</span>, <span class="text-highlight">PHP</span>,
+                <span class="text-highlight">MySQL</span>, <span class="text-highlight">REST APIs</span>,
+                <span class="text-highlight">TypeScript</span>,
                 <!-- <span class="text-highlight">JavaScript</span>, -->
                 <span class="text-highlight">Vue.js</span>, <span class="text-highlight">React</span>,
                 <span class="text-highlight">React Native</span>

@@ -15,7 +15,7 @@ defineProps<{
         <SectionPanel class="ps-2 pt-8">
             <div>
                 <ol class="group/list">
-                    <JobCard v-for="position in positions" :key="position.id" :position="position" />
+                    <JobCard v-for="(position, index) in positions" :key="position.id" :position="position" :default-open="index < 3" />
                 </ol>
             </div>
         </SectionPanel>

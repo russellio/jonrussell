@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ContactModal from '@/js/components/modals/ContactModal.vue';
+import ProjectModal from '@/js/components/modals/ProjectModal.vue';
 import { useModal } from '@/js/composables/useModal';
 import { useScrollToSection } from '@/js/composables/useScrollToSection';
 import Footer from '@/js/layout/Footer.vue';
@@ -11,6 +12,7 @@ import PostsSection from '@/js/sections/PostsSection.vue';
 import ProjectsSection from '@/js/sections/ProjectsSection.vue';
 import SkillsSection from '@/js/sections/SkillsSection.vue';
 import TechStackSection from '@/js/sections/TechStackSection.vue';
+import { useProjectsStore } from '@/js/stores/projectsStore';
 import type { AppPageProps, Post, Project, SkillType, TechStackItem, TimelinePosition } from '@/js/types/index';
 import { Head, usePage } from '@inertiajs/vue3';
 import { computed, nextTick, onMounted, watch } from 'vue';
@@ -23,7 +25,7 @@ interface PageMeta {
     canonical: string;
 }
 
-defineProps<{
+const props = defineProps<{
     meta: PageMeta;
     techStack: TechStackItem[];
     skillTypes: SkillType[];
@@ -35,8 +37,16 @@ defineProps<{
 const page = usePage<PageProps>();
 const { isOpen, openModal } = useModal();
 const { scrollToSection } = useScrollToSection();
+const projectsStore = useProjectsStore();
 
 const isContactOpen = computed(() => isOpen('contact-modal'));
+const isProjectModalOpen = computed(() => isOpen('project-modal'));
+
+watch(
+    () => props.projects,
+    (list) => projectsStore.setProjects(list),
+    { immediate: true },
+);
 
 const performScrollAction = async (scrollTo: string | undefined | null) => {
     if (!scrollTo) return;
@@ -95,5 +105,6 @@ watch(
         </div>
 
         <ContactModal v-if="isContactOpen" />
+        <ProjectModal v-if="isProjectModalOpen && projectsStore.selectedProject" :project="projectsStore.selectedProject" />
     </div>
 </template>
