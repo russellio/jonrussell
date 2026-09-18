@@ -120,16 +120,16 @@ function onDescriptionClick(event: MouseEvent): void {
                 </div>
             </div>
 
-            <UCollapsible v-model:open="isOpen" class="absolute inset-x-0 bottom-0 z-20">
-                <template #default>
-                    <button
-                        type="button"
-                        class="w-full cursor-pointer bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent pt-6 pb-1 text-center text-xs font-semibold tracking-wide text-teal-400 uppercase hover:text-teal-300"
-                    >
-                        {{ isOpen ? 'Show less' : 'Show more' }}
-                    </button>
-                </template>
-            </UCollapsible>
+<!--            <UCollapsible v-model:open="isOpen" class="absolute inset-x-0 bottom-0 z-20">-->
+<!--                <template #default>-->
+<!--                    <button-->
+<!--                        type="button"-->
+<!--                        class="w-full cursor-pointer bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent pt-6 pb-1 text-center text-xs font-semibold tracking-wide text-teal-400 uppercase hover:text-teal-300"-->
+<!--                    >-->
+<!--                        {{ isOpen ? 'Show less' : 'Show more' }}-->
+<!--                    </button>-->
+<!--                </template>-->
+<!--            </UCollapsible>-->
         </div>
     </li>
 </template>
