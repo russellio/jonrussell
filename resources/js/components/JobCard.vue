@@ -1,10 +1,20 @@
 <script setup lang="ts">
+import { useModal } from '@/js/composables/useModal';
+import { useProjectsStore } from '@/js/stores/projectsStore';
 import type { TimelinePosition } from '@/js/types/index';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
-const props = defineProps<{
-    position: TimelinePosition;
-}>();
+const props = withDefaults(
+    defineProps<{
+        position: TimelinePosition;
+        defaultOpen?: boolean;
+    }>(),
+    {
+        defaultOpen: false,
+    },
+);
+
+const isOpen = ref(props.defaultOpen);
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -27,6 +37,24 @@ const companyLogoSrc = computed(() => {
 const showCompanyName = computed(() => {
     return !companyLogoSrc.value || Boolean(props.position.company?.logo?.displayName);
 });
+
+const projectsStore = useProjectsStore();
+const { openModal } = useModal();
+
+const PROJECT_LINK_PREFIX = '#project:';
+
+function onDescriptionClick(event: MouseEvent): void {
+    const anchor = (event.target as HTMLElement).closest<HTMLAnchorElement>('a');
+    if (!anchor) return;
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!anchor.hash.startsWith(PROJECT_LINK_PREFIX)) return;
+
+    event.preventDefault();
+    const slug = decodeURIComponent(anchor.hash.slice(PROJECT_LINK_PREFIX.length));
+    if (projectsStore.selectProject(slug)) {
+        openModal('project-modal');
+    }
+}
 </script>
 
 <template>
@@ -78,6 +106,7 @@ const showCompanyName = computed(() => {
                     v-if="position.description"
                     class="mt-2 space-y-2 text-sm leading-normal [&_li]:ml-4 [&_li]:list-disc [&_p]:leading-normal [&_ul]:space-y-1"
                     v-html="position.description"
+                    @click="onDescriptionClick"
                 ></div>
                 <ul v-if="position.skills.length" class="mt-2 flex flex-wrap" aria-label="Skills used">
                     <li v-for="skill in position.skills" :key="skill.id" class="me-1.5 mt-2">

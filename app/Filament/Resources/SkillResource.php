@@ -48,6 +48,7 @@ class SkillResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('order')
                     ->numeric()
@@ -59,9 +60,11 @@ class SkillResource extends Resource
                         'simple-icons' => 'info',
                         default => 'gray',
                     })
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('icon.icon_name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -69,8 +72,11 @@ class SkillResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
             ])
+            ->defaultGroup('skillType.name')
+            ->defaultSort('order')
             ->filters([
                 //
             ])
