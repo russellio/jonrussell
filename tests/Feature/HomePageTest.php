@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Skill;
 use App\Models\SkillType;
 use App\Models\TechStackItem;
+use Illuminate\Support\Facades\DB;
 use Inertia\Testing\AssertableInertia as Assert;
 
 dataset('home_routes', [
@@ -48,3 +49,20 @@ test('home page renders with props and scrollTo', function (string $uri, ?string
         ->where('scrollTo', $scrollTo)
     );
 })->with('home_routes');
+
+test('home page batches its five cache reads into a single query', function () {
+    // Sentry flagged an N+1: on the `database` cache driver, each of the five
+    // CachedQuery props issued its own `select * from cache where key in (?)`.
+    // The `array` driver used elsewhere in this suite doesn't touch SQL at all,
+    // so this test opts into `database` specifically to catch a regression.
+    config(['cache.default' => 'database']);
+
+    DB::enableQueryLog();
+
+    $this->get('/')->assertOk();
+
+    $cacheTableQueries = collect(DB::getQueryLog())
+        ->filter(fn (array $query) => str_contains($query['query'], 'from "cache"') || str_contains($query['query'], 'from `cache`'));
+
+    expect($cacheTableQueries)->toHaveCount(1);
+});

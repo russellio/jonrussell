@@ -41,22 +41,52 @@ abstract class CachedQuery
 
     public function get(): mixed
     {
-        $key = $this->cacheKey();
-        $cached = Cache::get($key);
+        return $this->resolve(Cache::get($this->cacheKey()));
+    }
 
+    /**
+     * Resolve several queries' payloads with a single batched cache read
+     * instead of one `Cache::get()` round trip per query.
+     *
+     * @param  array<string, CachedQuery>  $queries
+     * @return array<string, mixed>
+     */
+    public static function resolveMany(array $queries): array
+    {
+        $keysByResultKey = [];
+
+        foreach ($queries as $resultKey => $query) {
+            $keysByResultKey[$resultKey] = $query->cacheKey();
+        }
+
+        // Cache::many() treats a string-keyed array as `cacheKey => default`, so
+        // it must get a plain list of cache key strings, not $keysByResultKey.
+        $cached = Cache::many(array_values($keysByResultKey));
+
+        $results = [];
+
+        foreach ($queries as $resultKey => $query) {
+            $results[$resultKey] = $query->resolve($cached[$keysByResultKey[$resultKey]]);
+        }
+
+        return $results;
+    }
+
+    public function forget(): void
+    {
+        Cache::forget($this->cacheKey());
+    }
+
+    private function resolve(mixed $cached): mixed
+    {
         if ($cached !== null) {
             return $cached;
         }
 
         $value = $this->compute();
 
-        Cache::put($key, $value, $value === false ? static::MISS_TTL : static::TTL);
+        Cache::put($this->cacheKey(), $value, $value === false ? static::MISS_TTL : static::TTL);
 
         return $value;
-    }
-
-    public function forget(): void
-    {
-        Cache::forget($this->cacheKey());
     }
 }
