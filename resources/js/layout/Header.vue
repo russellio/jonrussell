@@ -23,10 +23,7 @@ const credentials = [
             </div>
 
             <div class=""></div>
-            <p class="mt-4 max-w-xs leading-normal text-slate-200">
-                Building robust, scalable solutions for modern web and mobile applications today.
-            </p>
-            <p class="mt-2 mb-4 max-w-xs leading-normal text-slate-200">Saving the world tomorrow.</p>
+            <p class="mt-4 max-w-xs leading-normal text-slate-200">Building robust, scalable solutions for modern web and mobile applications.</p>
 
             <ul class="mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col" aria-label="Credentials">
                 <li v-for="credential in credentials" :key="credential.label">

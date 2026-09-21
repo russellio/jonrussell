@@ -2,7 +2,7 @@
 import { useModal } from '@/js/composables/useModal';
 import { useProjectsStore } from '@/js/stores/projectsStore';
 import type { TimelinePosition } from '@/js/types/index';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 const props = withDefaults(
     defineProps<{
@@ -13,8 +13,6 @@ const props = withDefaults(
         defaultOpen: false,
     },
 );
-
-const isOpen = ref(props.defaultOpen);
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
