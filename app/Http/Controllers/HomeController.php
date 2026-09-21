@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Queries\CachedQuery;
 use App\Queries\PostsQuery;
 use App\Queries\ProjectsQuery;
 use App\Queries\SkillsQuery;
@@ -15,14 +16,29 @@ class HomeController extends Controller
 {
     public function __invoke(Request $request): Response
     {
+        // Memoized so the batched cache read only runs once, the first time any
+        // of the five `Inertia::once` props below is actually resolved — this
+        // keeps partial reloads lazy while collapsing full page loads from five
+        // `Cache::get()` round trips to one `Cache::many()` call.
+        $content = null;
+        $resolveContent = function () use (&$content): array {
+            return $content ??= CachedQuery::resolveMany([
+                'techStack' => new TechStackQuery,
+                'skillTypes' => new SkillsQuery,
+                'positions' => new TimelineQuery,
+                'projects' => new ProjectsQuery,
+                'posts' => new PostsQuery,
+            ]);
+        };
+
         return Inertia::render('Home', [
             'scrollTo' => $request->route('section'),
             'meta' => $this->sectionMeta($request->route('section')),
-            'techStack' => Inertia::once(fn () => (new TechStackQuery)->get()),
-            'skillTypes' => Inertia::once(fn () => (new SkillsQuery)->get()),
-            'positions' => Inertia::once(fn () => (new TimelineQuery)->get()),
-            'projects' => Inertia::once(fn () => (new ProjectsQuery)->get()),
-            'posts' => Inertia::once(fn () => (new PostsQuery)->get()),
+            'techStack' => Inertia::once(fn () => $resolveContent()['techStack']),
+            'skillTypes' => Inertia::once(fn () => $resolveContent()['skillTypes']),
+            'positions' => Inertia::once(fn () => $resolveContent()['positions']),
+            'projects' => Inertia::once(fn () => $resolveContent()['projects']),
+            'posts' => Inertia::once(fn () => $resolveContent()['posts']),
         ]);
     }
 
