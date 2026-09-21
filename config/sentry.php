@@ -9,7 +9,7 @@ return [
 
     // @see https://docs.sentry.io/product/sentry-basics/dsn-explainer/
     // Disabled in local so dev-machine errors never reach Sentry, regardless of what's in .env.
-    'dsn' => app()->environment('local') ? null : env('SENTRY_LARAVEL_DSN', env('SENTRY_DSN')),
+    'dsn' => env('APP_ENV') === 'local' ? null : env('SENTRY_LARAVEL_DSN', env('SENTRY_DSN')),
 
     // @see https://spotlightjs.com/
     // 'spotlight' => env('SENTRY_SPOTLIGHT', false),
