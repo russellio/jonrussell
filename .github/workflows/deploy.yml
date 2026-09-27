@@ -79,6 +79,7 @@ jobs:
           # must match prod's .env exactly, or Turnstile/branding break silently.
           VITE_APP_NAME: ${{ vars.VITE_APP_NAME }}
           VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
+          VITE_SENTRY_DSN: ${{ vars.VITE_SENTRY_DSN }}
         run: pnpm run build:ssr
 
       - name: Package built assets
