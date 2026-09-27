@@ -30,6 +30,11 @@ jobs:
   build:
     needs: [lint, test]
     runs-on: ubuntu-latest
+    # Pushes the release commit + tag back to main.
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Resolve checkout ref
         id: ref
@@ -41,6 +46,8 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ steps.ref.outputs.ref }}
+          # Full history + tags, so the version step can diff against the last release.
+          fetch-depth: 0
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -57,6 +64,41 @@ jobs:
         with:
           node-version: '22'
           cache: 'pnpm'
+
+      # Normal deploys (main) mint a new semver from Conventional Commits since the last
+      # tag: `!:`/BREAKING CHANGE -> major, feat -> minor, anything else -> patch.
+      # A pinned-SHA rollback reuses whatever tag that commit already shipped under --
+      # minting a new, higher version for old code would mislabel it in Sentry.
+      - name: Compute release version
+        id: version
+        env:
+          REF: ${{ steps.ref.outputs.ref }}
+        run: |
+          set -euo pipefail
+          if [ "$REF" != "main" ]; then
+            echo "version=$(git describe --tags HEAD)" >> "$GITHUB_OUTPUT"
+            echo "should_tag=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Old tags are inconsistently prefixed (v1.0.2 vs 1.1.0) -- compare on the bare number.
+          LATEST_TAG=$(git tag --list | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' \
+            | awk '{ v = $0; sub(/^v/, "", v); print v, $0 }' | sort -V -k1,1 | tail -n1 | cut -d' ' -f2 || true)
+          if [ -z "$LATEST_TAG" ]; then
+            RANGE=HEAD; MAJOR=0; MINOR=0; PATCH=0
+          else
+            RANGE="$LATEST_TAG..HEAD"
+            IFS=. read -r MAJOR MINOR PATCH <<< "${LATEST_TAG#v}"
+          fi
+          LOG=$(git log --format='%s%n%b' "$RANGE")
+          if grep -qE '^[a-z]+(\([^)]*\))?!:|^BREAKING[ -]CHANGE' <<< "$LOG"; then
+            MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0
+          elif grep -qE '^feat(\([^)]*\))?:' <<< "$LOG"; then
+            MINOR=$((MINOR + 1)); PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+          echo "version=v$MAJOR.$MINOR.$PATCH" >> "$GITHUB_OUTPUT"
+          echo "should_tag=true" >> "$GITHUB_OUTPUT"
 
       - name: Install PHP Dependencies
         run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
@@ -80,6 +122,7 @@ jobs:
           VITE_APP_NAME: ${{ vars.VITE_APP_NAME }}
           VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
           VITE_SENTRY_DSN: ${{ vars.VITE_SENTRY_DSN }}
+          VITE_SENTRY_RELEASE: ${{ steps.version.outputs.version }}
         run: pnpm run build:ssr
 
       - name: Package built assets
@@ -91,6 +134,22 @@ jobs:
           name: release-assets
           path: release-assets.tar.gz
           retention-days: 1
+
+      # After the build, so a broken bundle never burns a version number. [skip ci]
+      # keeps the release commit from re-triggering this workflow.
+      - name: Bump version, tag, and push
+        if: steps.version.outputs.should_tag == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          npm pkg set version="${VERSION#v}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git commit -m "chore(release): ${VERSION} [skip ci]"
+          git tag -a "$VERSION" -m "$VERSION"
+          git push origin HEAD:main --follow-tags
 
   deploy:
     needs: [lint, test, build]
@@ -136,11 +195,14 @@ jobs:
 
       - name: Finalize deploy
         uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
+        env:
+          RELEASE_VERSION: ${{ needs.build.outputs.version }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
+          envs: RELEASE_VERSION
           script_stop: true
           script: |
             set -euo pipefail
@@ -157,6 +219,12 @@ jobs:
             rm -rf public/build bootstrap/ssr
             tar -xzf release-assets.tar.gz
             rm -f release-assets.tar.gz
+            # config/sentry.php reads SENTRY_RELEASE; the optimize below re-caches it.
+            if grep -q '^SENTRY_RELEASE=' .env; then
+              sed -i "s/^SENTRY_RELEASE=.*/SENTRY_RELEASE=${RELEASE_VERSION}/" .env
+            else
+              echo "SENTRY_RELEASE=${RELEASE_VERSION}" >> .env
+            fi
             php artisan optimize:clear
             php artisan optimize
             php artisan filament:optimize
