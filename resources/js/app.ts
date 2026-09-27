@@ -36,6 +36,7 @@ createInertiaApp({
             Sentry.init({
                 app,
                 dsn: import.meta.env.VITE_SENTRY_DSN,
+                release: import.meta.env.VITE_SENTRY_RELEASE,
                 sendDefaultPii: false,
                 integrations: [Sentry.browserTracingIntegration()],
                 tracesSampleRate: parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE ?? '0.8'),
