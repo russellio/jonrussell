@@ -13,7 +13,7 @@ import ProjectsSection from '@/js/sections/ProjectsSection.vue';
 import SkillsSection from '@/js/sections/SkillsSection.vue';
 import TechStackSection from '@/js/sections/TechStackSection.vue';
 import { useProjectsStore } from '@/js/stores/projectsStore';
-import type { AppPageProps, Post, Project, SkillType, TechStackItem, TimelinePosition } from '@/js/types/index';
+import type { AppPageProps, Post, Project, SkillType, TechStackItem, TimelinePosition } from '@/js/types';
 import { Head, usePage } from '@inertiajs/vue3';
 import { computed, nextTick, onMounted, watch } from 'vue';
 

@@ -1,6 +1,6 @@
 # jonrussell.dev
 
-Personal portfolio site for Jon Russell, a senior full-stack software engineer with 10+ years of experience. Live at **[jonrussell.dev](https://jonrussell.dev)**.
+Personal portfolio site for Jon Russell, a senior full-stack software engineer with 13+ years of experience. Live at **[jonrussell.dev](https://jonrussell.dev)**.
 
 [![jonrussell.dev](https://jonrussell.dev/storage/external/ss-intro-jonrussell-dev.png)](https://jonrussell.dev)
 

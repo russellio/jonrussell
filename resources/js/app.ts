@@ -13,7 +13,7 @@ import { createGtag } from 'vue-gtag';
 const appName = import.meta.env.VITE_APP_NAME || 'Jon Russell - Senior Full Stack Engineer';
 
 createInertiaApp({
-    title: (title) => (title ? `${title} - ${appName}` : appName),
+    title: (title) => title || appName,
     resolve: async (name) => {
         const page = await resolvePageComponent(`./pages/${name}.vue`, import.meta.glob<DefineComponent>('./pages/**/*.vue'));
         page.default.layout ??= AppLayout;
