@@ -27,6 +27,17 @@ jobs:
   # The deploy droplet has ~1GB RAM, most of it already spoken for by Apache/MySQL/queue
   # workers at idle -- `pnpm run build:ssr` reliably OOMs there. Build here instead, where
   # RAM is never the constraint, and ship the runner's finished output to the server.
+  #
+  # Because of that split, this deploy installs PHP dependencies on the server but never
+  # node ones -- it ships only public/build and bootstrap/ssr. That used to be a live
+  # hazard: Vite externalizes node_modules for SSR by default, so the bundle built here
+  # resolved vue, pinia, zod and friends at runtime from whatever happened to be in the
+  # server's node_modules, which had drifted six weeks behind the lockfile. Same bundle,
+  # different dependency tree, nondeterministic breakage on deploy.
+  #
+  # `ssr.noExternal: true` in vite.config.ts now bundles everything, so bootstrap/ssr is
+  # self-contained and the server's node_modules is no longer load-bearing for rendering.
+  # Do not reintroduce externals here without also installing node deps on the server.
   build:
     needs: [lint, test]
     runs-on: ubuntu-latest
@@ -214,7 +225,11 @@ jobs:
             trap 'rc=$?; if [ "$ssr_ok" -eq 1 ]; then php artisan up || true; fi; exit $rc' EXIT
             # Gitignored, so git reset --hard never clears these. Wiped so the
             # extracted tarball lands clean instead of merging with stale hashed assets.
+            # public/hot goes too: it is never valid in production, and while it exists
+            # Vite resolves assets -- and Inertia dispatches SSR -- to a dev server that
+            # is not there.
             rm -rf public/build bootstrap/ssr
+            rm -f public/hot
             tar -xzf release-assets.tar.gz
             rm -f release-assets.tar.gz
             # config/sentry.php reads SENTRY_RELEASE; the optimize below re-caches it.
@@ -227,18 +242,37 @@ jobs:
             php artisan optimize
             php artisan filament:optimize
             sudo systemctl restart inertia-ssr
-            # The unit is Type=simple, so systemctl returns as soon as systemd forks
-            # -- artisan still has to boot Laravel and spawn node before anything
-            # binds :13714. Poll rather than racing that startup.
+            # Stage 1: wait for the port to be bound. The unit is Type=simple, so
+            # systemctl returns as soon as systemd forks -- artisan still has to boot
+            # Laravel and spawn node before anything binds :13714. Poll rather than
+            # racing that startup.
+            #
+            # check-ssr only hits Inertia's /health, which is a static object literal
+            # that never calls render. It proves the port is open and nothing more, so
+            # it is a readiness probe here, not the gate.
+            ssr_listening=0
             for _ in $(seq 1 15); do
               if php artisan inertia:check-ssr; then
-                ssr_ok=1
+                ssr_listening=1
                 break
               fi
               sleep 2
             done
-            if [ "$ssr_ok" -ne 1 ]; then
-              echo "Inertia SSR did not become healthy within 30s -- failing the deploy."
+            if [ "$ssr_listening" -ne 1 ]; then
+              echo "Inertia SSR never bound :13714 within 30s -- failing the deploy."
+              journalctl -u inertia-ssr -n 50 --no-pager || true
+              exit 1
+            fi
+            # Stage 2: the actual gate. Renders a real page and checks a real body
+            # comes back within the configured timeout. Inertia's SSR server answers
+            # 200 with a zero-byte body when a render throws, so this is the only
+            # check that can tell a working bundle from a broken one -- and the only
+            # one that runs against this host's own node_modules. ssr_ok stays 0
+            # unless this passes, so the trap leaves the site in maintenance.
+            if php artisan inertia:verify-render; then
+              ssr_ok=1
+            else
+              echo "Inertia SSR is listening but cannot render -- failing the deploy and leaving the site in maintenance."
               journalctl -u inertia-ssr -n 50 --no-pager || true
               exit 1
             fi

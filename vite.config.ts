@@ -105,10 +105,22 @@ export default defineConfig({
         },
     },
     ssr: {
-        // Vite externalizes node_modules packages for SSR by default, which skips
-        // @nuxt/ui's unplugin-auto-import transform. That transform is what resolves
-        // the '#imports' virtual specifier its composables (e.g. useComponentIcons)
-        // rely on — externalized, Node tries to resolve '#imports' natively and fails.
-        noExternal: ['@nuxt/ui'],
+        // Bundle every dependency into the SSR output instead of leaving bare imports
+        // for Node to resolve at runtime. Two reasons, both load-bearing:
+        //
+        // 1. Externalized packages skip @nuxt/ui's unplugin-auto-import transform,
+        //    which is what resolves the '#imports' virtual specifier its composables
+        //    (e.g. useComponentIcons) rely on — Node can't resolve '#imports' natively.
+        // 2. The deploy ships only public/build + bootstrap/ssr and never installs node
+        //    modules, so anything left external resolves against whatever happens to be
+        //    in the server's node_modules. That drifted six weeks behind the lockfile
+        //    and left SSR one `pnpm install` away from breaking: v1.4.0 of
+        //    @russellio/vue-background-stars has a bare `import './...css'` in its ESM
+        //    entry, which Node cannot load, so the Home chunk's dynamic import rejects
+        //    and renderToString never resolves — HTTP 200 with a zero-byte body.
+        //
+        // Bundling everything makes the SSR output self-contained, so the server's
+        // node_modules stops being load-bearing for rendering.
+        noExternal: true,
     },
 });

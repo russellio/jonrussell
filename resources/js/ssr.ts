@@ -22,10 +22,15 @@ createServer(
                     .use(plugin)
                     .use(ui),
         }),
-    // Multiple worker processes behind round-robin: one render that wedges the
-    // event loop (the repeated 30s cURL timeouts in Sentry) now takes down one
-    // worker instead of the only SSR process for the whole site.
-    { cluster: true },
+    // Single process on purpose. Inertia's cluster mode forks
+    // os.availableParallelism() workers, and the production droplet has 1 vCPU --
+    // so clustering buys no parallelism there, while the cluster primary has no
+    // cluster.on('exit') respawn. A dead worker would leave the primary alive
+    // holding the port with nothing to serve, which also keeps systemd's
+    // Restart=always from ever firing. The 3s inertia.ssr.timeout is what bounds a
+    // wedged render: the request degrades to client-side rendering instead of
+    // hanging. Revisit only if this ever runs on a multi-core host.
+    { cluster: false },
 );
 
 async function resolvePage(name: string) {
