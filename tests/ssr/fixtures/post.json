@@ -1,0 +1,32 @@
+{
+  "component": "Post",
+  "props": {
+    "auth": {
+      "user": null
+    },
+    "canonical": "https://jonrussell.dev.test/posts/introducing-vue-background-stars",
+    "errors": {},
+    "name": "Jon Russell - Full Stack Software Engineer",
+    "post": {
+      "body": "<p>Flip on <strong>space mode</strong> in the corner of this site and the background fills with a slow-drifting starfield. That effect is a Vue 3 component I pulled out into its own open-source package, <a href=\"https://www.npmjs.com/package/@russellio/vue-background-stars\"><span style=\"text-decoration:underline;\">@russellio/vue-background-stars</span></a> - currently at v1.4.0. This site is a live demo.</p>\n\n<h2>Why I built it</h2>\n\n<p>I wanted a night-sky background I could drop into a Vue app without bringing in a canvas renderer or animation library for something that\u2019s ultimately just decoration.</p>\n\n<p>Most of the starfield snippets out there are one-off CodePens tied pretty closely to a specific layout. This package was actually inspired by one of those examples, but I wanted something I could reuse as a proper Vue component. Typed props, reduced-motion support, animation controls, and control over which layers are rendered. Something I could reuse and that other people could just <strong>pnpm install</strong> (or npm install) and use anywhere.</p>\n\n<h2>How it works</h2>\n\n<p>There\u2019s no canvas. The entire sky is built from a handful of DOM elements, seven by default. Each one is a single invisible 1px element, and the stars themselves are created with its box-shadow.\u00a0 Each shadow contains hundreds of comma-separated x/y positions spread across a shared 2000px coordinate space. Tiny, small, medium, large, and bright stars each have their own shadow list. There are also two layers for the colored nebula glow.<br><br>That means seven DOM elements can create thousands of stars, with the browser handling the actual rendering instead of JavaScript constantly creating or updating individual stars.</p>\n\n<p>Everything is generated once when the component mounts inside <strong>requestAnimationFrame</strong>. That also gives the component a good place to fire a background-ready event if you need to know when it\u2019s finished. The blinking animation respects <strong>prefers-reduced-motion</strong>, and you can also disable it completely with the <strong>disableAnimation</strong> prop.</p>\n\n<p>There are no runtime dependencies beyond Vue. \u00a0</p>\n\n<p>The nebula band also got a pretty noticeable improvement in v1.3.1. I increased the glow\u2019s blur radius from 18px to 150px so the colored layers blend together into a soft, diffuse band instead of looking like a bunch of separate blobs (it looked like bad acne!).\u00a0 This release also added <strong>layerWeights</strong>, which lets you control each layer independently, including setting one to zero. For example:</p>\n\n<pre>:layer-weights=\"{ nebula: 0, nebulaAux: 0 }\"</pre>\n\n<p>That gives you a simpler, colorless starfield, and the nebula elements aren\u2019t even added to the DOM.</p>\n\n<h2>Using it</h2>\n\n<pre>npm install @russellio/vue-background-stars\n\n<script setup lang=\"ts\">\nimport { BackgroundStars } from '@russellio/vue-background-stars';\n</script>\n\n<template>\n  <BackgroundStars />\n</template></pre>\n\n<p>Styles now ride along automatically when you import the package, so there\u2019s no separate CSS import to worry about. If you\u2019re loading the UMD build directly with a <strong><script></strong> tag and no bundler, <strong>@russellio/vue-background-stars/style.css</strong> is still available as an explicit import.</p>\n\n<p>The background is fixed at <strong>z-index: -1</strong>, which keeps your page content above it as long as the content establishes its own stacking context.</p>\n\n<p>You can control the star count, density, colors, animation speed, and per-layer weights through props. There\u2019s also an optional <strong>ToggleSwitch</strong> component. That\u2019s the \"space mode\" switch used here, with the setting saved to <strong>localStorage</strong>.</p>\n\n<h2>Get it</h2>\n\n<ul><li><a href=\"https://www.npmjs.com/package/@russellio/vue-background-stars\"><span style=\"text-decoration:underline;\">npm: @russellio/vue-background-stars</span></a></li><li><a href=\"https://github.com/russellio/vue-background-stars\"><span style=\"text-decoration:underline;\">GitHub source</span></a></li><li><a href=\"https://russellio.github.io/vue-background-stars/\"><span style=\"text-decoration:underline;\">Live demo</span></a></li></ul>",
+      "excerpt": "A lightweight, dependency-free animated starfield for Vue 3 and the same component powering the space-mode toggle on this site.",
+      "externalUrl": "https://www.npmjs.com/package/@russellio/vue-background-stars",
+      "hasBody": true,
+      "id": "introducing-vue-background-stars",
+      "image": {
+        "alt": "vue-background-stars animated starfield",
+        "src": "/images/posts/vue-background-stars.png"
+      },
+      "publishedAt": "Jul 23, 2026",
+      "title": "Introducing vue-background-stars",
+      "year": "2026"
+    }
+  },
+  "sharedProps": [
+    "errors",
+    "name",
+    "auth"
+  ],
+  "url": "/posts/introducing-vue-background-stars",
+  "version": "a0e6e0fb51794634c85f3d51069c5408"
+}
