@@ -22,7 +22,10 @@ createServer(
                     .use(plugin)
                     .use(ui),
         }),
-    { cluster: false },
+    // Multiple worker processes behind round-robin: one render that wedges the
+    // event loop (the repeated 30s cURL timeouts in Sentry) now takes down one
+    // worker instead of the only SSR process for the whole site.
+    { cluster: true },
 );
 
 async function resolvePage(name: string) {

@@ -21,6 +21,12 @@ return [
         'bundle' => base_path('bootstrap/ssr/ssr.js'),
         'ensure_bundle_exists' => true,
         'throw_on_error' => (bool) env('INERTIA_SSR_THROW_ON_ERROR', false),
+
+        // No timeout was set here before, so a wedged SSR worker held the HTTP
+        // response open for Laravel's HTTP client default instead of failing
+        // fast. 3s lets a request degrade to client-side rendering quickly
+        // rather than hanging for 30s like the Sentry-reported failures.
+        'timeout' => (float) env('INERTIA_SSR_TIMEOUT', 3),
     ],
 
     /*
