@@ -1,0 +1,89 @@
+name: claude review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+# A re-push should abandon the in-flight review rather than race it -- two reviews
+# writing the same sticky comment interleave into nonsense. Keyed on the PR ref, so
+# concurrent reviews of *different* PRs still run in parallel.
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    # This repo is public, and `pull_request` from a fork gets no access to secrets,
+    # so the action would fail on a missing token through no fault of the contributor.
+    # Skip those instead: fork PRs still get the `ci` and `quality` gates. Do NOT
+    # "fix" this by switching to pull_request_target -- that runs a writable token in
+    # the base-repo context against untrusted head code.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # Updates one comment across pushes instead of stacking a new wall of text
+          # on every `synchronize`.
+          use_sticky_comment: true
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Review this pull request. The PR branch is already checked out in the
+            working directory.
+
+            Read ./CLAUDE.md and ./.agents/rules/ first and hold the diff to the
+            conventions recorded there. This is a Laravel 12 + Inertia + Vue 3 app;
+            routing is server-driven through Inertia, not vue-router.
+
+            Prioritise, in order:
+
+            1. Correctness and security. SQL injection, mass-assignment, missing
+               authorization, unsanitized HTML reaching `v-html` (project rule:
+               database HTML is sanitized server-side via
+               App\Http\Resources\Concerns\SanitizesHtml before it reaches the
+               client -- flag any new `v-html` that bypasses it), leaked secrets,
+               and N+1 queries introduced into `app/Queries/*` or Eloquent calls.
+            2. House rules that no linter in this pipeline enforces:
+               - TypeScript: no `any`. Use `unknown` plus narrowing.
+               - Vue: `<script setup lang="ts">` only, never the Options API.
+               - Types belong in `resources/js/types/index.d.ts` and must be
+                 imported, not redefined locally in a component.
+               - PHP: PSR-12, explicit return types and parameter types on every
+                 method.
+               - Icons go through Nuxt UI `<UIcon>` with `i-${collection}-${name}`.
+                 A dynamic or template-literal icon name must also be listed in
+                 `clientBundle.icons` in vite.config.ts, or it silently falls back
+                 to a runtime Iconify CDN fetch.
+               - Tests: HTTP-touching tests belong in tests/Feature/, not
+                 tests/Unit/. Prefer factories over Model::create() with raw arrays.
+            3. Missing test coverage for changed behaviour. Pure copy, styling and
+               layout-only changes do not need tests -- do not ask for them there.
+
+            Be specific and concrete. Report what the diff actually does wrong, with
+            the failing input or scenario. Do not restate what the code does, do not
+            pad with praise, and do not raise speculative or stylistic nits that
+            Pint, ESLint, Prettier or vue-tsc already catch -- those run as separate
+            required checks and duplicating them is noise.
+
+            If the diff is clean, say so in one line rather than manufacturing
+            findings.
+
+            Use `gh pr comment` for top-level feedback.
+            Use `mcp__github_inline_comment__create_inline_comment` (with
+            `confirmed: true`) to flag specific lines.
+            Only post GitHub comments -- do not return review text as a message.
+
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
