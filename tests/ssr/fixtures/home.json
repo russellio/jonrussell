@@ -1,0 +1,2364 @@
+{
+  "component": "Home",
+  "onceProps": {
+    "positions": {
+      "expiresAt": null,
+      "prop": "positions"
+    },
+    "posts": {
+      "expiresAt": null,
+      "prop": "posts"
+    },
+    "projects": {
+      "expiresAt": null,
+      "prop": "projects"
+    },
+    "skillTypes": {
+      "expiresAt": null,
+      "prop": "skillTypes"
+    },
+    "techStack": {
+      "expiresAt": null,
+      "prop": "techStack"
+    }
+  },
+  "props": {
+    "auth": {
+      "user": null
+    },
+    "errors": {},
+    "meta": {
+      "canonical": "https://jonrussell.dev.test",
+      "description": "Senior full-stack software engineer with 13+ years of experience. Specializing in PHP, Laravel, Vue.js, and TypeScript. Available for freelance and contract work.",
+      "title": "Jon Russell \u2014 Full Stack Software Engineer"
+    },
+    "name": "Jon Russell - Full Stack Software Engineer",
+    "positions": [
+      {
+        "company": {
+          "description": "Web, Mobile & SaaS Application Development",
+          "id": 7,
+          "link": "https://russellio.com",
+          "logo": {
+            "alt": "Russell I/O, LLC logo",
+            "displayName": false,
+            "src": "russellio.png"
+          },
+          "name": "Russell I/O, LLC"
+        },
+        "description": "<ul><li>Lead full-stack software development and consulting projects, designing, building, and maintaining production web and mobile applications with Laravel, PHP, MySQL, JavaScript, Vue, React, React Native, Tailwind CSS, and modern UI component libraries, delivering reliable and accessible solutions for clients.</li><li>Designed and built <a href=\"#project:project-lawnwriter\"><strong>LawnWriter</strong></a> end-to-end, a production iOS/Android app (React Native/TypeScript) for GPS-guided lawn design and mowing, plus a React marketing site and a Laravel 12/PHP REST API, enabling users to create designs and text and mow them onto their lawns.</li><li>Built React and React Native interfaces using Zustand for state management, integrating authentication, subscriptions, and data with backend services, streamlining onboarding and improving the overall user experience.</li><li>Engineered custom Google Maps spatial routing with GPS tracking, turn detection, snap\u2011to\u2011position, and real\u2011time guidance, providing users with accurate off-road navigation.</li><li>Established production CI/CD pipelines, automated testing, and Sentry monitoring, and managed App Store/Google Play deployments, resulting in shortened release cycles and improved app stability.</li><li>Leveraged AI development tools (Claude Code, Codex) to accelerate prototyping, debugging, and code reviews while retaining ownership of architecture and implementation decisions.</li></ul>",
+        "endDate": null,
+        "id": 8,
+        "isCurrent": true,
+        "months": 13,
+        "skills": [
+          {
+            "id": 7,
+            "name": "Laravel"
+          },
+          {
+            "id": 1,
+            "name": "PHP"
+          },
+          {
+            "id": 51,
+            "name": "React"
+          },
+          {
+            "id": 52,
+            "name": "React Native"
+          },
+          {
+            "id": 18,
+            "name": "Tailwind CSS"
+          },
+          {
+            "id": 3,
+            "name": "TypeScript"
+          },
+          {
+            "id": 8,
+            "name": "Vue 3"
+          },
+          {
+            "id": 31,
+            "name": "AWS"
+          },
+          {
+            "id": 41,
+            "name": "PEST / PHPUnit"
+          },
+          {
+            "id": 5,
+            "name": "MySQL"
+          },
+          {
+            "id": 10,
+            "name": "Pinia"
+          },
+          {
+            "id": 13,
+            "name": "Vite"
+          },
+          {
+            "id": 14,
+            "name": "HTML5"
+          },
+          {
+            "id": 15,
+            "name": "CSS3"
+          },
+          {
+            "id": 23,
+            "name": "REST APIs"
+          },
+          {
+            "id": 32,
+            "name": "Linux"
+          },
+          {
+            "id": 34,
+            "name": "CI/CD automation"
+          },
+          {
+            "id": 61,
+            "name": "Jest"
+          },
+          {
+            "id": 76,
+            "name": "API Integration"
+          },
+          {
+            "id": 82,
+            "name": "AI-Assisted Development"
+          },
+          {
+            "id": 39,
+            "name": "Unit testing"
+          }
+        ],
+        "startDate": "2025-08-15",
+        "title": "Senior Full Stack Engineer / Software Developer"
+      },
+      {
+        "company": {
+          "description": "DoD Software & Consulting \u2014 $8.1M/yr",
+          "id": 6,
+          "link": "https://www.pioneeringevolution.com/",
+          "logo": {
+            "alt": "Pioneering Evolution logo",
+            "displayName": false,
+            "src": "pioneering-evolution.png"
+          },
+          "name": "Pioneering Evolution"
+        },
+        "description": "<ul><li>Developed frontend features for <a href=\"#project:project-dod\"><strong>TRBO</strong></a>, a DoD budgeting SaaS app, using Vue 3, TypeScript, JavaScript, Bootstrap, and Laravel/PHP REST APIs in Docker-based environments with images pulled from AWS.</li><li>Played a key role in the Vue 2-to-Vue 3 migration, converting over 80% of components while preserving our existing Composition API architecture and establishing reusable patterns and documentation that accelerated the migration and lowered future maintenance effort.</li><li>Engineered data-intensive budgeting workflows for allocations, approvals, revisions, status tracking, audit history, and async background jobs using Laravel queues and MySQL 8, enabling faster budgeting cycles and improved data integrity.</li><li>Resolved end-to-end performance bottlenecks (N+1 queries, unindexed scans, PHP memory limits), cutting a core process runtime from 11s to 3s.</li><li>Delivered high-coverage automated tests (PEST/PHPUnit), performed thorough code reviews, and contributed changes through Bitbucket CI/CD pipelines supporting AWS deployments.</li><li>Mentored junior engineers on frontend architecture, Vue 3 standards, and modern development practices through code reviews and pair programming, improving code quality and shortening onboarding time.</li></ul>",
+        "endDate": "2025-08-01",
+        "id": 7,
+        "isCurrent": false,
+        "months": 17,
+        "skills": [
+          {
+            "id": 1,
+            "name": "PHP"
+          },
+          {
+            "id": 3,
+            "name": "TypeScript"
+          },
+          {
+            "id": 5,
+            "name": "MySQL"
+          },
+          {
+            "id": 7,
+            "name": "Laravel"
+          },
+          {
+            "id": 10,
+            "name": "Pinia"
+          },
+          {
+            "id": 14,
+            "name": "HTML5"
+          },
+          {
+            "id": 15,
+            "name": "CSS3"
+          },
+          {
+            "id": 17,
+            "name": "Bootstrap"
+          },
+          {
+            "id": 21,
+            "name": "Git"
+          },
+          {
+            "id": 23,
+            "name": "REST APIs"
+          },
+          {
+            "id": 24,
+            "name": "Microservices"
+          },
+          {
+            "id": 28,
+            "name": "SaaS"
+          },
+          {
+            "id": 31,
+            "name": "AWS"
+          },
+          {
+            "id": 32,
+            "name": "Linux"
+          },
+          {
+            "id": 33,
+            "name": "Docker"
+          },
+          {
+            "id": 34,
+            "name": "CI/CD automation"
+          },
+          {
+            "id": 38,
+            "name": "Bitbucket"
+          },
+          {
+            "id": 41,
+            "name": "PEST / PHPUnit"
+          },
+          {
+            "id": 44,
+            "name": "API optimization"
+          },
+          {
+            "id": 68,
+            "name": "Agile Methodologies"
+          },
+          {
+            "id": 39,
+            "name": "Unit testing"
+          },
+          {
+            "id": 2,
+            "name": "JavaScript"
+          },
+          {
+            "id": 42,
+            "name": "Code reviews"
+          },
+          {
+            "id": 43,
+            "name": "Pair programming"
+          },
+          {
+            "id": 13,
+            "name": "Vite"
+          }
+        ],
+        "startDate": "2024-03-01",
+        "title": "Software Engineer"
+      },
+      {
+        "company": {
+          "description": "Textiles, Sunbrella brand \u2014 $900M/yr",
+          "id": 5,
+          "link": "https://www.glenraven.com/",
+          "logo": {
+            "alt": "Glen Raven logo",
+            "displayName": false,
+            "src": "glen-raven.svg"
+          },
+          "name": "Glen Raven, Inc."
+        },
+        "description": "<ul><li>Engineered enterprise full-stack web applications (PHP, MySQL, Laravel, JavaScript, Bootstrap, and REST APIs),<br>owning features end-to-end from requirements through deployment.</li><li>Designed and built the <a href=\"#project:project-digital\"><strong>Digital Flag Board</strong></a>, a multi-plant application used by 300+ operators and technicians,<br>which replaced a paper\u2011based repair process, cut repair cycle time by 38% and lowered labor demand by 50%.</li><li>Built responsive admin interfaces, dashboards, and reporting tools for the Flag Board, enabling plant managers<br>to monitor infrastructure, personnel, and operational metrics more efficiently, reducing manual work.</li><li>Developed the <a href=\"#project:project-web\"><strong>Web Request Dashboard</strong></a>, a custom front end for the Jira Cloud REST API, streamlining ticket<br>creation, backlog management, attachments, and status workflows while reducing manual effort.</li><li>Built <a href=\"#project:project-api\"><strong>Glen Raven API</strong></a>, an internal API proof of concept for exchanging client and vendor orders, distribution<br>data, and operational metrics across applications.</li><li>Introduced Agile methodology across multiple teams, serving as ScrumMaster and Jira administrator for sprint<br>planning, retrospectives, and ongoing team ceremonies.</li><li>Introduced automated testing, code reviews, and CI/CD pipelines using GitHub and Azure Pipelines, resulting in<br>faster release cycles and higher code quality.</li></ul>",
+        "endDate": "2023-05-01",
+        "id": 6,
+        "isCurrent": false,
+        "months": 78,
+        "skills": [
+          {
+            "id": 1,
+            "name": "PHP"
+          },
+          {
+            "id": 5,
+            "name": "MySQL"
+          },
+          {
+            "id": 7,
+            "name": "Laravel"
+          },
+          {
+            "id": 16,
+            "name": "SCSS"
+          },
+          {
+            "id": 17,
+            "name": "Bootstrap"
+          },
+          {
+            "id": 21,
+            "name": "Git"
+          },
+          {
+            "id": 22,
+            "name": "Jira"
+          },
+          {
+            "id": 23,
+            "name": "REST APIs"
+          },
+          {
+            "id": 34,
+            "name": "CI/CD automation"
+          },
+          {
+            "id": 35,
+            "name": "Jenkins"
+          },
+          {
+            "id": 36,
+            "name": "Azure Pipelines"
+          },
+          {
+            "id": 49,
+            "name": "Certified ScrumMaster (2017-2023)"
+          },
+          {
+            "id": 67,
+            "name": "APIs"
+          },
+          {
+            "id": 68,
+            "name": "Agile Methodologies"
+          },
+          {
+            "id": 46,
+            "name": "Team mentoring"
+          },
+          {
+            "id": 2,
+            "name": "JavaScript"
+          },
+          {
+            "id": 69,
+            "name": "PHPUnit"
+          },
+          {
+            "id": 12,
+            "name": "webpack"
+          },
+          {
+            "id": 39,
+            "name": "Unit testing"
+          },
+          {
+            "id": 14,
+            "name": "HTML5"
+          },
+          {
+            "id": 15,
+            "name": "CSS3"
+          },
+          {
+            "id": 47,
+            "name": "Innovative process improvement"
+          }
+        ],
+        "startDate": "2016-11-01",
+        "title": "Senior Web Application Developer / Certified ScrumMaster"
+      },
+      {
+        "company": {
+          "description": "Finance / Cash Automation ($98M/yr)",
+          "id": 4,
+          "link": "https://www.arca.com/",
+          "logo": {
+            "alt": "ARCA logo",
+            "displayName": false,
+            "src": "arca-sesami-dark.png"
+          },
+          "name": "ARCA"
+        },
+        "description": "<ul><li>Developed enterprise web applications with Laravel, PHP, MySQL, JavaScript, and REST APIs that automated cash\u2011handling processes for a global client base.</li><li>Contributed to <a href=\"#project:project-web\"><strong>Concert Web</strong></a>, an administrator\u2011facing application that displayed real\u2011time status, currency amounts, and denomination counts for proprietary remote money\u2011counting machines and safes, enabling operators to monitor assets instantly.</li><li>Integrated application functionality with the Fiserv API and internal services to expose financial data to financial institutions, allowing for up\u2011to\u2011date information retrieval.</li><li>As Build Engineer, managed software release cycles and built CI/CD pipelines with Jenkins, increasing automated test coverage and enhancing production reliability.</li><li>Coordinated requirements, vendor deliverables, project plans, and stakeholder communication as a backup Product Owner, ensuring project milestones were met and stakeholder expectations aligned.</li></ul>",
+        "endDate": "2016-10-01",
+        "id": 5,
+        "isCurrent": false,
+        "months": 21,
+        "skills": [
+          {
+            "id": 1,
+            "name": "PHP"
+          },
+          {
+            "id": 2,
+            "name": "JavaScript"
+          },
+          {
+            "id": 5,
+            "name": "MySQL"
+          },
+          {
+            "id": 7,
+            "name": "Laravel"
+          },
+          {
+            "id": 23,
+            "name": "REST APIs"
+          },
+          {
+            "id": 34,
+            "name": "CI/CD automation"
+          },
+          {
+            "id": 35,
+            "name": "Jenkins"
+          },
+          {
+            "id": 66,
+            "name": "Third-party APIs"
+          },
+          {
+            "id": 28,
+            "name": "SaaS"
+          },
+          {
+            "id": 11,
+            "name": "jQuery"
+          },
+          {
+            "id": 17,
+            "name": "Bootstrap"
+          },
+          {
+            "id": 21,
+            "name": "Git"
+          },
+          {
+            "id": 38,
+            "name": "Bitbucket"
+          },
+          {
+            "id": 39,
+            "name": "Unit testing"
+          },
+          {
+            "id": 42,
+            "name": "Code reviews"
+          },
+          {
+            "id": 43,
+            "name": "Pair programming"
+          },
+          {
+            "id": 68,
+            "name": "Agile Methodologies"
+          },
+          {
+            "id": 69,
+            "name": "PHPUnit"
+          },
+          {
+            "id": 44,
+            "name": "API optimization"
+          }
+        ],
+        "startDate": "2015-01-01",
+        "title": "Web Software Developer / Build Engineer"
+      },
+      {
+        "company": {
+          "description": "Digital Banking SaaS, acquired by NCR \u2014 $330M/yr",
+          "id": 3,
+          "link": "https://www.digitalinsight.com/",
+          "logo": {
+            "alt": "Digital Insight and NCR logo",
+            "displayName": false,
+            "src": "digital-insight-ncr.png"
+          },
+          "name": "Digital Insight"
+        },
+        "description": "<ul><li>Managed two project management teams of four, one team delivering custom websites and the other delivering digital banking solutions.</li><li>Used project and operational metrics to identify process bottlenecks, reduce manual work, and improve implementation efficiency.</li><li>Enhanced the <a href=\"#project:project-manager\"><strong>PM Dashboard</strong></a> and spearheaded internal automation tools that eliminated manual workflows and reduced delivery cycle time.</li></ul>",
+        "endDate": "2015-01-01",
+        "id": 4,
+        "isCurrent": false,
+        "months": 29,
+        "skills": [
+          {
+            "id": 1,
+            "name": "PHP"
+          },
+          {
+            "id": 2,
+            "name": "JavaScript"
+          },
+          {
+            "id": 5,
+            "name": "MySQL"
+          },
+          {
+            "id": 48,
+            "name": "Experienced Manager, Project Manager"
+          },
+          {
+            "id": 64,
+            "name": "HTML/CSS"
+          }
+        ],
+        "startDate": "2012-08-01",
+        "title": "Manager \u2013 Project Management"
+      },
+      {
+        "company": {
+          "description": null,
+          "id": 2,
+          "link": null,
+          "logo": {
+            "alt": "Digital Insight and Intuit logo",
+            "displayName": false,
+            "src": "digital-insight-intuit.png"
+          },
+          "name": "Digital Insight"
+        },
+        "description": "<ul><li>Managed post\u2011sale implementation for 30+ financial institutions, coordinating client requirements, delivering training, overseeing internal delivery teams, handling integrations, and executing production rollouts.</li><li>Collaborated with engineering, operations, and client teams to identify process bottlenecks and implement workflow improvements, resulting in faster issue resolution and smoother project execution.</li><li>Designed and built the <a href=\"#project:project-manager\"><strong>PM Dashboard & Checklist</strong></a>, an internal web application that streamlined project management workflows, generated customizable project-specific implementation checklists, and synchronized data bidirectionally with Intuit\u2019s QuickBase and Pivotal CRM via APIs.</li><li>Created automation tools that reduced onboarding timelines and client effort by 20%.</li></ul>",
+        "endDate": "2012-07-01",
+        "id": 3,
+        "isCurrent": false,
+        "months": 37,
+        "skills": [
+          {
+            "id": 65,
+            "name": "Project Management"
+          },
+          {
+            "id": 1,
+            "name": "PHP"
+          },
+          {
+            "id": 2,
+            "name": "JavaScript"
+          },
+          {
+            "id": 5,
+            "name": "MySQL"
+          },
+          {
+            "id": 67,
+            "name": "APIs"
+          },
+          {
+            "id": 64,
+            "name": "HTML/CSS"
+          }
+        ],
+        "startDate": "2009-06-01",
+        "title": "Project Manager \u2013 Automated Installations Management"
+      },
+      {
+        "company": {
+          "description": null,
+          "id": 2,
+          "link": null,
+          "logo": {
+            "alt": "Digital Insight and Intuit logo",
+            "displayName": false,
+            "src": "digital-insight-intuit.png"
+          },
+          "name": "Digital Insight"
+        },
+        "description": "<ul><li>Developed dynamic, standards-compliant websites for financial institutions using HTML, CSS, JavaScript, AJAX, and responsive design, ensuring cross-device usability.</li><li>Collaborated with clients to gather and translate business requirements into functional web experiences that met client goals and project timelines.</li><li>Designed and built <strong>Reportal</strong>, a custom live-metrics reporting application integrated with Pivotal CRM via API, delivering customizable reports, notification settings, and self-service administration, extending reporting capabilities beyond the platform's built-in limitations.</li></ul>",
+        "endDate": "2009-05-01",
+        "id": 2,
+        "isCurrent": false,
+        "months": 27,
+        "skills": [
+          {
+            "id": 47,
+            "name": "Innovative process improvement"
+          },
+          {
+            "id": 2,
+            "name": "JavaScript"
+          },
+          {
+            "id": 11,
+            "name": "jQuery"
+          },
+          {
+            "id": 64,
+            "name": "HTML/CSS"
+          },
+          {
+            "id": 1,
+            "name": "PHP"
+          },
+          {
+            "id": 5,
+            "name": "MySQL"
+          },
+          {
+            "id": 70,
+            "name": "Perl"
+          }
+        ],
+        "startDate": "2007-02-01",
+        "title": "Web Software Developer"
+      }
+    ],
+    "posts": [
+      {
+        "body": "<p>Flip on <strong>space mode</strong> in the corner of this site and the background fills with a slow-drifting starfield. That effect is a Vue 3 component I pulled out into its own open-source package, <a href=\"https://www.npmjs.com/package/@russellio/vue-background-stars\"><span style=\"text-decoration:underline;\">@russellio/vue-background-stars</span></a> - currently at v1.4.0. This site is a live demo.</p>\n\n<h2>Why I built it</h2>\n\n<p>I wanted a night-sky background I could drop into a Vue app without bringing in a canvas renderer or animation library for something that\u2019s ultimately just decoration.</p>\n\n<p>Most of the starfield snippets out there are one-off CodePens tied pretty closely to a specific layout. This package was actually inspired by one of those examples, but I wanted something I could reuse as a proper Vue component. Typed props, reduced-motion support, animation controls, and control over which layers are rendered. Something I could reuse and that other people could just <strong>pnpm install</strong> (or npm install) and use anywhere.</p>\n\n<h2>How it works</h2>\n\n<p>There\u2019s no canvas. The entire sky is built from a handful of DOM elements, seven by default. Each one is a single invisible 1px element, and the stars themselves are created with its box-shadow.\u00a0 Each shadow contains hundreds of comma-separated x/y positions spread across a shared 2000px coordinate space. Tiny, small, medium, large, and bright stars each have their own shadow list. There are also two layers for the colored nebula glow.<br><br>That means seven DOM elements can create thousands of stars, with the browser handling the actual rendering instead of JavaScript constantly creating or updating individual stars.</p>\n\n<p>Everything is generated once when the component mounts inside <strong>requestAnimationFrame</strong>. That also gives the component a good place to fire a background-ready event if you need to know when it\u2019s finished. The blinking animation respects <strong>prefers-reduced-motion</strong>, and you can also disable it completely with the <strong>disableAnimation</strong> prop.</p>\n\n<p>There are no runtime dependencies beyond Vue. \u00a0</p>\n\n<p>The nebula band also got a pretty noticeable improvement in v1.3.1. I increased the glow\u2019s blur radius from 18px to 150px so the colored layers blend together into a soft, diffuse band instead of looking like a bunch of separate blobs (it looked like bad acne!).\u00a0 This release also added <strong>layerWeights</strong>, which lets you control each layer independently, including setting one to zero. For example:</p>\n\n<pre>:layer-weights=\"{ nebula: 0, nebulaAux: 0 }\"</pre>\n\n<p>That gives you a simpler, colorless starfield, and the nebula elements aren\u2019t even added to the DOM.</p>\n\n<h2>Using it</h2>\n\n<pre>npm install @russellio/vue-background-stars\n\n<script setup lang=\"ts\">\nimport { BackgroundStars } from '@russellio/vue-background-stars';\n</script>\n\n<template>\n  <BackgroundStars />\n</template></pre>\n\n<p>Styles now ride along automatically when you import the package, so there\u2019s no separate CSS import to worry about. If you\u2019re loading the UMD build directly with a <strong><script></strong> tag and no bundler, <strong>@russellio/vue-background-stars/style.css</strong> is still available as an explicit import.</p>\n\n<p>The background is fixed at <strong>z-index: -1</strong>, which keeps your page content above it as long as the content establishes its own stacking context.</p>\n\n<p>You can control the star count, density, colors, animation speed, and per-layer weights through props. There\u2019s also an optional <strong>ToggleSwitch</strong> component. That\u2019s the \"space mode\" switch used here, with the setting saved to <strong>localStorage</strong>.</p>\n\n<h2>Get it</h2>\n\n<ul><li><a href=\"https://www.npmjs.com/package/@russellio/vue-background-stars\"><span style=\"text-decoration:underline;\">npm: @russellio/vue-background-stars</span></a></li><li><a href=\"https://github.com/russellio/vue-background-stars\"><span style=\"text-decoration:underline;\">GitHub source</span></a></li><li><a href=\"https://russellio.github.io/vue-background-stars/\"><span style=\"text-decoration:underline;\">Live demo</span></a></li></ul>",
+        "excerpt": "A lightweight, dependency-free animated starfield for Vue 3 and the same component powering the space-mode toggle on this site.",
+        "externalUrl": "https://www.npmjs.com/package/@russellio/vue-background-stars",
+        "hasBody": true,
+        "id": "introducing-vue-background-stars",
+        "image": {
+          "alt": "vue-background-stars animated starfield",
+          "src": "/images/posts/vue-background-stars.png"
+        },
+        "publishedAt": "Jul 23, 2026",
+        "title": "Introducing vue-background-stars",
+        "year": "2026"
+      }
+    ],
+    "projects": [
+      {
+        "awards": [],
+        "bgImage": "lawnwriter/home.webp",
+        "bgPositionX": "0",
+        "bgPositionY": "0",
+        "byline": "Design something to mow into your yard, then get turn-by-turn GPS navigation while you mow it.",
+        "company": {
+          "id": 7,
+          "link": "https://russellio.com",
+          "logo": {
+            "alt": "Russell I/O, LLC logo",
+            "displayName": false,
+            "src": "russellio.png"
+          },
+          "name": "Russell I/O, LLC"
+        },
+        "description": "<p>LawnWriter is my own product, built end to end under Russell I/O. The basic idea is pretty simple: draw your property on satellite imagery, design text or shapes you want to mow into the grass, and LawnWriter figures out how to actually mow it. The app then guides you through the route using real-time GPS, including telling you where to drive and when to raise or lower the blade.<br><br>The mobile app is React Native with Expo and TypeScript, using Zustand for state management, React Navigation, Skia for rendering the designs, and Google Maps for satellite imagery and property boundaries. The backend is Laravel 12 running on PHP 8.4, with Sanctum-authenticated APIs handling properties, designs, mower profiles, and mowing sessions.<br><br>The most interesting engineering is the route generation. I needed to take an arbitrary property boundary and a vector design and turn them into something a real mower can physically drive. That involves Haversine distance calculations, generating waypoints based on the mower\u2019s actual deck width, accounting for turning constraints, and then feeding the resulting path into the navigation system.<br><br>The navigation side has its own set of problems. Raw GPS data gets noisy, especially around trees and buildings, so the app uses path snapping and turn detection to keep the guidance from jumping around. It also tracks mower state so it can give the driver cues for when to engage or disengage the blades.<br><br>I built the rest of it too: Google and Apple sign-in, subscriptions through RevenueCat, Sentry monitoring, Jest and Maestro test suites, EAS builds, and the App Store Connect release pipeline.<br><br>LawnWriter is now live on the App Store. I built the product, took it through Apple\u2019s review and release process, and am now working through the usual post-launch hardening and improvements.</p>",
+        "highlightedSkills": [
+          "React Native",
+          "Expo",
+          "TypeScript",
+          "Laravel",
+          "PHP",
+          "MySQL",
+          "Google Maps API",
+          "REST APIs"
+        ],
+        "id": "project-lawnwriter",
+        "images": [
+          {
+            "alt": "LawnWriter home screen showing GPS status, weather, and recent activity",
+            "src": "lawnwriter/home.webp",
+            "title": "Home"
+          },
+          {
+            "alt": "Satellite view of a property before drawing its boundary",
+            "src": "lawnwriter/select-property.webp",
+            "title": "Select Property"
+          },
+          {
+            "alt": "Drawing a property boundary with live point count and area",
+            "src": "lawnwriter/draw-boundary.webp",
+            "title": "Draw Property Boundary"
+          },
+          {
+            "alt": "Adding a property by current location or address search",
+            "src": "lawnwriter/add-property.webp",
+            "title": "Add Property"
+          },
+          {
+            "alt": "Saved properties with their associated designs",
+            "src": "lawnwriter/my-properties.webp",
+            "title": "My Properties"
+          },
+          {
+            "alt": "Design editor placing text and shapes inside a property boundary",
+            "src": "lawnwriter/design-editor.webp",
+            "title": "Design Editor"
+          },
+          {
+            "alt": "Choosing which property to create a design on",
+            "src": "lawnwriter/choose-property.webp",
+            "title": "Choose a Property"
+          },
+          {
+            "alt": "Saved design with route ready and a start mowing action",
+            "src": "lawnwriter/my-designs.webp",
+            "title": "My Designs"
+          },
+          {
+            "alt": "Settings for units, map display, and navigation tracking",
+            "src": "lawnwriter/settings.webp",
+            "title": "Settings"
+          }
+        ],
+        "keyTakeaways": [
+          "Solo-built product: React Native (Expo) mobile app on a Laravel 12 API",
+          "Route engine converts a drawn design into a mowable path using Haversine math and deck-width-aware waypoints",
+          "Real-time GPS navigation with path snapping, turn detection, and blade engagement cues",
+          "Full release pipeline: EAS builds, RevenueCat subscriptions, Sentry monitoring, App Store Connect"
+        ],
+        "links": [
+          {
+            "title": "App Store",
+            "url": "https://apps.apple.com/app/lawnwriter/id6756382489"
+          },
+          {
+            "title": "LawnWriter",
+            "url": "https://lawnwriter.com"
+          }
+        ],
+        "primaryImage": {
+          "alt": "LawnWriter main page",
+          "src": "lawnwriter/design-editor.webp",
+          "title": "LawnWriter"
+        },
+        "technologies": [
+          {
+            "iconName": "react",
+            "iconType": "simple-icons",
+            "name": "React Native"
+          },
+          {
+            "iconName": "expo",
+            "iconType": "simple-icons",
+            "name": "Expo"
+          },
+          {
+            "iconName": "typescript",
+            "iconType": "simple-icons",
+            "name": "TypeScript"
+          },
+          {
+            "iconName": "laravel",
+            "iconType": "simple-icons",
+            "name": "Laravel"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHP"
+          },
+          {
+            "iconName": "mysql",
+            "iconType": "simple-icons",
+            "name": "MySQL"
+          },
+          {
+            "iconName": "googlemaps",
+            "iconType": "simple-icons",
+            "name": "Google Maps API"
+          },
+          {
+            "iconName": "code",
+            "iconType": "lucide",
+            "name": "REST APIs"
+          },
+          {
+            "iconName": "laravel",
+            "iconType": "simple-icons",
+            "name": "Sanctum"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "Zustand"
+          },
+          {
+            "iconName": "firebase",
+            "iconType": "simple-icons",
+            "name": "Firebase"
+          },
+          {
+            "iconName": "sentry",
+            "iconType": "simple-icons",
+            "name": "Sentry"
+          }
+        ],
+        "title": "LawnWriter",
+        "tools": [
+          {
+            "iconName": "expo",
+            "iconType": "simple-icons",
+            "name": "Expo EAS"
+          },
+          {
+            "iconName": "appstore",
+            "iconType": "simple-icons",
+            "name": "App Store Connect"
+          },
+          {
+            "iconName": "revenuecat",
+            "iconType": "simple-icons",
+            "name": "RevenueCat"
+          },
+          {
+            "iconName": "jest",
+            "iconType": "simple-icons",
+            "name": "Jest"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "Maestro"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PEST"
+          },
+          {
+            "iconName": "github",
+            "iconType": "simple-icons",
+            "name": "Github"
+          },
+          {
+            "iconName": "composer",
+            "iconType": "simple-icons",
+            "name": "Composer"
+          }
+        ]
+      },
+      {
+        "awards": [],
+        "bgImage": "ssp/ssp-logo.png",
+        "bgPositionX": "-50px",
+        "bgPositionY": "-30px",
+        "byline": "SaaS budgeting platform supporting the Navy's Strategic Systems Programs.",
+        "company": {
+          "id": 6,
+          "link": "https://www.pioneeringevolution.com/",
+          "logo": {
+            "alt": "Pioneering Evolution logo",
+            "displayName": false,
+            "src": "pioneering-evolution.png"
+          },
+          "name": "Pioneering Evolution"
+        },
+        "description": "<p>At Pioneering Evolution, I worked on a budgeting platform used by the Department of Defense to plan and simulate complex financial scenarios. The system lets analysts manage detailed data, test \"what-if\" projections, and track approvals across multiple leadership levels.<br><br>I worked full stack across Laravel 11, PHP 8, MySQL 8, Vue 3, and TypeScript, contributing to both the backend architecture and the frontend experience. I was a key contributor to the app's migration from Vue 2 to Vue 3, a major overhaul that modernized the codebase and improved long-term maintainability. I also focused on performance-critical areas, rewriting API endpoints and optimizing queries to cut response times and reduce memory usage.<br><br>Beyond code, I worked closely with QA and DevOps to ensure a solid product and paired with teammates for mentoring, reviews, and pair programming. The result was a faster, cleaner, and more resilient platform that helped users make smarter, data-driven budget decisions with confidence.</p>",
+        "highlightedSkills": [
+          "Laravel",
+          "Vue 3",
+          "PHP",
+          "MySQL",
+          "TypeScript",
+          "Vue 2 / Vuex",
+          "Pinia",
+          "REST APIs"
+        ],
+        "id": "project-dod",
+        "images": [],
+        "keyTakeaways": [
+          "Full stack development with Laravel 11, PHP 8, MySQL 8, Vue 3, and TypeScript",
+          "Key contributor of migration from Vue 2 to Vue 3, modernizing the codebase",
+          "Optimized API endpoints and database queries for improved performance",
+          "Department of Defense platform for complex financial planning and simulations"
+        ],
+        "links": [
+          {
+            "title": "Additional Contract Info (sam.gov)",
+            "url": "https://sam.gov/opp/2256b7a820714afb89915925eed9b856/view"
+          }
+        ],
+        "primaryImage": {
+          "alt": "DoD Budgeting Application Logo",
+          "src": "ssp/ssp-logo.png",
+          "title": "DoD Budgeting Application"
+        },
+        "technologies": [
+          {
+            "iconName": "laravel",
+            "iconType": "simple-icons",
+            "name": "Laravel"
+          },
+          {
+            "iconName": "vuedotjs",
+            "iconType": "simple-icons",
+            "name": "Vue 3"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHP"
+          },
+          {
+            "iconName": "mysql",
+            "iconType": "simple-icons",
+            "name": "MySQL"
+          },
+          {
+            "iconName": "typescript",
+            "iconType": "simple-icons",
+            "name": "TypeScript"
+          },
+          {
+            "iconName": "vuedotjs",
+            "iconType": "simple-icons",
+            "name": "Vue 2 / Vuex"
+          },
+          {
+            "iconName": "pinia",
+            "iconType": "simple-icons",
+            "name": "Pinia"
+          },
+          {
+            "iconName": "code",
+            "iconType": "lucide",
+            "name": "REST APIs"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "Node.js"
+          },
+          {
+            "iconName": "vuedotjs",
+            "iconType": "simple-icons",
+            "name": "BootstrapVue"
+          }
+        ],
+        "title": "DoD Budgeting Application",
+        "tools": [
+          {
+            "iconName": "vite",
+            "iconType": "simple-icons",
+            "name": "Vite"
+          },
+          {
+            "iconName": "bitbucket",
+            "iconType": "simple-icons",
+            "name": "Bitbucket"
+          },
+          {
+            "iconName": "docker",
+            "iconType": "simple-icons",
+            "name": "Docker"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PEST"
+          },
+          {
+            "iconName": "git",
+            "iconType": "simple-icons",
+            "name": "Git"
+          },
+          {
+            "iconName": "npm",
+            "iconType": "simple-icons",
+            "name": "NPM"
+          },
+          {
+            "iconName": "yarn",
+            "iconType": "simple-icons",
+            "name": "Yarn"
+          }
+        ]
+      },
+      {
+        "awards": [],
+        "bgImage": "api/api-bg.png",
+        "bgPositionX": "-30px",
+        "bgPositionY": "-30px",
+        "byline": "Centralized API gateway with OAuth2 authentication, rate limiting, and request routing for multiple client applications",
+        "company": {
+          "id": 5,
+          "link": "https://www.glenraven.com/",
+          "logo": {
+            "alt": "Glen Raven logo",
+            "displayName": false,
+            "src": "glen-raven.svg"
+          },
+          "name": "Glen Raven, Inc."
+        },
+        "description": "<p>As a part of the Digital Flag Board implementation, authentication through LDAP was added so users could utilize their existing Active Directory accounts. Once that was up and running, it became clear a more unified way for additional internal apps to talk to each other was needed.<br><br> That work on authentication kick-started the groundwork for what became the Glen Raven API. I dove into research, even traveling to the \"API World\" conference.  I came up with a proposal for a secure, REST-based API with JWT authentication and Azure pipeline management. That effort set the stage for the Glen Raven API to connect systems, share data, and build future apps on a common foundation. The Glen Raven API allows several different applications to interface with each other (client/vendor orders, distribution, metrics, et al).</p>",
+        "highlightedSkills": [
+          "Lumen",
+          "PHP",
+          "MySQL",
+          "LDAP",
+          "Active Directory",
+          "JWT",
+          "REST APIs"
+        ],
+        "id": "project-api",
+        "images": [],
+        "keyTakeaways": [
+          "Designed and proposed REST-based API architecture after extensive research",
+          "Implemented JWT authentication and Azure pipeline management",
+          "Integrated LDAP and Active Directory for enterprise authentication",
+          "Unified communication between multiple internal applications"
+        ],
+        "links": [],
+        "primaryImage": {
+          "alt": "Enterprise API Gateway Dashboard",
+          "src": "api/api-bg.png",
+          "title": "Enterprise API Gateway & Authentication"
+        },
+        "technologies": [
+          {
+            "iconName": "lumen",
+            "iconType": "simple-icons",
+            "name": "Lumen"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHP"
+          },
+          {
+            "iconName": "mysql",
+            "iconType": "simple-icons",
+            "name": "MySQL"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "LDAP"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "Active Directory"
+          },
+          {
+            "iconName": "jsonwebtokens",
+            "iconType": "simple-icons",
+            "name": "JWT"
+          },
+          {
+            "iconName": "code",
+            "iconType": "lucide",
+            "name": "REST APIs"
+          }
+        ],
+        "title": "Enterprise API Gateway & Authentication",
+        "tools": [
+          {
+            "iconName": "github",
+            "iconType": "simple-icons",
+            "name": "Github"
+          },
+          {
+            "iconName": "azurepipelines",
+            "iconType": "simple-icons",
+            "name": "Azure Pipelines"
+          },
+          {
+            "iconName": "npm",
+            "iconType": "simple-icons",
+            "name": "NPM"
+          },
+          {
+            "iconName": "postman",
+            "iconType": "simple-icons",
+            "name": "Postman"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHPUnit"
+          }
+        ]
+      },
+      {
+        "awards": [],
+        "bgImage": "flag-board/flag-board-bg.png",
+        "bgPositionX": "-10px",
+        "bgPositionY": "-135px",
+        "byline": "Enterprise ticketing system that connects factory operators, technicians, and management in real time.",
+        "company": {
+          "id": 5,
+          "link": "https://www.glenraven.com/",
+          "logo": {
+            "alt": "Glen Raven logo",
+            "displayName": false,
+            "src": "glen-raven.svg"
+          },
+          "name": "Glen Raven, Inc."
+        },
+        "description": "<p>At Glen Raven, I led the development of the Digital Flag Board from inception to fruition.  The Digital Flag Board is an enterprise ticketing platform built for factory operations, connecting machine operators, technicians, and management in real time. Operators use it to flag issues directly from kiosks and mobile devices stationed across the factory floor, while technicians track, resolve, and close those tickets through a responsive, purpose-built interface.<br><br>I worked full stack across Laravel, PHP, MySQL, and HTML5/CSS3, Bootstrap, jQuery, and JavaScript on the frontend, building features that kept the platform stable under constant use.<br><br>The system ran as a dedicated web app on every kiosk and device, authenticated through Active Directory and LDAP for secure, role-based access.<br><br>The admin console allowed senior management to review cycle time metrics, run performance reports, manage users, and handle all CRUD operations through a clean, intuitive dashboard. My focus was creating a reliable, high-availability system that kept production flowing and reduced downtime across the plant.</p>",
+        "highlightedSkills": [
+          "Laravel",
+          "PHP",
+          "MySQL",
+          "REST APIs",
+          "LDAP",
+          "Active Directory",
+          "JWT"
+        ],
+        "id": "project-digital",
+        "images": [
+          {
+            "alt": "Main Dashboard",
+            "src": "flag-board/dashboard.png",
+            "title": "Main Dashboard"
+          },
+          {
+            "alt": "Admin Login",
+            "src": "flag-board/login.png",
+            "title": "Admin Login"
+          },
+          {
+            "alt": "Reports",
+            "src": "flag-board/reports.png",
+            "title": "Reports"
+          },
+          {
+            "alt": "New Flag Request",
+            "src": "flag-board/new-request.png",
+            "title": "New Flag Request"
+          },
+          {
+            "alt": "Edit Flag Request",
+            "src": "flag-board/edit-request.png",
+            "title": "Edit Flag Request"
+          },
+          {
+            "alt": "Edit Flag Request Validation",
+            "src": "flag-board/edit-request-validation.png",
+            "title": "Edit Flag Request Validation"
+          },
+          {
+            "alt": "Old paper-based Flag Board",
+            "src": "flag-board/kiosk-2.jpg",
+            "title": "Old paper-based Flag Board"
+          },
+          {
+            "alt": "Kiosk running the Flag Board on factory floor.",
+            "src": "flag-board/kiosk-3.jpg",
+            "title": "Kiosk running the Flag Board on factory floor."
+          }
+        ],
+        "keyTakeaways": [
+          "Led development from inception to deployment",
+          "Real-time factory operations ticketing system",
+          "Deployed on kiosks and mobile devices across factory floor",
+          "High-availability system reducing production downtime"
+        ],
+        "links": [],
+        "primaryImage": {
+          "alt": "Digital Flag Board Main Dashboard",
+          "src": "flag-board/dashboard.png",
+          "title": "Digital Flag Board Dashboard"
+        },
+        "technologies": [
+          {
+            "iconName": "laravel",
+            "iconType": "simple-icons",
+            "name": "Laravel"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHP"
+          },
+          {
+            "iconName": "mysql",
+            "iconType": "simple-icons",
+            "name": "MySQL"
+          },
+          {
+            "iconName": "code",
+            "iconType": "lucide",
+            "name": "REST APIs"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "LDAP"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "Active Directory"
+          },
+          {
+            "iconName": "jsonwebtokens",
+            "iconType": "simple-icons",
+            "name": "JWT"
+          },
+          {
+            "iconName": "javascript",
+            "iconType": "simple-icons",
+            "name": "JavaScript"
+          },
+          {
+            "iconName": "jquery",
+            "iconType": "simple-icons",
+            "name": "jQuery"
+          },
+          {
+            "iconName": "bootstrap",
+            "iconType": "simple-icons",
+            "name": "Bootstrap"
+          },
+          {
+            "iconName": "css3",
+            "iconType": "simple-icons",
+            "name": "SCSS"
+          },
+          {
+            "iconName": "redis",
+            "iconType": "simple-icons",
+            "name": "Redis"
+          }
+        ],
+        "title": "Digital Flag Board",
+        "tools": [
+          {
+            "iconName": "github",
+            "iconType": "simple-icons",
+            "name": "Github"
+          },
+          {
+            "iconName": "azurepipelines",
+            "iconType": "simple-icons",
+            "name": "Azure Pipelines"
+          },
+          {
+            "iconName": "npm",
+            "iconType": "simple-icons",
+            "name": "NPM"
+          },
+          {
+            "iconName": "webpack",
+            "iconType": "simple-icons",
+            "name": "webpack"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHPUnit"
+          },
+          {
+            "iconName": "composer",
+            "iconType": "simple-icons",
+            "name": "Composer"
+          }
+        ]
+      },
+      {
+        "awards": [],
+        "bgImage": "concert-web/concert-bg.png",
+        "bgPositionX": "-10px",
+        "bgPositionY": "-40px",
+        "byline": "A secure, real-time dashboard for monitoring high-volume cash counting and sorting machines anywhere in the world.",
+        "company": {
+          "id": 4,
+          "link": "https://www.arca.com/",
+          "logo": {
+            "alt": "ARCA logo",
+            "displayName": false,
+            "src": "arca-sesami-dark.png"
+          },
+          "name": "ARCA"
+        },
+        "description": "<p>Concert Web was the web interface for ARCA's flagship money counting and sorting machines, deployed in casinos, theme parks, and financial institutions handling high volumes of cash and coins. The machines ran on proprietary software, and Concert Web provided a secure, real-time dashboard that let companies monitor the exact status of machines and safes from anywhere in the world. Users could see precise counts, denominations, and transaction details in real time, giving them full visibility into cash operations.<br><br>I served as a software developer on the platform and led the integration of Fiserv APIs, enabling direct B2B interactions and expanding the system's capabilities for financial reporting and reconciliation. I worked across Laravel, PHP, MySQL, and Bootstrap to ensure real-time data flowed smoothly from machines to the web dashboard, while maintaining robust security and performance under heavy transactional loads.<br><br>My contributions helped turn complex, mission-critical cash operations into a streamlined, accessible platform that businesses could rely on for accurate monitoring and decision-making.</p>",
+        "highlightedSkills": [
+          "Laravel",
+          "PHP",
+          "MySQL",
+          "jQuery",
+          "REST APIs",
+          "Third-party APIs"
+        ],
+        "id": "project-concert",
+        "images": [
+          {
+            "alt": "Administration",
+            "src": "concert-web/concert-nav.png",
+            "title": "Administration"
+          },
+          {
+            "alt": "Administration",
+            "src": "concert-web/concert-admin.png",
+            "title": "Administration"
+          }
+        ],
+        "keyTakeaways": [
+          "Real-time dashboard for cash counting machines in casinos, theme parks, and financial institutions",
+          "Led Fiserv API integration for B2B financial reporting",
+          "High-volume transactional system with real-time data synchronization",
+          "Mission-critical platform handling cash operations globally"
+        ],
+        "links": [],
+        "primaryImage": {
+          "alt": "Concert Web Cash Counting Dashboard",
+          "src": "concert-web/concert-bg.png",
+          "title": "Concert Web Dashboard"
+        },
+        "technologies": [
+          {
+            "iconName": "laravel",
+            "iconType": "simple-icons",
+            "name": "Laravel"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHP"
+          },
+          {
+            "iconName": "mysql",
+            "iconType": "simple-icons",
+            "name": "MySQL"
+          },
+          {
+            "iconName": "javascript",
+            "iconType": "simple-icons",
+            "name": "JavaScript"
+          },
+          {
+            "iconName": "jquery",
+            "iconType": "simple-icons",
+            "name": "jQuery"
+          },
+          {
+            "iconName": "bootstrap",
+            "iconType": "simple-icons",
+            "name": "Bootstrap"
+          },
+          {
+            "iconName": "redis",
+            "iconType": "simple-icons",
+            "name": "Redis"
+          },
+          {
+            "iconName": "code",
+            "iconType": "lucide",
+            "name": "REST APIs"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "Third-party APIs"
+          }
+        ],
+        "title": "Concert Web",
+        "tools": [
+          {
+            "iconName": "jira",
+            "iconType": "simple-icons",
+            "name": "Jira"
+          },
+          {
+            "iconName": "bitbucket",
+            "iconType": "simple-icons",
+            "name": "Bitbucket"
+          },
+          {
+            "iconName": "jenkins",
+            "iconType": "simple-icons",
+            "name": "Jenkins"
+          },
+          {
+            "iconName": "npm",
+            "iconType": "simple-icons",
+            "name": "NPM"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHPUnit"
+          }
+        ]
+      },
+      {
+        "awards": [],
+        "bgImage": "sms/sms-alert.jpg",
+        "bgPositionX": "-140px",
+        "bgPositionY": "-50px",
+        "byline": "Inclement weather and office closure notification system.",
+        "company": {
+          "id": 5,
+          "link": "https://www.glenraven.com/",
+          "logo": {
+            "alt": "Glen Raven logo",
+            "displayName": false,
+            "src": "glen-raven.svg"
+          },
+          "name": "Glen Raven, Inc."
+        },
+        "description": "<p><strong>Glen Raven 511 \u2013 SMS Notification Services</strong><br><br>At Glen Raven, I built an internal web application that lets HR and other teams send urgent updates to employees via SMS, covering weather alerts, closures, and other critical notifications. The system ensured messages reached everyone quickly and reliably, helping the company respond in real time to changing circumstances.<br><br>I built the platform using Laravel, PHP, MySQL, JavaScript, jQuery, and Bootstrap, and integrated Nexmo\u00a9 for sending and receiving SMS messages. My focus was on creating a responsive, easy-to-use interface while maintaining robust backend logic and seamless third-party API communication. The result was a dependable, low-friction tool that kept the entire workforce informed and safe during urgent situations.</p>",
+        "highlightedSkills": [
+          "Laravel",
+          "PHP",
+          "MySQL",
+          "JavaScript",
+          "jQuery",
+          "Third-party APIs"
+        ],
+        "id": "project-sms",
+        "images": [],
+        "keyTakeaways": [
+          "SMS notification system for urgent employee communications",
+          "Integrated Nexmo API for reliable message delivery",
+          "Weather alerts and office closures broadcast in real time",
+          "Critical communication tool ensuring workforce safety"
+        ],
+        "links": [
+          {
+            "title": "Nexmo (now Vonage) - Communication APIs",
+            "url": "https://www.vonage.com/communications-apis/"
+          }
+        ],
+        "primaryImage": {
+          "alt": "SMS Alert Notification System",
+          "src": "sms/sms-alert.jpg",
+          "title": "SMS Notification Services"
+        },
+        "technologies": [
+          {
+            "iconName": "laravel",
+            "iconType": "simple-icons",
+            "name": "Laravel"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHP"
+          },
+          {
+            "iconName": "mysql",
+            "iconType": "simple-icons",
+            "name": "MySQL"
+          },
+          {
+            "iconName": "javascript",
+            "iconType": "simple-icons",
+            "name": "JavaScript"
+          },
+          {
+            "iconName": "jquery",
+            "iconType": "simple-icons",
+            "name": "jQuery"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "Third-party APIs"
+          },
+          {
+            "iconName": "bootstrap",
+            "iconType": "simple-icons",
+            "name": "Bootstrap"
+          }
+        ],
+        "title": "Enterprise SMS Notification Services",
+        "tools": [
+          {
+            "iconName": "github",
+            "iconType": "simple-icons",
+            "name": "Github"
+          },
+          {
+            "iconName": "jenkins",
+            "iconType": "simple-icons",
+            "name": "Jenkins"
+          },
+          {
+            "iconName": "azurepipelines",
+            "iconType": "simple-icons",
+            "name": "Azure Pipelines"
+          }
+        ]
+      },
+      {
+        "awards": [],
+        "bgImage": "web-requests/web-requests-bg.png",
+        "bgPositionX": "5px",
+        "bgPositionY": "5px",
+        "byline": "Custom Jira-inspired dashboard that gives teams full visibility and control over tickets without extra licenses.",
+        "company": {
+          "id": 5,
+          "link": "https://www.glenraven.com/",
+          "logo": {
+            "alt": "Glen Raven logo",
+            "displayName": false,
+            "src": "glen-raven.svg"
+          },
+          "name": "Glen Raven, Inc."
+        },
+        "description": "<p>At Glen Raven, I built an internal web application that gave teams a full view of Jira Cloud tickets without needing full Jira accounts. As a cost-saving initiative, the company limited Jira licenses, so I recreated the Scrum board experience in a custom frontend while managing user\u2013ticket relationships and roles locally. The interface supported drag-and-drop ticket management, icons, status tracking, and email notifications for ticket events.<br><br>I worked full stack using Laravel, PHP, MySQL, JavaScript, jQuery, and Bootstrap, integrating tightly with Jira Cloud's API. Users could create tickets, attach files, comment, and view all ticket details, while the backend handled syncing, data logic, and permissions through dedicated Jira API accounts. The system streamlined workflow, improved visibility across departments, and maintained the familiar Jira experience without incurring extra licensing costs.</p>",
+        "highlightedSkills": [
+          "Laravel",
+          "PHP",
+          "MySQL",
+          "AJAX",
+          "jQuery",
+          "Third-party APIs"
+        ],
+        "id": "project-web",
+        "images": [],
+        "keyTakeaways": [
+          "Cost-saving Jira alternative eliminating need for full licenses",
+          "Custom Scrum board experience with drag-and-drop functionality",
+          "Full ticket management without Jira Cloud accounts",
+          "Streamlined workflow improving visibility across departments"
+        ],
+        "links": [],
+        "primaryImage": {
+          "alt": "Web Request Dashboard Interface",
+          "src": "web-requests/web-requests-bg.png",
+          "title": "Web Request Dashboard"
+        },
+        "technologies": [
+          {
+            "iconName": "laravel",
+            "iconType": "simple-icons",
+            "name": "Laravel"
+          },
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHP"
+          },
+          {
+            "iconName": "mysql",
+            "iconType": "simple-icons",
+            "name": "MySQL"
+          },
+          {
+            "iconName": "javascript",
+            "iconType": "simple-icons",
+            "name": "JavaScript"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "AJAX"
+          },
+          {
+            "iconName": "jquery",
+            "iconType": "simple-icons",
+            "name": "jQuery"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "Third-party APIs"
+          },
+          {
+            "iconName": "bootstrap",
+            "iconType": "simple-icons",
+            "name": "Bootstrap"
+          }
+        ],
+        "title": "Web Request Dashboard",
+        "tools": [
+          {
+            "iconName": "jira",
+            "iconType": "simple-icons",
+            "name": "Jira"
+          },
+          {
+            "iconName": "github",
+            "iconType": "simple-icons",
+            "name": "Github"
+          },
+          {
+            "iconName": "jenkins",
+            "iconType": "simple-icons",
+            "name": "Jenkins"
+          }
+        ]
+      },
+      {
+        "awards": [
+          "Scott Cook Innovation Award Nominee - Intuit"
+        ],
+        "bgImage": "/pm-dashboard/pm-db-1.png",
+        "bgPositionX": "0",
+        "bgPositionY": "0",
+        "byline": "Centralized dashboard that streamlines project tracking, task management, and client service for product installations.",
+        "company": {
+          "id": 2,
+          "link": null,
+          "logo": {
+            "alt": "Digital Insight and Intuit logo",
+            "displayName": false,
+            "src": "digital-insight-intuit.png"
+          },
+          "name": "Digital Insight"
+        },
+        "description": "<p>At Digital Insight, I developed the Project Management Dashboard, a web-based platform designed to streamline how Project Managers on the Automated Implementation Management team oversee product installations. Before the dashboard, PMs had to navigate multiple systems such as QuickBase, the intranet, and Pivotal, a cumbersome CRM, to access critical product details, SOPs, and progress tracking. This fragmented workflow made managing installations, tracking tasks, and logging time inefficient and prone to delays.<br><br>The PM Dashboard consolidated all key information into a single, dynamic interface. Built using PHP, MySQL, MSSQL (for Pivotal integration), XHTML, and JavaScript/AJAX, it delivered a responsive, desktop-like experience without page reloads. I focused on integrating Pivotal data via its database while enabling task-level dependencies, customizable due dates, simplified incident creation, and aggregated resources from QuickBase. Project Managers could now track each project from start to finish, manage tasks, and store project-specific notes\u2014all from one location.<br><br>This solution allowed rapid adaptation to individual project needs, centralized workflow, and simplified access to information that previously required multiple systems. Administrators could configure default task durations and dependencies, while the frontend offered drag-and-drop task management and real-time updates. The architecture supported quick development and deployment of new features, and the platform could be replicated for other teams using Pivotal in different capacities.<br><br>Adoption of the PM Dashboard significantly improved efficiency and project tracking. Surveys showed that 67% of the team used it multiple times per day, while 100% agreed it simplified project management, saved time, and helped deliver better results to clients. Early data indicated a positive trend in customer satisfaction scores after deployment, demonstrating the platform's direct impact on operational effectiveness and client service.<br><br> * This project is covered by a Non-Disclosure Agreement (NDA), which prevents me from sharing the app or code publicly.</p>",
+        "highlightedSkills": [
+          "PHP",
+          "MySQL",
+          "MSSQL",
+          "JavaScript",
+          "jQuery",
+          "AJAX",
+          "Third-party APIs"
+        ],
+        "id": "project-manager",
+        "images": [
+          {
+            "alt": "Project Details - Checklist",
+            "src": "pm-dashboard/pm-db-2.png",
+            "title": "Project Details - Checklist"
+          },
+          {
+            "alt": "Checklist Item Instructions",
+            "src": "pm-dashboard/pm-db-3.png",
+            "title": "Checklist Item Instructions"
+          },
+          {
+            "alt": "Extended project details and health",
+            "src": "pm-dashboard/pm-db-4.png",
+            "title": "Extended project details and health"
+          },
+          {
+            "alt": "Client Tasks",
+            "src": "pm-dashboard/pm-db-5.png",
+            "title": "Client Tasks"
+          }
+        ],
+        "keyTakeaways": [
+          "Consolidated multiple systems (QuickBase, Pivotal, intranet) into single dashboard",
+          "67% of team used it multiple times per day",
+          "100% agreed it simplified project management and saved time",
+          "Scott Cook Innovation Award Nominee at Intuit"
+        ],
+        "links": [
+          {
+            "title": "Scott Cook Innovation Award Nominee",
+            "url": "/projects/pm-dashboard-innovation-award-entry.pdf"
+          }
+        ],
+        "primaryImage": {
+          "alt": "Project Manager Dashboard Interface",
+          "src": "pm-dashboard/pm-db-1.png",
+          "title": "Project Manager Dashboard"
+        },
+        "technologies": [
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "name": "PHP"
+          },
+          {
+            "iconName": "mysql",
+            "iconType": "simple-icons",
+            "name": "MySQL"
+          },
+          {
+            "iconName": "microsoftsqlserver",
+            "iconType": "simple-icons",
+            "name": "MSSQL"
+          },
+          {
+            "iconName": "javascript",
+            "iconType": "simple-icons",
+            "name": "JavaScript"
+          },
+          {
+            "iconName": "jquery",
+            "iconType": "simple-icons",
+            "name": "jQuery"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "AJAX"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "Third-party APIs"
+          }
+        ],
+        "title": "Project Manager Dashboard",
+        "tools": [
+          {
+            "iconName": "pivotaltracker",
+            "iconType": "simple-icons",
+            "name": "Pivotal"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "QuickBase"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "name": "LAMP"
+          }
+        ]
+      }
+    ],
+    "scrollTo": null,
+    "skillTypes": [
+      {
+        "id": 7,
+        "name": "Front-End",
+        "skills": [
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 73,
+            "name": "Web Accessibility"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 72,
+            "name": "Responsive Design"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 71,
+            "name": "Component-Based Architecture"
+          },
+          {
+            "iconName": "vuedotjs",
+            "iconType": "simple-icons",
+            "id": 63,
+            "name": "Vue 33"
+          }
+        ],
+        "slug": "frontend"
+      },
+      {
+        "id": 8,
+        "name": "Other",
+        "skills": [
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 70,
+            "name": "Perl"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 69,
+            "name": "PHPUnit"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 67,
+            "name": "APIs"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 66,
+            "name": "Third-party APIs"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 65,
+            "name": "Project Management"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 64,
+            "name": "HTML/CSS"
+          },
+          {
+            "iconName": "linux",
+            "iconType": "simple-icons",
+            "id": 32,
+            "name": "Linux"
+          },
+          {
+            "iconName": "github",
+            "iconType": "simple-icons",
+            "id": 37,
+            "name": "Github"
+          },
+          {
+            "iconName": "bitbucket",
+            "iconType": "simple-icons",
+            "id": 38,
+            "name": "Bitbucket"
+          }
+        ],
+        "slug": "other"
+      },
+      {
+        "id": 9,
+        "name": "Application Architecture",
+        "skills": [
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 74,
+            "name": "State Management"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 75,
+            "name": "Asynchronous Data Fetching"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 76,
+            "name": "API Integration"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 77,
+            "name": "Data-Driven Interfaces"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 78,
+            "name": "Geospatial / Mapping Applications"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 79,
+            "name": "Authentication & Authorization"
+          }
+        ],
+        "slug": "application-architecture"
+      },
+      {
+        "id": 1,
+        "name": "Software Engineering",
+        "skills": [
+          {
+            "iconName": "php",
+            "iconType": "simple-icons",
+            "id": 1,
+            "name": "PHP"
+          },
+          {
+            "iconName": "javascript",
+            "iconType": "simple-icons",
+            "id": 2,
+            "name": "JavaScript"
+          },
+          {
+            "iconName": "typescript",
+            "iconType": "simple-icons",
+            "id": 3,
+            "name": "TypeScript"
+          },
+          {
+            "iconName": "database-check",
+            "iconType": "lucide",
+            "id": 4,
+            "name": "SQL"
+          },
+          {
+            "iconName": "mysql",
+            "iconType": "simple-icons",
+            "id": 5,
+            "name": "MySQL"
+          },
+          {
+            "iconName": "javascript",
+            "iconType": "simple-icons",
+            "id": 6,
+            "name": "Node.js"
+          },
+          {
+            "iconName": "laravel",
+            "iconType": "simple-icons",
+            "id": 7,
+            "name": "Laravel"
+          },
+          {
+            "iconName": "vuedotjs",
+            "iconType": "simple-icons",
+            "id": 8,
+            "name": "Vue 3"
+          },
+          {
+            "iconName": "vuedotjs",
+            "iconType": "simple-icons",
+            "id": 9,
+            "name": "Vue 2 / Vuex"
+          },
+          {
+            "iconName": "pinia",
+            "iconType": "simple-icons",
+            "id": 10,
+            "name": "Pinia"
+          },
+          {
+            "iconName": "react",
+            "iconType": "simple-icons",
+            "id": 51,
+            "name": "React"
+          },
+          {
+            "iconName": "react",
+            "iconType": "simple-icons",
+            "id": 52,
+            "name": "React Native"
+          },
+          {
+            "iconName": "expo",
+            "iconType": "simple-icons",
+            "id": 53,
+            "name": "Expo"
+          },
+          {
+            "iconName": "jquery",
+            "iconType": "simple-icons",
+            "id": 11,
+            "name": "jQuery"
+          },
+          {
+            "iconName": "webpack",
+            "iconType": "simple-icons",
+            "id": 12,
+            "name": "webpack"
+          },
+          {
+            "iconName": "html5",
+            "iconType": "simple-icons",
+            "id": 14,
+            "name": "HTML5"
+          },
+          {
+            "iconName": "css3",
+            "iconType": "simple-icons",
+            "id": 15,
+            "name": "CSS3"
+          },
+          {
+            "iconName": "css3",
+            "iconType": "simple-icons",
+            "id": 16,
+            "name": "SCSS"
+          },
+          {
+            "iconName": "bootstrap",
+            "iconType": "simple-icons",
+            "id": 17,
+            "name": "Bootstrap"
+          },
+          {
+            "iconName": "tailwindcss",
+            "iconType": "simple-icons",
+            "id": 18,
+            "name": "Tailwind CSS"
+          },
+          {
+            "iconName": "json",
+            "iconType": "simple-icons",
+            "id": 19,
+            "name": "JSON"
+          },
+          {
+            "iconName": "xml",
+            "iconType": "simple-icons",
+            "id": 20,
+            "name": "XML"
+          },
+          {
+            "iconName": "jira",
+            "iconType": "simple-icons",
+            "id": 22,
+            "name": "Jira"
+          },
+          {
+            "iconName": "code",
+            "iconType": "lucide",
+            "id": 23,
+            "name": "REST APIs"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 24,
+            "name": "Microservices"
+          },
+          {
+            "iconName": "layers",
+            "iconType": "lucide",
+            "id": 25,
+            "name": "OOP"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 27,
+            "name": "SDLC"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 28,
+            "name": "SaaS"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 29,
+            "name": "SEO"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 30,
+            "name": "a11y"
+          }
+        ],
+        "slug": "software"
+      },
+      {
+        "id": 2,
+        "name": "Build, Test & DevOps",
+        "skills": [
+          {
+            "iconName": "docker",
+            "iconType": "simple-icons",
+            "id": 33,
+            "name": "Docker"
+          },
+          {
+            "iconName": "vite",
+            "iconType": "simple-icons",
+            "id": 13,
+            "name": "Vite"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 84,
+            "name": "Vitest"
+          },
+          {
+            "iconName": "jest",
+            "iconType": "simple-icons",
+            "id": 61,
+            "name": "Jest"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 34,
+            "name": "CI/CD automation"
+          },
+          {
+            "iconName": "git",
+            "iconType": "simple-icons",
+            "id": 21,
+            "name": "Git"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 31,
+            "name": "AWS"
+          },
+          {
+            "iconName": "azurepipelines",
+            "iconType": "simple-icons",
+            "id": 36,
+            "name": "Azure Pipelines"
+          },
+          {
+            "iconName": "jenkins",
+            "iconType": "simple-icons",
+            "id": 35,
+            "name": "Jenkins"
+          }
+        ],
+        "slug": "devops"
+      },
+      {
+        "id": 10,
+        "name": "Engineering & Leadership",
+        "skills": [
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 42,
+            "name": "Code reviews"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 80,
+            "name": "Technical Discovery"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 82,
+            "name": "AI-Assisted Development"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 81,
+            "name": "Technical Discovery"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 83,
+            "name": "Secure Coding"
+          }
+        ],
+        "slug": "engineering-leadership"
+      },
+      {
+        "id": 11,
+        "name": "Back-End",
+        "skills": [],
+        "slug": "back-end"
+      },
+      {
+        "id": 3,
+        "name": "Quality & Collaboration",
+        "skills": [
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 39,
+            "name": "Unit testing"
+          },
+          {
+            "iconName": "flask-conical",
+            "iconType": "lucide",
+            "id": 41,
+            "name": "PEST / PHPUnit"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 43,
+            "name": "Pair programming"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 44,
+            "name": "API optimization"
+          }
+        ],
+        "slug": "quality"
+      },
+      {
+        "id": 4,
+        "name": "Leadership & Team Building",
+        "skills": [
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 46,
+            "name": "Team mentoring"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 68,
+            "name": "Agile Methodologies"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 47,
+            "name": "Innovative process improvement"
+          },
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 48,
+            "name": "Experienced Manager, Project Manager"
+          },
+          {
+            "iconName": "scrumalliance",
+            "iconType": "simple-icons",
+            "id": 49,
+            "name": "Certified ScrumMaster (2017-2023)"
+          }
+        ],
+        "slug": "leadership"
+      },
+      {
+        "id": 5,
+        "name": "Tools & Environment",
+        "skills": [
+          {
+            "iconName": "phpstorm",
+            "iconType": "simple-icons",
+            "id": 56,
+            "name": "PhpStorm"
+          },
+          {
+            "iconName": "visualstudiocode",
+            "iconType": "simple-icons",
+            "id": 57,
+            "name": "VS Code"
+          },
+          {
+            "iconName": "sentry",
+            "iconType": "simple-icons",
+            "id": 59,
+            "name": "Sentry"
+          }
+        ],
+        "slug": "tools"
+      },
+      {
+        "id": 6,
+        "name": "AI",
+        "skills": [
+          {
+            "iconName": null,
+            "iconType": null,
+            "id": 62,
+            "name": "Codex"
+          },
+          {
+            "iconName": "cursor",
+            "iconType": "simple-icons",
+            "id": 58,
+            "name": "Cursor"
+          },
+          {
+            "iconName": "claudecode",
+            "iconType": "simple-icons",
+            "id": 60,
+            "name": "Claude Code"
+          }
+        ],
+        "slug": "ai"
+      }
+    ],
+    "techStack": [
+      {
+        "active": false,
+        "iconName": "laravel",
+        "iconType": "simple-icons",
+        "percent": "90",
+        "tech": "Laravel"
+      },
+      {
+        "active": false,
+        "iconName": "php",
+        "iconType": "simple-icons",
+        "percent": "95",
+        "tech": "PHP"
+      },
+      {
+        "active": false,
+        "iconName": "vuedotjs",
+        "iconType": "simple-icons",
+        "percent": "75",
+        "tech": "Vue"
+      },
+      {
+        "active": false,
+        "iconName": "react",
+        "iconType": "simple-icons",
+        "percent": "45",
+        "tech": "React"
+      },
+      {
+        "active": false,
+        "iconName": "typescript",
+        "iconType": "simple-icons",
+        "percent": "90",
+        "tech": "TypeScript"
+      },
+      {
+        "active": false,
+        "iconName": "javascript",
+        "iconType": "simple-icons",
+        "percent": "95",
+        "tech": "JavaScript"
+      },
+      {
+        "active": false,
+        "iconName": "pinia",
+        "iconType": "simple-icons",
+        "percent": "90",
+        "tech": "Pinia"
+      },
+      {
+        "active": false,
+        "iconName": "code",
+        "iconType": "lucide",
+        "percent": "90",
+        "tech": "REST APIs"
+      },
+      {
+        "active": false,
+        "iconName": "mysql",
+        "iconType": "simple-icons",
+        "percent": "90",
+        "tech": "MySQL"
+      },
+      {
+        "active": false,
+        "iconName": "html5",
+        "iconType": "simple-icons",
+        "percent": "95",
+        "tech": "HTML5"
+      },
+      {
+        "active": false,
+        "iconName": "css3",
+        "iconType": "simple-icons",
+        "percent": "95",
+        "tech": "CSS3"
+      },
+      {
+        "active": false,
+        "iconName": "tailwindcss",
+        "iconType": "simple-icons",
+        "percent": "100",
+        "tech": "Tailwind CSS"
+      },
+      {
+        "active": false,
+        "iconName": "flask-conical",
+        "iconType": "lucide",
+        "percent": "80",
+        "tech": "PEST / PHPUnit"
+      },
+      {
+        "active": false,
+        "iconName": "layers",
+        "iconType": "lucide",
+        "percent": "90",
+        "tech": "OOP / MVC"
+      },
+      {
+        "active": false,
+        "iconName": "workflow",
+        "iconType": "lucide",
+        "percent": "90",
+        "tech": "Agile"
+      }
+    ]
+  },
+  "sharedProps": [
+    "errors",
+    "name",
+    "auth"
+  ],
+  "url": "/",
+  "version": "a0e6e0fb51794634c85f3d51069c5408"
+}
