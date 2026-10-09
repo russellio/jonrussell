@@ -41,7 +41,7 @@ jobs:
   build:
     needs: [lint, test]
     runs-on: ubuntu-latest
-    # Pushes the release commit + tag back to main.
+    # Pushes the release tag. Tags only -- see the tag step for why no branch write.
     permissions:
       contents: write
     outputs:
@@ -146,21 +146,33 @@ jobs:
           path: release-assets.tar.gz
           retention-days: 1
 
-      # After the build, so a broken bundle never burns a version number. [skip ci]
-      # keeps the release commit from re-triggering this workflow.
-      - name: Bump version, tag, and push
+      # After the build, so a broken bundle never burns a version number.
+      #
+      # The annotated tag is the sole release record, and this pushes nothing but the
+      # tag. It used to also commit an `npm pkg set version` bump to main, which the
+      # branch ruleset now makes impossible: a direct push of a brand-new commit can
+      # never satisfy required status checks (nothing has run against that SHA, and
+      # the commit carried a skip-ci marker so nothing ever would). Tags are not
+      # covered by that ruleset, so a tag-only push has no gate to fail.
+      #
+      # Do not write that marker's literal bracketed form into a commit message here
+      # or anywhere else -- GitHub matches it anywhere in the message, on push and
+      # pull_request alike, and silently creates no Actions check suite at all.
+      #
+      # Nothing in the repo reads package.json's "version" -- only "packageManager"
+      # is load-bearing -- and the bump only ever landed on main, so develop drifted
+      # behind it anyway. Do not reintroduce a branch push here without first adding
+      # GitHub Actions as a ruleset bypass actor; it will fail on every deploy.
+      - name: Tag release
         if: steps.version.outputs.should_tag == 'true'
         env:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
           set -euo pipefail
-          npm pkg set version="${VERSION#v}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add package.json
-          git commit -m "chore(release): ${VERSION} [skip ci]"
           git tag -a "$VERSION" -m "$VERSION"
-          git push origin HEAD:main --follow-tags
+          git push origin "refs/tags/$VERSION"
 
   deploy:
     needs: [lint, test, build]
