@@ -11,12 +11,17 @@ on:
   workflow_call: # allows deploy.yml to reuse this as a gate
 
 # Cancel superseded runs on PRs only. The guard matters: when deploy.yml invokes this
-# via workflow_call the called workflow's own concurrency key applies, and `github.ref`
-# /`github.workflow` resolve to the *caller's*. An unconditional cancel-in-progress
-# would therefore let a later push to main cancel the lint gate of an in-flight
-# production deploy.
+# via workflow_call the called workflow's own concurrency key applies, but the `github`
+# context resolves to the *caller's*. An unconditional cancel-in-progress would
+# therefore let a later push to main cancel the lint gate of an in-flight production
+# deploy.
+#
+# The prefix is a literal, not `github.workflow`, for the same reason: under
+# workflow_call that expression yields "deploy" here *and* in tests.yml, so the two
+# gates collided on one group and -- with cancel-in-progress false on that path --
+# serialized instead of running in parallel, adding ~70s to every deploy.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: lint-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
