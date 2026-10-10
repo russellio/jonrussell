@@ -11,9 +11,10 @@ on:
   workflow_call: # allows deploy.yml to reuse this as a gate
 
 # Cancel superseded runs on PRs only -- see the same block in lint.yml for why the
-# event_name guard is load-bearing for the deploy path.
+# event_name guard is load-bearing for the deploy path, and why the group prefix is a
+# literal rather than `github.workflow`.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: tests-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
