@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
-@import '@fontsource/noto-sans';
-@import '@fontsource/space-mono';
-@import '@fontsource/sixtyfour';
+@import '@fontsource/noto-sans/latin-400.css';
+@import '@fontsource/space-mono/latin-400.css';
+@import '@fontsource/sixtyfour/latin-400.css';
 
 @custom-variant can-hover (@media (hover: hover) and (pointer: fine));
 @custom-variant no-hover (@media (hover: none) or (pointer: coarse));
