@@ -42,18 +42,22 @@ const highlights = [
                 </p>
 
                 <p class="ms-4 mb-4">
-                    <span class="text-inline-heading">work ethic:</span> I take ownership from start to finish. I value accountability, transparency, clear communication, and mutual respect.  turn offs: egos
+                    <span class="text-inline-heading">work ethic:</span> I take ownership from start to finish. I value accountability, transparency,
+                    clear communication, and mutual respect. turn offs: egos
                 </p>
 
                 <p class="ms-4 mb-4">
-                    <span class="text-inline-heading">off the clock:</span> I love the problem-solving side of engineering. In my spare time, I enjoy tinkering, figuring out how things work, and finding clever and resourceful way to solve a problem.  Bonus points if it makes something frustrating, tedious, or manual super easy.
-                    I build projects around my homelab, DigitalOcean droplets, AWS EC2, and locally running LLMs.
+                    <span class="text-inline-heading">off the clock:</span> I love the problem-solving side of engineering. In my spare time, I enjoy
+                    tinkering, figuring out how things work, and finding clever and resourceful way to solve a problem. Bonus points if it makes
+                    something frustrating, tedious, or manual super easy. I build projects around my homelab, DigitalOcean droplets, AWS EC2, and
+                    locally running LLMs.
                 </p>
             </div>
 
             <p class="my-4 text-base">
                 I've preferred staying hands-on, exploring new frameworks and technologies, and seeing what's coming next. To me, the most satisfying
-                part of engineering is delivering solutions that simplify processes, improve efficiency, and make lifes easier, while building something I can genuinely be proud of.
+                part of engineering is delivering solutions that simplify processes, improve efficiency, and make lifes easier, while building
+                something I can genuinely be proud of.
             </p>
 
             <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-2" aria-label="Highlights">
