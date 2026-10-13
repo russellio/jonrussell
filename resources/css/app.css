@@ -1,8 +1,29 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
-@import '@fontsource/noto-sans/latin-400.css';
 @import '@fontsource/space-mono/latin-400.css';
+@import '@fontsource/space-mono/latin-700.css';
 @import '@fontsource/sixtyfour/latin-400.css';
+
+/*
+ * Noto Sans, latin subset, wght axis only — one file covers 100-900, so `font-medium`,
+ * `font-semibold` and `font-bold` paint real weights instead of a synthesized faux bold.
+ * The variable package ships no per-subset stylesheet, so the face is declared by hand to
+ * keep the other seven subsets (cyrillic, devanagari, greek, vietnamese, ...) out of the
+ * build. unicode-range is copied verbatim from the package's own `wght.css`.
+ *
+ * Space Mono has no variable build; `font-semibold` on it matches the 700 face above.
+ * Sixtyfour ships 400 only and is never bolded (display headings).
+ */
+@font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('@fontsource-variable/noto-sans/files/noto-sans-latin-wght-normal.woff2') format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 @custom-variant can-hover (@media (hover: hover) and (pointer: fine));
 @custom-variant no-hover (@media (hover: none) or (pointer: coarse));

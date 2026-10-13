@@ -43,7 +43,7 @@ const highlights = [
 
                 <p class="ms-4 mb-4">
                     <span class="text-inline-heading">work ethic:</span> I take ownership from start to finish. I value accountability, transparency,
-                    clear communication, and mutual respect. turn offs: egos
+                    clear communication, and mutual respect. <span class="text-inline-heading">turn offs</span>: egos that get in the way
                 </p>
 
                 <p class="ms-4 mb-4">

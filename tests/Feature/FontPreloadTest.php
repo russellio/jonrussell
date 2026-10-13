@@ -7,10 +7,25 @@ use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Str;
 
 /**
+ * The package-relative paths app.blade.php preloads, in order.
+ *
+ * @return list<string>
+ */
+function preloadedFonts(): array
+{
+    return [
+        '@fontsource-variable/noto-sans/files/noto-sans-latin-wght-normal.woff2',
+        '@fontsource/space-mono/files/space-mono-latin-400-normal.woff2',
+        '@fontsource/space-mono/files/space-mono-latin-700-normal.woff2',
+        '@fontsource/sixtyfour/files/sixtyfour-latin-400-normal.woff2',
+    ];
+}
+
+/**
  * Point the app at a throwaway public dir holding a Vite manifest whose font entries are keyed the
  * way pnpm makes Vite key them: by realpath, with the package version baked in.
  *
- * @param  list<string>  $fonts
+ * @param  list<string>  $fonts  package-relative paths, e.g. `@fontsource/sixtyfour/files/x.woff2`
  */
 function useBuildWithFonts(array $fonts): string
 {
@@ -19,9 +34,10 @@ function useBuildWithFonts(array $fonts): string
     $manifest = ['resources/js/app.ts' => ['file' => 'assets/app-abc123.js', 'src' => 'resources/js/app.ts', 'isEntry' => true]];
 
     foreach ($fonts as $font) {
-        $manifest["node_modules/.pnpm/@fontsource+{$font}@5.3.0/node_modules/@fontsource/{$font}/files/{$font}-latin-400-normal.woff2"] = [
-            'file' => "assets/{$font}-latin-400-normal-HASH.woff2",
-        ];
+        [$scope, $package] = explode('/', $font);
+        $realpathDir = "node_modules/.pnpm/{$scope}+{$package}@5.3.0/node_modules";
+
+        $manifest["{$realpathDir}/{$font}"] = ['file' => 'assets/'.hashedFontFile($font)];
     }
 
     File::ensureDirectoryExists("{$publicPath}/build");
@@ -31,34 +47,44 @@ function useBuildWithFonts(array $fonts): string
     return $publicPath;
 }
 
+/**
+ * The built filename Vite would emit for a font, standing in for the content hash.
+ */
+function hashedFontFile(string $font): string
+{
+    return str_replace('.woff2', '-HASH.woff2', basename($font));
+}
+
 afterEach(function () {
     File::deleteDirectory(storage_path('framework/testing/vite'));
 });
 
 it('preloads each latin font from a version-keyed manifest', function () {
-    useBuildWithFonts(['noto-sans', 'space-mono', 'sixtyfour']);
+    useBuildWithFonts(preloadedFonts());
 
     $response = $this->get('/');
 
-    $response->assertSee('<link rel="preload" href="'.url('build/assets/noto-sans-latin-400-normal-HASH.woff2').'" as="font" type="font/woff2" crossorigin>', false)
-        ->assertSee('<link rel="preload" href="'.url('build/assets/space-mono-latin-400-normal-HASH.woff2').'" as="font" type="font/woff2" crossorigin>', false)
-        ->assertSee('<link rel="preload" href="'.url('build/assets/sixtyfour-latin-400-normal-HASH.woff2').'" as="font" type="font/woff2" crossorigin>', false);
+    foreach (preloadedFonts() as $font) {
+        $url = url('build/assets/'.hashedFontFile($font));
+        $response->assertSee('<link rel="preload" href="'.$url.'" as="font" type="font/woff2" crossorigin>', false);
+    }
 });
 
 it('still renders the page and reports when a font is missing from the manifest', function () {
     Exceptions::fake();
-    useBuildWithFonts(['noto-sans', 'space-mono']);
+    $present = array_slice(preloadedFonts(), 0, -1);
+    useBuildWithFonts($present);
 
     $response = $this->get('/');
 
     $response->assertOk()
-        ->assertSee('noto-sans-latin-400-normal-HASH.woff2', false)
+        ->assertSee('noto-sans-latin-wght-normal-HASH.woff2', false)
         ->assertDontSee('sixtyfour-latin-400-normal', false);
     Exceptions::assertReported(fn (ViteException $e): bool => str_contains($e->getMessage(), 'sixtyfour-latin-400-normal.woff2'));
 });
 
 it('does not preload fonts while Vite is running hot', function () {
-    $publicPath = useBuildWithFonts(['noto-sans', 'space-mono', 'sixtyfour']);
+    $publicPath = useBuildWithFonts(preloadedFonts());
     File::put("{$publicPath}/hot", 'http://localhost:5173');
     Vite::useHotFile("{$publicPath}/hot");
 
