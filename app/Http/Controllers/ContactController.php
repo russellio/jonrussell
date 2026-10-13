@@ -18,10 +18,16 @@ class ContactController extends Controller
             'email' => 'required|email',
             'subject' => 'required|string|max:255',
             'message' => 'required|string|min:10',
-            // `bail` keeps a missing token from costing a round trip to Cloudflare.
-            'turnstile_token' => ['bail', 'required', 'string', new ValidTurnstileToken],
+            'turnstile_token' => ['required', 'string'],
         ], [
             'turnstile_token.required' => 'Please complete the security verification.',
+        ]);
+
+        // Redeemed in a second pass, on purpose. A Turnstile token is single-use, so spending
+        // it alongside the field rules would burn the visitor's challenge — and cost a round
+        // trip to Cloudflare — just to tell them their subject line is too long.
+        $request->validate([
+            'turnstile_token' => [new ValidTurnstileToken],
         ]);
 
         try {

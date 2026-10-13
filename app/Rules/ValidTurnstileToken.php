@@ -93,7 +93,9 @@ class ValidTurnstileToken implements ValidationRule
 
         // A token is single-use and expires after five minutes, so this is the ordinary
         // failure for a real person who left the form open. Don't imply they look like a bot.
-        if (array_intersect($codes, ['timeout-or-duplicate', 'invalid-input-response'])) {
+        // `invalid-input-response` is deliberately not here: it also covers a malformed or
+        // forged token, and telling a forger their verification "expired" is just wrong.
+        if (in_array('timeout-or-duplicate', $codes, true)) {
             return 'Your security verification expired. Please complete it again.';
         }
 

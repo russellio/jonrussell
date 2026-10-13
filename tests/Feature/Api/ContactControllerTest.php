@@ -64,7 +64,7 @@ test('contact form validates required fields', function () {
     $response->assertJsonPath('errors.message', fn ($v) => ! empty($v));
     $response->assertJsonPath('errors.turnstile_token.0', 'Please complete the security verification.');
 
-    // `bail` should stop a missing token before it costs a round trip to Cloudflare.
+    // A missing token should be caught before it costs a round trip to Cloudflare.
     Http::assertNothingSent();
 });
 
@@ -75,6 +75,18 @@ test('contact form validates email format', function () {
 
     $response->assertStatus(422);
     $response->assertJsonPath('errors.email', fn ($v) => ! empty($v));
+});
+
+test('contact form reports field errors without spending the token', function () {
+    turnstileAccepts();
+
+    $this->postJson('/api/contact', contactPayload(['subject' => '', 'message' => 'short']))
+        ->assertStatus(422)
+        ->assertJsonMissingPath('errors.turnstile_token');
+
+    // The token is redeemed in a second validation pass, so a submission that fails the field
+    // rules leaves the visitor's challenge unspent and costs Cloudflare nothing.
+    Http::assertNothingSent();
 });
 
 test('contact form validates message minimum length', function () {
@@ -139,7 +151,7 @@ test('contact form rejects a token Cloudflare will not vouch for', function () {
     $response = $this->postJson('/api/contact', contactPayload());
 
     $response->assertStatus(422)
-        ->assertJsonPath('errors.turnstile_token.0', 'Your security verification expired. Please complete it again.');
+        ->assertJsonPath('errors.turnstile_token.0', 'Security verification failed. Please try again.');
 
     Mail::assertNothingSent();
 });

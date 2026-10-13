@@ -171,7 +171,14 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         toast.add({ title: data.message || 'Message sent successfully!', color: 'success' });
         open.value = false;
     } catch (error: unknown) {
-        submitError.value = error instanceof Error ? error.message : 'Failed to send message. Please try again.';
+        // Reached when the request never completed, or when the response body wasn't the JSON
+        // we expected — a proxy's 502/504 HTML page, say. The server may already have redeemed
+        // the token by then, so the widget needs resetting here too or every retry fails as a
+        // duplicate. The underlying error is nothing a visitor can act on ("Unexpected token
+        // '<'"), so it goes to the console and they get something generic.
+        console.error('Contact form submission failed.', error);
+        resetTurnstile();
+        submitError.value = 'Failed to send message. Please try again.';
     } finally {
         isLoading.value = false;
     }
