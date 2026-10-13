@@ -39,7 +39,7 @@ createInertiaApp({
                 release: import.meta.env.VITE_SENTRY_RELEASE,
                 sendDefaultPii: false,
                 integrations: [Sentry.browserTracingIntegration()],
-                tracesSampleRate: parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE ?? '0.8'),
+                tracesSampleRate: parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE ?? '0.1'),
                 tracePropagationTargets: ['localhost', /^https:\/\/(?:[\w-]+\.)?jonrussell\.dev(?:[/:]|$)/],
             });
         }
