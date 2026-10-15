@@ -43,10 +43,28 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
 
+      # Node major comes from .nvmrc — single source of truth, shared with local dev and
+      # read the same way by tests.yml, deploy.yml, and the russellio.com /
+      # lawnwriter.com repos.
+      #
+      # This is allowed to lead production's node, but only after checking. ssr.noExternal
+      # in vite.config.ts bundles every dependency into bootstrap/ssr, and the droplet
+      # executes that bundle under its own /usr/bin/node (v22.23.1 on 2026-10-15), so a
+      # build on a newer major could in principle emit syntax prod cannot parse. That
+      # failure is invisible from the outside — Inertia's SSR server answers 200 with a
+      # zero-byte body when a render throws, which is why deploy.yml gates on
+      # inertia:verify-render rather than a status code.
+      #
+      # So before raising this past prod's major: build :ssr on the new major, then
+      # `node --check` every bootstrap/ssr chunk and run `pnpm test:ssr` under prod's
+      # major. 26 was cleared that way on 2026-10-15 (node 26.10.0 build; clean --check
+      # and passing render smoke test on 22.22.3) — Vite's SSR output is ES2020-era
+      # because the bundled deps ship for broad compat, so the two majors are not in
+      # practice coupled.
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: Install PHP Dependencies

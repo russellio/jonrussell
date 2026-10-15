@@ -43,10 +43,12 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
 
+      # Node major comes from .nvmrc -- see lint.yml for how it relates to the node the
+      # droplet actually runs the SSR bundle under.
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: Install Node Dependencies
