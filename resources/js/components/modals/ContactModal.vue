@@ -67,13 +67,38 @@ const open = computed({
 
 const toast = useToast();
 
+// Tears the widget down and forgets both the id and the token it issued. Closing the modal
+// unmounts the container div and the widget's DOM with it, so a surviving widget id would
+// make the watcher below skip rendering into the fresh container on re-open — leaving the
+// visitor no challenge to solve and a spent token that sails past the guard in onSubmit.
+function destroyTurnstile() {
+    turnstileToken.value = '';
+
+    const widgetId = turnstileWidgetId.value;
+    turnstileWidgetId.value = null;
+
+    if (!widgetId || !window.turnstile) return;
+
+    try {
+        window.turnstile.remove(widgetId);
+    } catch {
+        // The container is already detached by the time this runs, so there is nothing left
+        // to clean up and nothing a visitor could act on. The next open renders a new widget.
+    }
+}
+
 // UModal teleports/animates its body content in, so the container div isn't
 // guaranteed to exist in the DOM yet when this component's onMounted fires.
 // Watching the template ref instead reacts to the moment Vue actually mounts it.
 watch(
     turnstileContainerRef,
     async (container) => {
-        if (!container || turnstileWidgetId.value) return;
+        if (!container) {
+            destroyTurnstile();
+            return;
+        }
+
+        if (turnstileWidgetId.value) return;
 
         try {
             const turnstile = await loadTurnstile();
@@ -110,15 +135,9 @@ function resetTurnstile() {
     }
 }
 
-onUnmounted(() => {
-    if (turnstileWidgetId.value && window.turnstile) {
-        try {
-            window.turnstile.remove(turnstileWidgetId.value);
-        } catch {
-            submitError.value = 'Failed to clean up security verification. Please refresh the page.';
-        }
-    }
-});
+// Normally a no-op — the watcher above has already torn the widget down when the modal
+// closed. This covers the case where the whole component goes away with the modal still open.
+onUnmounted(destroyTurnstile);
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
     submitError.value = '';
