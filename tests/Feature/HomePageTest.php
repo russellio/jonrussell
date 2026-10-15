@@ -66,3 +66,11 @@ test('home page batches its five cache reads into a single query', function () {
 
     expect($cacheTableQueries)->toHaveCount(1);
 });
+
+test('home page does not load the Turnstile script', function () {
+    // api.js is ~80KB plus a third-party connection, and only the contact form uses it.
+    // ContactModal.vue injects it when the form mounts, so it must not be in the shell.
+    $this->get('/')
+        ->assertOk()
+        ->assertDontSee('challenges.cloudflare.com', false);
+});

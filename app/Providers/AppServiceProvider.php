@@ -74,7 +74,7 @@ class AppServiceProvider extends ServiceProvider
      * Register `Vite::packageAsset()`, which resolves a file emitted from an npm package to its built URL.
      *
      * `Vite::asset()` can't be used for these: pnpm makes Vite key the manifest by realpath, e.g.
-     * `node_modules/.pnpm/@fontsource+noto-sans@5.3.0/node_modules/@fontsource/noto-sans/files/...`,
+     * `node_modules/.pnpm/@fontsource-variable+noto-sans@5.3.0/node_modules/@fontsource-variable/noto-sans/files/...`,
      * so the key changes on every package bump and `Vite::asset()` would throw on every page.
      * Matching on the `node_modules/<package path>` suffix survives version changes. A miss is
      * reported rather than thrown, so a renamed file costs a preload, not the page.

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactFormMail;
+use App\Rules\ValidTurnstileToken;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -17,6 +18,16 @@ class ContactController extends Controller
             'email' => 'required|email',
             'subject' => 'required|string|max:255',
             'message' => 'required|string|min:10',
+            'turnstile_token' => ['required', 'string'],
+        ], [
+            'turnstile_token.required' => 'Please complete the security verification.',
+        ]);
+
+        // Redeemed in a second pass, on purpose. A Turnstile token is single-use, so spending
+        // it alongside the field rules would burn the visitor's challenge — and cost a round
+        // trip to Cloudflare — just to tell them their subject line is too long.
+        $request->validate([
+            'turnstile_token' => [new ValidTurnstileToken],
         ]);
 
         try {
