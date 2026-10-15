@@ -8,6 +8,7 @@ use Illuminate\Foundation\Vite as ViteInstance;
 use Illuminate\Foundation\ViteException;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
@@ -54,6 +55,19 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null,
         );
+
+        // Laravel's HTTP client defaults to a 30s timeout, which is what let the
+        // Inertia SSR gateway (Http::post() to 127.0.0.1:13714, no timeout of its
+        // own) hang every request for 30s when the Node SSR worker wedged
+        // (JONRUSSELL-DEV-LARAVEL-1W). 3s is plenty for a localhost render; a
+        // wedged worker now fails fast and Inertia falls back to client-side
+        // rendering instead of the visitor staring at a blank tab. Any call site
+        // that sets its own ->timeout() (e.g. ValidTurnstileToken) still wins,
+        // this only changes callers relying on the 30s default.
+        Http::globalOptions([
+            'timeout' => 3,
+            'connect_timeout' => 3,
+        ]);
     }
 
     /**
