@@ -87,7 +87,13 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$REF" != "main" ]; then
-            echo "version=$(git describe --tags HEAD)" >> "$GITHUB_OUTPUT"
+            # Assign outside `echo` so a failure trips `set -e` instead of emitting an empty value.
+            # --exact-match: an untagged commit must not get a "v1.2.3-5-gabc1234" describe string.
+            if ! VERSION=$(git describe --tags --exact-match HEAD 2>/dev/null); then
+              VERSION=$(git rev-parse --short HEAD)
+              echo "::warning::$REF has no release tag; using commit SHA $VERSION as the Sentry release"
+            fi
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
             echo "should_tag=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi

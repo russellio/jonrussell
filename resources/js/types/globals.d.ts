@@ -14,10 +14,13 @@ declare global {
         reset(widgetId?: string): void;
     }
 
-    const turnstile: TurnstileInstance;
-
     interface Window {
+        // Assigned by Turnstile's api.js, which ContactModal.vue injects on demand — so this
+        // is undefined until the contact form has been opened at least once.
         turnstile: TurnstileInstance;
+
+        // Ready callback ContactModal.vue hands api.js via its `onload` query param.
+        __onTurnstileReady?: () => void;
     }
 }
 

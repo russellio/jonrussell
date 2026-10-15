@@ -23,3 +23,15 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# Without an origin Cache-Control, Cloudflare falls back to its 4-hour browser TTL.
+# Vite's build/assets filenames are content-hashed, so a URL's content never changes.
+# images/ keeps stable filenames that do get replaced in place, so it stays short-lived.
+<IfModule mod_headers.c>
+    <If "%{REQUEST_URI} =~ m#^/build/assets/#">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </If>
+    <ElseIf "%{REQUEST_URI} =~ m#^/images/#">
+        Header set Cache-Control "public, max-age=86400"
+    </ElseIf>
+</IfModule>

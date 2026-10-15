@@ -20,7 +20,17 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
         <link rel="manifest" href="/favicons/site.webmanifest">
 
-        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+        {{-- Latin faces used above the fold. Preloading lets them arrive with the CSS instead of after it, so the swap from the fallback lands before first paint (CLS). The Noto Sans file is the variable wght build, so one preload covers every weight the design uses. --}}
+        @foreach ([
+            '@fontsource-variable/noto-sans/files/noto-sans-latin-wght-normal.woff2',
+            '@fontsource/space-mono/files/space-mono-latin-400-normal.woff2',
+            '@fontsource/space-mono/files/space-mono-latin-700-normal.woff2',
+            '@fontsource/sixtyfour/files/sixtyfour-latin-400-normal.woff2',
+        ] as $fontPath)
+            @if ($fontUrl = Vite::packageAsset($fontPath))
+                <link rel="preload" href="{{ $fontUrl }}" as="font" type="font/woff2" crossorigin>
+            @endif
+        @endforeach
 
         @vite(['resources/js/app.ts'])
         @inertiaHead

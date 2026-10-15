@@ -7,6 +7,40 @@ import { z } from 'zod';
 
 const turnstileSitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
 
+// The field name the server validates the token under, and therefore the key its errors
+// come back on. It has no UFormField of its own.
+const TURNSTILE_FIELD = 'turnstile_token';
+
+// Turnstile's api.js used to be a <script> in app.blade.php, which cost every visitor a
+// third-party connection and ~80KB for a widget only the contact form uses. It is fetched
+// here instead, the first time the form is actually on screen. Module scope (not component
+// scope) so re-opening the modal reuses the already-resolved promise.
+let turnstileScript: Promise<TurnstileInstance> | null = null;
+
+function loadTurnstile(): Promise<TurnstileInstance> {
+    if (window.turnstile) return Promise.resolve(window.turnstile);
+
+    // `onload` is Turnstile's own ready signal — the script's load event can fire before the
+    // API object is assigned, which is the race that broke this widget on a previous deploy.
+    turnstileScript ??= new Promise<TurnstileInstance>((resolve, reject) => {
+        const callbackName = '__onTurnstileReady';
+        window[callbackName] = () => resolve(window.turnstile);
+
+        const script = document.createElement('script');
+        script.src = `https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=${callbackName}`;
+        script.async = true;
+        script.onerror = () => {
+            turnstileScript = null;
+            script.remove();
+            reject(new Error('Failed to load the Turnstile script.'));
+        };
+
+        document.head.appendChild(script);
+    });
+
+    return turnstileScript;
+}
+
 const schema = z.object({
     email: z.email('Please enter a valid email address.'),
     subject: z.string().trim().min(1, 'Subject is required.').max(255, 'Subject must be less than 255 characters.'),
@@ -33,31 +67,48 @@ const open = computed({
 
 const toast = useToast();
 
-function onLoadTurnstile(container: HTMLDivElement) {
-    turnstileWidgetId.value = turnstile.render(container, {
-        sitekey: turnstileSitekey,
-        callback: function (token: string) {
-            turnstileToken.value = token;
-        },
-    });
-}
-
 // UModal teleports/animates its body content in, so the container div isn't
 // guaranteed to exist in the DOM yet when this component's onMounted fires.
 // Watching the template ref instead reacts to the moment Vue actually mounts it.
 watch(
     turnstileContainerRef,
-    (container) => {
+    async (container) => {
         if (!container || turnstileWidgetId.value) return;
 
         try {
-            onLoadTurnstile(container);
+            const turnstile = await loadTurnstile();
+
+            // The modal can close, or another run of this watcher can win, while the script
+            // is in flight. Re-check both before rendering into a detached container.
+            if (turnstileContainerRef.value !== container || turnstileWidgetId.value) return;
+
+            turnstileWidgetId.value = turnstile.render(container, {
+                sitekey: turnstileSitekey,
+                callback: (token: string) => {
+                    turnstileToken.value = token;
+                },
+            });
         } catch {
             submitError.value = 'Failed to load security verification. Please refresh the page.';
         }
     },
     { immediate: true },
 );
+
+// Turnstile hands out single-use tokens, so a submission that the server refused leaves the
+// visitor holding a spent one. Swap it for a fresh challenge before they can try again.
+function resetTurnstile() {
+    turnstileToken.value = '';
+
+    if (!turnstileWidgetId.value || !window.turnstile) return;
+
+    try {
+        window.turnstile.reset(turnstileWidgetId.value);
+    } catch {
+        // Nothing useful to say here: the real submit error is already on screen, and the
+        // server rejects the stale token on the next attempt regardless.
+    }
+}
 
 onUnmounted(() => {
     if (turnstileWidgetId.value && window.turnstile) {
@@ -89,15 +140,28 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             },
             body: JSON.stringify({
                 ...event.data,
-                turnstile_token: turnstileToken.value,
+                [TURNSTILE_FIELD]: turnstileToken.value,
             }),
         });
 
         const data = (await response.json()) as { message?: string; errors?: Record<string, string[]> };
 
         if (!response.ok) {
+            // The server redeems the token at Cloudflare, and a redeemed token is spent.
+            // Without a fresh one, every retry would fail as a duplicate.
+            resetTurnstile();
+
             if (response.status === 422 && data.errors) {
-                formRef.value?.setErrors(Object.entries(data.errors).flatMap(([name, messages]) => messages.map((message) => ({ name, message }))));
+                // `turnstile_token` has no UFormField to attach to, so it would vanish if
+                // handed to setErrors. Surface it in the alert above the form instead.
+                const errors = Object.entries(data.errors);
+                const tokenError = data.errors[TURNSTILE_FIELD]?.[0];
+
+                if (tokenError) submitError.value = tokenError;
+
+                formRef.value?.setErrors(
+                    errors.filter(([name]) => name !== TURNSTILE_FIELD).flatMap(([name, messages]) => messages.map((message) => ({ name, message }))),
+                );
             } else {
                 submitError.value = data.message || 'Failed to send message. Please try again.';
             }
@@ -107,7 +171,14 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         toast.add({ title: data.message || 'Message sent successfully!', color: 'success' });
         open.value = false;
     } catch (error: unknown) {
-        submitError.value = error instanceof Error ? error.message : 'Failed to send message. Please try again.';
+        // Reached when the request never completed, or when the response body wasn't the JSON
+        // we expected — a proxy's 502/504 HTML page, say. The server may already have redeemed
+        // the token by then, so the widget needs resetting here too or every retry fails as a
+        // duplicate. The underlying error is nothing a visitor can act on ("Unexpected token
+        // '<'"), so it goes to the console and they get something generic.
+        console.error('Contact form submission failed.', error);
+        resetTurnstile();
+        submitError.value = 'Failed to send message. Please try again.';
     } finally {
         isLoading.value = false;
     }
@@ -148,7 +219,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
         <template #footer="{ close }">
             <UButton color="neutral" variant="outline" label="Cancel" @click="close" />
-            <UButton type="submit" form="contact-form" label="Send Message" :loading="isLoading" />
+            <UButton type="submit" form="contact-form" label="Send Message" :loading="isLoading" class="text-white" />
         </template>
     </UModal>
 </template>
