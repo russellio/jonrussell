@@ -40,7 +40,7 @@ jobs:
   # Do not reintroduce externals here without also installing node deps on the server.
   build:
     needs: [lint, test]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # Pushes the release tag. Tags only -- see the tag step for why no branch write.
     permissions:
       contents: write
@@ -63,7 +63,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
-          php-version: '8.4'
+          php-version: '8.5'
 
       # Must precede setup-node so `cache: 'pnpm'` can find the pnpm binary.
       # Version comes from package.json "packageManager" — single source of truth.
@@ -185,7 +185,7 @@ jobs:
 
   deploy:
     needs: [lint, test, build]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v8
