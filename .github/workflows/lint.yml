@@ -29,14 +29,14 @@ permissions:
 
 jobs:
   quality:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
-          php-version: '8.4'
+          php-version: '8.5'
 
       # Must precede setup-node so `cache: 'pnpm'` can find the pnpm binary.
       # Version comes from package.json "packageManager" — single source of truth.
