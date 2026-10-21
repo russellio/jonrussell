@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   review:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # This repo is public, and `pull_request` from a fork gets no access to secrets,
     # so the action would fail on a missing token through no fault of the contributor.
     # Skip those instead: fork PRs still get the `ci` and `quality` gates. Do NOT

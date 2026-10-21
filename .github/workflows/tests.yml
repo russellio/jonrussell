@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -31,7 +31,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
-          php-version: 8.4
+          php-version: 8.5
           tools: composer:v2
           # Nothing in this pipeline collects coverage: pest runs without --coverage
           # and phpunit.xml's <source> element is empty. Loading Xdebug just to
