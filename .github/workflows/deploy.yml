@@ -24,8 +24,8 @@ jobs:
   test:
     uses: ./.github/workflows/tests.yml
 
-  # The deploy droplet has ~1GB RAM, most of it already spoken for by Apache/MySQL/queue
-  # workers at idle -- `pnpm run build:ssr` reliably OOMs there. Build here instead, where
+  # The deploy droplet has ~1GB RAM, most of it already spoken for by Apache/PHP-FPM/MySQL/SSR
+  # at idle -- `pnpm run build:ssr` reliably OOMs there. Build here instead, where
   # RAM is never the constraint, and ship the runner's finished output to the server.
   #
   # Because of that split, this deploy installs PHP dependencies on the server but never
