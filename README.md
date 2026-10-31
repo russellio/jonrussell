@@ -22,7 +22,7 @@ The site presents a work history, skills, and project portfolio through a single
 | Styling | Tailwind CSS 4, Space Mono + Sixtyfour (self-hosted via `@fontsource`) |
 | Build | Vite 7, Laravel Vite Plugin |
 | CMS | Filament 3 (`/admin`) |
-| Email | Mailgun via Symfony Mailer |
+| Email | Amazon SES (Laravel `ses` transport) |
 | CAPTCHA | Cloudflare Turnstile |
 | Error Tracking | Sentry (Laravel + `@sentry/vue`) |
 | Testing | PEST 4, SQLite in-memory |
@@ -75,6 +75,6 @@ Tailwind classes are composed with `@apply` inside `<style scoped>` blocks rathe
 
 ## Key Technologies
 
-`PHP 8.3` · `Laravel 12` · `Inertia.js 2` · `Vue 3` · `TypeScript` · `Tailwind CSS 4` · `Vite 7` · `Pinia` · `Filament 3` · `PEST 4` · `Mailgun` · `Cloudflare Turnstile` · `Sentry` · `Nuxt UI` · `mews/purifier` · `Laravel Wayfinder`
+`PHP 8.3` · `Laravel 12` · `Inertia.js 2` · `Vue 3` · `TypeScript` · `Tailwind CSS 4` · `Vite 7` · `Pinia` · `Filament 3` · `PEST 4` · `Amazon SES` · `Cloudflare Turnstile` · `Sentry` · `Nuxt UI` · `mews/purifier` · `Laravel Wayfinder`
 
 `FontAwesome` and `vue3-simple-icons` were used previously and have been fully removed, replaced by Nuxt UI's `<UIcon>`.

@@ -12,7 +12,7 @@ Full-stack Laravel 12 + Vue 3 (Inertia.js) application. **Not** a traditional SP
 - **Build**: Vite 7, Laravel Vite Plugin, `vue-tsc` for type-checking
 - **Testing**: PEST 4 (backend only — no frontend test runner configured)
 - **Linting/Formatting**: ESLint 9 (Vue + TS plugins), Prettier 3, Stylelint 16, Laravel Pint (PHP)
-- **Email**: Mailgun via Symfony Mailer
+- **Email**: Amazon SES via Laravel's `ses` transport (`aws/aws-sdk-php`)
 - **Error Tracking**: Sentry (backend via `sentry/sentry-laravel`, frontend via `@sentry/vue`)
 - **CAPTCHA**: Cloudflare Turnstile (`VITE_TURNSTILE_SITE_KEY`) on the contact form
 
@@ -75,7 +75,7 @@ The entire site is a single Inertia page (`SPA.vue`). Navigation between `/, /ab
 
 - `app/Models/` — Eloquent models. Key: `Project` (with 6 child has-many relationships), `Position`, `Company`, `Skill`/`SkillType`, `TechStackItem`, `Icon`
 - `app/Http/Controllers/Api/` — Public read-only JSON API (`ProjectController`, `SkillController`, `TimelineController`, `TechStackController`)
-- `app/Http/Controllers/ContactController` — Contact form POST, sends Mailgun email
+- `app/Http/Controllers/ContactController` — Contact form POST, sends email via SES
 - `app/Filament/Resources/` — Filament CMS resources for all content models (sole CMS / content management interface)
 - `app/Services/` — `CompanyStatsService` and `TechStackMetricsService` interfaces exist with registered empty stub impls (TODO)
 - `app/Http/Middleware/HandleInertiaRequests` — Shares `name`, `quote` (random), and `auth.user` globally on every request
