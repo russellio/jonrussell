@@ -30,7 +30,7 @@ importers:
         specifier: ^1.2.97
         version: 1.2.97
       '@inertiajs/vue3':
-        specifier: ^2.3.28
+        specifier: 2.3.28
         version: 2.3.28(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)(vue@3.5.43(typescript@5.9.3))
       '@nuxt/ui':
         specifier: ^4.11.1

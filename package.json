@@ -44,7 +44,7 @@
         "@fontsource/space-mono": "^5.3.0",
         "@iconify-json/lucide": "^1.2.135",
         "@iconify-json/simple-icons": "^1.2.97",
-        "@inertiajs/vue3": "^2.3.28",
+        "@inertiajs/vue3": "2.3.28",
         "@nuxt/ui": "^4.11.1",
         "@russellio/vue-background-stars": "^1.4.0",
         "@sentry/vue": "^10.75.0",
