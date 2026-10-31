@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
+        "aws/aws-sdk-php": "^3.385",
         "filament/filament": "^3.2",
         "inertiajs/inertia-laravel": "^3.0",
         "laravel/framework": "^13.17",
@@ -17,9 +18,7 @@
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "^0.1.14",
         "mews/purifier": "^3.4",
-        "sentry/sentry-laravel": "^4.18",
-        "symfony/http-client": "^7.3",
-        "symfony/mailgun-mailer": "^7.3"
+        "sentry/sentry-laravel": "^4.18"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",
