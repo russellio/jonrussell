@@ -24,7 +24,11 @@ jobs:
     # Skip those instead: fork PRs still get the `ci` and `quality` gates. Do NOT
     # "fix" this by switching to pull_request_target -- that runs a writable token in
     # the base-repo context against untrusted head code.
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    # Dependabot PRs are skipped too: they only see Dependabot secrets (no
+    # CLAUDE_CODE_OAUTH_TOKEN), and the action rejects bot actors by default.
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
     steps:
       - uses: actions/checkout@v7
         with:
