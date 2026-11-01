@@ -7,7 +7,7 @@ const highlights = [
     { value: '3+ yrs', label: 'Project Management' },
     { value: '2.5+ yrs', label: 'Management' },
     { value: '6 yrs', label: 'Certified ScrumMaster' },
-    { value: 'Master of Internet Techology', label: 'University of Georgia' },
+    { value: 'Master of Internet Technology', label: 'University of Georgia' },
 ];
 </script>
 
