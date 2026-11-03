@@ -12,7 +12,7 @@ import PostsSection from '@/js/sections/PostsSection.vue';
 import ProjectsSection from '@/js/sections/ProjectsSection.vue';
 import SkillsSection from '@/js/sections/SkillsSection.vue';
 import TechStackSection from '@/js/sections/TechStackSection.vue';
-import { useProjectsStore } from '@/js/stores/projectsStore';
+import { PROJECT_LINK_PREFIX, useProjectsStore } from '@/js/stores/projectsStore';
 import type { AppPageProps, Post, Project, SkillType, TechStackItem, TimelinePosition } from '@/js/types';
 import { Head, usePage } from '@inertiajs/vue3';
 import { computed, nextTick, onMounted, watch } from 'vue';
@@ -60,7 +60,18 @@ const performScrollAction = async (scrollTo: string | undefined | null) => {
     scrollToSection(scrollTo);
 };
 
+const openProjectFromHash = (): void => {
+    const { hash } = window.location;
+    if (!hash.startsWith(PROJECT_LINK_PREFIX)) return;
+
+    const slug = decodeURIComponent(hash.slice(PROJECT_LINK_PREFIX.length));
+    if (projectsStore.selectProject(slug)) {
+        openModal('project-modal');
+    }
+};
+
 onMounted(async () => {
+    openProjectFromHash();
     await performScrollAction(page.props.scrollTo);
 });
 
