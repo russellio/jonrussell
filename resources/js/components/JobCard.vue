@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useModal } from '@/js/composables/useModal';
-import { useProjectsStore } from '@/js/stores/projectsStore';
+import { PROJECT_LINK_PREFIX, useProjectsStore } from '@/js/stores/projectsStore';
 import type { TimelinePosition } from '@/js/types/index';
 import { computed } from 'vue';
 
@@ -38,8 +38,6 @@ const showCompanyName = computed(() => {
 
 const projectsStore = useProjectsStore();
 const { openModal } = useModal();
-
-const PROJECT_LINK_PREFIX = '#project:';
 
 function onDescriptionClick(event: MouseEvent): void {
     const anchor = (event.target as HTMLElement).closest<HTMLAnchorElement>('a');

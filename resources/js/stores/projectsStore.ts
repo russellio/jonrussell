@@ -2,6 +2,8 @@ import type { Project } from '@/js/types';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
+export const PROJECT_LINK_PREFIX = '#project:';
+
 export const useProjectsStore = defineStore('projects', () => {
     const projects = ref<Project[]>([]);
     const selectedSlug = ref<string | null>(null);
