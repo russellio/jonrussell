@@ -139,19 +139,22 @@ function resetTurnstile() {
 // closed. This covers the case where the whole component goes away with the modal still open.
 onUnmounted(destroyTurnstile);
 
-// Client-side validation failed. Move focus to the first invalid field so keyboard and
-// screen-reader users land on the error (its message is wired up via aria-describedby)
-// instead of staying on "Send Message" with nothing announced. UForm's loadingAuto disables
-// the inputs during submit and only re-enables them in a `finally` that runs after this event,
-// so focusing now (or after nextTick) hits a disabled input and is silently ignored. A
+// Moves focus to the first invalid field so keyboard and screen-reader users land on the
+// error (its message is wired up via aria-describedby) instead of staying on "Send Message"
+// with nothing announced. UForm's loadingAuto disables the inputs for the whole submit and
+// only re-enables them in a `finally` after the error event / onSubmit settles, so focusing
+// synchronously (or after nextTick) hits a disabled input and is silently ignored. A
 // macrotask runs after Vue has flushed the re-enable.
+function focusFirstInvalidField(fieldId: string | undefined) {
+    if (!fieldId) return;
+
+    setTimeout(() => document.getElementById(fieldId)?.focus());
+}
+
+// Client-side validation failed.
 function onError(event: FormErrorEvent) {
     submitError.value = '';
-
-    const firstErrorId = event.errors[0]?.id;
-    if (!firstErrorId) return;
-
-    setTimeout(() => document.getElementById(firstErrorId)?.focus());
+    focusFirstInvalidField(event.errors[0]?.id);
 }
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
@@ -196,6 +199,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                 formRef.value?.setErrors(
                     errors.filter(([name]) => name !== TURNSTILE_FIELD).flatMap(([name, messages]) => messages.map((message) => ({ name, message }))),
                 );
+
+                // The token error lands in the role="alert" banner, which announces itself; field
+                // errors need focus moved to them the same way client-side failures do.
+                focusFirstInvalidField(formRef.value?.getErrors()[0]?.id);
             } else {
                 submitError.value = data.message || 'Failed to send message. Please try again.';
             }
