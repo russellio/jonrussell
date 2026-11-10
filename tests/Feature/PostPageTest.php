@@ -15,6 +15,24 @@ test('post page renders for a published post', function () {
     );
 });
 
+test('post page renders for an image-only post body', function () {
+    Post::factory()->create([
+        'slug' => 'image-only-post',
+        'title' => 'Image Only Post',
+        'body' => '<p><img src="/a.jpg" alt=""><img src="/b.jpg" alt=""></p>',
+        'order' => 0,
+    ]);
+
+    $response = $this->get('/posts/image-only-post');
+
+    $response->assertOk();
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('Post')
+        ->where('post.hasBody', true)
+        ->where('post.averageWordLength', null)
+    );
+});
+
 test('post page returns 404 for an unpublished post', function () {
     Post::factory()->unpublished()->create(['slug' => 'unpublished-post', 'title' => 'Unpublished Post', 'order' => 0]);
 
