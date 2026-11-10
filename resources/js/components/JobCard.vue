@@ -59,7 +59,7 @@ function onDescriptionClick(event: MouseEvent): void {
             <div
                 class="absolute -inset-y-4 -inset-s-4 -inset-e-2 z-0 hidden rounded-md border-white/0 transition motion-reduce:transition-none lg:block lg:group-hover:border lg:group-hover:border-white/25 lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"
             ></div>
-            <header class="z-10 mt-1 mb-2 text-center text-xs tracking-wide text-slate-500 sm:col-span-2">
+            <header class="z-10 mt-1 mb-2 text-center text-xs tracking-wide text-slate-400 sm:col-span-2">
                 <div class="text-center font-semibold text-slate-400 uppercase">{{ dateRange }}</div>
                 <div v-if="position.company" class="my-6">
                     <img
@@ -100,7 +100,7 @@ function onDescriptionClick(event: MouseEvent): void {
                 </h3>
                 <div
                     v-if="position.description"
-                    class="mt-2 space-y-2 text-sm leading-normal [&_li]:ml-4 [&_li]:list-disc [&_p]:leading-normal [&_ul]:space-y-1"
+                    class="mt-2 space-y-2 text-sm leading-normal [&_a]:underline [&_a]:underline-offset-2 [&_li]:ml-4 [&_li]:list-disc [&_p]:leading-normal [&_ul]:space-y-1"
                     v-html="position.description"
                     @click="onDescriptionClick"
                 ></div>

@@ -69,7 +69,7 @@ const hasSidebar = computed(
         }"
     >
         <template #title>
-            <span class="block font-space-mono text-[0.65rem] tracking-[0.2em] text-slate-500 uppercase">Project</span>
+            <span class="block font-space-mono text-[0.65rem] tracking-[0.2em] text-slate-400 uppercase">Project</span>
             <span class="block text-lg leading-tight font-bold text-slate-100 sm:text-xl">{{ project.title }}</span>
         </template>
 
@@ -82,7 +82,7 @@ const hasSidebar = computed(
             <template v-if="project.company || project.awards?.length">
                 <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
                     <div v-if="project.company" class="min-w-0">
-                        <span class="block font-space-mono text-[0.65rem] tracking-[0.2em] text-slate-500 uppercase">Company</span>
+                        <span class="block font-space-mono text-[0.65rem] tracking-[0.2em] text-slate-400 uppercase">Company</span>
                         <ULink
                             v-if="project.company.link"
                             :href="project.company.link"
@@ -205,7 +205,7 @@ const hasSidebar = computed(
                             <h3 class="section-label">Overview</h3>
                         </USeparator>
                         <div
-                            class="space-y-3 text-sm leading-relaxed text-slate-300 [&_a]:text-primary [&_a]:underline [&_li]:ms-5 [&_li]:list-disc [&_ul]:space-y-1"
+                            class="space-y-3 text-sm leading-relaxed text-slate-300 [&_a]:text-primary-blue-400 [&_a]:underline [&_a]:underline-offset-2 [&_li]:ms-5 [&_li]:list-disc [&_ul]:space-y-1"
                             v-html="project.description"
                         ></div>
                     </section>

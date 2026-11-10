@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useModal } from '@/js/composables/useModal';
-import type { Form, FormSubmitEvent } from '@nuxt/ui';
+import type { Form, FormErrorEvent, FormSubmitEvent } from '@nuxt/ui';
 import { useToast } from '@nuxt/ui/composables';
 import { computed, onUnmounted, reactive, ref, useTemplateRef, watch } from 'vue';
 import { z } from 'zod';
@@ -139,6 +139,24 @@ function resetTurnstile() {
 // closed. This covers the case where the whole component goes away with the modal still open.
 onUnmounted(destroyTurnstile);
 
+// Moves focus to the first invalid field so keyboard and screen-reader users land on the
+// error (its message is wired up via aria-describedby) instead of staying on "Send Message"
+// with nothing announced. UForm's loadingAuto disables the inputs for the whole submit and
+// only re-enables them in a `finally` after the error event / onSubmit settles, so focusing
+// synchronously (or after nextTick) hits a disabled input and is silently ignored. A
+// macrotask runs after Vue has flushed the re-enable.
+function focusFirstInvalidField(fieldId: string | undefined) {
+    if (!fieldId) return;
+
+    setTimeout(() => document.getElementById(fieldId)?.focus());
+}
+
+// Client-side validation failed.
+function onError(event: FormErrorEvent) {
+    submitError.value = '';
+    focusFirstInvalidField(event.errors[0]?.id);
+}
+
 async function onSubmit(event: FormSubmitEvent<Schema>) {
     submitError.value = '';
 
@@ -181,6 +199,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                 formRef.value?.setErrors(
                     errors.filter(([name]) => name !== TURNSTILE_FIELD).flatMap(([name, messages]) => messages.map((message) => ({ name, message }))),
                 );
+
+                // The token error lands in the role="alert" banner, which announces itself; field
+                // errors need focus moved to them the same way client-side failures do.
+                focusFirstInvalidField(formRef.value?.getErrors()[0]?.id);
             } else {
                 submitError.value = data.message || 'Failed to send message. Please try again.';
             }
@@ -207,27 +229,41 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 <template>
     <UModal v-model:open="open" title="Contact Me" :ui="{ footer: 'justify-end' }">
         <template #body>
-            <UAlert v-if="submitError" color="error" variant="subtle" :title="submitError" class="mb-4" />
+            <UAlert v-if="submitError" color="error" variant="subtle" :title="submitError" role="alert" class="mb-4" />
 
-            <UForm
-                id="contact-form"
-                ref="formRef"
-                :schema="schema"
-                :state="state"
-                class="flex flex-col gap-4"
-                @submit="onSubmit"
-                @error="submitError = ''"
-            >
-                <UFormField label="Email" name="email">
-                    <UInput v-model="state.email" type="email" placeholder="your.email@example.com" autocomplete="email" class="w-full" />
+            <UForm id="contact-form" ref="formRef" :schema="schema" :state="state" class="flex flex-col gap-4" @submit="onSubmit" @error="onError">
+                <UFormField label="Email" name="email" required>
+                    <UInput
+                        v-model="state.email"
+                        type="email"
+                        placeholder="your.email@example.com"
+                        autocomplete="email"
+                        aria-required="true"
+                        class="w-full"
+                        :ui="{ base: 'placeholder:text-slate-400' }"
+                    />
                 </UFormField>
 
-                <UFormField label="Subject" name="subject">
-                    <UInput v-model="state.subject" placeholder="Tacos are delicious!" autocomplete="off" class="w-full" />
+                <UFormField label="Subject" name="subject" required>
+                    <UInput
+                        v-model="state.subject"
+                        placeholder="Tacos are delicious!"
+                        autocomplete="off"
+                        aria-required="true"
+                        class="w-full"
+                        :ui="{ base: 'placeholder:text-slate-400' }"
+                    />
                 </UFormField>
 
-                <UFormField label="Message" name="message">
-                    <UTextarea v-model="state.message" placeholder="Your message here..." :rows="4" class="w-full" />
+                <UFormField label="Message" name="message" required>
+                    <UTextarea
+                        v-model="state.message"
+                        placeholder="Your message here..."
+                        :rows="4"
+                        aria-required="true"
+                        class="w-full"
+                        :ui="{ base: 'placeholder:text-slate-400' }"
+                    />
                 </UFormField>
             </UForm>
 

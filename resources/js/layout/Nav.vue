@@ -30,7 +30,7 @@ const { openModal } = useModal();
                     <span
                         class="nav-indicator me-4 h-px w-8 bg-slate-600 transition-all group-hover:w-20 group-hover:bg-slate-200 group-focus-visible:w-20 group-focus-visible:bg-slate-200 motion-reduce:transition-none"
                     ></span>
-                    <span class="nav-text tracking-widest text-slate-500 uppercase group-hover:text-white group-focus-visible:text-slate-200">
+                    <span class="nav-text tracking-widest text-slate-400 uppercase group-hover:text-white group-focus-visible:text-slate-200">
                         {{ item.name }}
                     </span>
                 </a>
@@ -46,7 +46,7 @@ const { openModal } = useModal();
                     <span
                         class="nav-indicator me-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 motion-reduce:transition-none"
                     ></span>
-                    <span class="nav-text tracking-widest text-slate-500 uppercase group-hover:text-slate-200 group-focus-visible:text-slate-200">
+                    <span class="nav-text tracking-widest text-slate-400 uppercase group-hover:text-slate-200 group-focus-visible:text-slate-200">
                         Contact
                     </span>
                 </UButton>

@@ -15,7 +15,13 @@ onMounted(() => starModeStore.hydrate());
         <div
             class="fixed right-0 bottom-0 left-0 z-40 flex flex-row items-center justify-items-start border-t border-t-brand-red/50 bg-black/80 ps-10 pt-3 pb-3 text-xs font-bold text-white md:block"
         >
-            <USwitch v-model="showStars" color="primary" label="space mode" class="items-center" />
+            <USwitch
+                v-model="showStars"
+                color="primary"
+                label="space mode"
+                class="items-center"
+                :ui="{ base: 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-200' }"
+            />
         </div>
 
         <div class="fallback-background" :class="{ 'fade-out': showStars }"></div>

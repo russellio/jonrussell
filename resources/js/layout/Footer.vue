@@ -1,60 +1,48 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+const linkClass = 'font-medium text-slate-300 underline underline-offset-2 hover:text-primary-blue-400 focus-visible:text-primary-blue-400';
 
-const linkClass = 'font-medium text-slate-400 hover:text-primary focus-visible:text-primary';
+const credits = [
+    { name: 'Vue 3', url: 'https://vuejs.org/' },
+    { name: 'Nuxt', url: 'https://ui.nuxt.com/' },
+    { name: 'Laravel 13', url: 'https://laravel.com/' },
+    { name: 'Inertia', url: 'https://inertiajs.com/' },
+    { name: 'Tailwind CSS', url: 'https://tailwindcss.com/' },
+];
+
+const fonts = [
+    { name: 'Noto Sans', url: 'https://github.com/notofonts/latin-greek-cyrillic' },
+    { name: 'Space Mono', url: 'https://github.com/googlefonts/spacemono' },
+    { name: 'SixtyFour', url: 'https://jenskutilek.github.io/homecomputer-fonts/documentation/demo-sixtyfour.html' },
+];
 
 const currentYear = () => {
     return new Date().getFullYear();
 };
+
+/** Joins a list with commas and a final ", and" — the separator that follows item `index`. */
+function separatorAfter(index: number, length: number): string {
+    if (index === length - 1) return '';
+    return index === length - 2 ? ', and ' : ', ';
+}
 </script>
 
 <template>
-    <footer class="w-full pb-16 text-xs text-slate-500 sm:pb-0">
+    <footer class="w-full pb-16 text-xs text-slate-400 sm:pb-0">
         <p class="mb-2 text-justify">
             Site designed and built by Jon Russell with
-            <a href="https://vuejs.org/" :class="linkClass" target="_blank" rel="noreferrer noopener" aria-label="Vue (opens in a new tab)">Vue 3</a>,
-            <a href="https://ui.nuxt.com/" :class="linkClass" target="_blank" rel="noreferrer noopener" aria-label="Vue (opens in a new tab)">Nuxt</a
-            >,
-            <a href="https://laravel.com/" :class="linkClass" target="_blank" rel="noreferrer noopener" aria-label="Laravel (opens in a new tab)"
-                >Laravel 13</a
-            >,
-            <a href="https://inertiajs.com/" :class="linkClass" target="_blank" rel="noreferrer noopener" aria-label="Inertia (opens in a new tab)"
-                >Inertia</a
-            >, and
-            <a
-                href="https://tailwindcss.com/"
-                :class="linkClass"
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label="Tailwind CSS (opens in a new tab)"
-                >Tailwind CSS</a
+            <template v-for="(credit, index) in credits" :key="credit.url"
+                ><a :href="credit.url" :class="linkClass" target="_blank" rel="noreferrer noopener"
+                    >{{ credit.name }}<span class="sr-only"> (opens in a new tab)</span></a
+                >{{ separatorAfter(index, credits.length) }}</template
             >, set in
-            <a
-                href="https://github.com/notofonts/latin-greek-cyrillic"
-                :class="linkClass"
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label="Noto Sans (opens in a new tab)"
-                >Noto Sans</a
-            >,
-            <a
-                href="https://github.com/googlefonts/spacemono"
-                :class="linkClass"
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label="Space Mono (opens in a new tab)"
-                >Space Mono</a
-            >, and
-            <a
-                href="https://jenskutilek.github.io/homecomputer-fonts/documentation/demo-sixtyfour.html"
-                :class="linkClass"
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label="SixtyFour (opens in a new tab)"
-                >SixtyFour</a
+            <template v-for="(font, index) in fonts" :key="font.url"
+                ><a :href="font.url" :class="linkClass" target="_blank" rel="noreferrer noopener"
+                    >{{ font.name }}<span class="sr-only"> (opens in a new tab)</span></a
+                >{{ separatorAfter(index, fonts.length) }}</template
             >. Flip on space mode with the toggle in the corner for a starfield powered by
-            <Link href="https://www.npmjs.com/package/@russellio/vue-background-stars" :class="linkClass">@russellio/vue-background-stars</Link>, an
-            open source package for Vue 3 I created.
+            <a href="https://www.npmjs.com/package/@russellio/vue-background-stars" :class="linkClass" target="_blank" rel="noreferrer noopener"
+                >@russellio/vue-background-stars<span class="sr-only"> (opens in a new tab)</span></a
+            >, an open source package for Vue 3 I created.
         </p>
         <p class="text-center">&copy; Copyright {{ currentYear() }}</p>
     </footer>
