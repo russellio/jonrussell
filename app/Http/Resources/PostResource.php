@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\Concerns\SanitizesHtml;
+use App\Support\ReadingTime;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,6 +26,7 @@ class PostResource extends JsonResource
             ] : null,
             'externalUrl' => $this->external_url,
             'hasBody' => filled($this->body),
+            'averageWordLength' => filled($this->body) ? ReadingTime::averageWordLength($this->body) : null,
         ];
     }
 }
