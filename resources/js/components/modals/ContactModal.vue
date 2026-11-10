@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useModal } from '@/js/composables/useModal';
-import type { Form, FormSubmitEvent } from '@nuxt/ui';
+import type { Form, FormErrorEvent, FormSubmitEvent } from '@nuxt/ui';
 import { useToast } from '@nuxt/ui/composables';
 import { computed, onUnmounted, reactive, ref, useTemplateRef, watch } from 'vue';
 import { z } from 'zod';
@@ -139,6 +139,21 @@ function resetTurnstile() {
 // closed. This covers the case where the whole component goes away with the modal still open.
 onUnmounted(destroyTurnstile);
 
+// Client-side validation failed. Move focus to the first invalid field so keyboard and
+// screen-reader users land on the error (its message is wired up via aria-describedby)
+// instead of staying on "Send Message" with nothing announced. UForm's loadingAuto disables
+// the inputs during submit and only re-enables them in a `finally` that runs after this event,
+// so focusing now (or after nextTick) hits a disabled input and is silently ignored. A
+// macrotask runs after Vue has flushed the re-enable.
+function onError(event: FormErrorEvent) {
+    submitError.value = '';
+
+    const firstErrorId = event.errors[0]?.id;
+    if (!firstErrorId) return;
+
+    setTimeout(() => document.getElementById(firstErrorId)?.focus());
+}
+
 async function onSubmit(event: FormSubmitEvent<Schema>) {
     submitError.value = '';
 
@@ -207,27 +222,41 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 <template>
     <UModal v-model:open="open" title="Contact Me" :ui="{ footer: 'justify-end' }">
         <template #body>
-            <UAlert v-if="submitError" color="error" variant="subtle" :title="submitError" class="mb-4" />
+            <UAlert v-if="submitError" color="error" variant="subtle" :title="submitError" role="alert" class="mb-4" />
 
-            <UForm
-                id="contact-form"
-                ref="formRef"
-                :schema="schema"
-                :state="state"
-                class="flex flex-col gap-4"
-                @submit="onSubmit"
-                @error="submitError = ''"
-            >
-                <UFormField label="Email" name="email">
-                    <UInput v-model="state.email" type="email" placeholder="your.email@example.com" autocomplete="email" class="w-full" />
+            <UForm id="contact-form" ref="formRef" :schema="schema" :state="state" class="flex flex-col gap-4" @submit="onSubmit" @error="onError">
+                <UFormField label="Email" name="email" required>
+                    <UInput
+                        v-model="state.email"
+                        type="email"
+                        placeholder="your.email@example.com"
+                        autocomplete="email"
+                        aria-required="true"
+                        class="w-full"
+                        :ui="{ base: 'placeholder:text-slate-400' }"
+                    />
                 </UFormField>
 
-                <UFormField label="Subject" name="subject">
-                    <UInput v-model="state.subject" placeholder="Tacos are delicious!" autocomplete="off" class="w-full" />
+                <UFormField label="Subject" name="subject" required>
+                    <UInput
+                        v-model="state.subject"
+                        placeholder="Tacos are delicious!"
+                        autocomplete="off"
+                        aria-required="true"
+                        class="w-full"
+                        :ui="{ base: 'placeholder:text-slate-400' }"
+                    />
                 </UFormField>
 
-                <UFormField label="Message" name="message">
-                    <UTextarea v-model="state.message" placeholder="Your message here..." :rows="4" class="w-full" />
+                <UFormField label="Message" name="message" required>
+                    <UTextarea
+                        v-model="state.message"
+                        placeholder="Your message here..."
+                        :rows="4"
+                        aria-required="true"
+                        class="w-full"
+                        :ui="{ base: 'placeholder:text-slate-400' }"
+                    />
                 </UFormField>
             </UForm>
 

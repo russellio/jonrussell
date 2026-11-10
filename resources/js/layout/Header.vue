@@ -9,7 +9,9 @@ const credentials = [
 </script>
 
 <template>
-    <header class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-100 lg:max-w-100 lg:flex-col lg:justify-between lg:py-4">
+    <header
+        class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-100 lg:max-w-100 lg:flex-col lg:justify-between lg:overflow-y-auto lg:pt-4 lg:pb-16"
+    >
         <div class="flex flex-col items-center lg:items-start">
             <div class="flex items-center gap-4">
                 <div class="absolute z-30 mt-1 h-22 w-20 rounded-lg border-2 border-brand-red bg-white/30"></div>
@@ -33,7 +35,6 @@ const credentials = [
                         color="secondary"
                         variant="outline"
                         class="bg-primary px-3 py-1 text-xs font-semibold text-white"
-                        aria-hidden="true"
                     >
                         <span class="ms-1 border-s border-white/25 ps-1.5">{{ credential.label }}</span>
                     </UBadge>

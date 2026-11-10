@@ -20,7 +20,7 @@ const socials = [
                 rel="noreferrer noopener"
                 :aria-label="`${social.name} (opens in a new tab)`"
                 :title="social.name"
-                class="opacity-50 hover:opacity-100"
+                class="opacity-50 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-200"
             >
                 <UIcon :name="`i-lucide-${social.icon}`" class="h-5 w-5" aria-hidden="true" />
             </UButton>
@@ -31,7 +31,7 @@ const socials = [
                 variant="ghost"
                 color="neutral"
                 aria-label="Email Jon Russell"
-                class="opacity-50 hover:opacity-100"
+                class="opacity-50 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-200"
                 title="Email"
                 @click="openModal('contact-modal')"
             >
