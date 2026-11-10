@@ -25,7 +25,7 @@ const open = computed({
         }"
     >
         <template #title>
-            <span class="block font-space-mono text-[0.65rem] tracking-[0.2em] text-slate-500 uppercase">Post</span>
+            <span class="block font-space-mono text-[0.65rem] tracking-[0.2em] text-slate-400 uppercase">Post</span>
             <span class="block text-lg leading-tight font-bold text-slate-100 sm:text-xl">{{ post.title }}</span>
         </template>
 
@@ -45,7 +45,7 @@ const open = computed({
 
             <div
                 v-if="post.body"
-                class="space-y-4 text-sm leading-relaxed text-slate-300 [&_a]:text-primary [&_a]:underline [&_code]:rounded [&_code]:bg-slate-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-blue-200 [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-slate-100 [&_li]:ms-5 [&_li]:list-disc [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:border-white/10 [&_pre]:bg-slate-950/60 [&_pre]:p-4 [&_pre]:text-slate-300 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_strong]:font-semibold [&_strong]:text-slate-100 [&_ul]:space-y-1"
+                class="space-y-4 text-sm leading-relaxed text-slate-300 [&_a]:text-primary-blue-400 [&_a]:underline [&_a]:underline-offset-2 [&_code]:rounded [&_code]:bg-slate-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-blue-200 [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-slate-100 [&_li]:ms-5 [&_li]:list-disc [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:border-white/10 [&_pre]:bg-slate-950/60 [&_pre]:p-4 [&_pre]:text-slate-300 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_strong]:font-semibold [&_strong]:text-slate-100 [&_ul]:space-y-1"
                 v-html="post.body"
             ></div>
         </template>

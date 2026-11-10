@@ -97,6 +97,20 @@
 html {
     @apply relative min-h-full;
     scroll-behavior: smooth;
+    /* Keeps focused elements clear of the fixed "space mode" bar (WCAG 2.4.11). */
+    scroll-padding-bottom: 4rem;
+}
+
+/*
+ * Below lg, section headings are sticky (up to ~73px tall when the title wraps) and would
+ * cover a control focused while tabbing backwards (WCAG 2.4.11). Scoped to focused controls
+ * rather than html scroll-padding-top so section jumps keep their current offset.
+ */
+@media (width < 64rem) {
+    main a:focus,
+    main button:focus {
+        scroll-margin-top: 5rem;
+    }
 }
 
 body {
