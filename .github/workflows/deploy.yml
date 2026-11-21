@@ -273,8 +273,8 @@ jobs:
             php artisan filament:optimize
             sudo systemctl restart inertia-ssr
             # Stage 1: wait for the port to be bound. The unit is Type=simple, so
-            # systemctl returns as soon as systemd forks -- artisan still has to boot
-            # Laravel and spawn node before anything binds :13714. Poll rather than
+            # systemctl returns as soon as systemd forks -- node still has to load
+            # the SSR bundle before anything binds :13714. Poll rather than
             # racing that startup.
             #
             # check-ssr only hits Inertia's /health, which is a static object literal

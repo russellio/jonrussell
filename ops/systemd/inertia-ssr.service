@@ -1,0 +1,33 @@
+[Unit]
+Description=Inertia SSR server (jonrussell.dev)
+Documentation=https://inertiajs.com/server-side-rendering
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=boxheadcp
+Group=www-data
+WorkingDirectory=/var/www/jonrussell.dev
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/php /var/www/jonrussell.dev/artisan inertia:start-ssr
+Restart=always
+RestartSec=2
+KillMode=control-group
+TimeoutStopSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=inertia-ssr
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ProtectControlGroups=true
+ProtectKernelTunables=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target
